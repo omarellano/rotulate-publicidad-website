@@ -173,10 +173,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Validación básica
         const nombre = document.getElementById('nombre')?.value.trim();
         const email = document.getElementById('email')?.value.trim();
+        const telefono = document.getElementById('telefono')?.value.trim();
         const servicio = document.getElementById('servicio')?.value;
 
         if (!nombre || !email || !servicio) {
             shakeInvalid();
+            return;
+        }
+
+        // 🔒 Validación de longitud máxima (defensa en profundidad)
+        if (nombre.length > 100 || email.length > 254) {
+            showFormError('Los datos ingresados exceden la longitud permitida.');
             return;
         }
 
@@ -188,6 +195,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 emailInput.classList.add('input-shake');
                 emailInput.style.borderColor = 'var(--color-accent-orange)';
                 setTimeout(() => { emailInput.classList.remove('input-shake'); emailInput.style.borderColor = ''; }, 600);
+            }
+            return;
+        }
+
+        // 🔒 Validación de formato de teléfono (si fue proporcionado)
+        if (telefono && !/^[\+]?[\d\s\-\(\)]{7,20}$/.test(telefono)) {
+            const telInput = document.getElementById('telefono');
+            if (telInput) {
+                telInput.classList.add('input-shake');
+                telInput.style.borderColor = 'var(--color-accent-orange)';
+                setTimeout(() => { telInput.classList.remove('input-shake'); telInput.style.borderColor = ''; }, 600);
             }
             return;
         }
@@ -226,12 +244,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const mensaje = (document.getElementById('mensaje')?.value || '').trim().substring(0, 2000);
+
         const payload = {
-            nombre,
-            email,
-            telefono: document.getElementById('telefono')?.value || '',
+            nombre: nombre.substring(0, 100),
+            email: email.substring(0, 254),
+            telefono: telefono.substring(0, 20),
             servicio,
-            mensaje: document.getElementById('mensaje')?.value || '',
+            mensaje,
             archivos: fileUrls.length > 0 ? fileUrls.join('\n') : 'Sin archivos adjuntos',
         };
 

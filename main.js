@@ -12,7 +12,9 @@ document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
+        // Seguridad: validar que sea un hash interno (#id) antes de usar en querySelector
+        if (!targetId || !/^#[\w-]+$/.test(targetId)) return;
+        const targetElement = document.getElementById(targetId.substring(1));
         if (targetElement) {
             window.scrollTo({
                 top: targetElement.offsetTop - 80,
