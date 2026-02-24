@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor
+.vscode/
+*.code-workspace
+
+# Logs
+*.log
+
+# Dependencies (si luego se usa npm)
+node_modules/
