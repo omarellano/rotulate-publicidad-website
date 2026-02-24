@@ -1,7 +1,18 @@
 /* ============================================================
    Rotulate Publicidad — Upload & Contact Form Logic
    Uses Uploadcare (free, up to 5 GB per file, no backend needed)
+   ============================================================
+
+   🔐 CONFIGURACIÓN REQUERIDA ANTES DE PRODUCCIÓN:
+   1. Uploadcare: registrate en https://uploadcare.com y reemplaza
+      'demopublickey' en index.html con tu Public Key real.
+   2. Formspree: registrate en https://formspree.io, crea un form
+      y reemplaza YOUR_FORM_ID abajo con tu ID real.
    ============================================================ */
+
+/* ── Rate limiter básico anti-spam ────────────────────────── */
+const RATE_LIMIT_MS = 60000; // 1 minuto entre envíos
+let lastSubmitTime = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -64,6 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ── 3. Render uploaded file list ───────────────────────── */
+    /* 🔒 SEGURIDAD: uso de textContent para prevenir XSS —
+       nunca insertar fileInfo.name o cdnUrl directamente en innerHTML */
     function renderFileList(files) {
         fileList.innerHTML = '';
         if (!files || files.length === 0) {
@@ -75,16 +88,42 @@ document.addEventListener('DOMContentLoaded', () => {
             filePromise.done((fileInfo) => {
                 const ext = (fileInfo.name || '').split('.').pop().toLowerCase();
                 const size = formatSize(fileInfo.size);
+
+                // Construir el elemento sin innerHTML para evitar XSS
                 const item = document.createElement('div');
                 item.className = 'upload-file-item';
-                item.innerHTML = `
-          <span class="ufi-icon">${getFileIcon(ext)}</span>
-          <div class="ufi-info">
-            <strong>${fileInfo.name || 'Archivo'}</strong>
-            <span>${size}</span>
-          </div>
-          <a class="ufi-remove" href="${fileInfo.cdnUrl}" target="_blank" title="Ver archivo">↗</a>
-        `;
+
+                const icon = document.createElement('span');
+                icon.className = 'ufi-icon';
+                icon.textContent = getFileIcon(ext); // textContent, nunca innerHTML
+
+                const info = document.createElement('div');
+                info.className = 'ufi-info';
+
+                const name = document.createElement('strong');
+                name.textContent = fileInfo.name || 'Archivo'; // textContent seguro
+
+                const sizeEl = document.createElement('span');
+                sizeEl.textContent = size;
+
+                info.appendChild(name);
+                info.appendChild(sizeEl);
+
+                const link = document.createElement('a');
+                link.className = 'ufi-remove';
+                // Validar que cdnUrl sea una URL de Uploadcare antes de usarla
+                const safeCdnUrl = (fileInfo.cdnUrl || '').startsWith('https://ucarecdn.com/')
+                    ? fileInfo.cdnUrl
+                    : '#';
+                link.href = safeCdnUrl;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer'; // seguridad: evita acceso al window padre
+                link.title = 'Ver archivo';
+                link.textContent = '↗';
+
+                item.appendChild(icon);
+                item.appendChild(info);
+                item.appendChild(link);
                 fileList.appendChild(item);
             });
         });
@@ -116,7 +155,22 @@ document.addEventListener('DOMContentLoaded', () => {
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Basic validation
+        // 🔒 Anti-spam: honeypot — si el campo oculto tiene valor, es un bot
+        const honeypot = document.getElementById('website-url')?.value;
+        if (honeypot) {
+            console.warn('Bot detectado — envío bloqueado.');
+            return; // silencio total para no dar pistas al bot
+        }
+
+        // 🔒 Anti-spam: rate limiting — mínimo 1 minuto entre envíos
+        const now = Date.now();
+        if (now - lastSubmitTime < RATE_LIMIT_MS) {
+            const secsLeft = Math.ceil((RATE_LIMIT_MS - (now - lastSubmitTime)) / 1000);
+            showFormError(`Por favor espera ${secsLeft} segundos antes de enviar de nuevo.`);
+            return;
+        }
+
+        // Validación básica
         const nombre = document.getElementById('nombre')?.value.trim();
         const email = document.getElementById('email')?.value.trim();
         const servicio = document.getElementById('servicio')?.value;
@@ -126,24 +180,51 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Set loading state
+        // Validación de formato de email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            const emailInput = document.getElementById('email');
+            if (emailInput) {
+                emailInput.classList.add('input-shake');
+                emailInput.style.borderColor = 'var(--color-accent-orange)';
+                setTimeout(() => { emailInput.classList.remove('input-shake'); emailInput.style.borderColor = ''; }, 600);
+            }
+            return;
+        }
+
+        // Estado de carga
         btnText.style.display = 'none';
         btnLoading.style.display = 'inline';
         submitBtn.disabled = true;
+        formError.style.display = 'none';
 
-        // Collect file URLs from Uploadcare group
+        // Recolectar URLs de archivos de Uploadcare
         let fileUrls = [];
         if (uploadedFileGroup) {
             uploadedFileGroup.files().forEach((fp) => {
-                fp.done((fi) => fileUrls.push(fi.cdnUrl));
+                fp.done((fi) => {
+                    // Validar que sea una URL legítima de Uploadcare
+                    if (fi.cdnUrl && fi.cdnUrl.startsWith('https://ucarecdn.com/')) {
+                        fileUrls.push(fi.cdnUrl);
+                    }
+                });
             });
-            // Give promises a tick to resolve
             await new Promise(r => setTimeout(r, 300));
         }
 
-        // Build form payload — send to Formspree (free, no backend)
-        // Replace YOUR_FORM_ID with your Formspree form ID
+        // ⚠️  PENDIENTE: reemplaza YOUR_FORM_ID con tu ID de Formspree
+        //    Regístrate gratis en https://formspree.io
         const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+        const isConfigured = !FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID');
+
+        if (!isConfigured) {
+            // Formulario aún no configurado — mostrar error claro al usuario
+            showFormError('El formulario está en mantenimiento. Por favor contáctanos directamente por WhatsApp o email.');
+            btnText.style.display = 'inline';
+            btnLoading.style.display = 'none';
+            submitBtn.disabled = false;
+            return;
+        }
 
         const payload = {
             nombre,
@@ -162,23 +243,32 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (resp.ok) {
+                lastSubmitTime = Date.now(); // registrar tiempo de envío exitoso
                 form.style.display = 'none';
                 formSuccess.style.display = 'flex';
             } else {
-                throw new Error('Server error');
+                throw new Error(`Error del servidor: ${resp.status}`);
             }
-        } catch {
-            // Fallback: show success anyway — files are on Uploadcare CDN, team can follow up
-            // In production, replace with a proper backend or email service
-            form.style.display = 'none';
-            formSuccess.style.display = 'flex';
-            console.warn('Formspree not configured — set your endpoint in upload.js');
+        } catch (err) {
+            // 🔒 Mostrar error real — no fingir éxito
+            console.error('Error al enviar formulario:', err);
+            showFormError('Hubo un problema al enviar. Por favor escríbenos directamente por WhatsApp o al email.');
         } finally {
             btnText.style.display = 'inline';
             btnLoading.style.display = 'none';
             submitBtn.disabled = false;
         }
     });
+
+    function showFormError(msg) {
+        const errorEl = document.getElementById('form-error');
+        if (errorEl) {
+            // Actualizar mensaje de error con textContent (seguro contra XSS)
+            const p = errorEl.querySelector('p');
+            if (p) p.textContent = '⚠️ ' + msg;
+            errorEl.style.display = 'flex';
+        }
+    }
 
     function shakeInvalid() {
         const inputs = form.querySelectorAll('input:invalid, select:invalid');
