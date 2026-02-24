@@ -7,33 +7,56 @@
     <title>Rotulate Publicidad | Rotulación Vehicular e Impresión Gran Formato</title>
     <meta name="description"
         content="Rotulate Publicidad — rotulación vehicular, impresión gran formato y PPF en México. Cotiza gratis hoy.">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:title" content="Rotulate Publicidad | Rotulación Vehicular e Impresión Gran Formato">
+    <meta property="og:description" content="Rotulación vehicular, impresión gran formato y PPF en México. Cotiza gratis hoy.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/hero-van.png">
+    <meta name="twitter:card" content="summary_large_image">
+
     <!-- Seguridad: Content Security Policy -->
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' https://ucarecdn.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com https://ucarecdn.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' https://ucarecdn.com data:; connect-src 'self' https://formspree.io https://upload.uploadcare.com;">
+        content="default-src 'self'; script-src 'self' https://ucarecdn.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com https://ucarecdn.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' https://ucarecdn.com data:; connect-src 'self' https://formspree.io https://upload.uploadcare.com; frame-ancestors 'none'; form-action 'self' https://formspree.io; base-uri 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- Rendimiento: preconectar a dominios externos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://ucarecdn.com" crossorigin>
+
+    <!-- Fuente cargada via <link> en vez de CSS @import (no bloquea render) -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
+
     <!-- Uploadcare widget - PENDIENTE: cambiar demopublickey por tu clave real en https://uploadcare.com -->
-    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8"></script>
     <link href="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.css" rel="stylesheet">
     <meta name="uploadcare-public-key" content="demopublickey">
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8" defer></script>
 </head>
 
 <body>
     <header id="main-header">
         <div class="logo-container">
             <a href="#inicio">
-                <img src="assets/logo-rotulate.png" alt="Rotulate Publicidad" class="logo-img">
+                <img src="assets/logo-rotulate.png" alt="Rotulate Publicidad" class="logo-img" width="160" height="48">
             </a>
         </div>
-        <nav>
+        <nav id="main-nav">
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#nosotros">Sobre Nosotros</a></li>
+                <li><a href="#contacto">Contáctanos</a></li>
             </ul>
         </nav>
-        <a href="#cotizar" class="cta-button">Cotiza Ahora</a>
+        <a href="#contacto" class="cta-button header-cta">Cotiza Ahora →</a>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
     </header>
 
     <main>
@@ -45,76 +68,115 @@
                     hasta
                     gráficos arquitectónicos.</p>
                 <div class="hero-actions">
-                    <a href="#get-started" class="cta-button">Empezar</a>
+                    <a href="#contacto" class="cta-button">Empezar</a>
                 </div>
             </div>
 
             <div class="hero-visual">
                 <img src="assets/hero-van.png" alt="Ejemplo de rotulación en Van" class="van-image">
 
-                <div class="feature-point" style="top: 20%; right: 10%;">
-                    <div class="dot"></div>
+                <div class="feature-point" style="top: 15%; right: 8%;">
+                    <div class="feature-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
                     <div class="feature-label">
-                        <strong>PPF:</strong><br>Protección de pintura
+                        <strong>PPF</strong>
+                        <span>Protección de pintura</span>
                     </div>
                 </div>
 
-                <div class="feature-point" style="top: 10%; left: 40%;">
-                    <div class="dot"></div>
+                <div class="feature-point" style="top: 8%; left: 35%;">
+                    <div class="feature-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
                     <div class="feature-label">
-                        <strong>Cristales:</strong><br>Polarizado o película de control solar
+                        <strong>Cristales</strong>
+                        <span>Polarizado y control solar</span>
                     </div>
                 </div>
 
-                <div class="feature-point" style="bottom: 30%; left: 10%;">
-                    <div class="dot"></div>
+                <div class="feature-point" style="bottom: 25%; left: 5%;">
+                    <div class="feature-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
                     <div class="feature-label">
-                        <strong>Carrocería:</strong><br>Vinil HP Latex
+                        <strong>Carrocería</strong>
+                        <span>Vinil HP Latex</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="showcase" id="servicios">
-            <h2 class="section-title">Nuestras <span class="text-accent-lime">Soluciones</span></h2>
+        <div class="logo-strip" aria-label="Marcas con las que trabajamos">
+            <p class="partners-label">Trabajamos con las mejores marcas</p>
+            <div class="logos-row">
+                <div class="logo-svg-item">
+                    <svg viewBox="0 0 80 40" fill="currentColor"><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-size="16" font-weight="700" font-family="'Space Grotesk',sans-serif">HP</text></svg>
+                    <span>Latex</span>
+                </div>
+                <div class="logo-svg-item">
+                    <svg viewBox="0 0 80 40" fill="currentColor"><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-size="12" font-weight="700" font-family="'Space Grotesk',sans-serif">ARLON</text></svg>
+                    <span>Graphics</span>
+                </div>
+                <div class="logo-svg-item">
+                    <svg viewBox="0 0 80 40" fill="currentColor"><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-size="14" font-weight="700" font-family="'Space Grotesk',sans-serif">3M</text></svg>
+                    <span>Vinilos</span>
+                </div>
+                <div class="logo-svg-item">
+                    <svg viewBox="0 0 80 40" fill="currentColor"><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" font-family="'Space Grotesk',sans-serif">ORAFOL</text></svg>
+                    <span>Films</span>
+                </div>
+                <div class="logo-svg-item">
+                    <svg viewBox="0 0 80 40" fill="currentColor"><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" font-family="'Space Grotesk',sans-serif">AVERY</text></svg>
+                    <span>Dennison</span>
+                </div>
+                <div class="logo-svg-item">
+                    <svg viewBox="0 0 80 40" fill="currentColor"><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-size="10" font-weight="700" font-family="'Space Grotesk',sans-serif">MIMAKI</text></svg>
+                    <span>Print</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="showcase" id="servicios" aria-label="Servicios">
+            <h2 class="section-title reveal">Nuestras <span class="text-accent-lime">Soluciones</span></h2>
             <div class="showcase-grid">
-                <div class="showcase-item">
-                    <img src="assets/truck.png" alt="Rotulación de camiones">
+                <div class="showcase-item reveal">
+                    <img src="assets/truck.png" alt="Rotulación de camiones" loading="lazy" width="600" height="375">
                     <div class="showcase-overlay">
                         <h3>Flotillas</h3>
                         <p>Rotulación vehicular de alto impacto para transportes de carga.</p>
                     </div>
                 </div>
-                <div class="showcase-item">
-                    <img src="assets/supercar.png" alt="Rotulación premium">
+                <div class="showcase-item reveal">
+                    <img src="assets/supercar.png" alt="Rotulación premium" loading="lazy" width="600" height="375">
                     <div class="showcase-overlay">
                         <h3>Automotriz Premium</h3>
                         <p>Personalización de lujo y protección de pintura de alta gama.</p>
                     </div>
                 </div>
-                <div class="showcase-item">
-                    <img src="assets/printer.png" alt="Impresión gran formato">
+                <div class="showcase-item reveal">
+                    <img src="assets/printer.png" alt="Impresión gran formato" loading="lazy" width="600" height="375">
                     <div class="showcase-overlay">
                         <h3>Impresión Gran Formato</h3>
                         <p>Tecnología HP Latex para la máxima calidad y durabilidad.</p>
                     </div>
                 </div>
-                <div class="showcase-item">
-                    <img src="assets/excavator.png" alt="Rotulación maquinaria">
+                <div class="showcase-item reveal">
+                    <img src="assets/excavator.png" alt="Rotulación maquinaria" loading="lazy" width="600" height="375">
                     <div class="showcase-overlay">
                         <h3>Maquinaria Pesada</h3>
                         <p>Diseño industrial para equipos de construcción y minería.</p>
                     </div>
                 </div>
-                <div class="showcase-item">
-                    <img src="assets/boat.png" alt="Rotulación náutica">
+                <div class="showcase-item reveal">
+                    <img src="assets/boat.png" alt="Rotulación náutica" loading="lazy" width="600" height="375">
                     <div class="showcase-overlay">
                         <h3>Náutica</h3>
                         <p>Vinilos especializados para entornos marinos extremos.</p>
                     </div>
                 </div>
-                <div class="showcase-item">
-                    <img src="assets/hero-van.png" alt="Publicidad exterior">
+                <div class="showcase-item reveal">
+                    <img src="assets/hero-van.png" alt="Publicidad exterior" loading="lazy" width="600" height="375">
                     <div class="showcase-overlay">
                         <h3>Publicidad Exterior</h3>
                         <p>Soluciones creativas para tu negocio local.</p>
@@ -123,41 +185,41 @@
             </div>
         </section>
 
-        <section class="proyectos" id="proyectos">
-            <h2 class="section-title">Nuestros <span class="text-accent-orange">Proyectos</span></h2>
-            <p class="section-subtitle">Una muestra de lo que hacemos. Cada proyecto es diseñado con pasión y ejecutado
+        <section class="proyectos" id="proyectos" aria-label="Proyectos">
+            <h2 class="section-title reveal">Nuestros <span class="text-accent-orange">Proyectos</span></h2>
+            <p class="section-subtitle reveal">Una muestra de lo que hacemos. Cada proyecto es diseñado con pasión y ejecutado
                 con precisión.</p>
             <div class="proyectos-grid">
-                <div class="proyecto-card proyecto-wide">
-                    <img src="assets/hero-van.png" alt="Proyecto Van">
-                    <div class="proyecto-label">Flotilla → Rotulate Express</div>
+                <div class="proyecto-card proyecto-wide reveal">
+                    <img src="assets/hero-van.png" alt="Proyecto flotilla Rotulate Express" loading="lazy" width="600" height="250">
+                    <div class="proyecto-label">Flotilla &rarr; Rotulate Express</div>
                 </div>
-                <div class="proyecto-card">
-                    <img src="assets/truck.png" alt="Proyecto Truck">
+                <div class="proyecto-card reveal">
+                    <img src="assets/truck.png" alt="Proyecto transporte pesado" loading="lazy" width="400" height="250">
                     <div class="proyecto-label">Transporte Pesado</div>
                 </div>
-                <div class="proyecto-card">
-                    <img src="assets/boat.png" alt="Proyecto Boat">
+                <div class="proyecto-card reveal">
+                    <img src="assets/boat.png" alt="Proyecto marina náutica" loading="lazy" width="400" height="250">
                     <div class="proyecto-label">Marina Náutica</div>
                 </div>
-                <div class="proyecto-card proyecto-wide">
-                    <img src="assets/supercar.png" alt="Proyecto Supercar">
+                <div class="proyecto-card proyecto-wide reveal">
+                    <img src="assets/supercar.png" alt="Proyecto automotriz premium" loading="lazy" width="600" height="250">
                     <div class="proyecto-label">Automotriz Premium</div>
                 </div>
-                <div class="proyecto-card">
-                    <img src="assets/excavator.png" alt="Proyecto Excavator">
+                <div class="proyecto-card reveal">
+                    <img src="assets/excavator.png" alt="Proyecto maquinaria industrial" loading="lazy" width="400" height="250">
                     <div class="proyecto-label">Maquinaria Industrial</div>
                 </div>
-                <div class="proyecto-card">
-                    <img src="assets/printer.png" alt="Proyecto Printer">
+                <div class="proyecto-card reveal">
+                    <img src="assets/printer.png" alt="Proyecto impresión HP Latex" loading="lazy" width="400" height="250">
                     <div class="proyecto-label">Impresión HP Latex</div>
                 </div>
             </div>
         </section>
 
-        <section class="nosotros" id="nosotros">
+        <section class="nosotros" id="nosotros" aria-label="Nosotros">
             <div class="nosotros-content">
-                <div class="nosotros-text">
+                <div class="nosotros-text reveal">
                     <span class="eyebrow">¿Quiénes somos?</span>
                     <h2>Expertos en <span class="text-accent-lime">rotulación</span> y <span
                             class="text-accent-orange">publicidad</span></h2>
@@ -170,17 +232,17 @@
                         <li><strong class="text-accent-lime">100%</strong><span>Clientes satisfechos</span></li>
                     </ul>
                 </div>
-                <div class="nosotros-visual">
+                <div class="nosotros-visual reveal">
                     <div class="brand-box">
-                        <img src="assets/logo-rotulate.png" alt="Rotulate Publicidad" class="brand-logo-img">
+                        <img src="assets/logo-rotulate.png" alt="Rotulate Publicidad" class="brand-logo-img" loading="lazy" width="260" height="78">
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="contacto" id="contacto">
+        <section class="contacto" id="contacto" aria-label="Contacto">
             <div class="contacto-inner">
-                <div class="contacto-info">
+                <div class="contacto-info reveal">
                     <span class="eyebrow">Cotización gratuita</span>
                     <h2>Envíanos tu <span class="text-accent-lime">archivo</span> y te cotizamos</h2>
                     <p>Sube tu diseño, arte final o referencia. Soportamos archivos de hasta <strong
@@ -231,17 +293,17 @@
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="nombre">Nombre completo *</label>
-                                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required maxlength="100" autocomplete="name">
                             </div>
                             <div class="form-field">
                                 <label for="email">Correo electrónico *</label>
-                                <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                                <input type="email" id="email" name="email" placeholder="tu@email.com" required maxlength="254" autocomplete="email">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="telefono">Teléfono / WhatsApp</label>
-                                <input type="tel" id="telefono" name="telefono" placeholder="+52 998 400 7987">
+                                <input type="tel" id="telefono" name="telefono" placeholder="+52 998 400 7987" maxlength="20" autocomplete="tel" pattern="[\+]?[\d\s\-\(\)]{7,20}">
                             </div>
                             <div class="form-field">
                                 <label for="servicio">Tipo de servicio *</label>
@@ -286,7 +348,7 @@
                             <label for="mensaje">Descripción del proyecto</label>
                             <textarea id="mensaje" name="mensaje"
                                 placeholder="Cuéntanos dimensiones, materiales, cantidad de piezas, fecha requerida..."
-                                rows="4"></textarea>
+                                rows="4" maxlength="2000"></textarea>
                         </div>
 
                         <div class="form-submit-row">
@@ -327,13 +389,18 @@
                     <a href="#contacto">Contacto</a>
                 </div>
             </div>
-            <div class="footer-copy">© 2024 Rotulate Publicidad. Todos los derechos reservados.</div>
+            <div class="footer-copy">© 2026 Rotulate Publicidad. Todos los derechos reservados.</div>
         </footer>
 
     </main>
 
-    <script src="main.js"></script>
-    <script src="upload.js"></script>
+    <a href="https://wa.me/529984007987" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+    <button class="back-to-top" id="back-to-top" aria-label="Volver arriba">&#8593;</button>
+
+    <script src="main.js" defer></script>
+    <script src="upload.js" defer></script>
 </body>
 
 </html>
