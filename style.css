@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap');
+/* Fuente cargada via <link> en HTML para evitar @import bloqueante */
 
 :root {
     --color-dark: #000052;
@@ -7,6 +7,7 @@
     --color-gray: #9b9b9b;
     --color-white: #ffffff;
     --font-main: 'Space Grotesk', sans-serif;
+    --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
     --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -996,7 +997,133 @@ nav a:hover {
     padding-top: 2rem;
 }
 
-/* Responsive */
+/* ── Scroll Reveal ──────────────────────────────────────── */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger children in grids */
+.showcase-grid .reveal:nth-child(2) { transition-delay: 0.1s; }
+.showcase-grid .reveal:nth-child(3) { transition-delay: 0.2s; }
+.showcase-grid .reveal:nth-child(4) { transition-delay: 0.15s; }
+.showcase-grid .reveal:nth-child(5) { transition-delay: 0.25s; }
+.showcase-grid .reveal:nth-child(6) { transition-delay: 0.3s; }
+
+/* ── Mobile Hamburger Menu ─────────────────────────────── */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-white);
+    border-radius: 2px;
+    transition: transform 0.3s var(--ease-smooth), opacity 0.3s var(--ease-smooth);
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ── Back to Top Button ────────────────────────────────── */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-accent-orange);
+    color: var(--color-white);
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(255, 100, 0, 0.3);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--color-accent-lime);
+    color: var(--color-dark);
+    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.3);
+}
+
+/* ── Active Nav Link ───────────────────────────────────── */
+nav a.active {
+    color: var(--color-accent-lime);
+    position: relative;
+}
+
+nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-accent-lime);
+    border-radius: 1px;
+}
+
+/* ── Focus Visible (Accesibilidad) ─────────────────────── */
+:focus-visible {
+    outline: 2px solid var(--color-accent-lime);
+    outline-offset: 2px;
+}
+
+.cta-button:focus-visible {
+    box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.4);
+}
+
+/* ── Reduced Motion ────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ── Responsive ────────────────────────────────────────── */
 @media (max-width: 968px) {
     .hero {
         flex-direction: column;
@@ -1014,8 +1141,49 @@ nav a:hover {
         margin-right: auto;
     }
 
-    nav {
+    /* Mobile menu */
+    .menu-toggle {
+        display: flex;
+    }
+
+    .header-cta {
         display: none;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: rgba(0, 0, 60, 0.97);
+        backdrop-filter: blur(20px);
+        padding: 6rem 2rem 2rem;
+        transition: right 0.4s var(--ease-smooth);
+        z-index: 1000;
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    nav.open {
+        right: 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    nav a {
+        display: block;
+        padding: 1rem 0;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Showcase overlays always visible on touch */
+    .showcase-overlay {
+        transform: translateY(0);
+        opacity: 1;
     }
 
     .proyectos-grid {
@@ -1033,6 +1201,10 @@ nav a:hover {
 
     .nosotros-visual {
         flex: none;
+    }
+
+    .nosotros-stats {
+        gap: 1.5rem;
     }
 
     .form-row {
@@ -1058,4 +1230,24 @@ nav a:hover {
     .contacto-form-wrap {
         padding: 1.5rem;
     }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+}
+
+/* Mobile overlay backdrop */
+.nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 30, 0.6);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
 }
