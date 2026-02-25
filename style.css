@@ -1078,7 +1078,8 @@ nav a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 120px;
+    width: 100px;
+    flex-shrink: 0;
     opacity: 0.5;
     transition: opacity 0.4s var(--ease-smooth), transform 0.4s var(--ease-smooth);
 }
@@ -1093,9 +1094,8 @@ nav a:hover {
 }
 
 .brand-logo {
-    height: 40px;
-    width: auto;
-    max-width: 120px;
+    height: 32px;
+    width: 100px;
     object-fit: contain;
     filter: brightness(0) invert(1);
     transition: filter 0.4s var(--ease-smooth);
