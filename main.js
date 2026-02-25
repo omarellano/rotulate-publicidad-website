@@ -182,6 +182,24 @@
         });
     }
 
+    /* ── 7. Hero Carousel ─────────────────────────────────── */
+    function initCarousel() {
+        const slides = document.querySelectorAll('.carousel-slide');
+        if (slides.length <= 1) return;
+
+        let currentSlide = 0;
+        const slideInterval = 5000; // 5 segundos
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, slideInterval);
+    }
+
     // Run onScroll once on load to set initial states
     onScroll();
+    initCarousel();
 })();
