@@ -202,13 +202,15 @@ nav a:hover {
     box-shadow: 0 12px 28px rgba(255, 100, 0, 0.35);
 }
 
-/* Hero Section */
+/* ══ Hero Section — MOBILE FIRST ══════════════════════════ */
 .hero {
     position: relative;
     min-height: 100vh;
-    padding: 8rem 5% 4rem;
+    padding: 8rem 5% 2rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
     overflow: hidden;
     background:
         radial-gradient(ellipse 80% 50% at 70% 50%, rgba(0, 255, 0, 0.04), transparent),
@@ -217,23 +219,24 @@ nav a:hover {
 }
 
 .hero-content {
-    flex: 1;
     z-index: 2;
-    padding-right: 5%;
+    margin-bottom: 2rem;
 }
 
 .hero-content h1 {
-    font-size: clamp(2.4rem, 5.5vw, 3.5rem);
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
     line-height: 1.1;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     animation: fadeInUp 0.8s ease-out;
 }
 
 .hero-content p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: var(--color-gray);
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
     animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
@@ -241,60 +244,47 @@ nav a:hover {
     animation: fadeInUp 0.8s ease-out 0.4s both;
 }
 
+/* ── Carousel ─────────────────────────────────────────── */
 .hero-visual {
-    flex: 1.2;
     position: relative;
     z-index: 1;
+    width: 100%;
+    max-width: 500px;
 }
 
 .carousel-container {
     position: relative;
     width: 100%;
-    aspect-ratio: 16/9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.6s var(--ease-smooth);
+    height: 0;
+    padding-bottom: 56.25%;
+    /* 16:9 en mobile */
     overflow: hidden;
-    /* Evitar desbordes */
-}
-
-@media (min-width: 969px) {
-    .carousel-container {
-        aspect-ratio: 4/3;
-    }
 }
 
 .carousel-slide {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .carousel-slide.active {
     opacity: 1;
-    animation: floatingSlide 6s ease-in-out infinite;
 }
 
 .carousel-image {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* Efecto de mezcla avanzado: desvanecimiento radial y suavizado */
-    mask-image: radial-gradient(circle at center, black 30%, transparent 90%);
-    -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 90%);
-    filter: drop-shadow(0 0 40px rgba(0, 255, 0, 0.1));
+    mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
+    -webkit-mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
+    filter: drop-shadow(0 0 30px rgba(0, 255, 0, 0.08));
 }
 
 .carousel-slide.active .carousel-image {
-    animation: kenBurns 10s linear forwards;
+    animation: kenBurns 8s linear forwards;
 }
 
 @keyframes kenBurns {
@@ -303,24 +293,64 @@ nav a:hover {
     }
 
     to {
-        transform: scale(1.15);
+        transform: scale(1.08);
     }
 }
 
-@keyframes floatingSlide {
-
-    0%,
-    100% {
-        transform: translateY(0);
+/* ── Tablet (600px+) ──────────────────────────────────── */
+@media (min-width: 600px) {
+    .hero-content h1 {
+        font-size: clamp(2rem, 5vw, 3rem);
     }
 
-    50% {
-        transform: translateY(-15px);
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+
+    .hero-visual {
+        max-width: 600px;
     }
 }
 
-.hero-visual:hover .carousel-container {
-    transform: scale(1.02);
+/* ── Desktop (969px+) ─────────────────────────────────── */
+@media (min-width: 969px) {
+    .hero {
+        flex-direction: row;
+        text-align: left;
+        padding: 8rem 5% 4rem;
+    }
+
+    .hero-content {
+        flex: 1;
+        padding-right: 5%;
+        margin-bottom: 0;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(2.4rem, 5.5vw, 3.5rem);
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 3rem;
+    }
+
+    .hero-visual {
+        flex: 1.2;
+        max-width: none;
+    }
+
+    .carousel-container {
+        padding-bottom: 75%;
+        /* 4:3 en desktop */
+    }
+
+    .hero-visual:hover .carousel-container {
+        transform: scale(1.02);
+        transition: transform 0.6s var(--ease-smooth);
+    }
 }
 
 /* Feature Points */
