@@ -288,19 +288,6 @@ nav a:hover {
     filter: drop-shadow(0 0 30px rgba(0, 255, 0, 0.08));
 }
 
-.carousel-slide.active .carousel-image {
-    animation: kenBurns 5s linear forwards;
-}
-
-@keyframes kenBurns {
-    from {
-        transform: scale(1);
-    }
-
-    to {
-        transform: scale(1.05);
-    }
-}
 
 /* ── Tablet (600px+) ──────────────────────────────────── */
 @media (min-width: 600px) {
