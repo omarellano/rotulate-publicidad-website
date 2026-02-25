@@ -13,8 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: List files to deploy
+      - name: List local files
         run: ls -la
+
+      - name: Test FTP connection and list remote dirs
+        run: |
+          curl -v --list-only --ssl --user "${{ secrets.FTP_USER }}:${{ secrets.FTP_PASS }}" "ftp://${{ secrets.FTP_HOST }}/" || echo "FTP root listing failed"
+          echo "---"
+          curl -v --list-only --ssl --user "${{ secrets.FTP_USER }}:${{ secrets.FTP_PASS }}" "ftp://${{ secrets.FTP_HOST }}/public_html/" || echo "public_html listing failed"
 
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -26,11 +32,11 @@ jobs:
           protocol: ftps
           local-dir: ./
           server-dir: public_html/
+          log-level: verbose
           exclude: |
             **/.git*
             **/.git*/**
             .github/**
             README.md
             LICENSE
-            .ftp-deploy-sync-state.json
-          dangerous-clean-slate: false
+          state-name: .ftp-deploy-sync-state.json
