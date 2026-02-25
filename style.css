@@ -250,11 +250,19 @@ nav a:hover {
 .carousel-container {
     position: relative;
     width: 100%;
-    aspect-ratio: 4/3;
+    aspect-ratio: 16/9;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: transform 0.6s var(--ease-smooth);
+    overflow: hidden;
+    /* Evitar desbordes */
+}
+
+@media (min-width: 969px) {
+    .carousel-container {
+        aspect-ratio: 4/3;
+    }
 }
 
 .carousel-slide {
@@ -313,86 +321,50 @@ nav a:hover {
 }
 
 /* Feature Points */
+.hero-features-inline {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
 .feature-point {
-    position: absolute;
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    z-index: 3;
-    animation: fadeInUp 0.8s ease-out both;
-}
-
-.feature-point:nth-child(2) {
-    animation-delay: 0.6s;
-}
-
-.feature-point:nth-child(3) {
-    animation-delay: 0.8s;
-}
-
-.feature-point:nth-child(4) {
-    animation-delay: 1s;
+    position: relative;
 }
 
 .feature-icon {
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 255, 0, 0.12);
-    border: 1px solid rgba(0, 255, 0, 0.3);
-    border-radius: 10px;
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-accent-lime);
     flex-shrink: 0;
-    position: relative;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-}
-
-.feature-icon::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border: 1px solid rgba(0, 255, 0, 0.15);
-    border-radius: 12px;
-    animation: featurePulse 2.5s ease-in-out infinite;
-}
-
-@keyframes featurePulse {
-
-    0%,
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 0.4;
-        transform: scale(1.15);
-    }
 }
 
 .feature-label {
-    background: rgba(0, 0, 60, 0.85);
-    backdrop-filter: blur(12px);
-    padding: 0.6rem 1rem;
-    border-left: 3px solid var(--color-accent-lime);
-    border-radius: 0 8px 8px 0;
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    gap: 2px;
 }
 
 .feature-label strong {
     font-size: 0.85rem;
     color: var(--color-white);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
 .feature-label span {
     font-size: 0.75rem;
     color: var(--color-gray);
-    font-weight: 400;
 }
 
 /* Showcase Section */
