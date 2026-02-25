@@ -23,14 +23,13 @@
 
     <!-- Seguridad: Content Security Policy -->
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' https://ucarecdn.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com https://ucarecdn.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' https://ucarecdn.com data:; connect-src 'self' https://formspree.io https://upload.uploadcare.com; frame-ancestors 'none'; form-action 'self' https://formspree.io; base-uri 'self';">
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; frame-ancestors 'none'; form-action 'self' https://formspree.io; base-uri 'self';">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
     <!-- Rendimiento: preconectar a dominios externos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://ucarecdn.com" crossorigin>
 
     <!-- Fuente cargada via <link> en vez de CSS @import (no bloquea render) -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap"
@@ -72,10 +71,6 @@
     }
     </script>
 
-    <!-- Uploadcare widget - PENDIENTE: cambiar demopublickey por tu clave real en https://uploadcare.com -->
-    <link href="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.css" rel="stylesheet">
-    <meta name="uploadcare-public-key" content="demopublickey">
-    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8" defer></script>
 </head>
 
 <body>
@@ -354,14 +349,14 @@
                     <span class="eyebrow">Cotización gratuita</span>
                     <h2>Envíanos tu <span class="text-accent-lime">archivo</span> y te cotizamos</h2>
                     <p>Sube tu diseño, arte final o referencia. Soportamos archivos de hasta <strong
-                            class="text-accent-lime">5 GB</strong>: AI, PDF, PSD, PNG, JPG, MP4 y más.</p>
+                            class="text-accent-lime">10 MB</strong>: AI, PDF, PSD, PNG, JPG y más.</p>
 
                     <ul class="upload-features">
                         <li>
                             <span class="uf-icon">⚡</span>
                             <div>
                                 <strong>Upload rápido y seguro</strong>
-                                <span>Tus archivos se suben directo a servidores CDN cifrados</span>
+                                <span>Tus archivos se envían directo con tu cotización</span>
                             </div>
                         </li>
                         <li>
@@ -441,18 +436,12 @@
                             <div class="upload-zone-text">
                                 <strong>Arrastra tu archivo aquí</strong>
                                 <span>o haz clic para seleccionar</span>
-                                <small>Soporta: AI · PDF · PSD · PNG · JPG · MP4 · ZIP — hasta 5 GB por archivo</small>
+                                <small>Soporta: AI · PDF · PSD · PNG · JPG · ZIP — hasta 10 MB total</small>
                             </div>
-                            <input type="hidden" role="uploadcare-uploader" id="file-upload" name="file"
-                                data-public-key="demopublickey" data-multiple="true" data-multiple-max="20"
-                                data-max-local-file-size="5368709120" data-tabs="file url camera"
-                                data-images-only="false" data-preview-step="true" data-clearable="true"
-                                data-locale="es">
+                            <input type="file" id="file-upload" name="file" multiple
+                                accept=".ai,.pdf,.psd,.png,.jpg,.jpeg,.svg,.eps,.zip,.rar"
+                                style="display:none">
                             <div class="upload-file-list" id="upload-file-list"></div>
-                            <div class="upload-progress-wrap" id="upload-progress-wrap" style="display:none">
-                                <div class="upload-progress-bar" id="upload-progress-bar"></div>
-                                <span class="upload-progress-label" id="upload-progress-label">Subiendo...</span>
-                            </div>
                         </div>
 
                         <div class="form-field">
