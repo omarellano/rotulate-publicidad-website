@@ -1109,7 +1109,7 @@ nav a:hover {
 }
 
 .logo-item:hover .brand-logo {
-    filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(0, 255, 0, 0.3));
+    filter: none;
 }
 
 @keyframes marquee {
