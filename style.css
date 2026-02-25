@@ -1350,23 +1350,8 @@ nav a.active::after {
     }
 }
 
-/* ── Responsive ────────────────────────────────────────── */
+/* ── Responsive (non-hero items) ───────────────────────── */
 @media (max-width: 968px) {
-    .hero {
-        flex-direction: column;
-        text-align: center;
-        padding-top: 10rem;
-    }
-
-    .hero-content {
-        padding-right: 0;
-        margin-bottom: 4rem;
-    }
-
-    .hero-content p {
-        margin-left: auto;
-        margin-right: auto;
-    }
 
     /* Mobile menu */
     .menu-toggle {
@@ -1480,13 +1465,12 @@ nav a.active::after {
         height: 24px;
     }
 
-    .logos-row {
-        gap: 2rem;
+    .hero-features-inline {
+        justify-content: center;
     }
 
-    .logo-svg-item svg {
-        width: 55px;
-        height: 28px;
+    .logos-row {
+        gap: 3rem;
     }
 }
 
