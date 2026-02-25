@@ -207,18 +207,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const mensaje = (document.getElementById('mensaje')?.value || '').trim().substring(0, 2000);
 
-        // Construir FormData para enviar archivos nativamente
+        // Construir mensaje con info de archivos adjuntos
+        let mensajeFinal = mensaje;
+        if (selectedFiles.length > 0) {
+            const fileNames = selectedFiles.map(f => `${f.name} (${formatSize(f.size)})`).join(', ');
+            mensajeFinal += `\n\nArchivos adjuntos (${selectedFiles.length}): ${fileNames}\n(El cliente debe enviar los archivos por WhatsApp o email)`;
+        }
+
+        // Enviar solo datos de texto a Formspree (plan gratuito no soporta archivos)
         const formData = new FormData();
         formData.append('nombre', nombre.substring(0, 100));
         formData.append('email', email.substring(0, 254));
         formData.append('telefono', telefono.substring(0, 20));
         formData.append('servicio', servicio);
-        formData.append('mensaje', mensaje);
-
-        // Agregar archivos
-        selectedFiles.forEach((file) => {
-            formData.append('attachment', file);
-        });
+        formData.append('mensaje', mensajeFinal);
 
         try {
             const resp = await fetch(FORMSPREE_ENDPOINT, {
@@ -231,6 +233,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 lastSubmitTime = Date.now();
                 form.style.display = 'none';
                 formSuccess.style.display = 'flex';
+                // Si tenía archivos, mostrar nota para enviarlos por WhatsApp
+                if (selectedFiles.length > 0) {
+                    const successP = formSuccess.querySelector('p');
+                    if (successP) {
+                        successP.innerHTML = 'Recibimos tu cotización. Te contactaremos en menos de 24 hrs.<br><strong>Envía tus archivos por <a href="https://wa.me/529984007987" target="_blank" rel="noopener noreferrer">WhatsApp</a> o a <a href="mailto:cotizaciones@rotulatepublicidad.com">cotizaciones@rotulatepublicidad.com</a></strong>';
+                    }
+                }
             } else {
                 throw new Error(`Error del servidor: ${resp.status}`);
             }
