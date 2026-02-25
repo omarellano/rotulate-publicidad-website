@@ -27,7 +27,7 @@ jobs:
 
           EXCLUDE = {'.git', '.github', 'README.md', 'LICENSE', '.gitignore'}
           LOCAL_DIR = '.'
-          REMOTE_DIR = 'public_html'
+          REMOTE_DIR = 'domains/rotulatepublicidad.com'
 
           ctx = ssl.create_default_context()
           ctx.check_hostname = False
@@ -79,8 +79,7 @@ jobs:
           print("\n=== Uploading files ===")
           upload_dir(LOCAL_DIR, REMOTE_DIR)
 
-          print(f"\n=== Verifying {REMOTE_DIR} after upload ===")
-          ftp.cwd(REMOTE_DIR)
+          print(f"\n=== Verifying upload ===")
           ftp.retrlines('LIST')
 
           ftp.quit()
