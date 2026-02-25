@@ -223,7 +223,7 @@ nav a:hover {
 }
 
 .hero-content h1 {
-    font-size: clamp(3rem, 8vw, 5rem);
+    font-size: clamp(2.4rem, 5.5vw, 3.5rem);
     line-height: 1.1;
     margin-bottom: 2rem;
     animation: fadeInUp 0.8s ease-out;
@@ -1048,7 +1048,7 @@ nav a:hover {
 .whatsapp-float {
     position: fixed;
     bottom: 2rem;
-    left: 2rem;
+    right: 2rem;
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -1299,6 +1299,12 @@ nav a.active::after {
         display: flex;
     }
 
+    /* Reforzar la línea verde en móvil */
+    header {
+        border-bottom: 1px solid var(--color-accent-lime) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+    }
+
     .header-cta {
         display: none;
     }
@@ -1392,7 +1398,7 @@ nav a.active::after {
         width: 50px;
         height: 50px;
         bottom: 1.5rem;
-        left: 1.5rem;
+        right: 1.5rem;
     }
 
     .whatsapp-float svg {
