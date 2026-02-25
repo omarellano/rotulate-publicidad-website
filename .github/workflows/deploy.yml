@@ -27,7 +27,7 @@ jobs:
 
           EXCLUDE = {'.git', '.github', 'README.md', 'LICENSE', '.gitignore'}
           LOCAL_DIR = '.'
-          REMOTE_DIR = '/public_html'
+          REMOTE_DIR = 'public_html'
 
           ctx = ssl.create_default_context()
           ctx.check_hostname = False
