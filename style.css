@@ -84,16 +84,16 @@ header {
     transition: var(--transition-smooth);
     background: rgba(0, 0, 52, 0.4);
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
-    box-shadow: 0 1px 12px rgba(0, 255, 0, 0.06);
+    border-bottom: 1px solid var(--color-accent-lime);
+    box-shadow: 0 1px 12px rgba(0, 255, 0, 0.1);
 }
 
 header.scrolled {
     padding: 0.8rem 5%;
     background: rgba(0, 0, 52, 0.92);
     backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(0, 255, 0, 0.3);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(0, 255, 0, 0.1);
+    border-bottom: 1px solid var(--color-accent-lime);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
 }
 
 .logo-container {
@@ -269,9 +269,17 @@ nav a:hover {
     animation: fadeInUp 0.8s ease-out both;
 }
 
-.feature-point:nth-child(2) { animation-delay: 0.6s; }
-.feature-point:nth-child(3) { animation-delay: 0.8s; }
-.feature-point:nth-child(4) { animation-delay: 1s; }
+.feature-point:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.feature-point:nth-child(3) {
+    animation-delay: 0.8s;
+}
+
+.feature-point:nth-child(4) {
+    animation-delay: 1s;
+}
 
 .feature-icon {
     width: 40px;
@@ -298,8 +306,17 @@ nav a:hover {
 }
 
 @keyframes featurePulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(1.15); }
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(1.15);
+    }
 }
 
 .feature-label {
@@ -1059,8 +1076,17 @@ nav a:hover {
 }
 
 @keyframes whatsappPulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0; }
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
 }
 
 /* Footer */
@@ -1120,11 +1146,25 @@ nav a:hover {
 }
 
 /* Stagger children in grids */
-.showcase-grid .reveal:nth-child(2) { transition-delay: 0.1s; }
-.showcase-grid .reveal:nth-child(3) { transition-delay: 0.2s; }
-.showcase-grid .reveal:nth-child(4) { transition-delay: 0.15s; }
-.showcase-grid .reveal:nth-child(5) { transition-delay: 0.25s; }
-.showcase-grid .reveal:nth-child(6) { transition-delay: 0.3s; }
+.showcase-grid .reveal:nth-child(2) {
+    transition-delay: 0.1s;
+}
+
+.showcase-grid .reveal:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+.showcase-grid .reveal:nth-child(4) {
+    transition-delay: 0.15s;
+}
+
+.showcase-grid .reveal:nth-child(5) {
+    transition-delay: 0.25s;
+}
+
+.showcase-grid .reveal:nth-child(6) {
+    transition-delay: 0.3s;
+}
 
 /* ── Mobile Hamburger Menu ─────────────────────────────── */
 .menu-toggle {
@@ -1221,7 +1261,10 @@ nav a.active::after {
 
 /* ── Reduced Motion ────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+
+    *,
+    *::before,
+    *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
