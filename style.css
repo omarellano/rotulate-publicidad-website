@@ -267,7 +267,10 @@ nav a:hover {
 
 .carousel-slide {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
     display: flex;
@@ -1015,58 +1018,104 @@ nav a:hover {
 
 /* Partner Logos */
 .logo-strip {
-    background: rgba(0, 0, 40, 0.6);
-    padding: 2.5rem 5%;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    text-align: center;
-    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 40, 0.4);
+    padding: 3rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(8px);
 }
 
 .partners-label {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: rgba(155, 155, 155, 0.6);
-    margin-bottom: 1.5rem;
-    font-weight: 500;
+    letter-spacing: 0.4em;
+    color: var(--color-accent-lime);
+    margin-bottom: 2.5rem;
+    font-weight: 600;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.logos-wrapper {
+    display: flex;
+    width: fit-content;
+    animation: marquee 30s linear infinite;
 }
 
 .logos-row {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 3rem;
-    flex-wrap: wrap;
-    max-width: 900px;
-    margin: 0 auto;
+    gap: 6rem;
+    padding: 0 3rem;
+    flex-wrap: nowrap;
 }
 
-.logo-svg-item {
+.logo-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.4rem;
-    opacity: 0.35;
+    gap: 0.6rem;
+    min-width: 120px;
+    filter: grayscale(1);
+    opacity: 0.5;
     transition: var(--transition-smooth);
-    cursor: default;
 }
 
-.logo-svg-item:hover {
-    opacity: 0.8;
+.logo-item:hover {
+    filter: grayscale(0);
+    opacity: 1;
+    transform: translateY(-5px);
 }
 
-.logo-svg-item svg {
-    width: 70px;
-    height: 35px;
+.logo-icon {
+    width: 80px;
+    height: 40px;
     color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.logo-svg-item span {
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
+.logo-item span {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
     color: var(--color-gray);
     text-transform: uppercase;
+    font-weight: 500;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Efecto de desvanecimiento a los lados */
+.logo-strip::before,
+.logo-strip::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 15%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.logo-strip::before {
+    left: 0;
+    background: linear-gradient(to right, #000030, transparent);
+}
+
+.logo-strip::after {
+    right: 0;
+    background: linear-gradient(to left, #000030, transparent);
 }
 
 /* WhatsApp Floating Button */
