@@ -263,18 +263,23 @@ nav a:hover {
 
 .carousel-slide {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     opacity: 0;
-    transition: opacity 1.5s ease-in-out;
+    visibility: hidden;
+    transition: opacity 1.5s ease-in-out, visibility 0s linear 1.5s;
 }
 
 .carousel-slide.active {
     opacity: 1;
+    visibility: visible;
+    transition: opacity 1.5s ease-in-out, visibility 0s linear 0s;
 }
 
 .carousel-image {
-    position: absolute;
-    inset: 0;
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -284,7 +289,7 @@ nav a:hover {
 }
 
 .carousel-slide.active .carousel-image {
-    animation: kenBurns 8s linear forwards;
+    animation: kenBurns 5s linear forwards;
 }
 
 @keyframes kenBurns {
@@ -293,7 +298,7 @@ nav a:hover {
     }
 
     to {
-        transform: scale(1.08);
+        transform: scale(1.05);
     }
 }
 
@@ -347,7 +352,7 @@ nav a:hover {
         /* 4:3 en desktop */
     }
 
-    .hero-visual:hover .carousel-container {
+    .hero-visual:hover .carousel-image {
         transform: scale(1.02);
         transition: transform 0.6s var(--ease-smooth);
     }
@@ -1306,7 +1311,7 @@ nav a:hover {
 /* ── Back to Top Button ────────────────────────────────── */
 .back-to-top {
     position: fixed;
-    bottom: 2rem;
+    bottom: 6rem;
     right: 2rem;
     width: 44px;
     height: 44px;
@@ -1493,6 +1498,11 @@ nav a.active::after {
     .whatsapp-float svg {
         width: 24px;
         height: 24px;
+    }
+
+    .back-to-top {
+        bottom: 5rem;
+        right: 1.5rem;
     }
 
     .hero-features-inline {
