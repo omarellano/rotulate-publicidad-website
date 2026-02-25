@@ -1104,11 +1104,12 @@ nav a:hover {
     width: auto;
     height: auto;
     object-fit: contain;
+    filter: brightness(0) invert(1);
     transition: filter 0.4s var(--ease-smooth);
 }
 
 .logo-item:hover .brand-logo {
-    filter: drop-shadow(0 0 8px rgba(0, 255, 0, 0.3));
+    filter: none;
 }
 
 @keyframes marquee {
