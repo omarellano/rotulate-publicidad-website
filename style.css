@@ -269,13 +269,17 @@ nav a:hover {
     height: 100%;
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: opacity 1.5s ease-in-out, visibility 0s linear 1.5s;
+    z-index: 0;
 }
 
 .carousel-slide.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
     transition: opacity 1.5s ease-in-out, visibility 0s linear 0s;
+    z-index: 1;
 }
 
 .carousel-image {
@@ -1069,8 +1073,8 @@ nav a:hover {
 .logos-row {
     display: flex;
     align-items: center;
-    gap: 6rem;
-    padding: 0 3rem;
+    gap: 3rem;
+    padding: 0 1.5rem;
     flex-wrap: nowrap;
 }
 
@@ -1078,7 +1082,8 @@ nav a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
+    width: 80px;
+    height: 28px;
     flex-shrink: 0;
     opacity: 0.5;
     transition: opacity 0.4s var(--ease-smooth), transform 0.4s var(--ease-smooth);
@@ -1094,8 +1099,10 @@ nav a:hover {
 }
 
 .brand-logo {
-    height: 32px;
-    width: 100px;
+    max-height: 28px;
+    max-width: 80px;
+    width: auto;
+    height: auto;
     object-fit: contain;
     filter: brightness(0) invert(1);
     transition: filter 0.4s var(--ease-smooth);
@@ -1493,8 +1500,27 @@ nav a.active::after {
         justify-content: center;
     }
 
+    .logo-strip {
+        padding: 1.5rem 0;
+    }
+
+    .partners-label {
+        margin-bottom: 1.5rem;
+    }
+
     .logos-row {
-        gap: 3rem;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+
+    .logo-item {
+        width: 60px;
+        height: 22px;
+    }
+
+    .brand-logo {
+        max-height: 22px;
+        max-width: 60px;
     }
 }
 
