@@ -49,6 +49,11 @@ Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulació
 - **WhatsApp:** Botón flotante en el sitio
 - **Formulario:** Conectado a Formspree
 
+## Estado Actual (2026-02-25)
+- **Branch activo:** `claude/review-changes-QtnCz`
+- **Último fix:** Se movieron los divs `#form-success` y `#form-error` fuera del `<form>` en `index.html`. Estaban dentro del form, así que cuando `form.style.display = 'none'` ocultaba el formulario tras enviar, también ocultaba el mensaje de confirmación "¡Solicitud enviada!". Ahora están fuera del `<form>` pero dentro de `.contacto-form-wrap`.
+- **Pendiente:** Verificar en producción que el mensaje de éxito se muestre correctamente al enviar el formulario de cotización.
+
 ## Historial de Decisiones
 - Se descartó usar GitHub Actions de FTP de terceros (SamKirkland, etc.) porque no funcionaban con la config de Hostinger
 - Se usa script Python directo en el workflow que sube archivo por archivo via ftplib
