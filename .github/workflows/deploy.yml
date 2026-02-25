@@ -18,9 +18,9 @@ jobs:
 
       - name: Test FTP connection and list remote dirs
         run: |
-          curl -v --list-only --ssl --user "${{ secrets.FTP_USER }}:${{ secrets.FTP_PASS }}" "ftp://${{ secrets.FTP_HOST }}/" || echo "FTP root listing failed"
+          curl -v --list-only --insecure --ssl --user "${{ secrets.FTP_USER }}:${{ secrets.FTP_PASS }}" "ftp://${{ secrets.FTP_HOST }}/" || echo "FTP root listing failed"
           echo "---"
-          curl -v --list-only --ssl --user "${{ secrets.FTP_USER }}:${{ secrets.FTP_PASS }}" "ftp://${{ secrets.FTP_HOST }}/public_html/" || echo "public_html listing failed"
+          curl -v --list-only --insecure --ssl --user "${{ secrets.FTP_USER }}:${{ secrets.FTP_PASS }}" "ftp://${{ secrets.FTP_HOST }}/public_html/" || echo "public_html listing failed"
 
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -30,6 +30,7 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           port: 21
           protocol: ftps
+          security: loose
           local-dir: ./
           server-dir: public_html/
           log-level: verbose
@@ -39,4 +40,4 @@ jobs:
             .github/**
             README.md
             LICENSE
-          state-name: .ftp-deploy-sync-state.json
+          state-name: .deploy-sync-state.json
