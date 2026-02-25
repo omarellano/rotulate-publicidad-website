@@ -13,16 +13,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install lftp
-        run: sudo apt-get install -y lftp
+      - name: List files to deploy
+        run: ls -la
 
       - name: Deploy to Hostinger
-        run: |
-          lftp -u "${{ secrets.FTP_USER }}","${{ secrets.FTP_PASS }}" "${{ secrets.FTP_HOST }}" -e "
-            set ftp:ssl-allow yes;
-            set ftp:ssl-force no;
-            set ssl:verify-certificate no;
-            set mirror:use-pget-n 5;
-            mirror -R --verbose --exclude .git/ --exclude .github/ --exclude README.md --exclude LICENSE ./ /public_html/;
-            quit;
-          "
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          port: 21
+          protocol: ftps
+          local-dir: ./
+          server-dir: public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            README.md
+            LICENSE
+            .ftp-deploy-sync-state.json
+          dangerous-clean-slate: false
