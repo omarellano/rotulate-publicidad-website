@@ -233,6 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 lastSubmitTime = Date.now();
                 form.style.display = 'none';
                 formSuccess.style.display = 'flex';
+                if (window.dataLayer) {
+                    window.dataLayer.push({ event: 'cotizacion_enviada' });
+                }
                 // Si tenía archivos, mostrar nota para enviarlos por WhatsApp
                 if (selectedFiles.length > 0) {
                     const successP = formSuccess.querySelector('p');
