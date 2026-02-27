@@ -27,6 +27,9 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
+    <!-- Rendimiento: precargar imagen crítica del carrusel -->
+    <link rel="preload" as="image" href="assets/carrusel_1.webp" type="image/webp">
+
     <!-- Rendimiento: preconectar a dominios externos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -154,22 +157,40 @@
             <div class="hero-visual">
                 <div class="carousel-container" role="region" aria-label="Galería de trabajos" aria-roledescription="carrusel">
                     <div class="carousel-slide active" role="group" aria-roledescription="diapositiva" aria-label="1 de 6">
-                        <img src="assets/carrusel_1.png" alt="Rotulación completa de camioneta de reparto con diseño corporativo" class="carousel-image">
+                        <picture>
+                            <source srcset="assets/carrusel_1.webp" type="image/webp">
+                            <img src="assets/carrusel_1.png" alt="Rotulación completa de camioneta de reparto con diseño corporativo" class="carousel-image">
+                        </picture>
                     </div>
                     <div class="carousel-slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 6">
-                        <img src="assets/carrusel_2.png" alt="Wrapping automotriz premium en auto deportivo" class="carousel-image" loading="lazy">
+                        <picture>
+                            <source srcset="assets/carrusel_2.webp" type="image/webp">
+                            <img src="assets/carrusel_2.png" alt="Wrapping automotriz premium en auto deportivo" class="carousel-image">
+                        </picture>
                     </div>
                     <div class="carousel-slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 6">
-                        <img src="assets/carrusel_3.png" alt="Impresión gran formato para publicidad exterior" class="carousel-image" loading="lazy">
+                        <picture>
+                            <source srcset="assets/carrusel_3.webp" type="image/webp">
+                            <img src="assets/carrusel_3.png" alt="Impresión gran formato para publicidad exterior" class="carousel-image">
+                        </picture>
                     </div>
                     <div class="carousel-slide" role="group" aria-roledescription="diapositiva" aria-label="4 de 6">
-                        <img src="assets/carrusel_4.png" alt="Rotulación de flotilla de transporte de carga" class="carousel-image" loading="lazy">
+                        <picture>
+                            <source srcset="assets/carrusel_4.webp" type="image/webp">
+                            <img src="assets/carrusel_4.png" alt="Rotulación de flotilla de transporte de carga" class="carousel-image">
+                        </picture>
                     </div>
                     <div class="carousel-slide" role="group" aria-roledescription="diapositiva" aria-label="5 de 6">
-                        <img src="assets/carrusel_5.png" alt="Instalación de PPF protección de pintura automotriz" class="carousel-image" loading="lazy">
+                        <picture>
+                            <source srcset="assets/carrusel_5.webp" type="image/webp">
+                            <img src="assets/carrusel_5.png" alt="Instalación de PPF protección de pintura automotriz" class="carousel-image">
+                        </picture>
                     </div>
                     <div class="carousel-slide" role="group" aria-roledescription="diapositiva" aria-label="6 de 6">
-                        <img src="assets/carrusel_6.png" alt="Diseño e instalación de vinil decorativo en embarcación" class="carousel-image" loading="lazy">
+                        <picture>
+                            <source srcset="assets/carrusel_6.webp" type="image/webp">
+                            <img src="assets/carrusel_6.png" alt="Diseño e instalación de vinil decorativo en embarcación" class="carousel-image">
+                        </picture>
                     </div>
                 </div>
                 <div class="carousel-controls">
