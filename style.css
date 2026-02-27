@@ -1,10 +1,31 @@
 /* Fuente cargada via <link> en HTML para evitar @import bloqueante */
 
+/* ── Skip Link (Accesibilidad) ────────────────────────── */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-accent-lime);
+    color: var(--color-dark);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0 0 8px 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    z-index: 10000;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
 :root {
     --color-dark: #000052;
     --color-accent-lime: #00ff00;
     --color-accent-orange: #ff6400;
-    --color-gray: #9b9b9b;
+    --color-gray: #b0b0b0;
     --color-white: #ffffff;
     --font-main: 'Space Grotesk', sans-serif;
     --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
@@ -292,6 +313,65 @@ nav a:hover {
     filter: drop-shadow(0 0 30px rgba(0, 255, 0, 0.08));
 }
 
+
+/* ── Carousel Controls ────────────────────────────────── */
+.carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.carousel-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    background: rgba(0, 255, 0, 0.08);
+    color: var(--color-accent-lime);
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+    line-height: 1;
+}
+
+.carousel-btn:hover {
+    background: rgba(0, 255, 0, 0.2);
+    border-color: var(--color-accent-lime);
+    transform: scale(1.1);
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    padding: 0;
+    transition: var(--transition-smooth);
+}
+
+.carousel-dot.active {
+    background: var(--color-accent-lime);
+    border-color: var(--color-accent-lime);
+    transform: scale(1.2);
+}
+
+.carousel-dot:hover {
+    background: rgba(0, 255, 0, 0.5);
+    border-color: rgba(0, 255, 0, 0.5);
+}
 
 /* ── Tablet (600px+) ──────────────────────────────────── */
 @media (min-width: 600px) {
@@ -814,7 +894,7 @@ nav a:hover {
 
 .cotizar-form input::placeholder,
 .cotizar-form textarea::placeholder {
-    color: rgba(155, 155, 155, 0.6);
+    color: rgba(176, 176, 176, 0.7);
 }
 
 .cotizar-form select option {
@@ -879,7 +959,7 @@ nav a:hover {
 
 .upload-zone-text small {
     font-size: 0.75rem;
-    color: rgba(155, 155, 155, 0.6);
+    color: rgba(176, 176, 176, 0.7);
     margin-top: 0.2rem;
 }
 
@@ -991,7 +1071,7 @@ nav a:hover {
 
 .form-disclaimer {
     font-size: 0.75rem;
-    color: rgba(155, 155, 155, 0.6);
+    color: rgba(176, 176, 176, 0.7);
     text-align: center;
     max-width: 380px;
 }
