@@ -23,6 +23,7 @@
 
 :root {
     --color-dark: #000052;
+    --color-section-alt: #0d0d0f;
     --color-accent-lime: #00ff00;
     --color-accent-orange: #ff6400;
     --color-gray: #b0b0b0;
@@ -480,8 +481,8 @@ nav a:hover {
 .showcase {
     padding: 8rem 5%;
     background:
-        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(0, 255, 0, 0.03), transparent),
-        linear-gradient(to bottom, var(--color-dark), #000030);
+        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(0, 255, 0, 0.04), transparent),
+        var(--color-section-alt);
 }
 
 .section-title {
@@ -563,7 +564,7 @@ nav a:hover {
 /* Proyectos */
 .proyectos {
     padding: 8rem 5%;
-    background: #000030;
+    background: var(--color-dark);
 }
 
 .proyectos-grid {
@@ -618,7 +619,7 @@ nav a:hover {
 /* Nosotros */
 .nosotros {
     padding: 8rem 5%;
-    background: var(--color-dark);
+    background: var(--color-section-alt);
 }
 
 .nosotros-content {
@@ -741,7 +742,7 @@ nav a:hover {
 /* Contacto — Two column layout */
 .contacto {
     padding: 8rem 5%;
-    background: #000030;
+    background: var(--color-section-alt);
 }
 
 .contacto-inner {
@@ -898,7 +899,7 @@ nav a:hover {
 }
 
 .cotizar-form select option {
-    background: #000030;
+    background: var(--color-section-alt);
     color: var(--color-white);
 }
 
@@ -1130,7 +1131,7 @@ nav a:hover {
 
 /* Partner Logos */
 .logo-strip {
-    background: rgba(0, 0, 40, 0.4);
+    background: rgba(13, 13, 15, 0.7);
     padding: 3rem 0;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -1222,12 +1223,12 @@ nav a:hover {
 
 .logo-strip::before {
     left: 0;
-    background: linear-gradient(to right, #000030, transparent);
+    background: linear-gradient(to right, #0d0d0f, transparent);
 }
 
 .logo-strip::after {
     right: 0;
-    background: linear-gradient(to left, #000030, transparent);
+    background: linear-gradient(to left, #0d0d0f, transparent);
 }
 
 /* WhatsApp Floating Button */
@@ -1277,7 +1278,7 @@ nav a:hover {
 
 /* Footer */
 .footer {
-    background: linear-gradient(to bottom, #000030, #000020);
+    background: linear-gradient(to bottom, #090909, #050505);
     border-top: 1px solid rgba(0, 255, 0, 0.08);
     padding: 4rem 5% 2rem;
 }
@@ -1486,7 +1487,7 @@ nav a.active::after {
         right: -100%;
         width: 280px;
         height: 100vh;
-        background: rgba(0, 0, 60, 0.97);
+        background: rgba(13, 13, 15, 0.97);
         backdrop-filter: blur(20px);
         padding: 6rem 2rem 2rem;
         transition: right 0.4s var(--ease-smooth);
