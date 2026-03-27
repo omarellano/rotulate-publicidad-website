@@ -40,7 +40,7 @@
             article.className = 'blog-card reveal';
             article.setAttribute('data-category', post.category);
 
-            var link = 'blog/' + encodeURIComponent(post.slug) + '.html';
+            var link = '/blog/' + encodeURIComponent(post.slug);
 
             var imgWrap = document.createElement('a');
             imgWrap.href = link;
@@ -187,7 +187,21 @@
 
     /* ── Init ────────────────────────────────────────────── */
 
-    renderCards(BLOG_POSTS);
-    buildFilters(BLOG_POSTS);
+    fetch('/data/posts.json')
+        .then(function (res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+        })
+        .then(function (posts) {
+            var published = posts.filter(function (p) { return p.status === 'published'; });
+            renderCards(published);
+            buildFilters(published);
+        })
+        .catch(function (err) {
+            console.error('Error cargando posts:', err);
+            if (grid) {
+                grid.innerHTML = '<p style="text-align:center;color:var(--color-gray);padding:4rem">No se pudieron cargar los artículos.</p>';
+            }
+        });
 
 })();
