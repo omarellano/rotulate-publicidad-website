@@ -1,0 +1,66 @@
+name: Deploy Admin Panel (una sola vez)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-admin:
+    name: Upload admin/ and data/ via FTP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Upload admin/ and data/ via Python FTP
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
+        run: |
+          python3 << 'PYEOF'
+          import ftplib, ssl, os
+
+          REMOTE_DIR = 'domains/rotulatepublicidad.com/public_html'
+          FOLDERS    = ['admin', 'data']
+
+          ctx = ssl.create_default_context()
+          ctx.check_hostname = False
+          ctx.verify_mode = ssl.CERT_NONE
+
+          print("Connecting to FTP...")
+          ftp = ftplib.FTP_TLS(context=ctx)
+          ftp.connect(os.environ['FTP_HOST'], 21, timeout=30)
+          ftp.login(os.environ['FTP_USER'], os.environ['FTP_PASS'])
+          ftp.prot_p()
+          ftp.cwd(REMOTE_DIR)
+          print(f"Connected. Remote dir: {ftp.pwd()}")
+
+          def upload_dir(local_path, label):
+              folder = os.path.basename(local_path)
+              print(f"\n=== Subiendo {label}/ ===")
+              try:
+                  ftp.mkd(folder)
+              except:
+                  pass
+              ftp.cwd(folder)
+              for item in sorted(os.listdir(local_path)):
+                  local_item = os.path.join(local_path, item)
+                  if os.path.isfile(local_item):
+                      size = os.path.getsize(local_item)
+                      print(f"  {item} ({size} bytes)")
+                      with open(local_item, 'rb') as f:
+                          ftp.storbinary(f'STOR {item}', f)
+                      print(f"  OK")
+              ftp.cwd('..')
+
+          for folder in FOLDERS:
+              if os.path.isdir(folder):
+                  upload_dir(folder, folder)
+              else:
+                  print(f"Carpeta {folder}/ no encontrada, se omite.")
+
+          print("\n=== Contenido remoto ===")
+          ftp.retrlines('LIST')
+          ftp.quit()
+          print("\nDone!")
+          PYEOF
