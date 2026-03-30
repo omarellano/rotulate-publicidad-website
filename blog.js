@@ -10,7 +10,7 @@
     var filtersContainer = document.getElementById('blog-filters');
     var noResults = document.getElementById('blog-no-results');
 
-    if (!grid || typeof BLOG_POSTS === 'undefined') return;
+    if (!grid) return;
 
     /* ── Helpers ──────────────────────────────────────────── */
 
