@@ -104,25 +104,6 @@ $currentImg = $post['image']       ?? '';
                 <!-- Columna lateral -->
                 <aside class="editor-sidebar">
                     <div class="sidebar-card">
-                        <h3>Publicación</h3>
-                        <div class="form-group">
-                            <label for="status">Estado</label>
-                            <select id="status" name="status">
-                                <option value="published" <?= $status === 'published' ? 'selected' : '' ?>>Publicado</option>
-                                <option value="draft"     <?= $status === 'draft'     ? 'selected' : '' ?>>Borrador</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="date">Fecha</label>
-                            <input type="date" id="date" name="date"
-                                   value="<?= htmlspecialchars($date) ?>">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full">
-                            <?= $isNew ? 'Publicar artículo' : 'Guardar cambios' ?>
-                        </button>
-                    </div>
-
-                    <div class="sidebar-card">
                         <h3>Categoría</h3>
                         <div class="form-group">
                             <input type="text" id="category" name="category"
@@ -134,18 +115,6 @@ $currentImg = $post['image']       ?? '';
                                     <option value="<?= htmlspecialchars($cat) ?>">
                                 <?php endforeach; ?>
                             </datalist>
-                        </div>
-                    </div>
-
-                    <div class="sidebar-card">
-                        <h3>Slug (URL)</h3>
-                        <div class="form-group">
-                            <input type="text" id="slug" name="slug"
-                                   value="<?= htmlspecialchars($slug) ?>"
-                                   placeholder="mi-articulo"
-                                   pattern="[a-z0-9\-]+"
-                                   title="Solo letras minúsculas, números y guiones">
-                            <small class="field-hint">rotulatepublicidad.com/blog/<strong id="slug-preview"><?= htmlspecialchars($slug ?: 'mi-articulo') ?></strong></small>
                         </div>
                     </div>
 
@@ -176,6 +145,37 @@ $currentImg = $post['image']       ?? '';
                                    value="<?= htmlspecialchars($imageAlt) ?>"
                                    placeholder="Describe brevemente la imagen">
                         </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Slug (URL)</h3>
+                        <div class="form-group">
+                            <input type="text" id="slug" name="slug"
+                                   value="<?= htmlspecialchars($slug) ?>"
+                                   placeholder="mi-articulo"
+                                   pattern="[a-z0-9\-]+"
+                                   title="Solo letras minúsculas, números y guiones">
+                            <small class="field-hint">rotulatepublicidad.com/blog/<strong id="slug-preview"><?= htmlspecialchars($slug ?: 'mi-articulo') ?></strong></small>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Publicación</h3>
+                        <div class="form-group">
+                            <label for="status">Estado</label>
+                            <select id="status" name="status">
+                                <option value="published" <?= $status === 'published' ? 'selected' : '' ?>>Publicado</option>
+                                <option value="draft"     <?= $status === 'draft'     ? 'selected' : '' ?>>Borrador</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Fecha</label>
+                            <input type="date" id="date" name="date"
+                                   value="<?= htmlspecialchars($date) ?>">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <?= $isNew ? 'Publicar artículo' : 'Guardar cambios' ?>
+                        </button>
                     </div>
                 </aside>
             </div>
