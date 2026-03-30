@@ -83,7 +83,7 @@ $currentImg = $post['image']       ?? '';
 
                     <div class="form-group">
                         <label>Contenido *</label>
-                        <div id="quill-editor"><?= $content ?></div>
+                        <div id="quill-editor"></div>
                     </div>
 
                     <div class="form-group">
@@ -201,6 +201,12 @@ $currentImg = $post['image']       ?? '';
                 ]
             }
         });
+
+        // Load existing content when editing a post
+        var existingContent = <?= json_encode($content) ?>;
+        if (existingContent) {
+            quill.clipboard.dangerouslyPasteHTML(existingContent);
+        }
 
         // Subir imagen inline a través de upload-image.php
         quill.getModule('toolbar').addHandler('image', function () {
