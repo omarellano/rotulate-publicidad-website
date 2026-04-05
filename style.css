@@ -103,7 +103,7 @@ h3 {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    transition: var(--transition-smooth);
+    transition: padding 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     background: rgba(0, 0, 52, 0.4);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--color-accent-lime);
@@ -322,6 +322,7 @@ nav a:hover {
     justify-content: center;
     gap: 1rem;
     margin-top: 1.5rem;
+    position: relative;
 }
 
 .carousel-btn {
@@ -372,6 +373,20 @@ nav a:hover {
 .carousel-dot:hover {
     background: rgba(0, 255, 0, 0.5);
     border-color: rgba(0, 255, 0, 0.5);
+}
+
+.carousel-btn--pause {
+    font-size: 0.7rem;
+    width: 28px;
+    height: 28px;
+    opacity: 0.6;
+    position: absolute;
+    bottom: 0.4rem;
+    right: 0.4rem;
+}
+
+.carousel-btn--pause:hover {
+    opacity: 1;
 }
 
 /* ── Tablet (600px+) ──────────────────────────────────── */
@@ -712,31 +727,6 @@ nav a:hover {
     position: absolute;
     inset: 0;
     background: radial-gradient(circle at center, rgba(0, 255, 0, 0.06), transparent 70%);
-}
-
-.chevrons {
-    font-size: 5rem;
-    background: linear-gradient(90deg, var(--color-accent-lime), var(--color-accent-orange));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: -0.2em;
-}
-
-.brand-name {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: 0.2em;
-    color: var(--color-white);
-}
-
-.brand-sub {
-    font-size: 0.9rem;
-    letter-spacing: 0.4em;
-    color: var(--color-accent-lime);
-    margin-top: 0.25rem;
 }
 
 /* Contacto — Two column layout */

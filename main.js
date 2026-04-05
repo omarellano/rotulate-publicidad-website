@@ -26,6 +26,16 @@
     const navLinks = document.querySelectorAll('nav a');
     const sections = document.querySelectorAll('section[id]');
 
+    /* ── Cache de offsets de secciones (evita reflow en cada scroll) ── */
+    let sectionOffsets = [];
+    function cacheSectionOffsets() {
+        sectionOffsets = Array.from(sections).map(function (s) {
+            return { id: s.getAttribute('id'), top: s.offsetTop - 120 };
+        });
+    }
+    window.addEventListener('load', cacheSectionOffsets);
+    window.addEventListener('resize', throttle(cacheSectionOffsets, 200));
+
     /* ── 1. Header scroll effect (throttled) ───────────────── */
     function onScroll() {
         const scrollY = window.scrollY;
@@ -55,11 +65,11 @@
     /* ── 2. Active nav link tracking ──────────────────────── */
     function updateActiveNav(scrollY) {
         let currentId = '';
-        sections.forEach(function (section) {
-            var top = section.offsetTop - 120;
-            if (scrollY >= top) {
-                currentId = section.getAttribute('id');
-            }
+        var offsets = sectionOffsets.length ? sectionOffsets : Array.from(sections).map(function (s) {
+            return { id: s.getAttribute('id'), top: s.offsetTop - 120 };
+        });
+        offsets.forEach(function (s) {
+            if (scrollY >= s.top) currentId = s.id;
         });
 
         navLinks.forEach(function (link) {
@@ -188,6 +198,7 @@
         const dots = document.querySelectorAll('.carousel-dot');
         const prevBtn = document.querySelector('.carousel-btn--prev');
         const nextBtn = document.querySelector('.carousel-btn--next');
+        const pauseBtn = document.querySelector('.carousel-btn--pause');
         if (slides.length <= 1) return;
 
         let currentSlide = 0;
@@ -264,6 +275,25 @@
                     nextSlide();
                     startAutoplay();
                 }
+            });
+        }
+
+        // Pause/play button (accesibilidad WCAG 2.1 criterio 2.2.2)
+        var isPlaying = true;
+        if (pauseBtn) {
+            pauseBtn.addEventListener('click', function () {
+                if (isPlaying) {
+                    stopAutoplay();
+                    pauseBtn.innerHTML = '&#9654;';
+                    pauseBtn.setAttribute('aria-label', 'Reanudar reproducción automática');
+                    pauseBtn.setAttribute('aria-pressed', 'true');
+                } else {
+                    startAutoplay();
+                    pauseBtn.innerHTML = '&#9646;&#9646;';
+                    pauseBtn.setAttribute('aria-label', 'Pausar reproducción automática');
+                    pauseBtn.setAttribute('aria-pressed', 'false');
+                }
+                isPlaying = !isPlaying;
             });
         }
 

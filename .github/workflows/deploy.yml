@@ -30,6 +30,7 @@ jobs:
           REMOTE_DIR = 'domains/rotulatepublicidad.com/public_html'
 
           ctx = ssl.create_default_context()
+          # Hostinger FTP_TLS uses a self-signed cert — allow it without full chain verification
           ctx.check_hostname = False
           ctx.verify_mode = ssl.CERT_NONE
 
@@ -70,8 +71,8 @@ jobs:
                       print(f"  Creating dir: {item}/")
                       try:
                           ftp.mkd(item)
-                      except:
-                          pass
+                      except ftplib.error_perm:
+                          pass  # directorio ya existe
                       ftp.cwd(item)
                       upload_dir(local_item, f"{remote_path}/{item}")
                       ftp.cwd('..')

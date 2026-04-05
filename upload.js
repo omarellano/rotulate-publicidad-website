@@ -144,10 +144,9 @@ document.addEventListener('DOMContentLoaded', () => {
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Anti-spam: honeypot
+        // Anti-spam: honeypot (fallo silencioso para no revelar la protección)
         const honeypot = document.getElementById('website-url')?.value;
         if (honeypot) {
-            console.warn('Bot detectado — envío bloqueado.');
             return;
         }
 
@@ -177,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Validación de formato de email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
         if (!emailRegex.test(email)) {
             const emailInput = document.getElementById('email');
             if (emailInput) {
@@ -247,7 +246,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(`Error del servidor: ${resp.status}`);
             }
         } catch (err) {
-            console.error('Error al enviar formulario:', err);
             showFormError('Hubo un problema al enviar. Por favor escríbenos directamente por WhatsApp o al email.');
         } finally {
             btnText.style.display = 'inline';

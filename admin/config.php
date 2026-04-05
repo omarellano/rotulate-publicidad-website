@@ -8,7 +8,6 @@
  */
 
 // Contraseña del panel admin (hash bcrypt)
-// Hash de ejemplo para: Rotulate2026! — CAMBIAR ANTES DE USAR EN PRODUCCIÓN
 define('ADMIN_PASSWORD_HASH', '$2y$12$AAxQXZxXEz/xew82qkZR0OLxXiinLwsPA95ubetAM3aS75Jzdaztm');
 
 // URL del sitio

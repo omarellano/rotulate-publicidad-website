@@ -12,3 +12,9 @@
 
 # Dependencies (si luego se usa npm)
 node_modules/
+
+# Admin config con credenciales — no versionar
+admin/config.php
+
+# Backups automáticos de datos
+data/*.json.backup
