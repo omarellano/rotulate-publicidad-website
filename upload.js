@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // B. Save Data to Firestore
+            // B. Save Data to Firestore & Trigger Email
             await db.collection('cotizaciones').add({
                 nombre,
                 email,
@@ -162,7 +162,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 mensaje,
                 archivos: uploadedFileUrls,
                 fecha: firebase.firestore.FieldValue.serverTimestamp(),
-                estado: 'nuevo'
+                estado: 'nuevo',
+                
+                // Campos para la extensión "Trigger Email"
+                to: 'rotulatemx@gmail.com',
+                message: {
+                    subject: `Nueva Cotización: ${nombre} - ${servicio}`,
+                    html: `
+                        <h2>Nueva solicitud de cotización</h2>
+                        <p><strong>Nombre:</strong> ${nombre}</p>
+                        <p><strong>Email:</strong> ${email}</p>
+                        <p><strong>Teléfono:</strong> ${telefono || 'No proporcionado'}</p>
+                        <p><strong>Servicio:</strong> ${servicio}</p>
+                        <p><strong>Detalles:</strong> ${mensaje || 'Sin detalles'}</p>
+                        <h3>Archivos adjuntos:</h3>
+                        <ul>
+                            ${uploadedFileUrls.map(f => `<li><a href="${f.url}">${f.name}</a></li>`).join('')}
+                        </ul>
+                    `
+                }
             });
 
             // C. Success
