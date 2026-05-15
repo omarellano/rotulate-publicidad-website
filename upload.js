@@ -310,6 +310,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xwvnypyr';
 
+    async function postToFormspree(formData) {
+        activeFetchController = new AbortController();
+        var fetchTimeout = setTimeout(function () { activeFetchController.abort(); }, 15000);
+
+        try {
+            var resp = await fetch(FORMSPREE_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: formData,
+                signal: activeFetchController.signal,
+            });
+
+            if (!resp.ok) {
+                var detail = '';
+                try {
+                    detail = await resp.text();
+                } catch (readErr) {
+                    detail = '';
+                }
+                throw new Error('Formspree respondio con error ' + resp.status + (detail ? ': ' + detail : ''));
+            }
+
+            return resp;
+        } finally {
+            clearTimeout(fetchTimeout);
+            activeFetchController = null;
+        }
+    }
+
     submitBtn?.addEventListener('click', (e) => {
         if (!isSubmitting) return;
         e.preventDefault();
@@ -414,42 +443,48 @@ document.addEventListener('DOMContentLoaded', () => {
             // C. Enviar a Formspree (fuente principal, con timeout de 15s)
             var filesSummary = '';
             if (uploadedFiles.length > 0) {
-                filesSummary = '\n\nArchivos subidos (' + uploadedFiles.length + '): ' + uploadedFiles.map(function (f) { return f.name; }).join(', ');
+                filesSummary = '\n\nArchivos subidos a Firebase (' + uploadedFiles.length + '):\n' + uploadedFiles.map(function (f) {
+                    return '- ' + f.name + ': ' + f.url;
+                }).join('\n');
             } else if (selectedFiles.length > 0) {
                 filesSummary = '\n\nArchivos seleccionados (sin subir): ' + selectedFiles.map(function (f) { return f.name; }).join(', ');
             }
 
-            var formData = new FormData();
-            formData.append('nombre', nombre.substring(0, 100));
-            formData.append('email', email.substring(0, 254));
-            formData.append('telefono', telefono.substring(0, 20));
-            formData.append('servicio', servicio);
-            formData.append('mensaje', mensaje + filesSummary);
-            selectedFiles.forEach(function (file) {
-                formData.append('attachment', file, file.name);
-            });
+            function buildFormData(includeAttachments) {
+                var formData = new FormData();
+                formData.append('nombre', nombre.substring(0, 100));
+                formData.append('email', email.substring(0, 254));
+                formData.append('telefono', telefono.substring(0, 20));
+                formData.append('servicio', servicio);
+                formData.append('mensaje', mensaje + filesSummary);
 
-            if (selectedFiles.length === 0) {
-                showProgress('Enviando cotizacion...', 40);
-            } else {
-                showProgress('Enviando cotizacion y adjuntos por email...', 100);
+                if (includeAttachments) {
+                    selectedFiles.forEach(function (file) {
+                        formData.append('attachment', file, file.name);
+                    });
+                }
+
+                return formData;
             }
 
-            activeFetchController = new AbortController();
-            var fetchTimeout = setTimeout(function () { activeFetchController.abort(); }, 15000);
+            var includeAttachments = selectedFiles.length > 0;
+            showProgress(includeAttachments ? 'Enviando cotizacion y adjuntos por email...' : 'Enviando cotizacion...', includeAttachments ? 100 : 40);
 
-            var resp = await fetch(FORMSPREE_ENDPOINT, {
-                method: 'POST',
-                headers: { 'Accept': 'application/json' },
-                body: formData,
-                signal: activeFetchController.signal,
-            });
-            clearTimeout(fetchTimeout);
-            activeFetchController = null;
+            try {
+                await postToFormspree(buildFormData(includeAttachments));
+            } catch (formspreeErr) {
+                ensureNotCanceled();
 
-            ensureNotCanceled();
+                if (includeAttachments) {
+                    console.warn('Formspree rechazo adjuntos; reenviando con links de Firebase:', formspreeErr);
+                    showProgress('Adjuntos rechazados. Enviando links por email...', 100);
+                    await postToFormspree(buildFormData(false));
+                } else {
+                    throw formspreeErr;
+                }
+            }
 
-            if (!resp.ok) {
+            if (false) {
                 throw new Error('Formspree respondió con error ' + resp.status);
             }
 
