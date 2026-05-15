@@ -270,6 +270,56 @@
         startAutoplay();
     }
 
+
+    /* ── 7b. Counter Animation ─────────────────────────────── */
+    function initCounters() {
+        var stats = document.querySelectorAll('.nosotros-stats strong');
+        if (!stats.length) return;
+
+        var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        var counterObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target, prefersReduced);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        stats.forEach(function (el) { counterObserver.observe(el); });
+    }
+
+    function animateCounter(el, skipAnimation) {
+        var text = el.textContent.trim();
+        var prefix = text.charAt(0) === '+' ? '+' : '';
+        var suffix = text.charAt(text.length - 1) === '+' ? '+' : (text.charAt(text.length - 1) === '%' ? '%' : '');
+        var num = parseInt(text.replace(/[^0-9]/g, ''), 10);
+        if (isNaN(num)) return;
+
+        if (skipAnimation) {
+            el.textContent = prefix + num + suffix;
+            return;
+        }
+
+        var duration = 2000;
+        var start = performance.now();
+        el.textContent = prefix + '0' + suffix;
+
+        function step(now) {
+            var elapsed = now - start;
+            var progress = Math.min(elapsed / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            var current = Math.round(num * eased);
+            el.textContent = prefix + current + suffix;
+            if (progress < 1) requestAnimationFrame(step);
+        }
+
+        requestAnimationFrame(step);
+    }
+
+    initCounters();
+
     // Run onScroll once on load to set initial states
     onScroll();
     initCarousel();

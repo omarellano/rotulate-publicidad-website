@@ -6,7 +6,7 @@
 # --- Security Headers ---
 <IfModule mod_headers.c>
     # Content Security Policy (refuerza la meta tag del HTML)
-    Header set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: https://ucarecdn.com; connect-src 'self' https://formspree.io; frame-ancestors 'none'; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; worker-src 'none'; upgrade-insecure-requests"
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: https://ucarecdn.com https://www.google-analytics.com; connect-src 'self' https://formspree.io https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; frame-ancestors 'none'; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; worker-src 'none'; upgrade-insecure-requests"
 
     # Prevent MIME type sniffing
     Header set X-Content-Type-Options "nosniff"
