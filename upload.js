@@ -4,7 +4,9 @@
    ============================================================ */
 
 const RATE_LIMIT_MS = 60000;
-const MAX_TOTAL_SIZE = 25 * 1024 * 1024; // 25 MB con Firebase
+const MAX_FILES = 10;
+const MAX_FILE_SIZE = 25 * 1024 * 1024; // Formspree limit per file
+const MAX_TOTAL_SIZE = 100 * 1024 * 1024; // Formspree limit per submission
 const STORAGE_TIMEOUT_MS = 60000;
 let lastSubmitTime = 0;
 
@@ -71,15 +73,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (const file of newFiles) {
             const exists = selectedFiles.some(f => f.name === file.name && f.size === file.size);
-            if (!exists) {
-                selectedFiles.push(file);
-            }
-        }
+            if (exists) continue;
 
-        const totalSize = selectedFiles.reduce((sum, f) => sum + f.size, 0);
-        if (totalSize > MAX_TOTAL_SIZE) {
-            showFormError('Los archivos exceden el límite de 25 MB. Reduce el tamaño o envía menos archivos.');
-            selectedFiles = selectedFiles.slice(0, -newFiles.length);
+            if (selectedFiles.length >= MAX_FILES) {
+                showFormError('Puedes adjuntar hasta ' + MAX_FILES + ' archivos por cotización.');
+                break;
+            }
+
+            if (file.size > MAX_FILE_SIZE) {
+                showFormError('El archivo "' + file.name + '" excede el límite de 25 MB.');
+                continue;
+            }
+
+            const nextTotalSize = selectedFiles.reduce((sum, f) => sum + f.size, 0) + file.size;
+            if (nextTotalSize > MAX_TOTAL_SIZE) {
+                showFormError('Los archivos exceden el límite total de 100 MB.');
+                continue;
+            }
+
+            selectedFiles.push(file);
         }
 
         renderFileList();
@@ -413,9 +425,14 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('telefono', telefono.substring(0, 20));
             formData.append('servicio', servicio);
             formData.append('mensaje', mensaje + filesSummary);
+            selectedFiles.forEach(function (file) {
+                formData.append('attachment', file, file.name);
+            });
 
             if (selectedFiles.length === 0) {
                 showProgress('Enviando cotizacion...', 40);
+            } else {
+                showProgress('Enviando cotizacion y adjuntos por email...', 100);
             }
 
             activeFetchController = new AbortController();

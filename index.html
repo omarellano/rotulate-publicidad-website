@@ -567,7 +567,7 @@
                 </div>
 
                 <div class="contacto-form-wrap">
-                    <form class="cotizar-form" id="cotizar" novalidate>
+                    <form class="cotizar-form" id="cotizar" enctype="multipart/form-data" novalidate>
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="nombre">Nombre completo *</label>
@@ -611,9 +611,9 @@
                             <div class="upload-zone-text">
                                 <strong>Arrastra tu archivo aquí</strong>
                                 <span>o haz clic para seleccionar</span>
-                                <small>Soporta: AI · PDF · PSD · PNG · JPG · ZIP — hasta 10 MB total</small>
+                                <small>Soporta: AI · PDF · PSD · PNG · JPG · ZIP — hasta 10 archivos, 25 MB c/u</small>
                             </div>
-                            <input type="file" id="file-upload" name="file" multiple
+                            <input type="file" id="file-upload" name="attachment" multiple
                                 accept=".ai,.pdf,.psd,.png,.jpg,.jpeg,.svg,.eps,.zip,.rar"
                                 style="display:none">
                             <div class="upload-file-list" id="upload-file-list"></div>
