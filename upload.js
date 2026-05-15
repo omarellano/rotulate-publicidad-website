@@ -164,6 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ── 7. Upload files to Firebase Storage ────────────────── */
+    const UPLOAD_TIMEOUT_MS = 60000; // 60s timeout per file
+
     async function uploadFilesToFirebase() {
         if (!firebaseReady || !storage || selectedFiles.length === 0) return [];
 
@@ -180,6 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
             showProgress('Subiendo ' + (i + 1) + '/' + totalFiles + ': ' + file.name, 0);
 
             await new Promise((resolve, reject) => {
+                const timeout = setTimeout(function () {
+                    reject(new Error('Timeout: la subida tardó demasiado'));
+                }, UPLOAD_TIMEOUT_MS);
+
                 const task = ref.put(file);
                 task.on('state_changed',
                     function (snap) {
@@ -188,10 +194,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         showProgress('Subiendo ' + (i + 1) + '/' + totalFiles + ': ' + file.name, Math.round(overallProgress));
                     },
                     function (err) {
+                        clearTimeout(timeout);
                         console.error('Error subiendo archivo:', err);
                         reject(err);
                     },
                     async function () {
+                        clearTimeout(timeout);
                         var url = await task.snapshot.ref.getDownloadURL();
                         uploadedFiles.push({ name: file.name, size: file.size, url: url });
                         resolve();
