@@ -38,20 +38,6 @@
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
-# --- Blog: redirect URL antigua .html a URL limpia ---
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteRule ^blog/([a-z0-9\-]+)\.html$ /blog/$1 [R=301,L]
-</IfModule>
-
-# --- Blog: URLs limpias /blog/slug → blog/post.php?slug=slug ---
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^blog/([a-z0-9\-]+)/?$ blog/post.php?slug=$1 [L,QSA]
-</IfModule>
-
 # --- Cache Control ---
 <IfModule mod_expires.c>
     ExpiresActive On

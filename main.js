@@ -74,10 +74,10 @@
     /* ── 3. Smooth scroll for nav links ────────────────────── */
     navLinks.forEach(function (anchor) {
         anchor.addEventListener('click', function (e) {
-            var targetId = this.getAttribute('href');
-            // Solo interceptar links de hash interno (#id), dejar pasar links a otras páginas
-            if (!targetId || !/^#[\w-]+$/.test(targetId)) return;
             e.preventDefault();
+            var targetId = this.getAttribute('href');
+            // Seguridad: validar que sea un hash interno (#id) antes de usar
+            if (!targetId || !/^#[\w-]+$/.test(targetId)) return;
             var targetElement = document.getElementById(targetId.substring(1));
             if (targetElement) {
                 window.scrollTo({
