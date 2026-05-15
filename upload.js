@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (selectedFiles.length > 0) {
                     const successP = formSuccess.querySelector('p');
                     if (successP) {
-                        successP.innerHTML = 'Recibimos tu cotización. Te contactaremos en menos de 24 hrs.<br><strong>Envía tus archivos por <a href="https://wa.me/529984007987" target="_blank" rel="noopener noreferrer">WhatsApp</a> o a <a href="mailto:cotizaciones@rotulatepublicidad.com">cotizaciones@rotulatepublicidad.com</a></strong>';
+                        successP.innerHTML = 'Recibimos tu cotización. Te contactaremos en menos de 24 hrs.<br><strong>Envía tus archivos por <a href="https://wa.me/529984007987" target="_blank" rel="noopener noreferrer">WhatsApp</a> o a <a href="mailto:rotulatemx@gmail.com">rotulatemx@gmail.com</a></strong>';
                     }
                 }
             } else {

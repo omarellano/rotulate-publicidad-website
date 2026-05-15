@@ -1,0 +1,11 @@
+{
+    "name": "Rotulate Publicidad",
+    "short_name": "Rotulate",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000052",
+    "theme_color": "#000052",
+    "icons": [
+        { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+    ]
+}
