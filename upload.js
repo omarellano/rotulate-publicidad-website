@@ -279,15 +279,25 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             var uploadedFiles = [];
 
-            // A. Subir archivos a Firebase Storage
-            if (firebaseReady && selectedFiles.length > 0) {
-                uploadedFiles = await uploadFilesToFirebase();
-                showProgress('Guardando cotización...', 100);
+            // A. Subir archivos a Firebase Storage (con timeout de 30s por archivo)
+            if (firebaseReady && storage && selectedFiles.length > 0) {
+                try {
+                    uploadedFiles = await Promise.race([
+                        uploadFilesToFirebase(),
+                        new Promise(function (_, reject) {
+                            setTimeout(function () { reject(new Error('Storage timeout')); }, 30000);
+                        })
+                    ]);
+                } catch (storageErr) {
+                    console.warn('Firebase Storage falló, continuando sin archivos:', storageErr);
+                    uploadedFiles = [];
+                }
+                hideProgress();
             }
 
-            // B. Guardar en Firestore
+            // B. Guardar en Firestore (fire-and-forget — nunca bloquear la UX)
             if (firebaseReady && db) {
-                await db.collection('cotizaciones').add({
+                db.collection('cotizaciones').add({
                     nombre: nombre.substring(0, 100),
                     email: email.substring(0, 254),
                     telefono: telefono.substring(0, 20),
@@ -296,15 +306,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     archivos: uploadedFiles,
                     fecha: firebase.firestore.FieldValue.serverTimestamp(),
                     estado: 'nuevo'
-                });
+                }).catch(function (err) { console.warn('Firestore write:', err); });
             }
 
-            // C. Enviar a Formspree como backup (solo texto)
+            // C. Enviar a Formspree (fuente principal, con timeout de 15s)
             var filesSummary = '';
             if (uploadedFiles.length > 0) {
                 filesSummary = '\n\nArchivos subidos (' + uploadedFiles.length + '): ' + uploadedFiles.map(function (f) { return f.name; }).join(', ');
             } else if (selectedFiles.length > 0) {
-                filesSummary = '\n\nArchivos seleccionados (no subidos a Firebase): ' + selectedFiles.map(function (f) { return f.name; }).join(', ');
+                filesSummary = '\n\nArchivos seleccionados (sin subir): ' + selectedFiles.map(function (f) { return f.name; }).join(', ');
             }
 
             var formData = new FormData();
@@ -314,15 +324,23 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('servicio', servicio);
             formData.append('mensaje', mensaje + filesSummary);
 
-            await fetch(FORMSPREE_ENDPOINT, {
+            var controller = new AbortController();
+            var fetchTimeout = setTimeout(function () { controller.abort(); }, 15000);
+
+            var resp = await fetch(FORMSPREE_ENDPOINT, {
                 method: 'POST',
                 headers: { 'Accept': 'application/json' },
                 body: formData,
+                signal: controller.signal,
             });
+            clearTimeout(fetchTimeout);
+
+            if (!resp.ok) {
+                throw new Error('Formspree respondió con error ' + resp.status);
+            }
 
             // D. Éxito
             lastSubmitTime = Date.now();
-            hideProgress();
             form.style.display = 'none';
             formSuccess.style.display = 'flex';
 
@@ -333,34 +351,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.error('Error al enviar:', err);
             hideProgress();
-
-            // Si Firebase falló, intentar solo Formspree
-            if (firebaseReady) {
-                try {
-                    var fallbackData = new FormData();
-                    fallbackData.append('nombre', nombre.substring(0, 100));
-                    fallbackData.append('email', email.substring(0, 254));
-                    fallbackData.append('telefono', telefono.substring(0, 20));
-                    fallbackData.append('servicio', servicio);
-                    fallbackData.append('mensaje', mensaje + '\n\n[Firebase falló - archivos no subidos]');
-
-                    var resp = await fetch(FORMSPREE_ENDPOINT, {
-                        method: 'POST',
-                        headers: { 'Accept': 'application/json' },
-                        body: fallbackData,
-                    });
-
-                    if (resp.ok) {
-                        lastSubmitTime = Date.now();
-                        form.style.display = 'none';
-                        formSuccess.style.display = 'flex';
-                        return;
-                    }
-                } catch (e2) {
-                    console.error('Formspree fallback también falló:', e2);
-                }
-            }
-
             showFormError('Hubo un problema al enviar. Por favor escríbenos directamente por WhatsApp o al email.');
         } finally {
             btnText.style.display = 'inline';
