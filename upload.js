@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return '- ' + f.name + ': ' + f.url;
                 }).join('\n');
             } else if (selectedFiles.length > 0) {
-                filesSummary = '\n\nArchivos seleccionados (sin subir): ' + selectedFiles.map(function (f) { return f.name; }).join(', ');
+                throw new Error('FILES_NOT_UPLOADED');
             }
 
             function buildFormData(includeAttachments) {
@@ -467,26 +467,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 return formData;
             }
 
-            var includeAttachments = selectedFiles.length > 0;
-            showProgress(includeAttachments ? 'Enviando cotizacion y adjuntos por email...' : 'Enviando cotizacion...', includeAttachments ? 100 : 40);
+            var includeAttachments = false;
+            showProgress(uploadedFiles.length > 0 ? 'Enviando cotizacion con links de archivos...' : 'Enviando cotizacion...', uploadedFiles.length > 0 ? 100 : 40);
 
-            try {
-                await postToFormspree(buildFormData(includeAttachments));
-            } catch (formspreeErr) {
-                ensureNotCanceled();
-
-                if (includeAttachments) {
-                    console.warn('Formspree rechazo adjuntos; reenviando con links de Firebase:', formspreeErr);
-                    showProgress('Adjuntos rechazados. Enviando links por email...', 100);
-                    await postToFormspree(buildFormData(false));
-                } else {
-                    throw formspreeErr;
-                }
-            }
-
-            if (false) {
-                throw new Error('Formspree respondió con error ' + resp.status);
-            }
+            await postToFormspree(buildFormData(includeAttachments));
 
             // D. Éxito
             lastSubmitTime = Date.now();
@@ -503,6 +487,10 @@ document.addEventListener('DOMContentLoaded', () => {
             hideProgress();
             if (err.name === 'AbortError' || cancelRequested) {
                 showFormError('Envio cancelado. Puedes revisar los archivos y volver a intentar.');
+                return;
+            }
+            if (err.message === 'FILES_NOT_UPLOADED') {
+                showFormError('No pudimos subir los archivos. Falta habilitar permisos de Firebase Storage o intenta enviar la cotización sin archivos.');
                 return;
             }
             showFormError('Hubo un problema al enviar. Por favor escríbenos directamente por WhatsApp o al email.');
