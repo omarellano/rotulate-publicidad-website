@@ -5,6 +5,7 @@
 
 const RATE_LIMIT_MS = 60000;
 const MAX_TOTAL_SIZE = 25 * 1024 * 1024; // 25 MB con Firebase
+const STORAGE_TIMEOUT_MS = 60000;
 let lastSubmitTime = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,6 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileList = document.getElementById('upload-file-list');
 
     let selectedFiles = [];
+    let isSubmitting = false;
+    let cancelRequested = false;
+    let activeUploadTask = null;
+    let activeFetchController = null;
+    let activeStorageTimeout = null;
 
     /* ── 2. Click to open file picker ───────────────────────── */
     uploadZone.addEventListener('click', (e) => {
@@ -61,6 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ── 4. Add files & validate ────────────────────────────── */
     function addFiles(newFiles) {
+        if (isSubmitting) return;
+
         for (const file of newFiles) {
             const exists = selectedFiles.some(f => f.name === file.name && f.size === file.size);
             if (!exists) {
@@ -118,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
             removeBtn.textContent = '✕';
             removeBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
+                if (isSubmitting) return;
                 selectedFiles.splice(index, 1);
                 renderFileList();
             });
@@ -153,14 +162,63 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressLabel = document.getElementById('upload-progress-label');
 
     function showProgress(text, percent) {
+        const safePercent = Math.max(0, Math.min(100, Math.round(percent || 0)));
         if (progressWrap) progressWrap.style.display = 'flex';
         if (progressLabel) progressLabel.textContent = text || 'Subiendo...';
-        if (progressBar) progressBar.style.width = (percent || 0) + '%';
+        if (progressBar) progressBar.style.width = safePercent + '%';
+        if (progressBar) progressBar.setAttribute('aria-valuenow', String(safePercent));
     }
 
     function hideProgress() {
         if (progressWrap) progressWrap.style.display = 'none';
         if (progressBar) progressBar.style.width = '0%';
+        if (progressBar) progressBar.setAttribute('aria-valuenow', '0');
+        if (progressLabel) progressLabel.textContent = 'Subiendo...';
+    }
+
+    function setSubmitState(active) {
+        isSubmitting = active;
+        uploadZone.classList.toggle('upload-zone--uploading', active);
+        uploadZone.classList.toggle('upload-zone--locked', active);
+        fileInput.disabled = active;
+
+        if (btnText) {
+            btnText.textContent = active
+                ? (selectedFiles.length > 0 ? 'Cancelar carga' : 'Cancelar envio')
+                : 'Enviar Cotización →';
+        }
+        if (btnLoading) btnLoading.style.display = 'none';
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.classList.toggle('submit-btn--cancel', active);
+            submitBtn.setAttribute('aria-busy', active ? 'true' : 'false');
+        }
+    }
+
+    function cancelSubmission() {
+        if (!isSubmitting || cancelRequested) return;
+
+        cancelRequested = true;
+        showProgress('Cancelando carga...', 100);
+
+        if (activeStorageTimeout) {
+            clearTimeout(activeStorageTimeout);
+            activeStorageTimeout = null;
+        }
+        if (activeUploadTask && typeof activeUploadTask.cancel === 'function') {
+            activeUploadTask.cancel();
+        }
+        if (activeFetchController) {
+            activeFetchController.abort();
+        }
+    }
+
+    function ensureNotCanceled() {
+        if (cancelRequested) {
+            const err = new Error('Envio cancelado por el usuario');
+            err.name = 'AbortError';
+            throw err;
+        }
     }
 
     /* ── 7. Upload files to Firebase Storage ────────────────── */
@@ -168,33 +226,60 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!firebaseReady || !storage || selectedFiles.length === 0) return [];
 
         const uploadedFiles = [];
-        const totalFiles = selectedFiles.length;
+        const filesToUpload = selectedFiles.slice();
+        const totalFiles = filesToUpload.length;
 
         for (let i = 0; i < totalFiles; i++) {
-            const file = selectedFiles[i];
+            ensureNotCanceled();
+
+            const file = filesToUpload[i];
             const timestamp = Date.now();
             const safeName = sanitizeFileName(file.name);
             const path = 'cotizaciones/' + timestamp + '_' + safeName;
             const ref = storage.ref(path);
 
-            showProgress('Subiendo ' + (i + 1) + '/' + totalFiles + ': ' + file.name, 0);
+            showProgress('Subiendo archivo ' + (i + 1) + ' de ' + totalFiles + ': ' + file.name, Math.round((i / totalFiles) * 100));
 
             await new Promise((resolve, reject) => {
-                const task = ref.put(file);
-                task.on('state_changed',
+                activeStorageTimeout = setTimeout(function () {
+                    if (activeUploadTask && typeof activeUploadTask.cancel === 'function') {
+                        activeUploadTask.cancel();
+                    }
+                    reject(new Error('Storage timeout'));
+                }, STORAGE_TIMEOUT_MS);
+
+                activeUploadTask = ref.put(file);
+                activeUploadTask.on('state_changed',
                     function (snap) {
+                        if (cancelRequested) return;
                         const fileProgress = (snap.bytesTransferred / snap.totalBytes) * 100;
                         const overallProgress = ((i + fileProgress / 100) / totalFiles) * 100;
-                        showProgress('Subiendo ' + (i + 1) + '/' + totalFiles + ': ' + file.name, Math.round(overallProgress));
+                        showProgress('Subiendo archivo ' + (i + 1) + ' de ' + totalFiles + ': ' + file.name, overallProgress);
                     },
                     function (err) {
+                        if (activeStorageTimeout) {
+                            clearTimeout(activeStorageTimeout);
+                            activeStorageTimeout = null;
+                        }
+                        activeUploadTask = null;
                         console.error('Error subiendo archivo:', err);
                         reject(err);
                     },
                     async function () {
-                        var url = await task.snapshot.ref.getDownloadURL();
-                        uploadedFiles.push({ name: file.name, size: file.size, url: url });
-                        resolve();
+                        try {
+                            if (activeStorageTimeout) {
+                                clearTimeout(activeStorageTimeout);
+                                activeStorageTimeout = null;
+                            }
+                            ensureNotCanceled();
+                            var url = await activeUploadTask.snapshot.ref.getDownloadURL();
+                            uploadedFiles.push({ name: file.name, size: file.size, url: url });
+                            activeUploadTask = null;
+                            resolve();
+                        } catch (err) {
+                            activeUploadTask = null;
+                            reject(err);
+                        }
                     }
                 );
             });
@@ -213,8 +298,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xwvnypyr';
 
+    submitBtn?.addEventListener('click', (e) => {
+        if (!isSubmitting) return;
+        e.preventDefault();
+        cancelSubmission();
+    });
+
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        if (isSubmitting) return;
 
         // Anti-spam: honeypot
         const honeypot = document.getElementById('website-url')?.value;
@@ -269,9 +362,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Estado de carga
-        btnText.style.display = 'none';
-        btnLoading.style.display = 'inline';
-        submitBtn.disabled = true;
+        cancelRequested = false;
+        setSubmitState(true);
         formError.style.display = 'none';
 
         var mensaje = (document.getElementById('mensaje')?.value || '').trim().substring(0, 2000);
@@ -282,20 +374,18 @@ document.addEventListener('DOMContentLoaded', () => {
             // A. Subir archivos a Firebase Storage (con timeout de 30s por archivo)
             if (firebaseReady && storage && selectedFiles.length > 0) {
                 try {
-                    uploadedFiles = await Promise.race([
-                        uploadFilesToFirebase(),
-                        new Promise(function (_, reject) {
-                            setTimeout(function () { reject(new Error('Storage timeout')); }, 30000);
-                        })
-                    ]);
+                    uploadedFiles = await uploadFilesToFirebase();
+                    showProgress('Archivos subidos. Enviando cotizacion...', 100);
                 } catch (storageErr) {
                     console.warn('Firebase Storage falló, continuando sin archivos:', storageErr);
+                    ensureNotCanceled();
                     uploadedFiles = [];
                 }
-                hideProgress();
             }
 
             // B. Guardar en Firestore (fire-and-forget — nunca bloquear la UX)
+            ensureNotCanceled();
+
             if (firebaseReady && db) {
                 db.collection('cotizaciones').add({
                     nombre: nombre.substring(0, 100),
@@ -324,16 +414,23 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('servicio', servicio);
             formData.append('mensaje', mensaje + filesSummary);
 
-            var controller = new AbortController();
-            var fetchTimeout = setTimeout(function () { controller.abort(); }, 15000);
+            if (selectedFiles.length === 0) {
+                showProgress('Enviando cotizacion...', 40);
+            }
+
+            activeFetchController = new AbortController();
+            var fetchTimeout = setTimeout(function () { activeFetchController.abort(); }, 15000);
 
             var resp = await fetch(FORMSPREE_ENDPOINT, {
                 method: 'POST',
                 headers: { 'Accept': 'application/json' },
                 body: formData,
-                signal: controller.signal,
+                signal: activeFetchController.signal,
             });
             clearTimeout(fetchTimeout);
+            activeFetchController = null;
+
+            ensureNotCanceled();
 
             if (!resp.ok) {
                 throw new Error('Formspree respondió con error ' + resp.status);
@@ -341,6 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // D. Éxito
             lastSubmitTime = Date.now();
+            hideProgress();
             form.style.display = 'none';
             formSuccess.style.display = 'flex';
 
@@ -351,11 +449,19 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.error('Error al enviar:', err);
             hideProgress();
+            if (err.name === 'AbortError' || cancelRequested) {
+                showFormError('Envio cancelado. Puedes revisar los archivos y volver a intentar.');
+                return;
+            }
             showFormError('Hubo un problema al enviar. Por favor escríbenos directamente por WhatsApp o al email.');
         } finally {
-            btnText.style.display = 'inline';
-            btnLoading.style.display = 'none';
-            submitBtn.disabled = false;
+            if (activeStorageTimeout) {
+                clearTimeout(activeStorageTimeout);
+                activeStorageTimeout = null;
+            }
+            activeUploadTask = null;
+            activeFetchController = null;
+            setSubmitState(false);
         }
     });
 

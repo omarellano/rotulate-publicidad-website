@@ -1047,17 +1047,27 @@ nav a:hover {
 /* Progress bar */
 .upload-progress-wrap {
     width: 100%;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 100px;
-    height: 6px;
+    border: 1px solid rgba(0, 255, 0, 0.18);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.22);
+    padding: 0.75rem;
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.45rem;
     margin-top: 0.5rem;
 }
 
+.upload-progress-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    overflow: hidden;
+}
+
 .upload-progress-bar {
-    height: 6px;
+    height: 100%;
     background: linear-gradient(90deg, var(--color-accent-lime), var(--color-accent-orange));
     border-radius: 100px;
     transition: width 0.3s ease;
@@ -1067,8 +1077,31 @@ nav a:hover {
 .upload-progress-label {
     font-size: 0.75rem;
     color: var(--color-gray);
-    white-space: nowrap;
-    margin-left: 0.5rem;
+    line-height: 1.35;
+    text-align: left;
+}
+
+.upload-zone--uploading {
+    cursor: progress;
+    border-color: rgba(0, 255, 0, 0.6);
+    background: rgba(0, 255, 0, 0.04);
+}
+
+.upload-zone--locked {
+    pointer-events: none;
+}
+
+.upload-zone--locked .upload-progress-wrap,
+.upload-zone--locked .upload-file-list {
+    pointer-events: auto;
+}
+
+.submit-btn--cancel {
+    background: linear-gradient(135deg, var(--color-accent-orange), #ff2d2d);
+}
+
+.submit-btn--cancel:hover {
+    box-shadow: 0 0 22px rgba(255, 100, 0, 0.35);
 }
 
 /* Submit row */
