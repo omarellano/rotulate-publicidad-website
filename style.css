@@ -1579,6 +1579,10 @@ nav a.active::after {
         padding: 0.75rem 4% !important;
     }
 
+    .logo-img {
+        height: 29px;
+    }
+
     .header-cta {
         display: none;
     }
