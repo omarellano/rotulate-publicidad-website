@@ -75,6 +75,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    min-width: 0;
+}
+
+img, video, iframe, svg {
+    max-width: 100%;
+    height: auto;
+}
+
+h1, h2, h3, h4, h5, h6, p, li, span, a {
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 body {
@@ -108,11 +119,11 @@ h3 {
 
 /* Header */
 header {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1.5rem 5%;
+    padding: 1rem 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -125,7 +136,7 @@ header {
 }
 
 header.scrolled {
-    padding: 0.8rem 5%;
+    padding: 0.7rem 5%;
     background: rgba(0, 0, 52, 0.92);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--color-accent-lime);
@@ -145,7 +156,7 @@ header.scrolled {
 }
 
 .logo-img {
-    height: 48px;
+    height: 36px;
     width: auto;
     object-fit: contain;
     filter: brightness(1);
@@ -251,8 +262,8 @@ nav a:hover {
 /* ══ Hero Section — MOBILE FIRST ══════════════════════════ */
 .hero {
     position: relative;
-    min-height: 100vh;
-    padding: 8rem 5% 2rem;
+    min-height: calc(100vh - 70px);
+    padding: 3rem 5% 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -418,7 +429,7 @@ nav a:hover {
     .hero {
         flex-direction: row;
         text-align: left;
-        padding: 8rem 5% 4rem;
+        padding: 4rem 5% 4rem;
     }
 
     .hero-content {
@@ -1252,10 +1263,10 @@ nav a:hover {
 /* WhatsApp Floating Button */
 .whatsapp-float {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 56px;
-    height: 56px;
+    bottom: max(1.25rem, env(safe-area-inset-bottom, 0px) + 1rem);
+    right: max(1rem, env(safe-area-inset-right, 0px) + 0.75rem);
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     background: #25D366;
     display: flex;
@@ -1446,10 +1457,10 @@ nav a:hover {
 /* ── Back to Top Button ────────────────────────────────── */
 .back-to-top {
     position: fixed;
-    bottom: 6rem;
-    right: 2rem;
-    width: 44px;
-    height: 44px;
+    bottom: max(4.5rem, env(safe-area-inset-bottom, 0px) + 4rem);
+    right: max(1rem, env(safe-area-inset-right, 0px) + 0.75rem);
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: var(--color-accent-orange);
     color: var(--color-white);
@@ -1532,6 +1543,7 @@ nav a.active::after {
     header {
         border-bottom: 1px solid var(--color-accent-lime) !important;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+        padding: 0.75rem 4% !important;
     }
 
     .header-cta {
@@ -1627,20 +1639,22 @@ nav a.active::after {
     }
 
     .whatsapp-float {
-        width: 50px;
-        height: 50px;
-        bottom: 1.5rem;
-        right: 1.5rem;
+        width: 48px;
+        height: 48px;
+        bottom: max(1rem, env(safe-area-inset-bottom, 0px) + 0.75rem);
+        right: max(0.75rem, env(safe-area-inset-right, 0px) + 0.5rem);
     }
 
     .whatsapp-float svg {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
     }
 
     .back-to-top {
-        bottom: 5rem;
-        right: 1.5rem;
+        width: 38px;
+        height: 38px;
+        bottom: max(4rem, env(safe-area-inset-bottom, 0px) + 3.5rem);
+        right: max(0.75rem, env(safe-area-inset-right, 0px) + 0.5rem);
     }
 
     .hero-features-inline {
