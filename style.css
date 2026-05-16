@@ -1702,6 +1702,133 @@ nav a.active::after {
         max-height: 22px;
         max-width: 60px;
     }
+
+    /* Section paddings */
+    .showcase,
+    .proyectos,
+    .nosotros,
+    .testimonios {
+        padding: 5rem 4%;
+    }
+
+    .contacto {
+        padding: 5rem 4%;
+    }
+
+    .proceso,
+    .faq {
+        padding: 4rem 4%;
+    }
+
+    /* Section title */
+    .section-title {
+        font-size: clamp(1.6rem, 7vw, 2.2rem);
+        margin-bottom: 2.5rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.95rem;
+        margin: -1.5rem auto 2.5rem;
+    }
+
+    /* Showcase: evitar desbordamiento del minmax(350px) */
+    .showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    /* Nosotros */
+    .nosotros-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .nosotros-stats strong {
+        font-size: 2rem;
+    }
+
+    .nosotros-stats {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    /* Brand box: ancho fijo a responsivo */
+    .brand-box {
+        width: min(280px, 100%);
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+
+    /* Contacto info */
+    .contacto-info h2 {
+        font-size: 1.75rem;
+    }
+}
+
+/* ── Pantallas muy pequeñas (< 480px) ──────────────────── */
+@media (max-width: 480px) {
+    .section-title {
+        font-size: clamp(1.4rem, 8vw, 1.8rem);
+    }
+
+    .hero-content h1 {
+        font-size: clamp(1.5rem, 9vw, 1.9rem);
+    }
+
+    .hero-features-inline {
+        gap: 0.75rem;
+    }
+
+    .feature-label strong {
+        font-size: 0.78rem;
+    }
+
+    .contacto-form-wrap {
+        padding: 1.25rem 1rem;
+    }
+
+    .nosotros-text h2 {
+        font-size: 1.5rem;
+    }
+
+    .nosotros-stats {
+        gap: 1rem;
+    }
+
+    .nosotros-stats strong {
+        font-size: 1.6rem;
+    }
+
+    .nosotros-stats span {
+        font-size: 0.72rem;
+    }
+
+    .submit-btn {
+        min-width: 0;
+        width: 100%;
+        padding: 0.9rem 1.5rem;
+    }
+
+    .cta-button {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.85rem;
+    }
+
+    .testimonial-card {
+        padding: 1.25rem;
+    }
+
+    .proceso-step {
+        padding: 1.5rem 1rem;
+    }
+
+    .faq-item summary {
+        font-size: 0.9rem;
+        padding: 1rem 1.25rem;
+    }
+
+    .faq-item p {
+        padding: 0 1.25rem 1rem;
+    }
 }
 
 /* ── Proceso / Cómo Funciona ─────────────────────────── */
