@@ -633,6 +633,12 @@ nav a:hover {
     gap: 2rem;
 }
 
+a.showcase-item {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
 .showcase-item {
     position: relative;
     border-radius: 12px;
