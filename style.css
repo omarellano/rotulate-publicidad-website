@@ -2310,3 +2310,27 @@ nav a.active::after {
 .service-hero .hero-content {
     padding: 2rem max(1.25rem, 5%) 3rem;
 }
+
+/* ── Service page CTA final ────────────────────────────── */
+.service-cta {
+    text-align: center;
+    padding: 4rem max(1.25rem, 5%);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.service-cta h2 {
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    margin-bottom: 0.75rem;
+    word-break: normal;
+    hyphens: none;
+}
+
+.service-cta p {
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 2rem;
+}
+
+.service-cta .cta-button {
+    display: inline-block;
+    margin-top: 0;
+}
