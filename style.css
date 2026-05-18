@@ -819,6 +819,8 @@ a.showcase-item {
         grid-template-columns: repeat(2, 1fr);
         grid-auto-rows: 180px;
     }
+    .galeria-tall { grid-row: span 1; }
+    .galeria-wide { grid-column: span 1; }
 }
 
 @media (max-width: 480px) {
@@ -828,7 +830,7 @@ a.showcase-item {
         gap: 0.5rem;
     }
     .galeria-tall { grid-row: span 1; }
-    .galeria-wide { grid-column: span 2; }
+    .galeria-wide { grid-column: span 1; }
 }
 
 /* ── legacy proyectos (remove if section deleted) ─── */
