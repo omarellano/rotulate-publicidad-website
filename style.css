@@ -623,10 +623,11 @@ nav a:hover {
 .showcase {
     padding: 8rem 5%;
     background:
-        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0, 0, 120, 0.35) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 30% at 90% 80%, rgba(200, 241, 53, 0.05), transparent),
-        linear-gradient(180deg, #020218 0%, #000034 60%, #010110 100%);
-    border-top: 2px solid rgba(200, 241, 53, 0.25);
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200, 241, 53, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 0% 100%, rgba(0, 0, 180, 0.3) 0%, transparent 60%),
+        linear-gradient(160deg, #00021a 0%, #000c3a 40%, #000528 100%);
+    border-top: 3px solid var(--color-accent-lime);
+    border-bottom: 1px solid rgba(200, 241, 53, 0.15);
 }
 
 .section-title {
