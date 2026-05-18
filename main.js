@@ -182,92 +182,46 @@
         });
     }
 
-    /* ── 7. Hero Carousel (con controles manuales) ────────── */
-    function initCarousel() {
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('.carousel-dot');
-        const prevBtn = document.querySelector('.carousel-btn--prev');
-        const nextBtn = document.querySelector('.carousel-btn--next');
+    /* ── 7. Hero Background Slider ────────────────────── */
+    function initBgSlider() {
+        var slides = document.querySelectorAll('.hero-bg-slide');
+        var dots = document.querySelectorAll('.hero-dot');
         if (slides.length <= 1) return;
 
-        let currentSlide = 0;
-        let autoplayTimer = null;
-        const slideInterval = 5000;
+        var current = 0;
+        var timer = null;
+        var interval = 5000;
 
-        function goToSlide(index) {
-            slides[currentSlide].classList.remove('active');
-            if (dots[currentSlide]) {
-                dots[currentSlide].classList.remove('active');
-                dots[currentSlide].setAttribute('aria-selected', 'false');
-            }
-
-            currentSlide = ((index % slides.length) + slides.length) % slides.length;
-
-            slides[currentSlide].classList.add('active');
-            if (dots[currentSlide]) {
-                dots[currentSlide].classList.add('active');
-                dots[currentSlide].setAttribute('aria-selected', 'true');
-            }
+        function goTo(index) {
+            slides[current].classList.remove('active');
+            if (dots[current]) dots[current].classList.remove('active');
+            current = ((index % slides.length) + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            if (dots[current]) dots[current].classList.add('active');
         }
 
-        function nextSlide() {
-            goToSlide(currentSlide + 1);
+        function next() { goTo(current + 1); }
+
+        function start() {
+            if (timer) clearInterval(timer);
+            timer = setInterval(next, interval);
         }
 
-        function prevSlide() {
-            goToSlide(currentSlide - 1);
-        }
-
-        function startAutoplay() {
-            stopAutoplay();
-            autoplayTimer = setInterval(nextSlide, slideInterval);
-        }
-
-        function stopAutoplay() {
-            if (autoplayTimer) {
-                clearInterval(autoplayTimer);
-                autoplayTimer = null;
-            }
-        }
-
-        // Manual controls
-        if (prevBtn) {
-            prevBtn.addEventListener('click', function () {
-                prevSlide();
-                startAutoplay();
-            });
-        }
-
-        if (nextBtn) {
-            nextBtn.addEventListener('click', function () {
-                nextSlide();
-                startAutoplay();
-            });
-        }
-
-        // Dot navigation
-        dots.forEach(function (dot, index) {
+        dots.forEach(function (dot, i) {
             dot.addEventListener('click', function () {
-                goToSlide(index);
-                startAutoplay();
+                goTo(i);
+                start();
             });
         });
 
-        // Keyboard navigation on carousel
-        var carouselContainer = document.querySelector('.carousel-container');
-        if (carouselContainer) {
-            carouselContainer.addEventListener('keydown', function (e) {
-                if (e.key === 'ArrowLeft') {
-                    prevSlide();
-                    startAutoplay();
-                } else if (e.key === 'ArrowRight') {
-                    nextSlide();
-                    startAutoplay();
-                }
-            });
+        // Pause on hover
+        var hero = document.querySelector('.hero');
+        if (hero) {
+            hero.addEventListener('mouseenter', function () { if (timer) clearInterval(timer); });
+            hero.addEventListener('mouseleave', start);
         }
 
-        startAutoplay();
+        start();
     }
 
 
@@ -322,5 +276,5 @@
 
     // Run onScroll once on load to set initial states
     onScroll();
-    initCarousel();
+    initBgSlider();
 })();
