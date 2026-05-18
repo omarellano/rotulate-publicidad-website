@@ -354,6 +354,12 @@ nav a:hover {
     margin-top: 1.5rem;
 }
 
+@media (max-width: 968px) {
+    .hero-slider-dots {
+        justify-content: center;
+    }
+}
+
 .hero-dot {
     width: 8px;
     height: 8px;
