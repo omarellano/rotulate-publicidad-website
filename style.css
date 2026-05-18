@@ -38,7 +38,7 @@
     --color-section-alt: #0d0d0f;
     --color-accent-lime: #00ff00;
     --color-accent-orange: #ff6400;
-    --color-gray: #b0b0b0;
+    --color-gray: #c8c8c8;
     --color-white: #ffffff;
     --color-accent-lime-rgb: 0, 255, 0;
     --color-accent-orange-rgb: 255, 100, 0;
@@ -367,7 +367,8 @@ nav a:hover {
     border: none;
     background: rgba(255, 255, 255, 0.35);
     cursor: pointer;
-    padding: 0;
+    padding: 10px;
+    background-clip: content-box;
     transition: background 0.3s ease, transform 0.3s ease;
 }
 
