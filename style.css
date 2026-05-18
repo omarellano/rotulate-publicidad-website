@@ -2284,3 +2284,29 @@ nav a.active::after {
     opacity: 1;
     visibility: visible;
 }
+
+/* ── Service page hero ─────────────────────────────────── */
+.service-hero {
+    padding-top: 80px !important;
+    box-sizing: border-box;
+}
+
+.service-hero .hero-content h1 {
+    font-size: clamp(1.6rem, 5vw, 3rem);
+    word-break: normal;
+    overflow-wrap: break-word;
+    hyphens: none;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 12px rgba(0,0,40,0.8);
+}
+
+.service-hero .hero-content p {
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 1px 6px rgba(0, 0, 40, 0.7);
+    margin-bottom: 1.5rem;
+}
+
+.service-hero .hero-content {
+    padding: 2rem max(1.25rem, 5%) 3rem;
+}
