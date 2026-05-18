@@ -623,8 +623,10 @@ nav a:hover {
 .showcase {
     padding: 8rem 5%;
     background:
-        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(0, 255, 0, 0.04), transparent),
-        var(--color-section-alt);
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0, 0, 120, 0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 90% 80%, rgba(200, 241, 53, 0.05), transparent),
+        linear-gradient(180deg, #020218 0%, #000034 60%, #010110 100%);
+    border-top: 2px solid rgba(200, 241, 53, 0.25);
 }
 
 .section-title {
