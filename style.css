@@ -188,7 +188,7 @@ header.scrolled {
 /* Logo en la sección Nosotros */
 .brand-logo-img {
     width: 100%;
-    max-width: 260px;
+    max-width: 182px;
     height: auto;
     object-fit: contain;
     filter: drop-shadow(0 0 30px rgba(0, 255, 0, 0.15));
@@ -1693,6 +1693,22 @@ nav a.active::after {
     .showcase-overlay {
         transform: translateY(0);
         opacity: 1;
+        padding: 0.9rem 1rem;
+        background: linear-gradient(to top, rgba(0, 0, 82, 0.95) 60%, transparent);
+    }
+
+    .showcase-overlay h3 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .showcase-overlay p {
+        font-size: 0.78rem;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     .proyectos-grid {
