@@ -1650,31 +1650,43 @@ nav a.active::after {
     nav {
         position: fixed;
         top: 0;
-        right: -100%;
-        width: 280px;
+        left: 0;
+        right: 0;
+        width: 100%;
         height: 100vh;
-        background: rgba(13, 13, 15, 0.97);
+        background: rgba(13, 13, 15, 0.98);
         backdrop-filter: blur(20px);
-        padding: 6rem 2rem 2rem;
-        transition: right 0.4s var(--ease-smooth);
+        padding: 5rem 2rem 2rem;
+        transition: opacity 0.35s ease, visibility 0.35s ease;
         z-index: 1000;
-        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        right: 0;
     }
 
     nav.open {
-        right: 0;
+        opacity: 1;
+        visibility: visible;
     }
 
     nav ul {
         flex-direction: column;
         gap: 0;
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
     }
 
     nav a {
         display: block;
         padding: 1rem 0;
-        font-size: 1.1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 1.2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        text-align: center;
     }
 
     /* Showcase overlays always visible on touch */
@@ -1701,7 +1713,32 @@ nav a.active::after {
     }
 
     .nosotros-stats {
-        gap: 1.5rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    .nosotros-stats li {
+        align-items: center;
+        text-align: center;
+    }
+
+    .nosotros-stats strong {
+        font-size: 2rem;
+    }
+
+    /* Padding mínimo garantizado en todas las secciones */
+    .showcase,
+    .proyectos,
+    .proceso,
+    .nosotros,
+    .contacto,
+    .partners,
+    .faq,
+    .hero {
+        padding-left: max(1.25rem, 4%);
+        padding-right: max(1.25rem, 4%);
     }
 
     .form-row {
@@ -1876,15 +1913,26 @@ nav a.active::after {
     }
 
     .nosotros-stats {
-        gap: 1rem;
+        gap: 0.5rem;
     }
 
     .nosotros-stats strong {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
 
     .nosotros-stats span {
-        font-size: 0.72rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.05em;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .proceso-step {
+        padding: 1.25rem 1rem;
+    }
+
+    .proceso-number {
+        font-size: 1.8rem;
     }
 
     .submit-btn {
@@ -2050,10 +2098,14 @@ nav a.active::after {
 
 @media (max-width: 968px) {
     .mobile-nav-cta {
-        display: block;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
         margin-top: 2rem;
         text-align: center;
+        max-width: 320px;
         width: 100%;
+        justify-content: center;
     }
 }
 
