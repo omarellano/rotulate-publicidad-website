@@ -277,8 +277,151 @@
     // Run onScroll once on load to set initial states
     onScroll();
     initBgSlider();
+    initGaleriaAleatoria();
 
-    /* ── 8. Lightbox para Galería de Trabajos ──────────────── */
+    /* ── 8. Galería aleatoria de trabajos ─────────────────── */
+    function initGaleriaAleatoria() {
+        var grid = document.getElementById('galeria-grid');
+        if (!grid) return;
+
+        var allImgs = [
+            { f: 'galeria-001.webp', l: 'Rotulación Vehicular' },
+            { f: 'galeria-002.webp', l: 'Anuncio Luminoso' },
+            { f: 'galeria-003.webp', l: 'Letras 3D' },
+            { f: 'galeria-004.webp', l: 'Gran Formato' },
+            { f: 'galeria-005.webp', l: 'Rotulación' },
+            { f: 'galeria-006.webp', l: 'Señalización' },
+            { f: 'galeria-007.webp', l: 'Gran Formato' },
+            { f: 'galeria-008.webp', l: 'Rotulación Vehicular' },
+            { f: 'galeria-009.webp', l: 'Toldos' },
+            { f: 'galeria-010.webp', l: 'Fachada' },
+            { f: 'galeria-011.webp', l: 'Rotulación' },
+            { f: 'galeria-012.webp', l: 'Letras 3D' },
+            { f: 'galeria-013.webp', l: 'Anuncio Luminoso' },
+            { f: 'galeria-014.webp', l: 'Fachada' },
+            { f: 'galeria-015.webp', l: 'Gran Formato' },
+            { f: 'galeria-016.webp', l: 'Rotulación Vehicular' },
+            { f: 'galeria-017.webp', l: 'Letras 3D' },
+            { f: 'galeria-018.webp', l: 'Señalización' },
+            { f: 'galeria-019.webp', l: 'Rotulación' },
+            { f: 'galeria-020.webp', l: 'Gran Formato' },
+            { f: 'galeria-021.webp', l: 'Fachada' },
+            { f: 'galeria-022.webp', l: 'Anuncio Luminoso' },
+            { f: 'galeria-023.webp', l: 'Letras 3D' },
+            { f: 'galeria-024.webp', l: 'Rotulación' },
+            { f: 'galeria-025.webp', l: 'Toldos' },
+            { f: 'galeria-026.webp', l: 'Gran Formato' },
+            { f: 'galeria-027.webp', l: 'Fachada' },
+            { f: 'galeria-028.webp', l: 'Rotulación Vehicular' },
+            { f: 'galeria-029.webp', l: 'Letras 3D' },
+            { f: 'galeria-030.webp', l: 'Señalización' },
+            { f: 'galeria-031.webp', l: 'Gran Formato' },
+            { f: 'galeria-032.webp', l: 'Rotulación' },
+            { f: 'galeria-033.webp', l: 'Fachada' },
+            { f: 'galeria-034.webp', l: 'Anuncio Luminoso' },
+            { f: 'galeria-035.webp', l: 'Letras 3D' },
+            { f: 'galeria-036.webp', l: 'Gran Formato' },
+            { f: 'galeria-037.webp', l: 'Rotulación Vehicular' },
+            { f: 'galeria-038.webp', l: 'Toldos' },
+            { f: 'galeria-039.webp', l: 'Fachada' },
+            { f: 'galeria-040.webp', l: 'Señalización' },
+            { f: 'galeria-041.webp', l: 'Rotulación' },
+            { f: 'galeria-042.webp', l: 'Gran Formato' },
+            { f: 'galeria-043.webp', l: 'Anuncio Luminoso' },
+            { f: 'galeria-044.webp', l: 'Letras 3D' },
+            { f: 'galeria-045.webp', l: 'Rotulación Vehicular' },
+            { f: 'galeria-046.webp', l: 'Fachada' },
+            { f: 'galeria-047.webp', l: 'Gran Formato' },
+            { f: 'galeria-048.webp', l: 'Toldos' },
+            { f: 'galeria-049.webp', l: 'Rotulación' },
+            { f: 'galeria-050.webp', l: 'Señalización' },
+            { f: 'galeria-051.webp', l: 'Letras 3D' },
+            { f: 'galeria-052.webp', l: 'Anuncio Luminoso' },
+            { f: 'galeria-053.webp', l: 'Fachada' },
+            { f: 'galeria-054.webp', l: 'Gran Formato' },
+            { f: 'galeria-055.webp', l: 'Rotulación Vehicular' },
+            { f: 'galeria-056.webp', l: 'Toldos' },
+            { f: 'galeria-057.webp', l: 'Letras 3D' },
+            { f: 'galeria-058.webp', l: 'Rotulación' },
+            { f: 'galeria-059.webp', l: 'Gran Formato' },
+            { f: 'galeria-060.webp', l: 'Anuncio Luminoso' },
+            { f: 'galeria-061.webp', l: 'Fachada' },
+            { f: 'galeria-062.webp', l: 'Señalización' },
+            { f: 'galeria-063.webp', l: 'Rotulación Vehicular' },
+            { f: 'galeria-064.webp', l: 'Letras 3D' },
+            { f: 'galeria-065.webp', l: 'Gran Formato' },
+            { f: 'galeria-066.webp', l: 'Rotulación' },
+            { f: 'galeria-067.webp', l: 'Toldos' },
+            { f: 'galeria-068.webp', l: 'Anuncio Luminoso' },
+            { f: 'galeria-069.webp', l: 'Fachada' },
+            { f: 'galeria-070.webp', l: 'Letras 3D' },
+            { f: 'galeria-071.webp', l: 'Rotulación Vehicular' },
+            { f: 'galeria-072.webp', l: 'Gran Formato' },
+            { f: 'galeria-073.webp', l: 'Señalización' },
+            { f: 'galeria-074.webp', l: 'Rotulación' },
+            { f: 'galeria-075.webp', l: 'Toldos' },
+            { f: 'galeria-076.webp', l: 'Fachada' },
+            { f: 'galeria-077.webp', l: 'Anuncio Luminoso' },
+            { f: 'galeria-078.webp', l: 'Gran Formato' },
+            { f: 'galeria-079.webp', l: 'Letras 3D' },
+            { f: 'galeria-080.webp', l: 'Rotulación Vehicular' },
+            { f: 'galeria-081.webp', l: 'Fachada' },
+            { f: 'galeria-082.webp', l: 'Rotulación' },
+            { f: 'galeria-083.webp', l: 'Gran Formato' },
+            { f: 'galeria-084.webp', l: 'Señalización' },
+            { f: 'galeria-085.webp', l: 'Toldos' },
+            { f: 'galeria-086.webp', l: 'Letras 3D' },
+            { f: 'galeria-087.webp', l: 'Anuncio Luminoso' },
+            { f: 'galeria-088.webp', l: 'Gran Formato' },
+            { f: 'galeria-089.webp', l: 'Rotulación Vehicular' },
+            { f: 'galeria-090.webp', l: 'Fachada' },
+            { f: 'galeria-091.webp', l: 'Anuncio Luminoso' },
+            { f: 'galeria-092.webp', l: 'Fachada Comercial' },
+            { f: 'galeria-093.webp', l: 'Señalización' },
+            { f: 'galeria-094.webp', l: 'Cortina' },
+            { f: 'galeria-095.webp', l: 'Rotulación' },
+            { f: 'galeria-096.webp', l: 'Señalización' },
+            { f: 'galeria-097.webp', l: 'Letras 3D' },
+            { f: 'galeria-098.webp', l: 'Letras 3D' },
+            { f: 'galeria-099.webp', l: 'Rotulación Vehicular' },
+            { f: 'galeria-100.webp', l: 'Fachada Comercial' },
+            { f: 'galeria-101.webp', l: 'Letrero' },
+            { f: 'galeria-102.webp', l: 'Anuncio' },
+            { f: 'galeria-103.webp', l: 'Toldos' }
+        ];
+
+        // Fisher-Yates shuffle
+        for (var i = allImgs.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = allImgs[i]; allImgs[i] = allImgs[j]; allImgs[j] = tmp;
+        }
+
+        // Pick 12 for display, apply masonry pattern
+        var selected = allImgs.slice(0, 12);
+        var pattern = ['galeria-tall', '', '', 'galeria-wide', '', 'galeria-tall', '', '', 'galeria-wide', '', '', ''];
+        var html = '';
+        selected.forEach(function (img, i) {
+            var cls = pattern[i] ? ' ' + pattern[i] : '';
+            html += '<div class="galeria-item' + cls + ' reveal">' +
+                '<img src="assets/galeria/' + img.f + '" alt="' + img.l + ' en Cancún" loading="lazy">' +
+                '<div class="galeria-label">' + img.l + '</div>' +
+                '</div>';
+        });
+        grid.innerHTML = html;
+
+        // Re-observe reveal elements inside the grid
+        if (typeof revealObserver !== 'undefined') {
+            grid.querySelectorAll('.reveal').forEach(function (el) {
+                revealObserver.observe(el);
+            });
+        } else {
+            grid.querySelectorAll('.reveal').forEach(function (el) {
+                el.classList.add('revealed');
+            });
+        }
+    }
+
+    /* ── 9. Lightbox para Galería de Trabajos ──────────────── */
     (function () {
         var items = Array.from(document.querySelectorAll('.galeria-item'));
         if (!items.length) return;
