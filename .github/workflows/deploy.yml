@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy via FTP
+    name: Deploy via SFTP
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -16,77 +16,25 @@ jobs:
       - name: List local files
         run: find . -not -path './.git/*' -not -path './.github/*' | sort
 
-      - name: Upload via Python FTP
-        env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASS: ${{ secrets.FTP_PASS }}
+      - name: Setup SSH key
         run: |
-          python3 << 'PYEOF'
-          import ftplib, ssl, os
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p 65002 157.173.209.165 >> ~/.ssh/known_hosts 2>/dev/null
 
-          EXCLUDE = {'.git', '.github', 'README.md', 'LICENSE', '.gitignore', 'CLAUDE.md'}
-          LOCAL_DIR = '.'
-          REMOTE_DIR = 'domains/rotulatepublicidad.com/public_html'
+      - name: Deploy via rsync over SSH
+        run: |
+          rsync -avz \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='README.md' \
+            --exclude='CLAUDE.md' \
+            --exclude='.gitignore' \
+            --exclude='LICENSE' \
+            -e "ssh -p 65002 -i ~/.ssh/deploy_key" \
+            . u944947843@157.173.209.165:domains/rotulatepublicidad.com/public_html/
 
-          # SECURITY NOTE: Hostinger FTP uses a self-signed TLS certificate that
-          # does not match the hostname, so cert verification must be disabled.
-          # Mitigation: deploy traffic is over port 21/TLS to a known host IP,
-          # secrets are not logged, and files are verified post-upload.
-          # Preferred long-term fix: migrate to SFTP with SSH key auth.
-          ctx = ssl.create_default_context()
-          ctx.check_hostname = False
-          ctx.verify_mode = ssl.CERT_NONE
-
-          print("Connecting to FTP...")
-          ftp = ftplib.FTP_TLS(context=ctx)
-          ftp.connect(os.environ['FTP_HOST'], 21, timeout=30)
-          ftp.login(os.environ['FTP_USER'], os.environ['FTP_PASS'])
-          ftp.prot_p()
-          print("Connected OK")
-
-          print(f"\n=== Remote root ===")
-          ftp.retrlines('LIST')
-
-          print(f"\n=== Remote {REMOTE_DIR} ===")
-          try:
-              ftp.cwd(REMOTE_DIR)
-              ftp.retrlines('LIST')
-          except Exception as e:
-              print(f"Error accessing {REMOTE_DIR}: {e}")
-              print("Creating directory...")
-              ftp.mkd(REMOTE_DIR)
-              ftp.cwd(REMOTE_DIR)
-
-          print(f"\nCurrent remote dir: {ftp.pwd()}")
-
-          def upload_dir(local_path, remote_path):
-              for item in sorted(os.listdir(local_path)):
-                  if item in EXCLUDE:
-                      continue
-                  local_item = os.path.join(local_path, item)
-                  if os.path.isfile(local_item):
-                      size = os.path.getsize(local_item)
-                      print(f"  Uploading: {local_item} ({size} bytes) -> {remote_path}/{item}")
-                      with open(local_item, 'rb') as f:
-                          ftp.storbinary(f'STOR {item}', f)
-                      print(f"  OK: {item}")
-                  elif os.path.isdir(local_item):
-                      print(f"  Creating dir: {item}/")
-                      try:
-                          ftp.mkd(item)
-                      except:
-                          pass
-                      ftp.cwd(item)
-                      upload_dir(local_item, f"{remote_path}/{item}")
-                      ftp.cwd('..')
-
-          print("\n=== Uploading files ===")
-          upload_dir(LOCAL_DIR, REMOTE_DIR)
-
-          print(f"\n=== Verifying upload ===")
-          ftp.retrlines('LIST')
-
-          ftp.quit()
-          print("\nDone!")
-          PYEOF
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
