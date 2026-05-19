@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             activeStorageTimeout = null;
                         }
                         activeUploadTask = null;
-                        console.error('Error subiendo archivo:', err);
+                        console.warn('File upload failed');
                         reject(err);
                     },
                     async function () {
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     uploadedFiles = await uploadFilesToFirebase();
                     showProgress('Archivos subidos. Enviando cotizacion...', 100);
                 } catch (storageErr) {
-                    console.warn('Firebase Storage falló, continuando sin archivos:', storageErr);
+                    console.warn('Storage unavailable, proceeding without files');
                     ensureNotCanceled();
                     uploadedFiles = [];
                 }
@@ -437,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     archivos: uploadedFiles,
                     fecha: firebase.firestore.FieldValue.serverTimestamp(),
                     estado: 'nuevo'
-                }).catch(function (err) { console.warn('Firestore write:', err); });
+                }).catch(function () { console.warn('Firestore write failed'); });
             }
 
             // C. Enviar a Formspree (fuente principal, con timeout de 15s)
@@ -483,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         } catch (err) {
-            console.error('Error al enviar:', err);
+            console.warn('Form submission failed');
             hideProgress();
             if (err.name === 'AbortError' || cancelRequested) {
                 showFormError('Envio cancelado. Puedes revisar los archivos y volver a intentar.');

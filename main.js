@@ -323,14 +323,19 @@
         // Pick 12 for display, apply masonry pattern
         var selected = allImgs.slice(0, 12);
         var pattern = ['galeria-tall', '', '', 'galeria-wide', '', 'galeria-tall', '', '', 'galeria-wide', '', '', ''];
-        var html = '';
+        var fragment = document.createDocumentFragment();
         selected.forEach(function (f, i) {
-            var cls = pattern[i] ? ' ' + pattern[i] : '';
-            html += '<div class="galeria-item' + cls + ' reveal">' +
-                '<img src="assets/galeria/' + f + '" alt="Trabajo Rotulate Publicidad Cancún" loading="lazy">' +
-                '</div>';
+            var item = document.createElement('div');
+            item.className = 'galeria-item' + (pattern[i] ? ' ' + pattern[i] : '') + ' reveal';
+            var img = document.createElement('img');
+            img.src = 'assets/galeria/' + f;
+            img.alt = 'Trabajo Rotulate Publicidad Cancún';
+            img.loading = 'lazy';
+            item.appendChild(img);
+            fragment.appendChild(item);
         });
-        grid.innerHTML = html;
+        grid.innerHTML = '';
+        grid.appendChild(fragment);
 
         // Re-observe reveal elements inside the grid
         if (typeof revealObserver !== 'undefined') {
