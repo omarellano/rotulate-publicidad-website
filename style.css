@@ -231,6 +231,7 @@ nav a:hover {
 }
 
 .cta-button {
+    display: inline-block;
     background: linear-gradient(135deg, var(--color-accent-orange), #e85a00);
     color: var(--color-white);
     padding: 0.85rem 1.8rem;
