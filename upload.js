@@ -413,14 +413,16 @@ document.addEventListener('DOMContentLoaded', () => {
             var uploadedFiles = [];
 
             // A. Subir archivos a Firebase Storage (con timeout de 30s por archivo)
+            var firebaseStorageFailed = false;
             if (firebaseReady && storage && selectedFiles.length > 0) {
                 try {
                     uploadedFiles = await uploadFilesToFirebase();
                     showProgress('Archivos subidos. Enviando cotizacion...', 100);
                 } catch (storageErr) {
-                    console.warn('Firebase Storage falló, continuando sin archivos:', storageErr);
+                    console.warn('Firebase Storage falló, adjuntando archivos directamente:', storageErr);
                     ensureNotCanceled();
                     uploadedFiles = [];
+                    firebaseStorageFailed = true;
                 }
             }
 
@@ -446,11 +448,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 filesSummary = '\n\nArchivos subidos a Firebase (' + uploadedFiles.length + '):\n' + uploadedFiles.map(function (f) {
                     return '- ' + f.name + ': ' + f.url;
                 }).join('\n');
-            } else if (selectedFiles.length > 0) {
-                throw new Error('FILES_NOT_UPLOADED');
             }
 
-            function buildFormData(includeAttachments) {
+            // Si Firebase falló, adjuntar los archivos directo a Formspree como fallback
+            var includeAttachments = firebaseStorageFailed && selectedFiles.length > 0;
+
+            function buildFormData(withAttachments) {
                 var formData = new FormData();
                 formData.append('nombre', nombre.substring(0, 100));
                 formData.append('email', email.substring(0, 254));
@@ -458,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 formData.append('servicio', servicio);
                 formData.append('mensaje', mensaje + filesSummary);
 
-                if (includeAttachments) {
+                if (withAttachments) {
                     selectedFiles.forEach(function (file) {
                         formData.append('attachment', file, file.name);
                     });
@@ -467,10 +470,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 return formData;
             }
 
-            var includeAttachments = false;
             showProgress(uploadedFiles.length > 0 ? 'Enviando cotizacion con links de archivos...' : 'Enviando cotizacion...', uploadedFiles.length > 0 ? 100 : 40);
 
-            await postToFormspree(buildFormData(includeAttachments));
+            await postToFormspree(buildFormData(includeAttachments || false));
 
             // D. Éxito
             lastSubmitTime = Date.now();
