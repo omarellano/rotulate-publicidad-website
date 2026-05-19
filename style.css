@@ -348,8 +348,17 @@ nav a:hover {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(0, 0, 40, 0.78) 0%, rgba(0, 0, 60, 0.55) 60%, rgba(0, 0, 20, 0.4) 100%);
+    background: linear-gradient(160deg, rgba(0, 0, 40, 0.88) 0%, rgba(0, 0, 50, 0.82) 50%, rgba(0, 0, 30, 0.78) 100%);
     z-index: 1;
+}
+
+@media (max-width: 968px) {
+    .hero-bg-slider {
+        display: none;
+    }
+    .hero-overlay {
+        background: linear-gradient(160deg, rgba(0, 0, 52, 0.97) 0%, rgba(0, 0, 30, 0.93) 100%);
+    }
 }
 
 .hero-slider-dots {
