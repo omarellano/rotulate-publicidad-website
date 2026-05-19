@@ -29,6 +29,11 @@ jobs:
           LOCAL_DIR = '.'
           REMOTE_DIR = 'domains/rotulatepublicidad.com/public_html'
 
+          # SECURITY NOTE: Hostinger FTP uses a self-signed TLS certificate that
+          # does not match the hostname, so cert verification must be disabled.
+          # Mitigation: deploy traffic is over port 21/TLS to a known host IP,
+          # secrets are not logged, and files are verified post-upload.
+          # Preferred long-term fix: migrate to SFTP with SSH key auth.
           ctx = ssl.create_default_context()
           ctx.check_hostname = False
           ctx.verify_mode = ssl.CERT_NONE

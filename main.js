@@ -323,14 +323,18 @@
         // Pick 12 for display, apply masonry pattern
         var selected = allImgs.slice(0, 12);
         var pattern = ['galeria-tall', '', '', 'galeria-wide', '', 'galeria-tall', '', '', 'galeria-wide', '', '', ''];
-        var html = '';
+        grid.textContent = '';
         selected.forEach(function (f, i) {
             var cls = pattern[i] ? ' ' + pattern[i] : '';
-            html += '<div class="galeria-item' + cls + ' reveal">' +
-                '<img src="assets/galeria/' + f + '" alt="Trabajo Rotulate Publicidad Cancún" loading="lazy">' +
-                '</div>';
+            var div = document.createElement('div');
+            div.className = 'galeria-item' + cls + ' reveal';
+            var img = document.createElement('img');
+            img.src = 'assets/galeria/' + f;
+            img.alt = 'Trabajo Rotulate Publicidad Cancún';
+            img.loading = 'lazy';
+            div.appendChild(img);
+            grid.appendChild(div);
         });
-        grid.innerHTML = html;
 
         // Re-observe reveal elements inside the grid
         if (typeof revealObserver !== 'undefined') {
