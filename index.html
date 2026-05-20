@@ -684,37 +684,36 @@
             <div class="contacto-inner">
                 <div class="contacto-info reveal">
                     <span class="eyebrow">Cotización gratuita</span>
-                    <h2>Envíanos tu <span class="text-accent-lime">archivo</span> y te cotizamos</h2>
-                    <p>Sube tu diseño, arte final o referencia. Soportamos archivos de hasta <strong
-                            class="text-accent-lime">10 MB</strong>: AI, PDF, PSD, PNG, JPG y más.</p>
+                    <h2>Cuéntanos tu <span class="text-accent-lime">proyecto</span> y te cotizamos</h2>
+                    <p>Llena el formulario con los detalles de tu proyecto. Te respondemos en menos de 24 hrs con una cotización detallada.</p>
 
                     <ul class="upload-features">
                         <li>
                             <span class="uf-icon">⚡</span>
                             <div>
-                                <strong>Upload rápido y seguro</strong>
-                                <span>Tus archivos se envían directo con tu cotización</span>
+                                <strong>Respuesta rápida</strong>
+                                <span>Cotización en menos de 24 hrs a tu correo</span>
                             </div>
                         </li>
                         <li>
-                            <span class="uf-icon">📁</span>
+                            <span class="uf-icon">📐</span>
                             <div>
-                                <strong>Múltiples archivos</strong>
-                                <span>Sube varios archivos a la vez o una carpeta completa</span>
+                                <strong>Incluye medidas y materiales</strong>
+                                <span>Cuéntanos dimensiones, cantidad de piezas y fecha requerida</span>
                             </div>
                         </li>
                         <li>
-                            <span class="uf-icon">🕒</span>
+                            <span class="uf-icon">💬</span>
                             <div>
-                                <strong>Respuesta en 24 hrs</strong>
-                                <span>Te enviamos la cotización detallada a tu correo</span>
+                                <strong>También por WhatsApp</strong>
+                                <span>Envíanos tu diseño o referencia directamente por WhatsApp</span>
                             </div>
                         </li>
                         <li>
                             <span class="uf-icon">🔒</span>
                             <div>
                                 <strong>100% confidencial</strong>
-                                <span>Tus archivos solo son accesibles por nuestro equipo</span>
+                                <span>Tu información solo es accesible por nuestro equipo</span>
                             </div>
                         </li>
                     </ul>
@@ -729,7 +728,7 @@
                 </div>
 
                 <div class="contacto-form-wrap">
-                    <form class="cotizar-form" id="cotizar" enctype="multipart/form-data" novalidate>
+                    <form class="cotizar-form" id="cotizar" novalidate>
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="nombre">Nombre completo *</label>
@@ -771,26 +770,6 @@
                             style="display:none; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off"
                             aria-hidden="true">
 
-                        <div class="upload-zone" id="upload-zone">
-                            <div class="upload-zone-icon">📤</div>
-                            <div class="upload-zone-text">
-                                <strong>Arrastra tu archivo aquí</strong>
-                                <span>o haz clic para seleccionar</span>
-                                <small>Soporta: AI · PDF · PSD · PNG · JPG · ZIP — hasta 10 archivos, 25 MB c/u</small>
-                            </div>
-                            <input type="file" id="file-upload" name="attachment" multiple
-                                accept=".ai,.pdf,.psd,.png,.jpg,.jpeg,.svg,.eps,.zip,.rar"
-                                style="display:none">
-                            <div class="upload-file-list" id="upload-file-list"></div>
-                            <div class="upload-progress-wrap" id="upload-progress-wrap" style="display:none">
-                                <div class="upload-progress-track">
-                                    <div class="upload-progress-bar" id="upload-progress-bar" role="progressbar"
-                                        aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
-                                </div>
-                                <span class="upload-progress-label" id="upload-progress-label">Subiendo...</span>
-                            </div>
-                        </div>
-
                         <div class="form-field">
                             <label for="mensaje">Descripción del proyecto</label>
                             <textarea id="mensaje" name="mensaje"
@@ -808,7 +787,7 @@
                         </div>
 
                     </form>
-                    <p style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-align:right;margin-top:0.4rem">v1.01</p>
+                    <p style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-align:right;margin-top:0.4rem">v1.02</p>
                     <div class="form-success" id="form-success" style="display:none" role="alert" aria-live="polite">
                         <div class="success-icon">✅</div>
                         <h3>¡Solicitud enviada!</h3>
@@ -873,10 +852,6 @@
     </a>
     <button class="back-to-top" id="back-to-top" aria-label="Volver arriba">&#8593;</button>
 
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js" integrity="sha384-yuGdyIzzYtOBlBG6JOWn+Ey9kpq7HocusNuxEGyyohr1eEyXpeEyehIIXC/hznw4" crossorigin="anonymous" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js" integrity="sha384-nwX2Qpkhc2sv6L0ZPkLefLGguao67toSowvePuQvGF6cG+8MUphGI2uI94Ls3JF7" crossorigin="anonymous" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js" integrity="sha384-oze9siCpFoiDBZ37lLp99ZmOMO+je1s/xtvwtbNv3NXQXLpbpfPSzZSpbT3xV9da" crossorigin="anonymous" defer></script>
-    <script src="firebase-config.js" defer></script>
     <script src="main.js" defer></script>
     <script src="upload.js" defer></script>
 </body>
