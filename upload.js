@@ -1,49 +1,191 @@
-/* ============================================================
-   Rotulate Publicidad — Contact Form Logic (Formspree)
-   ============================================================ */
-
-const RATE_LIMIT_MS = 60000;
-let lastSubmitTime = 0;
+/**
+ * Rotulate Publicidad — Firebase Storage + Firestore + EmailJS Contact Form Logic
+ * Manages file uploads, lead storage, rate limits, anti-spam, and email alerts.
+ */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Verify and obtain Firebase references
+    if (typeof firebase === 'undefined') {
+        console.error('Firebase SDK not loaded. Form will not operate.');
+        return;
+    }
 
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+
+    // 2. Initialize EmailJS
+    const EMAILJS_PUBLIC_KEY = "Rn8OVcLm0OQq3lrLQ";
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+    } else {
+        console.error('EmailJS SDK not loaded.');
+    }
+
+    // 3. DOM Elements
     const form = document.getElementById('cotizar');
+    const fileInput = document.getElementById('file-upload');
+    const uploadZone = document.getElementById('upload-zone');
+    const fileListDisplay = document.getElementById('upload-file-list');
+    
+    const progressWrap = document.getElementById('upload-progress-wrap');
+    const progressBar = document.getElementById('upload-progress-bar');
+    const progressLabel = document.getElementById('upload-progress-label');
+    
     const submitBtn = document.getElementById('submit-btn');
     const btnText = submitBtn?.querySelector('.btn-text');
     const btnLoading = submitBtn?.querySelector('.btn-loading');
+    
     const formSuccess = document.getElementById('form-success');
     const formError = document.getElementById('form-error');
 
-    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xwvnypyr';
+    // State
+    let selectedFiles = [];
+    let lastSubmitTime = parseInt(localStorage.getItem('last_submit_time') || '0', 10);
 
+    const ALLOWED_EXTENSIONS = ['pdf', 'ai', 'psd', 'png', 'jpg', 'jpeg', 'zip', 'rar'];
+    const MAX_FILE_SIZE = 24 * 1024 * 1024; // 24 MB
+
+    // 4. File Selection and Drag-and-Drop
+    if (uploadZone && fileInput) {
+        uploadZone.addEventListener('click', (e) => {
+            // Prevent opening dialog if clicking remove buttons
+            if (e.target.closest('.ufi-remove')) return;
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', () => {
+            addFiles(fileInput.files);
+            fileInput.value = ''; // Reset to allow same file selection
+        });
+
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('upload-zone--drag');
+        });
+
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('upload-zone--drag');
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('upload-zone--drag');
+            if (e.dataTransfer.files.length) {
+                addFiles(e.dataTransfer.files);
+            }
+        });
+    }
+
+    function addFiles(files) {
+        formError.style.display = 'none';
+        for (let file of files) {
+            const ext = file.name.split('.').pop().toLowerCase();
+            
+            // Validate extension
+            if (!ALLOWED_EXTENSIONS.includes(ext)) {
+                showFormError(`El formato .${ext} no está permitido. Envía archivos vectoriales (AI, PDF, PSD), imágenes o ZIP.`);
+                shakeField('upload-zone');
+                return;
+            }
+
+            // Validate file size
+            if (file.size > MAX_FILE_SIZE) {
+                showFormError(`El archivo "${file.name}" supera el límite de 24 MB.`);
+                shakeField('upload-zone');
+                return;
+            }
+
+            const exists = selectedFiles.some(f => f.name === file.name && f.size === file.size);
+            if (!exists) {
+                selectedFiles.push(file);
+            }
+        }
+        renderFileList();
+    }
+
+    function renderFileList() {
+        fileListDisplay.innerHTML = '';
+        if (selectedFiles.length === 0) {
+            uploadZone.classList.remove('upload-zone--done');
+            return;
+        }
+        uploadZone.classList.add('upload-zone--done');
+
+        selectedFiles.forEach((file, index) => {
+            const ext = file.name.split('.').pop().toLowerCase();
+            const sizeFormatted = (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+            
+            const item = document.createElement('div');
+            item.className = 'upload-file-item';
+            item.innerHTML = `
+                <span class="ufi-icon">${getFileIcon(ext)}</span>
+                <div class="ufi-info">
+                    <strong>${file.name}</strong>
+                    <span>${sizeFormatted}</span>
+                </div>
+                <button type="button" class="ufi-remove" data-index="${index}" aria-label="Remover archivo">✕</button>
+            `;
+            fileListDisplay.appendChild(item);
+        });
+
+        // Event delegation for removal
+        fileListDisplay.querySelectorAll('.ufi-remove').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const idx = parseInt(btn.dataset.index, 10);
+                selectedFiles.splice(idx, 1);
+                renderFileList();
+            });
+        });
+    }
+
+    function getFileIcon(ext) {
+        const icons = {
+            pdf: '📄',
+            ai: '🎨',
+            psd: '🖼️',
+            png: '🖼️',
+            jpg: '🖼️',
+            jpeg: '🖼️',
+            zip: '📦',
+            rar: '📦'
+        };
+        return icons[ext] || '📎';
+    }
+
+    // 5. Submission and Validation
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Honeypot anti-spam
+        // A. Honeypot anti-spam check
         const honeypot = document.getElementById('website-url')?.value;
-        if (honeypot) return;
+        if (honeypot) {
+            console.warn('Submission blocked: Honeypot field was filled.');
+            return; // Abort silently
+        }
 
-        // Rate limiting
+        // B. Rate limit check (60s)
         const now = Date.now();
-        if (now - lastSubmitTime < RATE_LIMIT_MS) {
-            const secsLeft = Math.ceil((RATE_LIMIT_MS - (now - lastSubmitTime)) / 1000);
-            showFormError('Por favor espera ' + secsLeft + ' segundos antes de enviar de nuevo.');
+        if (now - lastSubmitTime < 60000) {
+            showFormError('Por favor, espera un minuto antes de enviar otra cotización.');
             return;
         }
 
+        // C. Form values extraction
         const nombre = document.getElementById('nombre')?.value.trim();
         const email = document.getElementById('email')?.value.trim();
         const telefono = document.getElementById('telefono')?.value.trim();
         const servicio = document.getElementById('servicio')?.value;
         const mensaje = (document.getElementById('mensaje')?.value || '').trim().substring(0, 2000);
 
+        // D. Form Validation
         if (!nombre || !email || !servicio) {
             shakeInvalid();
             return;
         }
 
         if (nombre.length > 100 || email.length > 254) {
-            showFormError('Los datos ingresados exceden la longitud permitida.');
+            showFormError('Los datos ingresados exceden el límite de longitud permitido.');
             return;
         }
 
@@ -57,52 +199,106 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // E. Form submission flow
         setLoading(true);
         formError.style.display = 'none';
+        const uploadedFileUrls = [];
 
         try {
-            const formData = new FormData();
-            formData.append('nombre', nombre.substring(0, 100));
-            formData.append('email', email.substring(0, 254));
-            formData.append('telefono', telefono.substring(0, 20));
-            formData.append('servicio', servicio);
-            formData.append('mensaje', mensaje);
+            // Step 1: Upload files to Firebase Storage (if any selected)
+            if (selectedFiles.length > 0) {
+                progressWrap.style.display = 'flex';
+                
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    const file = selectedFiles[i];
+                    const timestamp = Date.now();
+                    // Sanitize file name: remove non-alphanumeric/spaces/dots
+                    const sanitizedName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+                    const fileName = `${timestamp}_${sanitizedName}`;
+                    
+                    // Upload explicitly to `/cotizaciones/` folder which has open write rules
+                    const storageRef = storage.ref(`cotizaciones/${fileName}`);
+                    const uploadTask = storageRef.put(file);
 
-            const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), 15000);
-
-            const resp = await fetch(FORMSPREE_ENDPOINT, {
-                method: 'POST',
-                headers: { 'Accept': 'application/json' },
-                body: formData,
-                signal: controller.signal,
-            });
-            clearTimeout(timeout);
-
-            if (!resp.ok) {
-                const detail = await resp.text().catch(() => '');
-                throw new Error('Error ' + resp.status + (detail ? ': ' + detail : ''));
+                    await new Promise((resolve, reject) => {
+                        uploadTask.on('state_changed', 
+                            (snapshot) => {
+                                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                updateProgress(progress, `Subiendo: ${file.name}`);
+                            }, 
+                            (error) => {
+                                console.error(`Error uploading ${file.name}:`, error);
+                                reject(new Error(`Error al subir ${file.name}. Inténtalo de nuevo.`));
+                            }, 
+                            async () => {
+                                const url = await uploadTask.snapshot.ref.getDownloadURL();
+                                uploadedFileUrls.push({ name: file.name, url: url });
+                                resolve();
+                            }
+                        );
+                    });
+                }
+                
+                // Hide progress bar once done
+                progressWrap.style.display = 'none';
             }
 
+            // Step 2: Save metadata to Firestore (write-only rules allow create)
+            const leadData = {
+                nombre,
+                email,
+                telefono: telefono || 'No proporcionado',
+                servicio,
+                mensaje: mensaje || 'Sin mensaje adicional',
+                archivos: uploadedFileUrls,
+                fecha: firebase.firestore.FieldValue.serverTimestamp(),
+                estado: 'nuevo'
+            };
+
+            await db.collection('cotizaciones').add(leadData);
+
+            // Step 3: Trigger real-time EmailJS notification
+            if (typeof emailjs !== 'undefined') {
+                const templateParams = {
+                    from_name: nombre,
+                    from_email: email,
+                    phone: telefono || 'No proporcionado',
+                    service: servicio,
+                    message_details: mensaje || 'Sin mensaje adicional',
+                    file_links: uploadedFileUrls.length > 0 
+                        ? uploadedFileUrls.map(f => `${f.name}: ${f.url}`).join('\n') 
+                        : 'Sin archivos adjuntos'
+                };
+
+                await emailjs.send("service_n44qqee", "template_m7s8x1h", templateParams);
+            }
+
+            // Step 4: Show Success Screen
             lastSubmitTime = Date.now();
+            localStorage.setItem('last_submit_time', lastSubmitTime.toString());
+            
             form.style.display = 'none';
             formSuccess.style.display = 'flex';
+            selectedFiles = [];
+            renderFileList();
 
             if (window.dataLayer) {
-                window.dataLayer.push({ event: 'cotizacion_enviada' });
+                window.dataLayer.push({ event: 'cotizacion_firebase_ok' });
             }
 
-        } catch (err) {
-            console.error('Error al enviar:', err);
-            if (err.name === 'AbortError') {
-                showFormError('Tiempo de espera agotado. Por favor intenta de nuevo.');
-            } else {
-                showFormError('Hubo un problema al enviar. Por favor escríbenos directamente por WhatsApp o al email.');
-            }
+        } catch (error) {
+            console.error('Submission failed:', error);
+            showFormError(error.message || 'Hubo un problema al procesar tu solicitud. Por favor escríbenos por WhatsApp o correo.');
         } finally {
             setLoading(false);
         }
     });
+
+    // 6. Helpers
+    function updateProgress(percent, text) {
+        progressBar.style.width = `${percent}%`;
+        progressLabel.textContent = `${text} (${Math.round(percent)}%)`;
+    }
 
     function setLoading(active) {
         if (submitBtn) submitBtn.disabled = active;

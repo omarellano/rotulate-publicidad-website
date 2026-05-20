@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es-MX">
 
 <head>
@@ -777,6 +777,27 @@
                                 rows="4" maxlength="2000"></textarea>
                         </div>
 
+                        <!-- Zona de Carga de Archivos (Drag & Drop) -->
+                        <div class="form-field">
+                            <label>Adjuntar archivos o diseños (Opcional)</label>
+                            <div class="upload-zone" id="upload-zone">
+                                <div class="upload-zone-icon">📤</div>
+                                <div class="upload-zone-text">
+                                    <strong>Arrastra tu archivo aquí</strong>
+                                    <span>o haz clic para seleccionar</span>
+                                    <small>Formatos aceptados: PDF, AI, PSD, PNG, JPG, ZIP (Máx. 24MB por archivo)</small>
+                                </div>
+                                <input type="file" id="file-upload" name="file-upload" multiple style="display: none;" accept=".pdf,.ai,.psd,.png,.jpg,.jpeg,.zip,.rar">
+                                <div class="upload-file-list" id="upload-file-list"></div>
+                                <div class="upload-progress-wrap" id="upload-progress-wrap" style="display:none">
+                                    <div class="upload-progress-track">
+                                        <div class="upload-progress-bar" id="upload-progress-bar"></div>
+                                    </div>
+                                    <span class="upload-progress-label" id="upload-progress-label">Subiendo... 0%</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-submit-row">
                             <button type="submit" class="cta-button submit-btn" id="submit-btn">
                                 <span class="btn-text">Enviar Cotización →</span>
@@ -852,6 +873,18 @@
     </a>
     <button class="back-to-top" id="back-to-top" aria-label="Volver arriba">&#8593;</button>
 
+    <!-- SDK de EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- SDKs de Firebase (versiones Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
+
+    <!-- Configuración inicial de Firebase -->
+    <script src="firebase-config.js" defer></script>
+
+    <!-- Scripts de la aplicación -->
     <script src="main.js" defer></script>
     <script src="upload.js" defer></script>
 </body>
