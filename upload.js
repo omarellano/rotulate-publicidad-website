@@ -445,34 +445,29 @@ document.addEventListener('DOMContentLoaded', () => {
             // C. Enviar a Formspree (fuente principal, con timeout de 15s)
             var filesSummary = '';
             if (uploadedFiles.length > 0) {
-                filesSummary = '\n\nArchivos subidos a Firebase (' + uploadedFiles.length + '):\n' + uploadedFiles.map(function (f) {
+                filesSummary = '\n\nArchivos subidos (' + uploadedFiles.length + '):\n' + uploadedFiles.map(function (f) {
                     return '- ' + f.name + ': ' + f.url;
                 }).join('\n');
+            } else if (firebaseStorageFailed && selectedFiles.length > 0) {
+                // Firebase falló y Formspree free no admite adjuntos — incluir nota en el mensaje
+                filesSummary = '\n\n[El cliente intentó adjuntar ' + selectedFiles.length + ' archivo(s): ' +
+                    selectedFiles.map(function (f) { return f.name; }).join(', ') +
+                    ' — no se pudieron subir por error de permisos en Storage. Contactar al cliente para que los envíe por WhatsApp.]';
             }
 
-            // Si Firebase falló, adjuntar los archivos directo a Formspree como fallback
-            var includeAttachments = firebaseStorageFailed && selectedFiles.length > 0;
-
-            function buildFormData(withAttachments) {
+            function buildFormData() {
                 var formData = new FormData();
                 formData.append('nombre', nombre.substring(0, 100));
                 formData.append('email', email.substring(0, 254));
                 formData.append('telefono', telefono.substring(0, 20));
                 formData.append('servicio', servicio);
                 formData.append('mensaje', mensaje + filesSummary);
-
-                if (withAttachments) {
-                    selectedFiles.forEach(function (file) {
-                        formData.append('attachment', file, file.name);
-                    });
-                }
-
                 return formData;
             }
 
             showProgress(uploadedFiles.length > 0 ? 'Enviando cotizacion con links de archivos...' : 'Enviando cotizacion...', uploadedFiles.length > 0 ? 100 : 40);
 
-            await postToFormspree(buildFormData(includeAttachments || false));
+            await postToFormspree(buildFormData());
 
             // D. Éxito
             lastSubmitTime = Date.now();
