@@ -1584,7 +1584,7 @@ a.showcase-item {
 /* Footer */
 .footer {
     background: linear-gradient(to bottom, #090909, #050505);
-    border-top: 1px solid rgba(0, 255, 0, 0.08);
+    border-top: 2px solid rgba(0, 255, 0, 0.35);
     padding: 4rem 5% 2rem;
 }
 
