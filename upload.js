@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         : 'Sin archivos adjuntos'
                 };
 
-                await emailjs.send("service_n44qqee", "template_m7s8x1h", templateParams);
+                await emailjs.send("service_n44qqee", "template_wxr3rqu", templateParams);
             }
 
             // Step 4: Show Success Screen
