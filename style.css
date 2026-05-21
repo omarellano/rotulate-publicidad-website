@@ -320,21 +320,35 @@ nav a:hover {
     background: var(--color-dark);
 }
 
-/* ── Hero Background Space ─────────────────────────── */
-.hero-bg-single {
+/* ── Hero Background Space Slider ────────────────── */
+.hero-bg-slider {
     position: absolute;
     inset: 0;
     z-index: 0;
     overflow: hidden;
 }
 
-.hero-bg-single img {
+.hero-bg-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.hero-bg-slide.active {
+    opacity: 1;
+}
+
+.hero-bg-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     display: block;
-    filter: brightness(0.55);
+    filter: brightness(0.7); /* 25% más visible que 0.55 */
+}
+
+.hero-bg-slide.active img {
     animation: spaceKenBurns 40s infinite alternate ease-in-out;
 }
 

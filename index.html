@@ -228,12 +228,26 @@
 
     <main id="main-content">
         <section class="hero" id="inicio" aria-label="Inicio">
-            <!-- Background Image -->
-            <div class="hero-bg-single" aria-hidden="true">
-                <picture>
-                    <source srcset="assets/hero-space-bg.png" type="image/png">
-                    <img src="assets/hero-space-bg.png" alt="" width="1600" height="900" fetchpriority="high">
-                </picture>
+            <!-- Background Image Slider -->
+            <div class="hero-bg-slider" aria-hidden="true">
+                <div class="hero-bg-slide active">
+                    <picture>
+                        <source srcset="assets/hero-space-bg.png" type="image/png">
+                        <img src="assets/hero-space-bg.png" alt="" width="1600" height="900" fetchpriority="high">
+                    </picture>
+                </div>
+                <div class="hero-bg-slide">
+                    <picture>
+                        <source srcset="assets/hero-space-bg-2.png" type="image/png">
+                        <img src="assets/hero-space-bg-2.png" alt="" width="1600" height="900" loading="lazy">
+                    </picture>
+                </div>
+                <div class="hero-bg-slide">
+                    <picture>
+                        <source srcset="assets/hero-space-bg-3.png" type="image/png">
+                        <img src="assets/hero-space-bg-3.png" alt="" width="1600" height="900" loading="lazy">
+                    </picture>
+                </div>
             </div>
             <div class="hero-overlay" aria-hidden="true"></div>
             <canvas id="hero-particles" class="hero-particles-canvas" aria-hidden="true"></canvas>
