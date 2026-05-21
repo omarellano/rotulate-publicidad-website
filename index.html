@@ -39,8 +39,8 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
-    <!-- Rendimiento: precargar imagen crítica del carrusel -->
-    <link rel="preload" as="image" href="assets/anuncios-luminosos.webp" type="image/webp">
+    <!-- Rendimiento: precargar imagen crítica de fondo del Hero -->
+    <link rel="preload" as="image" href="assets/hero-space-bg-earth.jpg" type="image/jpeg">
 
     <!-- Rendimiento: preconectar a dominios externos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -228,26 +228,12 @@
 
     <main id="main-content">
         <section class="hero" id="inicio" aria-label="Inicio">
-            <!-- Background Image Slider -->
-            <div class="hero-bg-slider" aria-hidden="true">
-                <div class="hero-bg-slide active">
-                    <picture>
-                        <source srcset="assets/hero-space-bg.png" type="image/png">
-                        <img src="assets/hero-space-bg.png" alt="" width="1600" height="900" fetchpriority="high">
-                    </picture>
-                </div>
-                <div class="hero-bg-slide">
-                    <picture>
-                        <source srcset="assets/hero-space-bg-2.png" type="image/png">
-                        <img src="assets/hero-space-bg-2.png" alt="" width="1600" height="900" loading="lazy">
-                    </picture>
-                </div>
-                <div class="hero-bg-slide">
-                    <picture>
-                        <source srcset="assets/hero-space-bg-3.png" type="image/png">
-                        <img src="assets/hero-space-bg-3.png" alt="" width="1600" height="900" loading="lazy">
-                    </picture>
-                </div>
+            <!-- Background Image -->
+            <div class="hero-bg-single" aria-hidden="true">
+                <picture>
+                    <source srcset="assets/hero-space-bg-earth.jpg" type="image/jpeg">
+                    <img src="assets/hero-space-bg-earth.jpg" alt="" width="1600" height="900" fetchpriority="high">
+                </picture>
             </div>
             <div class="hero-overlay" aria-hidden="true"></div>
             <canvas id="hero-particles" class="hero-particles-canvas" aria-hidden="true"></canvas>
@@ -307,7 +293,7 @@
                 <div class="astronaut-mascot-container">
                     <picture>
                         <source srcset="assets/astronauta_cohete.png" type="image/png">
-                        <img src="assets/astronauta_cohete.png" alt="Astronauta mascota de Rotúlate" class="astronaut-mascot" width="350" height="350" loading="lazy">
+                        <img src="assets/astronauta_cohete.png" alt="Astronauta mascota de Rotúlate" class="astronaut-mascot" width="350" height="350" fetchpriority="high">
                     </picture>
                 </div>
 

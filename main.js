@@ -237,44 +237,8 @@
     // Run onScroll once on load to set initial states
     onScroll();
 
-    initBgSlider();
     initHeroParticles();
     initGaleriaAleatoria();
-
-    /* ── Hero Background Space Slider ────────────────────── */
-    function initBgSlider() {
-        var slides = document.querySelectorAll('.hero-bg-slide');
-        if (slides.length <= 1) return;
-
-        var current = 0;
-        var timer = null;
-        var interval = 6000; // 6 segundos por diapositiva
-
-        function goTo(index) {
-            slides[current].classList.remove('active');
-            current = (index + slides.length) % slides.length;
-            slides[current].classList.add('active');
-        }
-
-        function next() {
-            goTo(current + 1);
-        }
-
-        function start() {
-            if (timer) clearInterval(timer);
-            timer = setInterval(next, interval);
-        }
-
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                if (timer) clearInterval(timer);
-            } else {
-                start();
-            }
-        });
-
-        start();
-    }
     /* ── Constellation Canvas Animation ──────────────────── */
     function initHeroParticles() {
         var canvas = document.getElementById('hero-particles');
