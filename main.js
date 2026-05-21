@@ -182,47 +182,7 @@
         });
     }
 
-    /* ── 7. Hero Background Slider ────────────────────── */
-    function initBgSlider() {
-        var slides = document.querySelectorAll('.hero-bg-slide');
-        var dots = document.querySelectorAll('.hero-dot');
-        if (slides.length <= 1) return;
 
-        var current = 0;
-        var timer = null;
-        var interval = 5000;
-
-        function goTo(index) {
-            slides[current].classList.remove('active');
-            if (dots[current]) dots[current].classList.remove('active');
-            current = ((index % slides.length) + slides.length) % slides.length;
-            slides[current].classList.add('active');
-            if (dots[current]) dots[current].classList.add('active');
-        }
-
-        function next() { goTo(current + 1); }
-
-        function start() {
-            if (timer) clearInterval(timer);
-            timer = setInterval(next, interval);
-        }
-
-        dots.forEach(function (dot, i) {
-            dot.addEventListener('click', function () {
-                goTo(i);
-                start();
-            });
-        });
-
-        // Pause on hover
-        var hero = document.querySelector('.hero');
-        if (hero) {
-            hero.addEventListener('mouseenter', function () { if (timer) clearInterval(timer); });
-            hero.addEventListener('mouseleave', start);
-        }
-
-        start();
-    }
 
 
     /* ── 7b. Counter Animation ─────────────────────────────── */
@@ -277,107 +237,11 @@
     // Run onScroll once on load to set initial states
     onScroll();
 
-    // Shuffle hero background and portfolio slides
-    shuffleHeroNodes('.hero-bg-slider', '.hero-bg-slide');
-    shuffleHeroNodes('.carousel-container', '.carousel-slide');
 
-    initBgSlider();
-    initVisualCarousel();
     initHeroParticles();
     initGaleriaAleatoria();
 
-    /* ── Shuffle Helper ─────────────────────────────────── */
-    function shuffleHeroNodes(parentSelector, childSelector) {
-        var parent = document.querySelector(parentSelector);
-        if (!parent) return;
-        var children = Array.prototype.slice.call(parent.querySelectorAll(childSelector));
-        if (children.length <= 1) return;
-        
-        // Shuffle array using Fisher-Yates
-        for (var i = children.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            var tmp = children[i]; children[i] = children[j]; children[j] = tmp;
-        }
-        
-        // Remove existing slides from DOM, append in shuffled order
-        children.forEach(function (child) {
-            parent.appendChild(child);
-            child.classList.remove('active');
-        });
-        
-        // Mark first shuffled slide as active
-        children[0].classList.add('active');
-    }
 
-    /* ── Visual Carousel (Holographic Card) ──────────────── */
-    function initVisualCarousel() {
-        var container = document.querySelector('.carousel-container');
-        if (!container) return;
-        var slides = container.querySelectorAll('.carousel-slide');
-        var dots = document.querySelectorAll('.carousel-dot');
-        var prevBtn = document.querySelector('.carousel-btn--prev');
-        var nextBtn = document.querySelector('.carousel-btn--next');
-        if (slides.length <= 1) return;
-
-        var current = 0;
-        var timer = null;
-        var interval = 4000;
-
-        function goTo(index) {
-            slides[current].classList.remove('active');
-            if (dots[current]) {
-                dots[current].classList.remove('active');
-                dots[current].setAttribute('aria-selected', 'false');
-            }
-            current = ((index % slides.length) + slides.length) % slides.length;
-            slides[current].classList.add('active');
-            if (dots[current]) {
-                dots[current].classList.add('active');
-                dots[current].setAttribute('aria-selected', 'true');
-            }
-        }
-
-        function next() { goTo(current + 1); }
-        function prev() { goTo(current - 1); }
-
-        function start() {
-            if (timer) clearInterval(timer);
-            timer = setInterval(next, interval);
-        }
-
-        function stop() {
-            if (timer) clearInterval(timer);
-        }
-
-        if (nextBtn) {
-            nextBtn.addEventListener('click', function () {
-                next();
-                start();
-            });
-        }
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', function () {
-                prev();
-                start();
-            });
-        }
-
-        dots.forEach(function (dot, i) {
-            dot.addEventListener('click', function () {
-                goTo(i);
-                start();
-            });
-        });
-
-        var visualArea = document.querySelector('.hero-visual');
-        if (visualArea) {
-            visualArea.addEventListener('mouseenter', stop);
-            visualArea.addEventListener('mouseleave', start);
-        }
-
-        start();
-    }
 
     /* ── Constellation Canvas Animation ──────────────────── */
     function initHeroParticles() {
