@@ -76,4 +76,4 @@
 Options -Indexes
 
 # --- Custom error pages (optional, prevents info leaks) ---
-ErrorDocument 404 /index.html
+ErrorDocument 404 /404.html
