@@ -1,0 +1,423 @@
+/* ============================================================
+   Rotulate Publicidad — Lonas Cancún Landing Page CSS
+   Calculator layout, glassy card UI, local responsive tweaks
+   ============================================================ */
+
+/* ── 1. Hero & Custom Utilities ────────────────────────── */
+.service-hero {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-hero .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 82, 0.9) 0%, rgba(0, 0, 25, 0.8) 100%);
+    z-index: 1;
+}
+
+.service-hero .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.service-hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+}
+
+.service-hero p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+/* Badge list */
+.hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.badge-item {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    color: var(--color-accent-lime);
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ── 2. Cotizador Section ──────────────────────────────── */
+.cotizador-section {
+    padding: 5rem 0;
+    position: relative;
+}
+
+.cotizador-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 max(1.25rem, 5%);
+}
+
+.cotizador-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+@media (min-width: 900px) {
+    .cotizador-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+    }
+}
+
+/* Glassy form card */
+.cotizador-form-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.cotizador-form-card h3 {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 0.75rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+}
+
+.form-group-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+@media (min-width: 480px) {
+    .form-group-row {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-gray);
+}
+
+.form-group input[type="number"],
+.form-group select {
+    background: rgba(0, 0, 40, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: var(--color-white);
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    font-family: var(--font-main);
+    transition: var(--transition-smooth);
+    width: 100%;
+}
+
+.form-group input[type="number"]:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--color-accent-lime);
+    box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.15);
+    background: rgba(0, 0, 52, 0.9);
+}
+
+.form-group small {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 0.25rem;
+    line-height: 1.4;
+}
+
+/* Pricing Results Display */
+.cotizador-result-card {
+    background: linear-gradient(135deg, rgba(0, 0, 82, 0.85) 0%, rgba(0, 0, 30, 0.95) 100%);
+    border: 2px solid rgba(0, 255, 0, 0.3);
+    border-radius: 16px;
+    padding: 2.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    box-shadow: 0 12px 40px rgba(0, 255, 0, 0.05);
+}
+
+.result-header h3 {
+    font-size: 1.1rem;
+    color: var(--color-gray);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.result-price-box {
+    margin-bottom: 1.5rem;
+}
+
+.result-price-box .price-total {
+    font-size: clamp(2.25rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--color-accent-lime);
+    line-height: 1;
+}
+
+.result-price-box .price-suffix {
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    margin-left: 0.25rem;
+}
+
+.quote-breakdown-box {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.breakdown-item {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+.breakdown-item.min-charge-note {
+    color: var(--color-accent-orange);
+    font-size: 0.85rem;
+    background: rgba(255, 100, 0, 0.08);
+    border: 1px solid rgba(255, 100, 0, 0.2);
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+
+.breakdown-item.bulk-note {
+    color: var(--color-accent-lime);
+    font-size: 0.85rem;
+    background: rgba(0, 255, 0, 0.08);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+
+.breakdown-item.alert-msg {
+    color: var(--color-accent-lime);
+    background: rgba(0, 255, 0, 0.05);
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    border-left: 3px solid var(--color-accent-lime);
+}
+
+.quote-cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    background: #25d366; /* WhatsApp official green */
+    color: #fff;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.quote-cta-btn:hover {
+    background: #20ba5a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+    color: #fff;
+}
+
+.quote-cta-btn svg {
+    fill: currentColor;
+}
+
+/* ── 3. Tipos de Lona Cards ────────────────────────────── */
+.tipos-lonas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.tipo-lona-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+.tipo-lona-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-accent-lime);
+    box-shadow: 0 10px 30px rgba(0, 255, 0, 0.05);
+}
+
+.card-img-container {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.card-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+}
+
+.tipo-lona-card:hover .card-img-container img {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.card-content h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.01em;
+}
+
+.card-content p {
+    opacity: 0.8;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.card-price-badge {
+    display: inline-block;
+    background: rgba(0, 255, 0, 0.1);
+    color: var(--color-accent-lime);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+}
+
+/* ── 4. Mini Galeria ──────────────────────────────────── */
+.mini-galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+}
+
+@media (min-width: 768px) {
+    .mini-galeria-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.galeria-item-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.galeria-item-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+}
+
+.galeria-item-card:hover img {
+    transform: scale(1.05);
+}
+
+.galeria-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 52, 0.8) 0%, transparent 100%);
+    opacity: 0;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+    pointer-events: none;
+}
+
+.galeria-item-card:hover .galeria-card-overlay {
+    opacity: 1;
+}
+
+.galeria-card-overlay span {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--color-white);
+    letter-spacing: 0.02em;
+}
+
+/* ── 5. Internal linking & Layout Overrides ────────────── */
+.section-intro {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    opacity: 0.85;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.bulk-offer-banner {
+    background: rgba(var(--color-accent-lime-rgb), 0.03);
+    border: 1px dashed rgba(var(--color-accent-lime-rgb), 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    margin: 4rem auto;
+    max-width: 850px;
+}
+
+.bulk-offer-banner h3 {
+    margin-bottom: 0.5rem;
+    color: var(--color-white);
+}
+
+.bulk-offer-banner p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    margin-bottom: 1.25rem;
+}
