@@ -276,8 +276,249 @@
 
     // Run onScroll once on load to set initial states
     onScroll();
+
+    // Shuffle hero background and portfolio slides
+    shuffleHeroNodes('.hero-bg-slider', '.hero-bg-slide');
+    shuffleHeroNodes('.carousel-container', '.carousel-slide');
+
     initBgSlider();
+    initVisualCarousel();
+    initHeroParticles();
     initGaleriaAleatoria();
+
+    /* ── Shuffle Helper ─────────────────────────────────── */
+    function shuffleHeroNodes(parentSelector, childSelector) {
+        var parent = document.querySelector(parentSelector);
+        if (!parent) return;
+        var children = Array.prototype.slice.call(parent.querySelectorAll(childSelector));
+        if (children.length <= 1) return;
+        
+        // Shuffle array using Fisher-Yates
+        for (var i = children.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = children[i]; children[i] = children[j]; children[j] = tmp;
+        }
+        
+        // Remove existing slides from DOM, append in shuffled order
+        children.forEach(function (child) {
+            parent.appendChild(child);
+            child.classList.remove('active');
+        });
+        
+        // Mark first shuffled slide as active
+        children[0].classList.add('active');
+    }
+
+    /* ── Visual Carousel (Holographic Card) ──────────────── */
+    function initVisualCarousel() {
+        var container = document.querySelector('.carousel-container');
+        if (!container) return;
+        var slides = container.querySelectorAll('.carousel-slide');
+        var dots = document.querySelectorAll('.carousel-dot');
+        var prevBtn = document.querySelector('.carousel-btn--prev');
+        var nextBtn = document.querySelector('.carousel-btn--next');
+        if (slides.length <= 1) return;
+
+        var current = 0;
+        var timer = null;
+        var interval = 4000;
+
+        function goTo(index) {
+            slides[current].classList.remove('active');
+            if (dots[current]) {
+                dots[current].classList.remove('active');
+                dots[current].setAttribute('aria-selected', 'false');
+            }
+            current = ((index % slides.length) + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            if (dots[current]) {
+                dots[current].classList.add('active');
+                dots[current].setAttribute('aria-selected', 'true');
+            }
+        }
+
+        function next() { goTo(current + 1); }
+        function prev() { goTo(current - 1); }
+
+        function start() {
+            if (timer) clearInterval(timer);
+            timer = setInterval(next, interval);
+        }
+
+        function stop() {
+            if (timer) clearInterval(timer);
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function () {
+                next();
+                start();
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function () {
+                prev();
+                start();
+            });
+        }
+
+        dots.forEach(function (dot, i) {
+            dot.addEventListener('click', function () {
+                goTo(i);
+                start();
+            });
+        });
+
+        var visualArea = document.querySelector('.hero-visual');
+        if (visualArea) {
+            visualArea.addEventListener('mouseenter', stop);
+            visualArea.addEventListener('mouseleave', start);
+        }
+
+        start();
+    }
+
+    /* ── Constellation Canvas Animation ──────────────────── */
+    function initHeroParticles() {
+        var canvas = document.getElementById('hero-particles');
+        var hero = document.querySelector('.hero');
+        if (!canvas || !hero) return;
+
+        // Skip setup on mobile/tablet to conserve resources
+        if (window.innerWidth < 969) return;
+
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var numParticles = 65;
+        var mouse = { x: null, y: null, active: false };
+
+        function resizeCanvas() {
+            canvas.width = hero.offsetWidth;
+            canvas.height = hero.offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', throttle(resizeCanvas, 200));
+
+        hero.addEventListener('mousemove', function (e) {
+            var rect = hero.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+            mouse.active = true;
+        });
+
+        hero.addEventListener('mouseleave', function () {
+            mouse.active = false;
+        });
+
+        function Particle() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = (Math.random() - 0.5) * 0.4;
+            this.size = Math.random() * 2 + 1;
+            this.color = Math.random() > 0.4 ? 'rgba(200, 241, 53, 0.7)' : 'rgba(255, 255, 255, 0.7)';
+        }
+
+        Particle.prototype.update = function () {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+            if (mouse.active && mouse.x !== null && mouse.y !== null) {
+                var dx = this.x - mouse.x;
+                var dy = this.y - mouse.y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    var force = (150 - dist) / 150;
+                    var angle = Math.atan2(dy, dx);
+                    this.x += Math.cos(angle) * force * 1.5;
+                    this.y += Math.sin(angle) * force * 1.5;
+                }
+            }
+        };
+
+        Particle.prototype.draw = function () {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        };
+
+        for (var i = 0; i < numParticles; i++) {
+            particles.push(new Particle());
+        }
+
+        var animationFrameId = null;
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (var i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+
+            for (var i = 0; i < particles.length; i++) {
+                var p1 = particles[i];
+                if (mouse.active && mouse.x !== null && mouse.y !== null) {
+                    var dx = p1.x - mouse.x;
+                    var dy = p1.y - mouse.y;
+                    var dMouse = Math.sqrt(dx * dx + dy * dy);
+                    if (dMouse < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        var alpha = (150 - dMouse) / 150 * 0.15;
+                        ctx.strokeStyle = 'rgba(200, 241, 53, ' + alpha + ')';
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+
+                for (var j = i + 1; j < particles.length; j++) {
+                    var p2 = particles[j];
+                    var dx = p1.x - p2.x;
+                    var dy = p1.y - p2.y;
+                    var dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        var alpha = (120 - dist) / 120 * 0.12;
+                        ctx.strokeStyle = 'rgba(255, 255, 255, ' + alpha + ')';
+                        ctx.lineWidth = 0.4;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        if (!animationFrameId) {
+                            animate();
+                        }
+                    } else {
+                        if (animationFrameId) {
+                            cancelAnimationFrame(animationFrameId);
+                            animationFrameId = null;
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+            observer.observe(hero);
+        } else {
+            animate();
+        }
+    }
 
     /* ── 8. Galería aleatoria de trabajos ─────────────────── */
     function initGaleriaAleatoria() {
@@ -297,8 +538,8 @@
             'galeria-035.webp','galeria-036.webp','galeria-037.webp','galeria-038.webp',
             'galeria-039.webp','galeria-040.webp','galeria-041.webp','galeria-042.webp',
             'galeria-043.webp','galeria-044.webp','galeria-045.webp','galeria-046.webp',
-            'galeria-047.webp','galeria-048.webp','galeria-049.webp','galeria-050.webp',
-            'galeria-051.webp','galeria-052.webp','galeria-053.webp','galeria-054.webp',
+            'galeria-047.webp','galeria-048.webp','galeria-049.webp',
+            'galeria-053.webp','galeria-054.webp',
             'galeria-055.webp','galeria-056.webp','galeria-057.webp','galeria-058.webp',
             'galeria-059.webp','galeria-060.webp','galeria-061.webp','galeria-062.webp',
             'galeria-063.webp','galeria-064.webp','galeria-065.webp','galeria-066.webp',
