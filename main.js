@@ -523,13 +523,37 @@
 
         /* ── Click / tap → spin 360° and return ── */
         astronaut.addEventListener('click', function () {
-            if (astronaut.classList.contains('spinning')) return; // prevent double-trigger
-            astronaut.style.transform = ''; // reset flee offset before spinning
+            if (astronaut.classList.contains('spinning')) return;
+
+            var container = astronaut.closest('.astronaut-mascot-container');
+
+            // Clear any inline flee transform, pause the float container
+            astronaut.style.transform = '';
+            if (container) container.classList.add('spin-pause');
             astronaut.classList.add('spinning');
-            astronaut.addEventListener('animationend', function onSpinEnd() {
+
+            // Safety timeout (spin duration 650ms + buffer)
+            var done = false;
+            var timer = setTimeout(cleanup, 850);
+
+            function cleanup() {
+                if (done) return;
+                done = true;
+                clearTimeout(timer);
                 astronaut.classList.remove('spinning');
+                // Small delay before resuming float so it's smooth
+                setTimeout(function () {
+                    if (container) container.classList.remove('spin-pause');
+                }, 80);
                 astronaut.removeEventListener('animationend', onSpinEnd);
-            });
+            }
+
+            function onSpinEnd(e) {
+                // Only react to our spin animation, not the float on the container
+                if (e.animationName === 'spinAstronaut') cleanup();
+            }
+
+            astronaut.addEventListener('animationend', onSpinEnd);
         });
 
         window.addEventListener('mousemove', function (e) {

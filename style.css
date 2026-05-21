@@ -376,18 +376,25 @@ nav a:hover {
 }
 
 @keyframes spinAstronaut {
-    0%   { transform: rotate(0deg) scale(1.1); }
-    50%  { transform: rotate(180deg) scale(1.2); }
+    0%   { transform: rotate(0deg) scale(1); }
+    40%  { transform: rotate(200deg) scale(1.25); }
     100% { transform: rotate(360deg) scale(1); }
 }
 
+/* Pause float on the container while the image spins */
+.astronaut-mascot-container.spin-pause {
+    animation-play-state: paused !important;
+}
+
 .astronaut-mascot.spinning {
-    animation: spinAstronaut 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards !important;
+    animation: spinAstronaut 0.65s ease-in-out forwards !important;
+    transition: none !important;
     cursor: pointer;
 }
 
 .astronaut-mascot {
     cursor: pointer;
+    pointer-events: auto;
 }
 
 @media (max-width: 968px) {
@@ -419,7 +426,7 @@ nav a:hover {
     height: auto;
     object-fit: contain;
     filter: drop-shadow(0 0 25px rgba(0, 168, 255, 0.35)) drop-shadow(0 0 10px rgba(122, 0, 255, 0.2));
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* NO transition on transform — it conflicts with the spin CSS animation */
 }
 
 .hero-content {
