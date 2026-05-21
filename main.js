@@ -239,6 +239,40 @@
 
     initHeroParticles();
     initGaleriaAleatoria();
+
+    // Configurar botón de recarga de galería sin recargar la página
+    (function () {
+        var btn = document.getElementById('btn-reload-galeria');
+        if (!btn) return;
+        var icon = btn.querySelector('.reload-icon');
+        var rotating = false;
+
+        btn.addEventListener('click', function () {
+            if (rotating) return;
+            rotating = true;
+
+            // Animación del icono (giro de 360 grados)
+            if (icon) {
+                icon.style.transform = 'rotate(360deg)';
+            }
+
+            // Regenerar galería con fotos aleatorias
+            initGaleriaAleatoria();
+
+            // Resetear animación después de completar la rotación
+            setTimeout(function () {
+                if (icon) {
+                    icon.style.transition = 'none';
+                    icon.style.transform = 'rotate(0deg)';
+                    // Forzar reflow
+                    icon.offsetHeight;
+                    icon.style.transition = '';
+                }
+                rotating = false;
+            }, 600); // 600ms coincide con la duración de la transición en style.css (0.6s)
+        });
+    })();
+
     /* ── Constellation Canvas Animation ──────────────────── */
     function initHeroParticles() {
         var canvas = document.getElementById('hero-particles');
@@ -449,8 +483,8 @@
 
     /* ── 9. Lightbox para Galería de Trabajos ──────────────── */
     (function () {
-        var items = Array.from(document.querySelectorAll('.galeria-item'));
-        if (!items.length) return;
+        var grid = document.getElementById('galeria-grid');
+        if (!grid) return;
 
         // Build overlay
         var lb = document.createElement('div');
@@ -467,6 +501,8 @@
         var current   = 0;
 
         function open(index) {
+            var items = Array.from(grid.querySelectorAll('.galeria-item'));
+            if (index < 0 || index >= items.length) return;
             current = index;
             var item  = items[index];
             var src   = item.querySelector('source') ? item.querySelector('source').srcset : item.querySelector('img').src;
@@ -485,12 +521,27 @@
             lbImg.src = '';
         }
 
-        function prev() { open((current - 1 + items.length) % items.length); }
-        function next() { open((current + 1) % items.length); }
+        function prev() {
+            var items = Array.from(grid.querySelectorAll('.galeria-item'));
+            if (!items.length) return;
+            open((current - 1 + items.length) % items.length);
+        }
+        function next() {
+            var items = Array.from(grid.querySelectorAll('.galeria-item'));
+            if (!items.length) return;
+            open((current + 1) % items.length);
+        }
 
-        items.forEach(function (item, i) {
-            item.style.cursor = 'zoom-in';
-            item.addEventListener('click', function () { open(i); });
+        // Delegación de eventos en el grid
+        grid.addEventListener('click', function (e) {
+            var item = e.target.closest('.galeria-item');
+            if (item && grid.contains(item)) {
+                var items = Array.from(grid.querySelectorAll('.galeria-item'));
+                var idx = items.indexOf(item);
+                if (idx !== -1) {
+                    open(idx);
+                }
+            }
         });
 
         lb.querySelector('.lb-close').addEventListener('click', close);
