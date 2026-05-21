@@ -91,6 +91,8 @@
 
 /* Glassy form card */
 .cotizador-form-card {
+    position: relative;
+    z-index: 10;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 16px;
@@ -162,6 +164,8 @@
 
 /* Pricing Results Display */
 .cotizador-result-card {
+    position: relative;
+    z-index: 1;
     background: linear-gradient(135deg, rgba(0, 0, 82, 0.85) 0%, rgba(0, 0, 30, 0.95) 100%);
     border: 2px solid rgba(0, 255, 0, 0.3);
     border-radius: 16px;
@@ -445,6 +449,10 @@
     width: 100%;
 }
 
+.custom-select-container.open {
+    z-index: 50; /* Elevate stacking context of the open select container above siblings */
+}
+
 .custom-select-trigger {
     display: flex;
     justify-content: space-between;
@@ -485,7 +493,7 @@
     top: calc(100% + 5px);
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 40, 0.95);
+    background: #03031a; /* Solid dark background to prevent bleed-through */
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
     margin-top: 2px;

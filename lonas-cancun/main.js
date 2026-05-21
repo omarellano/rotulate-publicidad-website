@@ -109,7 +109,7 @@
     const PRICES = {
         estandar: 230,     // Lona 13 oz Latex
         mesh: 260,         // Lona Mesh perforada
-        traslucida: 290    // Lona Translúcida (Backlight)
+        traslucida: 350    // Lona Translúcida (Backlight)
     };
 
     const widthInput = document.getElementById('lona-width');
@@ -166,9 +166,9 @@
 
         // Visual labels mapping
         const typeLabels = {
-            estandar: 'Estándar 13oz HP Latex',
-            mesh: 'Mesh (Perforada)',
-            traslucida: 'Translúcida (Backlight)'
+            estandar: '13 oz Calidad HP (la confiable para todos tus trabajos de promoción o publicidad)',
+            mesh: 'Mesh (la que tiene hoyitos que dejan pasar el viento)',
+            traslucida: 'Translúcida (ideal para cajas de luz o anuncios luminosos)'
         };
 
         if (customDesignRequired) {
