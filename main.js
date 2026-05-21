@@ -521,11 +521,24 @@
         var astronaut = document.querySelector('.astronaut-mascot');
         if (!astronaut) return;
 
+        /* ── Click / tap → spin 360° and return ── */
+        astronaut.addEventListener('click', function () {
+            if (astronaut.classList.contains('spinning')) return; // prevent double-trigger
+            astronaut.style.transform = ''; // reset flee offset before spinning
+            astronaut.classList.add('spinning');
+            astronaut.addEventListener('animationend', function onSpinEnd() {
+                astronaut.classList.remove('spinning');
+                astronaut.removeEventListener('animationend', onSpinEnd);
+            });
+        });
+
         window.addEventListener('mousemove', function (e) {
             if (window.innerWidth < 969) {
                 astronaut.style.transform = '';
                 return;
             }
+            // Don't interfere while spinning
+            if (astronaut.classList.contains('spinning')) return;
 
             var rect = astronaut.getBoundingClientRect();
             var astroX = rect.left + rect.width / 2;

@@ -375,6 +375,21 @@ nav a:hover {
     }
 }
 
+@keyframes spinAstronaut {
+    0%   { transform: rotate(0deg) scale(1.1); }
+    50%  { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.astronaut-mascot.spinning {
+    animation: spinAstronaut 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards !important;
+    cursor: pointer;
+}
+
+.astronaut-mascot {
+    cursor: pointer;
+}
+
 @media (max-width: 968px) {
     .hero-overlay {
         background: linear-gradient(180deg, rgba(0, 2, 18, 0.35) 0%, rgba(0, 3, 15, 0.6) 100%);
