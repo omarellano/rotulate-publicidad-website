@@ -92,13 +92,13 @@
             position: relative;
             z-index: 10;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            padding: 1.6rem 2rem;
+            padding: 1.6rem 5%;
         }
 
         .logo-404 img {
-            height: 44px;
+            height: clamp(60px, 10vw, 110px);
             width: auto;
             display: block;
             filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5));
@@ -365,7 +365,7 @@
                 <!-- Astronaut column -->
                 <div class="astro-col">
                     <img
-                        src="/assets/astronauta_cohete.png"
+                        src="/assets/astronauta-corazon.png"
                         alt="Astronauta flotando en el espacio"
                         class="astronaut-404"
                         width="440"
