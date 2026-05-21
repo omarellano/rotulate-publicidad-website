@@ -421,14 +421,12 @@
             var tmp = allImgs[i]; allImgs[i] = allImgs[j]; allImgs[j] = tmp;
         }
 
-        // Pick 12 for display, apply masonry pattern
+        // Pick 12 for display, uniform size
         var selected = allImgs.slice(0, 12);
-        var pattern = ['galeria-tall', '', '', 'galeria-wide', '', 'galeria-tall', '', '', 'galeria-wide', '', '', ''];
         grid.textContent = '';
-        selected.forEach(function (f, i) {
-            var cls = pattern[i] ? ' ' + pattern[i] : '';
+        selected.forEach(function (f) {
             var div = document.createElement('div');
-            div.className = 'galeria-item' + cls + ' reveal';
+            div.className = 'galeria-item reveal';
             var img = document.createElement('img');
             img.src = 'assets/galeria/' + f;
             img.alt = 'Trabajo Rotulate Publicidad Cancún';
