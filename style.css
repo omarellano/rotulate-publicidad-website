@@ -737,6 +737,19 @@ a.showcase-item {
     cursor: zoom-in;
     border: 1px solid rgba(255, 255, 255, 0.06);
     transition: box-shadow 0.4s var(--ease-smooth), border-color 0.4s var(--ease-smooth);
+    background: #111111 linear-gradient(
+        90deg, 
+        rgba(255, 255, 255, 0) 0%, 
+        rgba(255, 255, 255, 0.03) 50%, 
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 
 .galeria-item:hover {

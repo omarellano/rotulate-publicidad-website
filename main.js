@@ -462,7 +462,7 @@
             var div = document.createElement('div');
             div.className = 'galeria-item reveal';
             var img = document.createElement('img');
-            img.src = 'assets/galeria/' + f;
+            img.src = 'assets/galeria/thumbs/' + f;
             img.alt = 'Trabajo Rotulate Publicidad Cancún';
             img.loading = 'lazy';
             div.appendChild(img);
@@ -505,7 +505,8 @@
             if (index < 0 || index >= items.length) return;
             current = index;
             var item  = items[index];
-            var src   = item.querySelector('source') ? item.querySelector('source').srcset : item.querySelector('img').src;
+            var gridImgSrc = item.querySelector('source') ? item.querySelector('source').srcset : item.querySelector('img').src;
+            var src   = gridImgSrc.replace('/thumbs/', '/');
             var alt   = item.querySelector('img').alt;
             var label = item.querySelector('.galeria-label');
             lbImg.src = src;
