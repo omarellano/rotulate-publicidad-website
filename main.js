@@ -516,4 +516,46 @@
         });
     })();
 
+    /* ── 10. Astronaut Mouse Flee Behavior (Desktop Only) ───── */
+    (function () {
+        var astronaut = document.querySelector('.astronaut-mascot');
+        if (!astronaut) return;
+
+        window.addEventListener('mousemove', function (e) {
+            if (window.innerWidth < 969) {
+                astronaut.style.transform = '';
+                return;
+            }
+
+            var rect = astronaut.getBoundingClientRect();
+            var astroX = rect.left + rect.width / 2;
+            var astroY = rect.top + rect.height / 2;
+
+            var deltaX = e.clientX - astroX;
+            var deltaY = e.clientY - astroY;
+            var distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            // Active radius of 200px around the astronaut
+            var radius = 200;
+
+            if (distance < radius) {
+                var strength = (radius - distance) / radius; // 0 to 1
+                var fleeDist = strength * 50; // Max 50px flee
+
+                var angle = Math.atan2(deltaY, deltaX);
+                // Move in the opposite direction (-cos, -sin)
+                var fleeX = -Math.cos(angle) * fleeDist;
+                var fleeY = -Math.sin(angle) * fleeDist;
+
+                // Add a small rotation for dynamic look
+                var rotZ = -fleeX * 0.15; // up to ~7.5 degrees
+
+                astronaut.style.transform = 'translate(' + fleeX + 'px, ' + fleeY + 'px) rotate(' + rotZ + 'deg) scale(1.05)';
+            } else {
+                astronaut.style.transform = 'translate(0px, 0px) rotate(0deg) scale(1)';
+            }
+        });
+    })();
+
 })();
+

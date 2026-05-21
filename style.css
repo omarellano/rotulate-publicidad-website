@@ -404,6 +404,7 @@ nav a:hover {
     height: auto;
     object-fit: contain;
     filter: drop-shadow(0 0 25px rgba(0, 168, 255, 0.35)) drop-shadow(0 0 10px rgba(122, 0, 255, 0.2));
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-content {
@@ -2398,8 +2399,21 @@ nav a.active::after {
 
 /* ── Service page hero ─────────────────────────────────── */
 .service-hero {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
     padding-top: 80px !important;
     box-sizing: border-box;
+}
+
+.service-hero .hero-content {
+    grid-column: unset !important;
+    max-width: 800px !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    padding: 2rem max(1.25rem, 5%) 3rem;
 }
 
 .service-hero .hero-content h1 {
@@ -2410,16 +2424,14 @@ nav a.active::after {
     line-height: 1.2;
     margin-bottom: 1rem;
     text-shadow: 0 2px 12px rgba(0,0,40,0.8);
+    text-align: center !important;
 }
 
 .service-hero .hero-content p {
     color: rgba(255, 255, 255, 0.92);
     text-shadow: 0 1px 6px rgba(0, 0, 40, 0.7);
     margin-bottom: 1.5rem;
-}
-
-.service-hero .hero-content {
-    padding: 2rem max(1.25rem, 5%) 3rem;
+    text-align: center !important;
 }
 
 /* ── Service page CTA final ────────────────────────────── */
