@@ -251,7 +251,144 @@
         }
     });
 
-    // Run initial calculation when DOM is ready
-    document.addEventListener('DOMContentLoaded', calculateQuote);
+    /* ── 5. Custom Select Logic (Mobile & Accessibility Cohesion) ── */
+    function initCustomSelects() {
+        const customSelects = document.querySelectorAll('.custom-select-container');
+        
+        customSelects.forEach(container => {
+            const trigger = container.querySelector('.custom-select-trigger');
+            const list = container.querySelector('.custom-options-list');
+            const options = container.querySelectorAll('.custom-option');
+            const selectId = container.id === 'lona-type-container' ? 'lona-type' : 'lona-design';
+            const select = document.getElementById(selectId);
+            
+            if (!trigger || !list || !select) return;
+
+            // Toggle dropdown
+            trigger.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const isOpen = container.classList.contains('open');
+                
+                // Close all other selects first
+                closeAllCustomSelects();
+                
+                if (!isOpen) {
+                    container.classList.add('open');
+                    trigger.setAttribute('aria-expanded', 'true');
+                    // Focus current selected option
+                    const selectedOpt = container.querySelector('.custom-option.selected');
+                    if (selectedOpt) {
+                        selectedOpt.focus();
+                    }
+                } else {
+                    container.classList.remove('open');
+                    trigger.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Option selection
+            options.forEach(option => {
+                // Make option keyboard-focusable
+                option.setAttribute('tabindex', '0');
+
+                function selectOption() {
+                    const value = option.getAttribute('data-value');
+                    const text = option.textContent;
+                    
+                    // Update trigger text (keep arrow)
+                    const triggerTextSpan = trigger.querySelector('span:first-child');
+                    if (triggerTextSpan) triggerTextSpan.textContent = text;
+                    
+                    // Update active classes
+                    options.forEach(opt => {
+                        opt.classList.remove('selected');
+                        opt.setAttribute('aria-selected', 'false');
+                    });
+                    option.classList.add('selected');
+                    option.setAttribute('aria-selected', 'true');
+                    
+                    // Update native select
+                    select.value = value;
+                    
+                    // Trigger change event to run recalculation
+                    const event = new Event('change', { bubbles: true });
+                    select.dispatchEvent(event);
+                    
+                    // Close list
+                    container.classList.remove('open');
+                    trigger.setAttribute('aria-expanded', 'false');
+                    trigger.focus();
+                }
+
+                option.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    selectOption();
+                });
+
+                option.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectOption();
+                    } else if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const next = option.nextElementSibling;
+                        if (next && next.classList.contains('custom-option')) {
+                            next.focus();
+                        }
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prev = option.previousElementSibling;
+                        if (prev && prev.classList.contains('custom-option')) {
+                            prev.focus();
+                        }
+                    } else if (e.key === 'Escape') {
+                        e.preventDefault();
+                        container.classList.remove('open');
+                        trigger.setAttribute('aria-expanded', 'false');
+                        trigger.focus();
+                    }
+                });
+            });
+
+            // Handle keyboard triggers on the button trigger
+            trigger.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    if (!container.classList.contains('open')) {
+                        trigger.click();
+                    } else {
+                        const selectedOpt = container.querySelector('.custom-option.selected') || container.querySelector('.custom-option');
+                        if (selectedOpt) selectedOpt.focus();
+                    }
+                }
+            });
+        });
+
+        // Close all custom selects when clicking outside
+        document.addEventListener('click', function () {
+            closeAllCustomSelects();
+        });
+
+        function closeAllCustomSelects() {
+            customSelects.forEach(container => {
+                container.classList.remove('open');
+                const trigger = container.querySelector('.custom-select-trigger');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            });
+        }
+        
+        // Close on Esc
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeAllCustomSelects();
+            }
+        });
+    }
+
+    // Run initializations when DOM is ready
+    document.addEventListener('DOMContentLoaded', function () {
+        initCustomSelects();
+        calculateQuote();
+    });
 
 })();

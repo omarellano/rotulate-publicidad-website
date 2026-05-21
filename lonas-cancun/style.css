@@ -421,3 +421,107 @@
     opacity: 0.85;
     margin-bottom: 1.25rem;
 }
+
+/* ── 6. HP Latex logo in Hero ──────────────────────────── */
+.hero-hp-logo-container {
+    margin-bottom: 1.5rem;
+}
+
+.hero-hp-logo {
+    max-height: 75px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+    transition: var(--transition-smooth);
+}
+
+.hero-hp-logo:hover {
+    transform: scale(1.05);
+}
+
+/* ── 7. Custom Select Dropdowns (Mobile Cohesion) ─────── */
+.custom-select-container {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select-trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 40, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: var(--color-white);
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    font-family: var(--font-main);
+    transition: var(--transition-smooth);
+    width: 100%;
+    cursor: pointer;
+    text-align: left;
+}
+
+.custom-select-trigger:focus {
+    outline: none;
+    border-color: var(--color-accent-lime);
+    box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.15);
+    background: rgba(0, 0, 52, 0.9);
+}
+
+.custom-select-arrow {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+    opacity: 0.7;
+    margin-left: 0.5rem;
+}
+
+.custom-select-container.open .custom-select-arrow {
+    transform: rotate(180deg);
+}
+
+.custom-options-list {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 40, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    margin-top: 2px;
+    padding: 0.5rem 0;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s var(--ease-smooth), transform 0.3s var(--ease-smooth), visibility 0.3s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+}
+
+.custom-select-container.open .custom-options-list {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.custom-option {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    color: var(--color-gray);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.custom-option:hover {
+    background: rgba(0, 255, 0, 0.1);
+    color: var(--color-accent-lime);
+}
+
+.custom-option.selected {
+    background: rgba(0, 255, 0, 0.15);
+    color: var(--color-accent-lime);
+    font-weight: 500;
+    border-left: 3px solid var(--color-accent-lime);
+}
+
