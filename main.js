@@ -276,7 +276,7 @@
     /* ── Constellation Canvas Animation ──────────────────── */
     function initHeroParticles() {
         var canvas = document.getElementById('hero-particles');
-        var hero = document.querySelector('.hero');
+        var hero = document.querySelector('.hero') || document.querySelector('.page-404');
         if (!canvas || !hero) return;
 
         // Skip setup on mobile/tablet to conserve resources
