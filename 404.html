@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es-MX">
 
 <head>
@@ -89,16 +89,14 @@
 
         /* ===== HEADER / LOGO ===== */
         .header-404 {
-            position: relative;
-            z-index: 10;
+            width: 100%;
             display: flex;
             justify-content: flex-start;
-            align-items: center;
-            padding: 1.6rem 5%;
+            margin-bottom: clamp(1.5rem, 3.5vw, 2.5rem);
         }
 
         .logo-404 img {
-            height: clamp(60px, 10vw, 110px);
+            height: clamp(42px, 7vw, 77px);
             width: auto;
             display: block;
             filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5));
@@ -277,6 +275,11 @@
                 order: 2;
             }
 
+            .header-404 {
+                justify-content: center;
+                margin-bottom: 1.5rem;
+            }
+
             .astro-col {
                 order: 1;
                 padding-bottom: 1rem;
@@ -300,10 +303,6 @@
         }
 
         @media (max-width: 480px) {
-            .header-404 {
-                padding: 1.2rem 1rem;
-            }
-
             .content-404 {
                 padding: 1rem 1rem 3rem;
             }
@@ -330,19 +329,18 @@
         <!-- Floating stars layer -->
         <div class="stars-404" id="stars-404" aria-hidden="true"></div>
 
-        <!-- Header with centered logo -->
-        <header class="header-404">
-            <a href="/" class="logo-404" aria-label="Ir al inicio — Rotulate Publicidad">
-                <img src="/assets/logo-rotulate.png" alt="Rotulate Publicidad" width="160" height="48">
-            </a>
-        </header>
-
         <!-- Main content -->
         <main class="content-404" id="main-content">
             <div class="inner-404">
 
                 <!-- Text column -->
                 <div class="text-col">
+                    <header class="header-404">
+                        <a href="/" class="logo-404" aria-label="Ir al inicio — Rotulate Publicidad">
+                            <img src="/assets/logo-rotulate.png" alt="Rotulate Publicidad" width="160" height="48">
+                        </a>
+                    </header>
+
                     <span class="error-code">Error 404</span>
 
                     <h1 class="title-404">¡Upps<span>!</span></h1>
