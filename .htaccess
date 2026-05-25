@@ -57,6 +57,12 @@
     # 6. Redirigir peticiones con parámetros de Elementor limpiando la URL
     RewriteCond %{QUERY_STRING} ^elementor_library= [NC]
     RewriteRule ^$ https://rotulatepublicidad.com/? [R=301,L]
+
+    # 7. Forzar barra diagonal al final de /lonas-cancun (evita "Error de redirección")
+    RewriteRule ^lonas-cancun$ https://rotulatepublicidad.com/lonas-cancun/ [R=301,L]
+
+    # 8. Redirigir URL antigua /sectores/ a la raíz limpia
+    RewriteRule ^sectores/?$ https://rotulatepublicidad.com/ [R=301,L]
 </IfModule>
 
 # --- Cache Control ---
