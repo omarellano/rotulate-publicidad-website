@@ -31,9 +31,23 @@
     Header unset Server
 </IfModule>
 
-# --- Force HTTPS ---
+# --- Force HTTPS & Consolidate SEO (Non-WWW & Clean Index) ---
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    
+    # 1. Redirigir WWW a Non-WWW (Consolida autoridad SEO)
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+    # 2. Redirigir index.html de la raíz a la raíz del sitio
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
+    RewriteRule ^index\.html$ https://rotulatepublicidad.com/ [R=301,L]
+
+    # 3. Redirigir index.html de subcarpetas a su respectiva ruta limpia (ej: /lonas-cancun/)
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^/]+/)*index\.html\ HTTP/
+    RewriteRule ^(([^/]+/)*)index\.html$ https://rotulatepublicidad.com/$1 [R=301,L]
+
+    # 4. Forzar HTTPS
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
