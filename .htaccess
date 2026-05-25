@@ -50,6 +50,13 @@
     # 4. Forzar HTTPS
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # 5. Redirigir URLs heredadas de WordPress/Elementor antiguas a la raíz limpia
+    RewriteRule ^home-b2/?$ https://rotulatepublicidad.com/ [R=301,L]
+
+    # 6. Redirigir peticiones con parámetros de Elementor limpiando la URL
+    RewriteCond %{QUERY_STRING} ^elementor_library= [NC]
+    RewriteRule ^$ https://rotulatepublicidad.com/? [R=301,L]
 </IfModule>
 
 # --- Cache Control ---
