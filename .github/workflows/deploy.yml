@@ -21,7 +21,9 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p 65002 157.173.209.165 >> ~/.ssh/known_hosts 2>/dev/null
+          echo "[157.173.209.165]:65002 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/TCKkjOp9IfrzYjOUmatX+OsyzSDADH2Gq86/PkDMLO7qmLGIAeYknakIeYJdDprtlmaTTUd/Vp3bil3vmdU5PnI6AgKVbZVZLcwUT6nlU7WlpzuTykYaAyQxlpHIDvHo5tJkmopa7h2baT2RtrYdmQBHFEnCLY4ACp4S52QUZzVZMM/1iKjs4el9PZhTWu9hV/L6jVW86FVLVKoiYupIROHEolQbiL1Fu8QsY+ufHYj5UGyvlepjkScka7oGXQuNj9PdYMs+o82vw+vL6vX0MNWt36bYEl65BJTvqhoznNX6M/pX1dQdtFxoImlGi39tDpVlPfuSHG8y76/pZiZX/CkzlKcGnL72kaS8qcQ8xT7UAsNVYStWWwlKrPOkiO2NzdzHKzOEUk8orDkU0zb2C5XwDfaRL05yCBFOsOdx0j6dyQ7vJ1o6crlSbSQW6UDoYLXgkXkEMI2l9QivAJ3BnhUbKXCbpE8zfPTsPAgba1U2Z0Qec1bYEEQTFGU3pyU=" >> ~/.ssh/known_hosts
+          echo "[157.173.209.165]:65002 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBwUIwwRwS3/HsLYHimZ87m5orHtvlZDbNzu+iZpPpVni+7FFMCRaGuvnX1Zrd222vJaK1vie3Aujc3wmSAEyqo=" >> ~/.ssh/known_hosts
+          echo "[157.173.209.165]:65002 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGMEdxwrS1c2Jv3nW63liD8H71IvUCHEPEaffhfSYQYW" >> ~/.ssh/known_hosts
 
       - name: Deploy via rsync over SSH
         run: |
