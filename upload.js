@@ -4,14 +4,13 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Verify and obtain Firebase references
-    if (typeof firebase === 'undefined') {
-        console.error('Firebase SDK not loaded. Form will not operate.');
+    // 1. Verify and obtain Supabase reference
+    if (typeof window.supabaseClient === 'undefined') {
+        console.error('Supabase Client not initialized. Form will not operate.');
         return;
     }
 
-    const db = firebase.firestore();
-    const storage = firebase.storage();
+    const supabase = window.supabaseClient;
 
     // 2. Initialize EmailJS
     const EMAILJS_PUBLIC_KEY = "Rn8OVcLm0OQq3lrLQ";
@@ -205,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const uploadedFileUrls = [];
 
         try {
-            // Step 1: Upload files to Firebase Storage (if any selected)
+            // Step 1: Upload files to Supabase Storage (if any selected)
             if (selectedFiles.length > 0) {
                 progressWrap.style.display = 'flex';
                 
@@ -216,46 +215,51 @@ document.addEventListener('DOMContentLoaded', () => {
                     const sanitizedName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
                     const fileName = `${timestamp}_${sanitizedName}`;
                     
-                    // Upload explicitly to `/cotizaciones/` folder which has open write rules
-                    const storageRef = storage.ref(`cotizaciones/${fileName}`);
-                    const uploadTask = storageRef.put(file);
+                    updateProgress(50, `Subiendo: ${file.name}`);
+                    
+                    const { data, error: uploadError } = await supabase.storage
+                        .from('cotizaciones')
+                        .upload(fileName, file, {
+                            cacheControl: '3600',
+                            upsert: false
+                        });
 
-                    await new Promise((resolve, reject) => {
-                        uploadTask.on('state_changed', 
-                            (snapshot) => {
-                                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                updateProgress(progress, `Subiendo: ${file.name}`);
-                            }, 
-                            (error) => {
-                                console.error(`Error uploading ${file.name}:`, error);
-                                reject(new Error(`Error al subir ${file.name}. Inténtalo de nuevo.`));
-                            }, 
-                            async () => {
-                                const url = await uploadTask.snapshot.ref.getDownloadURL();
-                                uploadedFileUrls.push({ name: file.name, url: url });
-                                resolve();
-                            }
-                        );
-                    });
+                    if (uploadError) {
+                        console.error(`Error uploading ${file.name}:`, uploadError);
+                        throw new Error(`Error al subir ${file.name}. Inténtalo de nuevo.`);
+                    }
+
+                    // Get public URL
+                    const { data: urlData } = supabase.storage
+                        .from('cotizaciones')
+                        .getPublicUrl(fileName);
+
+                    uploadedFileUrls.push({ name: file.name, url: urlData.publicUrl });
+                    updateProgress(100, `Completado: ${file.name}`);
                 }
                 
                 // Hide progress bar once done
                 progressWrap.style.display = 'none';
             }
 
-            // Step 2: Save metadata to Firestore (write-only rules allow create)
+            // Step 2: Save metadata to Supabase Database
             const leadData = {
                 nombre,
                 email,
                 telefono: telefono || 'No proporcionado',
                 servicio,
                 mensaje: mensaje || 'Sin mensaje adicional',
-                archivos: uploadedFileUrls,
-                fecha: firebase.firestore.FieldValue.serverTimestamp(),
-                estado: 'nuevo'
+                archivos: uploadedFileUrls
             };
 
-            await db.collection('cotizaciones').add(leadData);
+            const { error: dbError } = await supabase
+                .from('cotizaciones')
+                .insert([leadData]);
+
+            if (dbError) {
+                console.error('Database insert failed:', dbError);
+                throw new Error('Error al registrar la cotización. Inténtalo de nuevo.');
+            }
 
             // Step 3: Trigger real-time EmailJS notification
             if (typeof emailjs !== 'undefined') {
@@ -283,6 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderFileList();
 
             if (window.dataLayer) {
+                window.dataLayer.push({ event: 'cotizacion_supabase_ok' });
                 window.dataLayer.push({ event: 'cotizacion_firebase_ok' });
             }
 
