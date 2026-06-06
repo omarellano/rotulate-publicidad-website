@@ -12,3 +12,6 @@
 
 # Dependencies (si luego se usa npm)
 node_modules/
+
+# Supabase CLI temp files
+supabase/
