@@ -27,15 +27,26 @@ jobs:
 
       - name: Deploy via rsync over SSH
         run: |
-          rsync -avz \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='README.md' \
-            --exclude='CLAUDE.md' \
-            --exclude='.gitignore' \
-            --exclude='LICENSE' \
-            -e "ssh -p 65002 -i ~/.ssh/deploy_key" \
-            . u944947843@157.173.209.165:domains/rotulatepublicidad.com/public_html/
+          # Hostinger bloquea intermitentemente las IPs de GitHub: reintentar
+          # hasta 6 veces con ConnectTimeout corto en lugar de fallar al primero
+          for i in 1 2 3 4 5 6; do
+            if rsync -avz \
+              --exclude='.git' \
+              --exclude='.github' \
+              --exclude='README.md' \
+              --exclude='CLAUDE.md' \
+              --exclude='.gitignore' \
+              --exclude='LICENSE' \
+              -e "ssh -p 65002 -i ~/.ssh/deploy_key -o ConnectTimeout=20" \
+              . u944947843@157.173.209.165:domains/rotulatepublicidad.com/public_html/; then
+              echo "Deploy exitoso en el intento $i"
+              exit 0
+            fi
+            echo "Intento $i falló; esperando 30s antes de reintentar..."
+            sleep 30
+          done
+          echo "Deploy falló tras 6 intentos"
+          exit 1
 
       - name: Cleanup SSH key
         if: always()
