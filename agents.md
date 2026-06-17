@@ -55,6 +55,8 @@ Analizamos el rendimiento SEO local a partir de la carpeta `seo_performance` (da
 * **Eliminación de Cumulative Layout Shift - CLS (Fase 1):** Agregamos los atributos de `width` y `height` nativos a todos los logos del marquee deslizante de marcas proveedoras, del header, de la sección de Nosotros y del footer en [index.html](file:///C:/Users/omac_/rtmx-web/index.html) para evitar desplazamientos de pantalla durante la carga.
 * **Optimización de Peso de Imágenes (Fase 2):** Convertimos la pesada imagen de fallback `control-solar.png` (1.99 MB) en una versión JPEG optimizada `control-solar.jpg` (187 KB), logrando una reducción del 90.6%. Actualizamos las referencias de fallback y de Open Graph (OG) en [index.html](file:///C:/Users/omac_/rtmx-web/index.html), [control-solar.html](file:///C:/Users/omac_/rtmx-web/control-solar.html) y [control-solar-en.html](file:///C:/Users/omac_/rtmx-web/control-solar-en.html).
 * **Limpieza de Archivos Huérfanos (Fase 2):** Eliminamos de la carpeta de assets más de 12 MB de imágenes y capturas antiguas sin uso en el código (`carrusel_X.png`/`carrusel_X.webp`), agilizando el peso de los deploys.
+* **Corrección de Galería y Permisos (Deploy Local):** Diagnosticamos y corregimos el problema con las imágenes de la galería y logos que retornaban 404/403 debido a que `scp -r` de Windows establece permisos `700` en carpetas remotas. Reestablecimos `755`/`644` de forma remota y modificamos el script `deploy-local.ps1` para realizar la corrección automática de permisos vía SSH tras cada despliegue.
+* **Limpieza de Sintaxis HTML:** Eliminamos una etiqueta de cierre `</section>` duplicada e inválida en `index.html` (línea 480) que quedaba huérfana tras la galería de trabajos.
 
 ---
 
@@ -130,7 +132,7 @@ Hoy trabajamos en el análisis SEO local del sitio, la expansión para capturar 
 
 ## 📌 Estado Actual
 
-* **Despliegue:** 100% operativo. Último deploy exitoso: 12 de junio de 2026 (commit `d90888a`, attempt 2 tras timeout transitorio).
+* **Despliegue:** 100% operativo. Despliegue local y de producción validado con éxito el 17 de junio de 2026 (últimos ajustes para solucionar permisos remotos y sintaxis HTML en commit `b71d404`).
 * **Conexión a Supabase:** Integración completada y activa. El formulario escribe datos de forma segura en la nueva tabla `cotizaciones_web` y los archivos se suben al bucket público `cotizaciones`.
 * **Ajustes de Formulario:** Se corrigieron los problemas del honeypot (evitando autocompletados no deseados de navegadores) y se aisló el flujo de EmailJS en `upload.js` para evitar fallos globales en caso de errores en la notificación por correo.
 * **URLs funcionales en producción:**
