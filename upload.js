@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         // A. Honeypot anti-spam check
-        const honeypot = document.getElementById('website-url')?.value;
+        const honeypot = document.getElementById('form-temp-verify')?.value;
         if (honeypot) {
             console.warn('Submission blocked: Honeypot field was filled.');
             return; // Abort silently
@@ -263,18 +263,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Step 3: Trigger real-time EmailJS notification
             if (typeof emailjs !== 'undefined') {
-                const templateParams = {
-                    from_name: nombre,
-                    from_email: email,
-                    phone: telefono || 'No proporcionado',
-                    service: servicio,
-                    message_details: mensaje || 'Sin mensaje adicional',
-                    file_links: uploadedFileUrls.length > 0 
-                        ? uploadedFileUrls.map(f => `${f.name}: ${f.url}`).join('\n') 
-                        : 'Sin archivos adjuntos'
-                };
+                try {
+                    const templateParams = {
+                        from_name: nombre,
+                        from_email: email,
+                        phone: telefono || 'No proporcionado',
+                        service: servicio,
+                        message_details: mensaje || 'Sin mensaje adicional',
+                        file_links: uploadedFileUrls.length > 0 
+                            ? uploadedFileUrls.map(f => `${f.name}: ${f.url}`).join('\n') 
+                            : 'Sin archivos adjuntos'
+                    };
 
-                await emailjs.send("service_n44qqee", "template_wxr3rqu", templateParams);
+                    await emailjs.send("service_n44qqee", "template_wxr3rqu", templateParams);
+                    console.log('EmailJS notification sent successfully.');
+                } catch (emailError) {
+                    console.error('EmailJS notification failed to send:', emailError);
+                    // We do not throw the error here, so the user still gets the success screen
+                    // since the data has already been saved to Supabase.
+                }
             }
 
             // Step 4: Show Success Screen
