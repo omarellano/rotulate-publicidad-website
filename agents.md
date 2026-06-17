@@ -29,6 +29,11 @@ Analizamos el rendimiento SEO local a partir de la carpeta `seo_performance` (da
 ### 4. 🗺️ Actualización del Sitemap
 * Sincronizamos las fechas `<lastmod>` a `2026-06-17` en `sitemap.xml` para los 7 archivos modificados.
 
+### 5. 🇺🇸 Optimización de la Versión en Inglés (`/express/en/`)
+* **Interconexión (Hreflang & Switcher):** Añadimos etiquetas cruzadas `hreflang` en la landing Express de español e inglés, y creamos enlaces directos del selector de idioma (botón `🇺🇸 EN` con acento lima en la cabecera principal e `Español` en el menú en inglés). Esto resuelve el problema de "página huérfana" y transfiere autoridad SEO.
+* **Marcado Estructurado:** Creamos e inyectamos los esquemas estructurados JSON-LD en inglés para `LocalBusiness` y `FAQPage` en `express/en/index.html`.
+* **Sección Visual de FAQ:** Diseñamos y agregamos una sección de preguntas frecuentes directamente en el HTML de la página en inglés para resolver dudas de clientes internacionales sobre envío de archivos, métodos de pago y entregas en resorts.
+
 ---
 
 ## 📅 Resumen de la Sesión (12 de Junio, 2026)
