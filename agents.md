@@ -2,6 +2,33 @@
 
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro.
 
+---## 📅 Resumen de la Sesión (17 de Junio, 2026)
+
+Analizamos el rendimiento SEO local a partir de la carpeta `seo_performance` (datos de GSC de marzo-juni de 2026) y ejecutamos las mejoras pendientes de metadatos locales y datos estructurados.
+
+### 1. 🔍 Análisis de Rendimiento SEO (GSC)
+* **Tendencia:** Crecimiento sólido de ~15-20 impresiones/día en marzo a 80-125 impresiones/día en junio.
+* **Páginas Clave:** `/express/` y `/` lideran el tráfico. `/lonas-cancun/` tiene alta visibilidad pero bajísimo CTR (0.86%), y varias páginas de servicios clave tienen 0 clics (están en las posiciones 7-10).
+* **Oportunidades:** El tráfico de EE. UU. representa 417 impresiones sin clics, validando la landing en inglés. Los "Fragmentos de productos" generan 319 impresiones con CTR de 0.63% debido a la falta de estructuración enriquecida.
+* Creamos el reporte completo en [reporte_rendimiento_seo.md](file:///C:/Users/omac_/.gemini/antigravity-cli/brain/8605a08a-562f-4e3b-9ef0-c0619e239f2d/reporte_rendimiento_seo.md).
+
+### 2. ✍️ Optimización de Metadatos Locales
+* Modificamos títulos y meta descripciones en 6 landing pages de servicios clave para enfocar la búsqueda local en Cancún, agregar ganchos comerciales ("desde $230/m²", "entrega express", "garantía", "iluminación LED") y aumentar el CTR orgánico:
+  * `/rotulacion-vehicular.html`
+  * `/toldos.html`
+  * `/gran-formato.html`
+  * `/letras-3d.html`
+  * `/anuncios-luminosos.html`
+  * `/lonas-cancun/index.html`
+
+### 3. 🏷️ Marcado Estructurado Enriquecido (Rich Snippets)
+* **Lonas Cancún (`/lonas-cancun/index.html`):** Cambiamos el marcado estructurado de `Service` a un `Product` principal ("Impresión de Lonas Publicitarias en Cancún") con un `AggregateOffer` (especificando el rango de precios de $230 a $350 MXN) y `aggregateRating` (5.0 estrellas basadas en 4 valoraciones del perfil de negocio).
+* **Control Solar (`/control-solar.html`):** Añadimos el `aggregateRating` del negocio a cada una de las 6 líneas de películas de control solar 3M en el catálogo.
+* Esto resolverá las advertencias en Google Search Console y permitirá mostrar estrellas doradas y rangos de precio directamente en los resultados de búsqueda.
+
+### 4. 🗺️ Actualización del Sitemap
+* Sincronizamos las fechas `<lastmod>` a `2026-06-17` en `sitemap.xml` para los 7 archivos modificados.
+
 ---
 
 ## 📅 Resumen de la Sesión (12 de Junio, 2026)
@@ -93,11 +120,5 @@ Si vas a continuar trabajando en este proyecto, te sugerimos enfocarte en las si
 
 1. **⚙️ Integrar Lectura de Cotizaciones en el Admin (`rtmx-cotizador`):**
    * Dado que la tabla y bucket `cotizaciones` ya están en el mismo Supabase centralizado, añade una sección en el panel admin para ver las cotizaciones entrantes del sitio público, asignarlas a asesores y convertirlas en órdenes de trabajo.
-2. **✍️ Optimización de Metadatos de Servicios (SEO Local):**
-   * Las páginas `/rotulacion-vehicular.html`, `/toldos.html`, `/gran-formato.html` y `/letras-3d.html` tienen impresiones en GSC pero 0 clics (están en páginas 2 y 3).
-   * Modifica sus `title` y `meta description` para hacerlos más atractivos y orientados a búsquedas locales de Cancún (ej. "Rotulación Vehicular en Cancún | Vinil para Autos y Flotillas").
-3. **🏷️ Auditoría de Schema Markup (Fragmentos de Producto):**
-   * El Search Console reporta 99 impresiones con 0% de CTR en "Fragmentos de productos". Revisa el JSON-LD de marcado estructurado en `index.html` para asegurar que los precios, imágenes y descripciones de los productos se estén mostrando correctamente en el motor de búsqueda.
-   * *Avance (12-jun-2026):* `control-solar.html` ya tiene `OfferCatalog` con productos 3M (marca + imagen) y schema `FAQPage`. Falta replicar el patrón en las demás páginas de servicio y validar en GSC/Rich Results una vez reindexado.
-4. **🇬🇧 Expansión del Contenido en Inglés:**
+2. **🇬🇧 Expansión del Contenido en Inglés:**
    * Si la landing page `/express/en/` empieza a reportar clics orgánicos, evalúa traducir o crear landings específicas en inglés para eventos corporativos y bodas de destino en Cancún (ej. banners, displays tipo araña, stands).
