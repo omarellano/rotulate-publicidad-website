@@ -27,4 +27,9 @@ scp -i $keyPath -P 65002 -o StrictHostKeyChecking=no `
 Write-Host "Subiendo carpetas assets y express..." -ForegroundColor Yellow
 scp -r -i $keyPath -P 65002 -o StrictHostKeyChecking=no assets express $remoteDest
 
-Write-Host "¡Despliegue completado con éxito directo a Hostinger!" -ForegroundColor Green
+# Corregir permisos en el servidor remoto (Windows scp sube carpetas con permisos restrictivos 700)
+Write-Host "Corrigiendo permisos de archivos (644) y carpetas (755) en el servidor remoto..." -ForegroundColor Yellow
+ssh -i $keyPath -p 65002 -o StrictHostKeyChecking=no u944947843@157.173.209.165 "find domains/rotulatepublicidad.com/public_html/ -type d -exec chmod 755 {} +; find domains/rotulatepublicidad.com/public_html/ -type f -exec chmod 644 {} +"
+
+Write-Host "¡Despliegue completado con éxito directo a Hostinger y permisos corregidos!" -ForegroundColor Green
+
