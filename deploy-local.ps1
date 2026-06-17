@@ -23,9 +23,9 @@ scp -i $keyPath -P 65002 -o StrictHostKeyChecking=no `
     rotulacion-tradicional.html 404.html agents.md `
     $remoteDest
 
-# Copiar carpetas completas (Assets y Express)
-Write-Host "Subiendo carpetas assets y express..." -ForegroundColor Yellow
-scp -r -i $keyPath -P 65002 -o StrictHostKeyChecking=no assets express $remoteDest
+# Copiar carpetas completas (Assets, Express y Lonas Cancún)
+Write-Host "Subiendo carpetas assets, express y lonas-cancun..." -ForegroundColor Yellow
+scp -r -i $keyPath -P 65002 -o StrictHostKeyChecking=no assets express lonas-cancun $remoteDest
 
 # Corregir permisos en el servidor remoto (Windows scp sube carpetas con permisos restrictivos 700)
 Write-Host "Corrigiendo permisos de archivos (644) y carpetas (755) en el servidor remoto..." -ForegroundColor Yellow
