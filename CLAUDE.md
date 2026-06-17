@@ -50,11 +50,11 @@ Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulació
 - **WhatsApp:** Botón flotante en el sitio
 - **Formulario:** Conectado a Formspree
 
-## Estado Actual (2026-06-12)
+## Estado Actual (2026-06-17)
 - **Branch activo:** `main`
-- **Último cambio:** Se integró el catálogo de películas de control solar 3M en `control-solar.html`: sección de líneas de producto (Prestige, Ceramic, Neutral, Night Vision, Silver P18, Prestige Exterior) con fotos WebP extraídas del PDF del catálogo, sección "¿Cómo funciona?", FAQ ampliado, PDF descargable (`assets/catalogo-3m-control-solar.pdf`) y schema `OfferCatalog` + `FAQPage`. Desplegado y verificado en producción.
+- **Último cambio:** Optimización SEO local y enriquecimiento de schemas (estrellas y ofertas) en 6 páginas de servicio, lanzamiento de la versión en inglés de control solar (`control-solar-en.html`), e interconexión internacional mediante tags hreflang y selectores de idioma en el header sin estilos inline de color.
 - **SEO:** El detalle del plan SEO y el backlog viven en `agents.md` (resúmenes por sesión + próximos pasos). Los datos de Search Console están en `rotulatepublicidad.com-Performance-on-Search-2026-06-05/`.
-- **Pendiente:** Replicar el patrón de schema de producto en las demás páginas de servicio y mejorar titles/descriptions de las páginas con 0 clics en GSC (ver backlog en `agents.md`).
+- **Pendiente:** Integrar la lectura de cotizaciones en el panel admin `rtmx-cotizador` y monitorear la tracción del tráfico en inglés para la expansión de banners/displays corporativos.
 
 ## Historial de Decisiones
 - Se descartó usar GitHub Actions de FTP de terceros (SamKirkland, etc.) porque no funcionaban con la config de Hostinger
@@ -62,6 +62,9 @@ Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulació
 - Cotizaciones migradas de Firebase a Supabase (jun-2026); ver `agents.md` y `supabase_setup.sql`
 - El sitio es 100% estático, sin framework ni build step
 - El contenido de catálogos de proveedores (ej. 3M) se integra como HTML indexable + imágenes WebP optimizadas, no como imágenes de slides completas
+
+## Reglas de Desarrollo (Obligatorio)
+- **Documentación post-implementación:** Después de cada implementación, cambio, corrección o mejora en el código, es obligatorio documentar de inmediato las modificaciones y el estado en el archivo `agents.md`. Esto sirve como bitácora y registro de transferencia para futuros desarrollos.
 
 ## Estilo y Marca
 - Todo diseño nuevo debe seguir el estilo existente del sitio: tema oscuro glassmorphism (`rgba(255,255,255,0.04)` en cards), acento lima `#C8F135` (`.text-accent-lime`), tipografía Space Grotesk, y reutilizar clases existentes (`.section-title`, `.faq-item`, `.cta-button`, etc.)
