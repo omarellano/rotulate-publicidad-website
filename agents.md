@@ -57,6 +57,8 @@ Analizamos el rendimiento SEO local a partir de la carpeta `seo_performance` (da
 * **Limpieza de Archivos Huérfanos (Fase 2):** Eliminamos de la carpeta de assets más de 12 MB de imágenes y capturas antiguas sin uso en el código (`carrusel_X.png`/`carrusel_X.webp`), agilizando el peso de los deploys.
 * **Corrección de Galería y Permisos (Deploy Local):** Diagnosticamos y corregimos el problema con las imágenes de la galería y logos que retornaban 404/403 debido a que `scp -r` de Windows establece permisos `700` en carpetas remotas. Reestablecimos `755`/`644` de forma remota y modificamos el script `deploy-local.ps1` para realizar la corrección automática de permisos vía SSH tras cada despliegue.
 * **Limpieza de Sintaxis HTML:** Eliminamos una etiqueta de cierre `</section>` duplicada e inválida en `index.html` (línea 480) que quedaba huérfana tras la galería de trabajos.
+* **Expansión de Versión en Inglés para Eventos y Bodas (Fase 2):** Añadimos 3 nuevas tarjetas en la cuadrícula de servicios de la landing `/express/en/index.html` enfocadas en "Corporate Events", "Destination Weddings" y "Resort Delivery", inyectamos 2 nuevas FAQs de soporte al cliente internacional y las sincronizamos con el esquema estructurado JSON-LD FAQPage en la cabecera.
+* **Corrección Global de Cumulative Layout Shift (CLS):** Agregamos atributos `width="160"` y `height="48"` con `loading="lazy"` al logo de Rotúlate en el pie de página (`footer-logo-img`) de los 11 archivos de servicios y landings independientes, eliminando por completo cualquier desplazamiento visual del footer durante la carga.
 
 ---
 
@@ -132,7 +134,7 @@ Hoy trabajamos en el análisis SEO local del sitio, la expansión para capturar 
 
 ## 📌 Estado Actual
 
-* **Despliegue:** 100% operativo. Despliegue local y de producción validado con éxito el 17 de junio de 2026 (últimos ajustes para solucionar permisos remotos y sintaxis HTML en commit `b71d404`).
+* **Despliegue:** 100% operativo. Despliegue local y de producción validado con éxito el 17 de junio de 2026 (últimos ajustes para solucionar permisos remotos, expansión en inglés, y correcciones globales de CLS en commit `b30912e`).
 * **Conexión a Supabase:** Integración completada y activa. El formulario escribe datos de forma segura en la nueva tabla `cotizaciones_web` y los archivos se suben al bucket público `cotizaciones`.
 * **Ajustes de Formulario:** Se corrigieron los problemas del honeypot (evitando autocompletados no deseados de navegadores) y se aisló el flujo de EmailJS en `upload.js` para evitar fallos globales en caso de errores en la notificación por correo.
 * **URLs funcionales en producción:**
