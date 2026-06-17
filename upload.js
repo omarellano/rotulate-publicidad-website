@@ -119,11 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
             item.innerHTML = `
                 <span class="ufi-icon">${getFileIcon(ext)}</span>
                 <div class="ufi-info">
-                    <strong>${file.name}</strong>
+                    <strong class="ufi-name"></strong>
                     <span>${sizeFormatted}</span>
                 </div>
                 <button type="button" class="ufi-remove" data-index="${index}" aria-label="Remover archivo">✕</button>
             `;
+            item.querySelector('.ufi-name').textContent = file.name;
             fileListDisplay.appendChild(item);
         });
 

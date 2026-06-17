@@ -49,6 +49,11 @@ Analizamos el rendimiento SEO local a partir de la carpeta `seo_performance` (da
 * **Honeypot de Spambots:** Renombramos el campo honeypot de `website-url` a `form-temp-verify` en `index.html` y `upload.js` para evitar que los autocompletados del navegador lo llenaran por error.
 * **EmailJS:** Envolvimos el envío de correos en un bloque `try-catch` independiente en `upload.js` para que las fallas de EmailJS no bloqueen la pantalla de confirmación del usuario una vez guardados los datos en Supabase.
 
+### 8. 🛡️ Auditoría e Implementación de Seguridad y UX (Fase 1)
+* **Auditoría Integral:** Realizamos una auditoría profunda de velocidad, UX y seguridad documentada en [speed_ux_security_audit.md](file:///C:/Users/omac_/.gemini/antigravity-cli/brain/8605a08a-562f-4e3b-9ef0-c0619e239f2d/speed_ux_security_audit.md).
+* **Corrección de Vulnerabilidad DOM XSS:** Modificamos la inyección del nombre del archivo seleccionado en [upload.js](file:///C:/Users/omac_/rtmx-web/upload.js) reemplazando la inyección directa por asignación segura vía `textContent` en vez de `innerHTML`.
+* **Eliminación de Cumulative Layout Shift (CLS):** Agregamos los atributos de `width` y `height` nativos a todos los logos del marquee deslizante de marcas proveedoras, del header, de la sección de Nosotros y del footer en [index.html](file:///C:/Users/omac_/rtmx-web/index.html) para evitar desplazamientos de pantalla durante la carga.
+
 ---
 
 ## 📅 Resumen de la Sesión (12 de Junio, 2026)
