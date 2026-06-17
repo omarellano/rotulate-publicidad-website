@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             const { error: dbError } = await supabase
-                .from('cotizaciones')
+                .from('cotizaciones_web')
                 .insert([leadData]);
 
             if (dbError) {

@@ -43,9 +43,11 @@ Analizamos el rendimiento SEO local a partir de la carpeta `seo_performance` (da
 * **Marcado Estructurado:** Creamos el esquema JSON-LD en inglés para el servicio y las 6 líneas de producto 3M, enriquecido con la valoración de 5.0 estrellas.
 
 ### 7. 🛠️ Diagnóstico y Corrección de Formulario de Contacto
-* **Diagnóstico de Supabase Storage:** Confirmamos que el bucket `cotizaciones` no existía físicamente en el Storage de Supabase (retornando error 404). El usuario procederá a crearlo en su dashboard.
-* **Honeypot de Spambots:** Renombramos el campo honeypot de `website-url` a `form-temp-verify` en `index.html` y `upload.js` para evitar que los autocompletados del navegador (Chrome, Bitwarden, etc.) lo llenen por error y bloqueen los envíos legítimos.
-* **EmailJS:** Envolvimos el envío de correos en un bloque `try-catch` independiente para que las fallas transitorias de notificación de correo no invaliden ni bloqueen la pantalla de confirmación exitosa cuando los datos ya se insertaron correctamente en Supabase.
+* **Diagnóstico de Supabase Storage:** Confirmamos que el bucket `cotizaciones` no existía físicamente en el Storage de Supabase (retornando error 404). El usuario procedió a crearlo en su dashboard.
+* **Conflicto de Tabla del Admin Panel:** Detectamos que la tabla `cotizaciones` ya existía en la base de datos de producción porque es la tabla principal del ERP/admin panel (`rtmx-cotizador`), con dependencias activas (artículos, órdenes, facturas).
+* **Solución de Aislamiento:** Redirigimos el formulario web para escribir en una nueva tabla independiente `cotizaciones_web` en `upload.js`, evitando alterar la estructura del ERP.
+* **Honeypot de Spambots:** Renombramos el campo honeypot de `website-url` a `form-temp-verify` en `index.html` y `upload.js` para evitar que los autocompletados del navegador lo llenaran por error.
+* **EmailJS:** Envolvimos el envío de correos en un bloque `try-catch` independiente en `upload.js` para que las fallas de EmailJS no bloqueen la pantalla de confirmación del usuario una vez guardados los datos en Supabase.
 
 ---
 
@@ -122,7 +124,7 @@ Hoy trabajamos en el análisis SEO local del sitio, la expansión para capturar 
 ## 📌 Estado Actual
 
 * **Despliegue:** 100% operativo. Último deploy exitoso: 12 de junio de 2026 (commit `d90888a`, attempt 2 tras timeout transitorio).
-* **Conexión a Supabase:** Integración completada y activa. El formulario escribe datos de forma segura en la base de datos de Supabase. La subida de archivos requiere que el usuario cree el bucket `cotizaciones` en su panel de administración de Supabase.
+* **Conexión a Supabase:** Integración completada y activa. El formulario escribe datos de forma segura en la nueva tabla `cotizaciones_web` y los archivos se suben al bucket público `cotizaciones`.
 * **Ajustes de Formulario:** Se corrigieron los problemas del honeypot (evitando autocompletados no deseados de navegadores) y se aisló el flujo de EmailJS en `upload.js` para evitar fallos globales en caso de errores en la notificación por correo.
 * **URLs funcionales en producción:**
   * Inicio Español: [https://rotulatepublicidad.com/](https://rotulatepublicidad.com/)
