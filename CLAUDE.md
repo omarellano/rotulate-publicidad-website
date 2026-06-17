@@ -50,11 +50,9 @@ Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulació
 - **WhatsApp:** Botón flotante en el sitio
 - **Formulario:** Conectado a Formspree
 
-## Estado Actual (2026-06-17)
+## Estado de Proyecto & Bitácora
+- **Fuente única de verdad:** Para evitar la duplicación de información, toda la documentación activa sobre el estado de desarrollo, historial de cambios en cada sesión, notas de investigación y backlog de tareas pendientes residen **exclusivamente** en el archivo [agents.md](file:///C:/Users/omac_/rtmx-web/agents.md).
 - **Branch activo:** `main`
-- **Último cambio:** Optimización SEO local y enriquecimiento de schemas (estrellas y ofertas) en 6 páginas de servicio, lanzamiento de la versión en inglés de control solar (`control-solar-en.html`), e interconexión internacional mediante tags hreflang y selectores de idioma en el header sin estilos inline de color.
-- **SEO:** El detalle del plan SEO y el backlog viven en `agents.md` (resúmenes por sesión + próximos pasos). Los datos de Search Console están en `rotulatepublicidad.com-Performance-on-Search-2026-06-05/`.
-- **Pendiente:** Integrar la lectura de cotizaciones en el panel admin `rtmx-cotizador` y monitorear la tracción del tráfico en inglés para la expansión de banners/displays corporativos.
 
 ## Historial de Decisiones
 - Se descartó usar GitHub Actions de FTP de terceros (SamKirkland, etc.) porque no funcionaban con la config de Hostinger
@@ -64,7 +62,8 @@ Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulació
 - El contenido de catálogos de proveedores (ej. 3M) se integra como HTML indexable + imágenes WebP optimizadas, no como imágenes de slides completas
 
 ## Reglas de Desarrollo (Obligatorio)
-- **Documentación post-implementación:** Después de cada implementación, cambio, corrección o mejora en el código, es obligatorio documentar de inmediato las modificaciones y el estado en el archivo `agents.md`. Esto sirve como bitácora y registro de transferencia para futuros desarrollos.
+- **Bitácora Única (Evitar Duplicaciones):** Es obligatorio documentar todos los cambios y actualizaciones de estado únicamente en [agents.md](file:///C:/Users/omac_/rtmx-web/agents.md) al final de cada sesión. `CLAUDE.md` se reserva estrictamente para guías técnicas y de estilo.
+- **Documentación post-implementación:** Después de cada implementación, cambio, corrección o mejora en el código, es obligatorio actualizar el log de cambios en el archivo `agents.md`.
 
 ## Estilo y Marca
 - Todo diseño nuevo debe seguir el estilo existente del sitio: tema oscuro glassmorphism (`rgba(255,255,255,0.04)` en cards), acento lima `#C8F135` (`.text-accent-lime`), tipografía Space Grotesk, y reutilizar clases existentes (`.section-title`, `.faq-item`, `.cta-button`, etc.)
