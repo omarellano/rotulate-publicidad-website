@@ -167,7 +167,7 @@ Hoy trabajamos en el análisis SEO local del sitio, la expansión para capturar 
 
 ## 📌 Estado Actual
 
-* **Despliegue:** 100% operativo. Despliegue local y de producción validado con éxito el 17 de junio de 2026 (últimos ajustes para solucionar permisos remotos, expansión en inglés, y correcciones globales de CLS en commit `b30912e`).
+* **Despliegue:** 100% operativo. Última sesión validada en producción el 26 de junio de 2026 (mejoras SEO: enlazado interno a lonas, FAQPage schema en páginas de servicio, y nueva home en inglés `/en/` — commits `680d1b7`, `b9273cb`, `9492382`). Nota: el deploy de `680d1b7` marcó `failure` por `Connection timed out` transitorio en el puerto 65002, pero los deploys posteriores (rsync = sync completo) ya subieron esos cambios.
 * **Conexión a Supabase:** Integración completada y activa. El formulario escribe datos de forma segura en la nueva tabla `cotizaciones_web` y los archivos se suben al bucket público `cotizaciones`.
 * **Ajustes de Formulario:** Se corrigieron los problemas del honeypot (evitando autocompletados no deseados de navegadores) y se aisló el flujo de EmailJS en `upload.js` para evitar fallos globales en caso de errores en la notificación por correo.
 * **URLs funcionales en producción:**
@@ -175,6 +175,8 @@ Hoy trabajamos en el análisis SEO local del sitio, la expansión para capturar 
   * Control Solar 3M: [https://rotulatepublicidad.com/control-solar.html](https://rotulatepublicidad.com/control-solar.html)
   * Express Español: [https://rotulatepublicidad.com/express/](https://rotulatepublicidad.com/express/)
   * Express Inglés: [https://rotulatepublicidad.com/express/en/](https://rotulatepublicidad.com/express/en/)
+  * Home Inglés (nueva): [https://rotulatepublicidad.com/en/](https://rotulatepublicidad.com/en/)
+  * Lonas Cancún: [https://rotulatepublicidad.com/lonas-cancun/](https://rotulatepublicidad.com/lonas-cancun/)
 * **Documentación:** Se actualizaron este archivo [agents.md](file:///c:/Users/omac_/rtmx-web/agents.md) y el reporte de diagnóstico del formulario [diagnostic_form_report.md](file:///C:/Users/omac_/.gemini/antigravity-cli/brain/8605a08a-562f-4e3b-9ef0-c0619e239f2d/diagnostic_form_report.md). El archivo [README.md](file:///c:/Users/omac_/rtmx-web/README.md) en español y [supabase_setup.sql](file:///c:/Users/omac_/rtmx-web/supabase_setup.sql) explican la configuración inicial.
 
 ---
