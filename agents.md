@@ -4,6 +4,27 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 
 ---
 
+## 📅 Resumen de la Sesión (26 de Junio, 2026)
+
+Revisión del nuevo export de GSC (`seo_performance/`, últimos 3 meses) y acciones SEO on-page de alto valor sobre `/lonas-cancun/`.
+
+### 1. 🔍 Análisis GSC (3 meses, mar 25 – jun 24, 2026)
+* **Totales:** ~113 clics, ~4,146 impresiones, CTR ~2.7%, posición media ~7.4. Tendencia al alza clara (de ~15-30 impresiones/día en marzo a ~80-140/día en junio).
+* **Páginas top:** `/express/` (39 clics) y la home (36 clics, posición 5.78, la mejor posicionada).
+* **Mayor fuga de tráfico:** query "lonas cancun" con 185 impresiones pero solo 1 clic (CTR 0.54%, **posición 9.58**). La página `/lonas-cancun/` rankea 7.9 con CTR 1.3%. El problema no es el snippet (título/meta ya están bien optimizados con precio y urgencia) sino la **autoridad/ranking**.
+* **EE. UU.:** 633 impresiones, 0 clics (búsquedas probablemente en inglés cayendo en páginas en español).
+
+### 2. ✅ Cambios aplicados
+* **Enlazado interno (palanca #1 de ranking):** `/lonas-cancun/` solo se enlazaba desde el footer de la home. Añadimos una **tarjeta dedicada "Impresión de Lonas en Cancún"** como primera del grid de servicios en [index.html](file:///c:/Users/omac_/rtmx-web/index.html) (enlace contextual con anchor rico en keywords + imagen). Reutiliza `assets/gran-formato.webp/jpg`.
+* **Fix de FAQPage schema en `/lonas-cancun/`:** el JSON-LD `FAQPage` no coincidía con las preguntas visibles (listaba "¿Hacen envíos a domicilio?" y "¿cobro mínimo en lonas?" inexistentes en pantalla, y omitía "¿Qué lona aguanta el sol/viento?"). Sincronizamos el schema con las 5 preguntas visibles reales para cumplir las directrices de Google y no suprimir rich results.
+
+### 3. 📋 Pendiente / Backlog SEO
+* Subir `/lonas-cancun/` de posición ~9 a top 5 (más enlaces internos contextuales desde páginas de servicio relacionadas: gran-formato, anuncios-luminosos; considerar reseñas/backlocales).
+* Mejorar CTR de páginas en posición 6-10 (`anuncios-luminosos.html`: 198 impresiones, CTR 0.51%).
+* Cerrar el ciclo de EE. UU./inglés (633 impresiones, 0 clics) — `/express/` es un SPA compilado (Lovable/Vite) sin contenido en el HTML estático; evaluar landing inglés indexable.
+
+---
+
 ## 📅 Resumen de la Sesión (17 de Junio, 2026)
 
 Analizamos el rendimiento SEO local a partir de la carpeta `seo_performance` (datos de GSC de marzo-juni de 2026) y ejecutamos las mejoras pendientes de metadatos locales y datos estructurados.
