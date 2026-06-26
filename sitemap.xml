@@ -78,4 +78,10 @@
         <changefreq>weekly</changefreq>
         <priority>0.90</priority>
     </url>
+    <url>
+        <loc>https://rotulatepublicidad.com/en/</loc>
+        <lastmod>2026-06-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.90</priority>
+    </url>
 </urlset>

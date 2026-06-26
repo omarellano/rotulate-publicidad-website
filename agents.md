@@ -23,7 +23,14 @@ Revisión del nuevo export de GSC (`seo_performance/`, últimos 3 meses) y accio
 * **FAQPage JSON-LD añadido** a esas tres páginas (antes solo tenían `Service`+`LocalBusiness`; `gran-formato.html` ya tenía `FAQPage`). El schema refleja exactamente las 4 preguntas visibles de cada una. Nota: desde el cambio de política de Google (2023) los rich results de FAQ rara vez se muestran para sitios no gubernamentales/salud, así que el valor es principalmente de comprensión de entidad y consistencia, no snippet garantizado.
 * **Hallazgo que corrige la premisa de Tarea 3 (inglés):** `/express/en/` **NO es un SPA** — es HTML estático indexable (441 líneas, con schema y hreflang, ya en el sitemap). El SPA sin contenido crawleable es `/express/` **en español** (no está en el sitemap). Páginas en inglés existentes: `express/en/index.html` y `control-solar-en.html`. La infraestructura en inglés (hreflang recíproco, plantilla `control-solar-en.html`) ya está lista para replicar más landings.
 
-### 4. 📋 Pendiente / Backlog SEO
+### 4. ✅ Tarea 3: Home en inglés (`/en/`)
+* **Nueva página:** [en/index.html](file:///c:/Users/omac_/rtmx-web/en/index.html) — homepage en inglés indexable, modelada sobre `control-solar-en.html` (estática, sin reimplementar el formulario Supabase para no introducir fragilidad). Rutas **absolutas** (`/style.css`, `/assets/...`, `/main.js`, `/gtm.js`). Secciones: hero, 8 servicios (tarjetas; las que tienen versión EN enlazan a `/control-solar-en.html` y `/express/en/`), strip de marcas, proceso, nosotros, reseñas traducidas (marcadas "translated"), FAQ en inglés (7 preguntas) y CTA a WhatsApp/email. Schema: `LocalBusiness` + `WebSite` (inLanguage en) + `FAQPage`, todos válidos.
+* **hreflang recíproco:** añadido bloque en [index.html](file:///c:/Users/omac_/rtmx-web/index.html) (es→`/`, en→`/en/`, x-default→`/`). El `/en/` apunta de vuelta al español.
+* **Switch de idioma:** el link "🇺🇸 EN" del nav del home español ahora apunta a `/en/` (antes a `/express/en/`). En `/en/` el "🇪🇸 ES" apunta a `/`.
+* **Sitemap:** añadida `https://rotulatepublicidad.com/en/` (priority 0.90) en [sitemap.xml](file:///c:/Users/omac_/rtmx-web/sitemap.xml).
+* Reseñas: se tradujeron las 4 reseñas reales de Google y se etiquetaron como "(translated)" para transparencia.
+
+### 5. 📋 Pendiente / Backlog SEO
 * Subir `/lonas-cancun/` de posición ~9 a top 5 (más enlaces internos contextuales desde páginas de servicio relacionadas: gran-formato, anuncios-luminosos; considerar reseñas/backlocales).
 * Mejorar CTR de páginas en posición 6-10 (`anuncios-luminosos.html`: 198 impresiones, CTR 0.51%).
 * Cerrar el ciclo de EE. UU./inglés (633 impresiones, 0 clics) — `/express/` es un SPA compilado (Lovable/Vite) sin contenido en el HTML estático; evaluar landing inglés indexable.
