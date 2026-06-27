@@ -1639,8 +1639,8 @@ a.showcase-item {
     gap: 0.6rem;
 }
 
-.footer-nav h4,
-.footer-contact h4 {
+.footer-nav h3,
+.footer-contact h3 {
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
