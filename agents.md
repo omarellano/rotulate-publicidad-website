@@ -189,3 +189,8 @@ Si vas a continuar trabajando en este proyecto, te sugerimos enfocarte en las si
    * Dado que la tabla y bucket `cotizaciones` ya están en el mismo Supabase centralizado, añade una sección en el panel admin para ver las cotizaciones entrantes del sitio público, asignarlas a asesores y convertirlas en órdenes de trabajo.
 2. **🇬🇧 Expansión del Contenido en Inglés:**
    * Si la landing page `/express/en/` empieza a reportar clics orgánicos, evalúa traducir o crear landings específicas en inglés para eventos corporativos y bodas de destino en Cancún (ej. banners, displays tipo araña, stands).
+
+### 8. ✅ Home EN service cards
+* Converted the service cards in [en/index.html](file:///C:/Users/omac_/rtmx-web/en/index.html) into real click targets.
+* Added seven new English landings for the services that previously only existed in Spanish: vehicle wraps, illuminated signs, large format printing, 3D letters, alucobond facades, awnings, and neon flex.
+* Added reciprocal `hreflang` blocks to the Spanish service pages and updated `sitemap.xml` so the English pages are indexable and connected.
