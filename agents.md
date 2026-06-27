@@ -6,13 +6,21 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 
 ## 📅 Resumen de la Sesión (27 de Junio, 2026)
 
-Añadimos el archivo `llms.txt` y anotaciones de WebMCP en formularios para guiar a los rastreadores de Inteligencia Artificial y cumplir con las recomendaciones de SEO/PageSpeed de Google.
+Añadimos el archivo `llms.txt`, anotaciones de WebMCP en formularios y optimizamos el rendimiento móvil y accesibilidad del sitio basándonos en el reporte de Google PageSpeed Insights.
 
 ### 1. ✅ Creación de `llms.txt`
 * **Especificación e Implementación:** Creamos [llms.txt](file:///c:/Users/omac_/rtmx-web/llms.txt) siguiendo la especificación recomendada (Markdown válido con al menos un H1). Contiene una descripción concisa de la especialidad de Rotúlate Publicidad y enlaces absolutos indexables tanto a la versión en español como a la versión en inglés de las páginas clave del sitio.
 
 ### 2. ✅ Anotaciones WebMCP para Agentes de IA
 * **Implementación en Formularios:** Añadimos anotaciones de WebMCP (`toolname`, `tooldescription` y `toolparamdescription`) al formulario de cotización en [index.html](file:///c:/Users/omac_/rtmx-web/index.html) y a la calculadora en [lonas-cancun/index.html](file:///c:/Users/omac_/rtmx-web/lonas-cancun/index.html). Esto permite a agentes de IA comprender y utilizar los formularios de manera directa y confiable, resolviendo la recomendación experimental de PageSpeed.
+
+### 3. ✅ Optimización de Rendimiento Móvil (LCP/FCP)
+* **Recursos sin bloqueo de renderizado:** Añadimos el atributo `defer` a las llamadas de los scripts de EmailJS y Supabase en [index.html](file:///c:/Users/omac_/rtmx-web/index.html) para eliminar el retraso de renderizado inicial (ahorro estimado de **1.36s**).
+* **Compresión física de logotipos y recursos:** Desarrollamos un script de optimización automatizada de imágenes con `sharp` para redimensionar los logotipos del carrusel de proveedores (`avery-logo.png`, `XPEL-logo.webp`, `mactac-logo.png`, `3m-logo.png`) a un ancho máximo de 200px, y la fachada [assets/alucobond.webp](file:///c:/Users/omac_/rtmx-web/assets/alucobond.webp) a 800px. Logramos reducciones de peso de entre **41.47% y 92.25%** por imagen.
+
+### 4. ✅ Mejoras de Accesibilidad (Lighthouse)
+* **Corrección de Contraste de Color:** Aumentamos la opacidad del texto indicador de la versión del formulario `"v1.02"` en [index.html](file:///c:/Users/omac_/rtmx-web/index.html) a `color: rgba(255, 255, 255, 0.55)`, resolviendo la advertencia de contraste (ratio superior a 4.5:1).
+* **Jerarquía de Encabezados del Footer:** Cambiamos todas las cabeceras `<h4>` del pie de página a `<h3>` en los 20 archivos HTML del proyecto para corregir la secuencia semántica de Lighthouse, y adaptamos las reglas en [style.css](file:///c:/Users/omac_/rtmx-web/style.css) a `.footer-nav h3, .footer-contact h3`.
 
 ---
 
