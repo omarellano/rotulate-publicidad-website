@@ -657,28 +657,34 @@
                 </div>
 
                 <div class="contacto-form-wrap">
-                    <form class="cotizar-form" id="cotizar" novalidate>
+                    <form class="cotizar-form" id="cotizar" novalidate 
+                          toolname="solicitar_cotizacion" 
+                          tooldescription="Formulario para solicitar una cotización gratuita para servicios de rotulación publicitaria, anuncios luminosos, letras 3D, toldos, control solar y otros en Cancún.">
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="nombre">Nombre completo *</label>
                                 <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required
-                                    maxlength="100" autocomplete="name">
+                                    maxlength="100" autocomplete="name"
+                                    toolparamdescription="Nombre completo del cliente o de la empresa solicitante">
                             </div>
                             <div class="form-field">
                                 <label for="email">Correo electrónico *</label>
                                 <input type="email" id="email" name="email" placeholder="tu@email.com" required
-                                    maxlength="254" autocomplete="email">
+                                    maxlength="254" autocomplete="email"
+                                    toolparamdescription="Dirección de correo electrónico del cliente para contacto">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="telefono">Teléfono / WhatsApp</label>
                                 <input type="tel" id="telefono" name="telefono" placeholder="+52 998 400 7987"
-                                    maxlength="20" autocomplete="tel" pattern="[\+]?[\d\s\-\(\)]{7,20}">
+                                    maxlength="20" autocomplete="tel" pattern="[\+]?[\d\s\-\(\)]{7,20}"
+                                    toolparamdescription="Número de teléfono o WhatsApp para aclarar dudas o enviar la cotización">
                             </div>
                             <div class="form-field">
                                 <label for="servicio">Tipo de servicio *</label>
-                                <select id="servicio" name="servicio" required>
+                                <select id="servicio" name="servicio" required
+                                        toolparamdescription="Tipo de servicio publicitario requerido (anuncios-luminosos, neon-flex, letras-3d, rotulacion-vehicular, alucobond, control-solar, toldos, lonas-vinilos, etc.)">
                                     <option value="" disabled selected>Selecciona un servicio</option>
                                     <option value="anuncios-luminosos">Anuncios luminosos</option>
                                     <option value="neon-flex">Neón Flex</option>
@@ -703,7 +709,8 @@
                             <label for="mensaje">Descripción del proyecto</label>
                             <textarea id="mensaje" name="mensaje"
                                 placeholder="Cuéntanos dimensiones, materiales, cantidad de piezas, fecha requerida..."
-                                rows="4" maxlength="2000"></textarea>
+                                rows="4" maxlength="2000"
+                                toolparamdescription="Descripción detallada del proyecto (medidas, materiales, cantidad, fecha de entrega)"></textarea>
                         </div>
 
                         <!-- Zona de Carga de Archivos (Drag & Drop) -->
@@ -716,7 +723,8 @@
                                     <span>o haz clic para seleccionar</span>
                                     <small>Formatos aceptados: PDF, AI, PSD, PNG, JPG, ZIP (Máx. 24MB por archivo)</small>
                                 </div>
-                                <input type="file" id="file-upload" name="file-upload" multiple style="display: none;" accept=".pdf,.ai,.psd,.png,.jpg,.jpeg,.zip,.rar">
+                                <input type="file" id="file-upload" name="file-upload" multiple style="display: none;" accept=".pdf,.ai,.psd,.png,.jpg,.jpeg,.zip,.rar"
+                                       toolparamdescription="Archivos o diseños adjuntos para el proyecto (PDF, AI, PSD, PNG, JPG, ZIP de hasta 24MB)">
                                 <div class="upload-file-list" id="upload-file-list"></div>
                                 <div class="upload-progress-wrap" id="upload-progress-wrap" style="display:none">
                                     <div class="upload-progress-track">

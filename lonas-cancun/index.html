@@ -247,15 +247,19 @@
                     <!-- Form Card -->
                     <div class="cotizador-form-card">
                         <h3>Detalles de la Lona</h3>
-                        <form id="calc-form" onsubmit="event.preventDefault();">
+                        <form id="calc-form" onsubmit="event.preventDefault();"
+                              toolname="calcular_presupuesto_lona"
+                              tooldescription="Calculadora para obtener un presupuesto estimado al instante para la impresión de lonas publicitarias personalizadas en Cancún, calculando el precio según tamaño, tipo de lona, ojillos y diseño.">
                             <div class="form-group-row">
                                 <div class="form-group">
                                     <label for="lona-width">Base / Ancho (metros)</label>
-                                    <input type="number" id="lona-width" value="1.0" min="0.1" step="0.05" required>
+                                    <input type="number" id="lona-width" value="1.0" min="0.1" step="0.05" required
+                                           toolparamdescription="El ancho o base de la lona en metros">
                                 </div>
                                 <div class="form-group">
                                     <label for="lona-height">Altura / Alto (metros)</label>
-                                    <input type="number" id="lona-height" value="1.0" min="0.1" step="0.05" required>
+                                    <input type="number" id="lona-height" value="1.0" min="0.1" step="0.05" required
+                                           toolparamdescription="La altura o alto de la lona en metros">
                                 </div>
                             </div>
 
@@ -272,7 +276,8 @@
                                         <div class="custom-option" role="option" aria-selected="false" data-value="traslucida">Lona Translúcida (ideal para cajas de luz o anuncios luminosos) — $350 MXN/m²</div>
                                     </div>
                                 </div>
-                                <select id="lona-type" class="sr-only" aria-hidden="true" tabindex="-1">
+                                <select id="lona-type" class="sr-only" aria-hidden="true" tabindex="-1"
+                                        toolparamdescription="El tipo de material de la lona (estandar: lona de 13 oz estándar, mesh: lona microperforada para el viento, traslucida: lona translúcida para anuncios luminosos)">
                                     <option value="estandar">Lona 13 oz Calidad HP (la confiable para todos tus trabajos de promoción o publicidad) — $230 MXN/m²</option>
                                     <option value="mesh">Lona Mesh (la que tiene hoyitos que dejan pasar el viento) — $260 MXN/m²</option>
                                     <option value="traslucida">Lona Translúcida (ideal para cajas de luz o anuncios luminosos) — $350 MXN/m²</option>
@@ -283,12 +288,14 @@
                             <div class="form-group-row">
                                 <div class="form-group">
                                     <label for="lona-grommets">Cantidad de Ojillos</label>
-                                    <input type="number" id="lona-grommets" value="4" min="0" step="1" required>
+                                    <input type="number" id="lona-grommets" value="4" min="0" step="1" required
+                                           toolparamdescription="La cantidad total de ojillos metálicos perimetrales requeridos para colgar la lona">
                                     <small>Se incluyen 4 ojillos gratis en las esquinas por pieza. Ojillo extra a $5 c/u.</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="lona-qty">Cantidad de Piezas</label>
-                                    <input type="number" id="lona-qty" value="1" min="1" step="1" required>
+                                    <input type="number" id="lona-qty" value="1" min="1" step="1" required
+                                           toolparamdescription="La cantidad total de lonas idénticas que se van a producir">
                                     <small>Número de lonas con las mismas especificaciones.</small>
                                 </div>
                             </div>
@@ -307,7 +314,8 @@
                                         <div class="custom-option" role="option" aria-selected="false" data-value="avanzado">Logotipo o Idea desde cero — (Cotizar por WhatsApp)</div>
                                     </div>
                                 </div>
-                                <select id="lona-design" class="sr-only" aria-hidden="true" tabindex="-1">
+                                <select id="lona-design" class="sr-only" aria-hidden="true" tabindex="-1"
+                                        toolparamdescription="El nivel de servicio de diseño gráfico requerido (ninguno: diseño listo, basico: textos simples, intermedio: textos con logos/fotos, avanzado: diseño desde cero)">
                                     <option value="ninguno">No (Ya tengo mi archivo de diseño listo) — $0</option>
                                     <option value="basico">Diseño Básico (Solo textos y datos) — +$100 MXN</option>
                                     <option value="intermedio">Diseño Intermedio (Texto, fotos y logo) — +$200 MXN</option>

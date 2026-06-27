@@ -6,10 +6,13 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 
 ## 📅 Resumen de la Sesión (27 de Junio, 2026)
 
-Añadimos el archivo `llms.txt` en la raíz del sitio web para guiar a los rastreadores de Inteligencia Artificial y cumplir con las recomendaciones de SEO/PageSpeed de Google.
+Añadimos el archivo `llms.txt` y anotaciones de WebMCP en formularios para guiar a los rastreadores de Inteligencia Artificial y cumplir con las recomendaciones de SEO/PageSpeed de Google.
 
 ### 1. ✅ Creación de `llms.txt`
 * **Especificación e Implementación:** Creamos [llms.txt](file:///c:/Users/omac_/rtmx-web/llms.txt) siguiendo la especificación recomendada (Markdown válido con al menos un H1). Contiene una descripción concisa de la especialidad de Rotúlate Publicidad y enlaces absolutos indexables tanto a la versión en español como a la versión en inglés de las páginas clave del sitio.
+
+### 2. ✅ Anotaciones WebMCP para Agentes de IA
+* **Implementación en Formularios:** Añadimos anotaciones de WebMCP (`toolname`, `tooldescription` y `toolparamdescription`) al formulario de cotización en [index.html](file:///c:/Users/omac_/rtmx-web/index.html) y a la calculadora en [lonas-cancun/index.html](file:///c:/Users/omac_/rtmx-web/lonas-cancun/index.html). Esto permite a agentes de IA comprender y utilizar los formularios de manera directa y confiable, resolviendo la recomendación experimental de PageSpeed.
 
 ---
 
