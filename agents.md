@@ -4,7 +4,17 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 
 ---
 
+## 📅 Resumen de la Sesión (27 de Junio, 2026)
+
+Añadimos el archivo `llms.txt` en la raíz del sitio web para guiar a los rastreadores de Inteligencia Artificial y cumplir con las recomendaciones de SEO/PageSpeed de Google.
+
+### 1. ✅ Creación de `llms.txt`
+* **Especificación e Implementación:** Creamos [llms.txt](file:///c:/Users/omac_/rtmx-web/llms.txt) siguiendo la especificación recomendada (Markdown válido con al menos un H1). Contiene una descripción concisa de la especialidad de Rotúlate Publicidad y enlaces absolutos indexables tanto a la versión en español como a la versión en inglés de las páginas clave del sitio.
+
+---
+
 ## 📅 Resumen de la Sesión (26 de Junio, 2026)
+
 
 Revisión del nuevo export de GSC (`seo_performance/`, últimos 3 meses) y acciones SEO on-page de alto valor sobre `/lonas-cancun/`.
 
