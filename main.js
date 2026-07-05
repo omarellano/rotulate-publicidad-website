@@ -23,6 +23,54 @@
         img.classList.add('ysisi-promo');
     })();
 
+    /* ── Carga diferida del stack del formulario ──────────────
+       Supabase + EmailJS + upload.js (~100 KB) solo se descargan
+       cuando el usuario se acerca al formulario de cotización,
+       no en la carga inicial de la página. */
+    (function () {
+        const form = document.getElementById('cotizar');
+        if (!form) return;
+        let started = false;
+
+        function loadScript(src) {
+            return new Promise(function (resolve, reject) {
+                const s = document.createElement('script');
+                s.src = src;
+                s.onload = resolve;
+                s.onerror = reject;
+                document.head.appendChild(s);
+            });
+        }
+
+        async function loadFormStack() {
+            if (started) return;
+            started = true;
+            try {
+                await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
+                await loadScript('supabase-config.js');
+                await loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js');
+                await loadScript('upload.js');
+            } catch (err) {
+                started = false;
+                console.error('No se pudo cargar el stack del formulario:', err);
+            }
+        }
+
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver(function (entries) {
+                if (entries.some(function (en) { return en.isIntersecting; })) {
+                    io.disconnect();
+                    loadFormStack();
+                }
+            }, { rootMargin: '600px' });
+            io.observe(form);
+        } else {
+            loadFormStack();
+        }
+        // respaldo por si el observer no dispara (p. ej. navegación con ancla)
+        form.addEventListener('focusin', loadFormStack, { once: true });
+    })();
+
     /* ── Throttle helper ───────────────────────────────────── */
     function throttle(fn, ms) {
         let last = 0;

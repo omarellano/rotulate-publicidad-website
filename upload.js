@@ -3,7 +3,9 @@
  * Manages file uploads, lead storage, rate limits, anti-spam, and email alerts.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+/* Se carga de forma diferida desde main.js cuando el usuario se acerca al
+   formulario, así que DOMContentLoaded puede haber pasado ya. */
+const initCotizacionForm = () => {
     // 1. Verify and obtain Supabase reference
     if (typeof window.supabaseClient === 'undefined') {
         console.error('Supabase Client not initialized. Form will not operate.');
@@ -343,4 +345,10 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => { el.classList.remove('input-shake'); el.style.borderColor = ''; }, 600);
         }
     }
-});
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCotizacionForm);
+} else {
+    initCotizacionForm();
+}

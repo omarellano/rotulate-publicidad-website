@@ -48,14 +48,9 @@
     <link rel="preload" as="image" href="assets/hero-space-bg-earth.jpg" type="image/jpeg">
 
     <!-- Rendimiento: preconectar a dominios externos -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <!-- Fuente cargada via <link> en vez de CSS @import (no bloquea render).
          Nota: no usar el truco media="print"+onload — la CSP bloquea handlers inline. -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap">
-
-    <link rel="stylesheet" href="style.css?v=2.8">
+    <link rel="stylesheet" href="style.css?v=2.9">
 
     <!-- Schema.org — LocalBusiness structured data -->
     <script type="application/ld+json">
@@ -812,16 +807,10 @@
     </a>
     <button class="back-to-top" id="back-to-top" aria-label="Volver arriba">&#8593;</button>
 
-    <!-- SDK de EmailJS -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
-
-    <!-- SDK de Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-    <script src="supabase-config.js" defer></script>
-
-    <!-- Scripts de la aplicación -->
-    <script src="main.js?v=2.8" defer></script>
-    <script src="upload.js" defer></script>
+    <!-- Scripts de la aplicación. Supabase, EmailJS, supabase-config.js y
+         upload.js se cargan de forma diferida desde main.js cuando el
+         usuario se acerca al formulario de cotización. -->
+    <script src="main.js?v=2.9" defer></script>
 </body>
 
 </html>
