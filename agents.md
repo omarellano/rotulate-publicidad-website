@@ -61,7 +61,13 @@ Auditoría integral (solo diagnóstico, sin cambios de código): SEO, GSC en viv
 * **Hallazgo:** la galería del home ya tenía lightbox funcional (sección 9 de `main.js`); solo faltaba en la mini-galería de lonas.
 * Se añadió `initMiniGaleriaLightbox()` a `lonas-cancun/main.js` reutilizando los estilos `#lightbox`/`.lb-*` de `../style.css`. Abre la versión a tamaño completo (quita el sufijo `-thumb`), con prev/next, flechas de teclado, Esc, clic en fondo y swipe táctil. `cursor: pointer` en las tarjetas. Verificado en producción (abrir, navegar, cerrar). Versiones: lonas `main.js?v=2.6`, `style.css?v=3.1`.
 
-### 12. 📋 Backlog restante
+### 12. 🏗️ `/express/` reconstruido como HTML estático (commits `1464464`, `ded495f`, `2b70b30`)
+* **Parte 1:** contenido español del SPA capturado del render en producción → [express/contenido-es-referencia.md](file:///c:/Users/omac_/rtmx-web/express/contenido-es-referencia.md).
+* **Parte 2:** nuevo [express/index.html](file:///c:/Users/omac_/rtmx-web/express/index.html) estático e indexable, espejo de la estructura de `express/en/index.html` (mismo CSS Tailwind compilado `assets/index-b314nm7x.css`, SVGs Lucide inline). Fiel al SPA: hero + 3 servicios + 3 ventajas + CTA + footer, sin FAQ (el SPA no la tenía visible). Añade canonical, hreflang, schema LocalBusiness, fuente self-hosted, WhatsApp pre-llenado y switcher 🇺🇸 EN. **Paridad visual verificada en producción.**
+* **Parte 3:** bundle React viejo (`assets/index-d6sn2umm.js`) eliminado del repo (la copia en el servidor queda huérfana e inofensiva: rsync sin `--delete`; se puede purgar a mano). Sitemap `lastmod` actualizado, ping IndexNow (200) y **"Solicitar indexación" enviado en GSC** para `/express/`.
+* Beneficio: la página #2 en clics del sitio por fin tiene contenido rastreable por Google y legible por agentes de IA, sin bundle JS de ~100+ KB.
+
+### 13. 📋 Backlog restante
 1. GBP: responder reseñas y publicar fotos recientes con regularidad (Google lo sugiere en el panel).
 2. Vigilar en 1–2 semanas que `control-solar-en.html` y `/express/en/` pasen a "indexada" en GSC y que EE. UU. empiece a registrar clics; revisar también "URL descubiertas" del sitemap en BWT.
 3. Opcional: automatizar el ping de IndexNow en el workflow de deploy (curl al final de `deploy.yml` con las URLs modificadas).
