@@ -38,7 +38,12 @@ Auditoría integral (solo diagnóstico, sin cambios de código): SEO, GSC en viv
 * **IndexNow:** llave `be088c42d6344fdaac9845c0056e7090.txt` en la raíz del sitio (commit `4caad0f`, verificada 200 en producción). Ping inicial a `api.indexnow.org` con las 22 URLs del sitemap → **HTTP 202 Accepted**. Nota para deploys futuros: al publicar páginas nuevas/modificadas se puede repetir el ping (POST JSON con host/key/urlList) para indexación casi inmediata en Bing/Copilot.
 * Contexto: el índice de Bing alimenta a ChatGPT/Copilot, así que esta alta cierra el hueco principal de visibilidad en asistentes de IA.
 
-### 7. 📋 Backlog restante
+### 7. ⚽ Promo temporal "¿Y si sí?" — Selección Mexicana (commit `5c8eb95`)
+* La mascota del hero (`.astronaut-mascot`) se sustituye temporalmente por el logo promocional "¿Y si sí? Vamos México por la Copa del Mundo" (`assets/ysisi-promo.webp/png`, fondo removido con flood-fill desde bordes vía sharp, 900px, 131 KB webp).
+* **Swap con fecha límite en `main.js`** (la CSP no permite scripts inline): se muestra solo hasta el **6-jul-2026 23:59 hora Cancún** (`2026-07-07T05:00:00Z`); pasada la fecha el astronauta vuelve **automáticamente sin deploy**. Hereda la animación de flotación del contenedor; clase `.ysisi-promo` en `style.css` (190px + glow verde/rojo). Versiones cacheadas bump a `?v=2.6`.
+* Limpieza opcional posterior: eliminar el bloque de `main.js`, la regla CSS y los 2 assets cuando pase el evento (no urgente, es inerte tras la fecha). La imagen fuente cruda quedó local en `assets/ysisi/` (sin trackear).
+
+### 8. 📋 Backlog restante
 1. GBP: responder reseñas y publicar fotos recientes con regularidad (Google lo sugiere en el panel).
 2. Vigilar en 1–2 semanas que `control-solar-en.html` y `/express/en/` pasen a "indexada" en GSC y que EE. UU. empiece a registrar clics; revisar también "URL descubiertas" del sitemap en BWT.
 3. Opcional: automatizar el ping de IndexNow en el workflow de deploy (curl al final de `deploy.yml` con las URLs modificadas).
