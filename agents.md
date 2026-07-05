@@ -33,10 +33,15 @@ Auditoría integral (solo diagnóstico, sin cambios de código): SEO, GSC en viv
 * Inspección URL por URL: `/en/` y las 7 landings `-en.html` **ya estaban indexadas** (el informe de GSC iba retrasado). Solo faltaban `control-solar-en.html` y `/express/en/`: se envió **"Solicitar indexación"** para ambas (cola prioritaria de rastreo, 5-jul-2026).
 * Crawlers de IA verificados con curl: GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot y Google-Extended reciben **200 OK** (ni robots.txt ni LiteSpeed los bloquean). `llms.txt` responde 200.
 
-### 6. 📋 Backlog restante
+### 6. ✅ Alta en Bing Webmaster Tools + IndexNow (5-jul-2026)
+* **BWT:** sesión con Google (misma cuenta de GSC). Se importaron los sitios desde Search Console: `rotulatepublicidad.com` y `rotulatepublicidad.com/express` quedaron **verificados sin cambios en el sitio**. Sitemap `sitemap.xml` enviado manualmente (estado "Procesando").
+* **IndexNow:** llave `be088c42d6344fdaac9845c0056e7090.txt` en la raíz del sitio (commit `4caad0f`, verificada 200 en producción). Ping inicial a `api.indexnow.org` con las 22 URLs del sitemap → **HTTP 202 Accepted**. Nota para deploys futuros: al publicar páginas nuevas/modificadas se puede repetir el ping (POST JSON con host/key/urlList) para indexación casi inmediata en Bing/Copilot.
+* Contexto: el índice de Bing alimenta a ChatGPT/Copilot, así que esta alta cierra el hueco principal de visibilidad en asistentes de IA.
+
+### 7. 📋 Backlog restante
 1. GBP: responder reseñas y publicar fotos recientes con regularidad (Google lo sugiere en el panel).
-2. Dar de alta el sitio en **Bing Webmaster Tools** (el índice de Bing alimenta a ChatGPT; la verificación `site:` falló por CAPTCHA — revisar manualmente).
-3. Vigilar en 1–2 semanas que `control-solar-en.html` y `/express/en/` pasen a "indexada" y que EE. UU. empiece a registrar clics.
+2. Vigilar en 1–2 semanas que `control-solar-en.html` y `/express/en/` pasen a "indexada" en GSC y que EE. UU. empiece a registrar clics; revisar también "URL descubiertas" del sitemap en BWT.
+3. Opcional: automatizar el ping de IndexNow en el workflow de deploy (curl al final de `deploy.yml` con las URLs modificadas).
 
 ---
 
