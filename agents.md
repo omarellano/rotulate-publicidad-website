@@ -4,6 +4,35 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 
 ---
 
+## 📅 Resumen de la Sesión (05 de Julio, 2026)
+
+Auditoría integral (solo diagnóstico, sin cambios de código): SEO, GSC en vivo, rendimiento, accesibilidad y presencia en internet.
+
+### 1. 🔍 Google Search Console (en vivo, 3 meses abr–jul)
+* **Totales:** 124 clics, 4,780 impresiones, CTR 2.6%, posición media 7.4. 21 páginas indexadas / 11 sin indexar.
+* **Páginas top:** home (43 clics), `/express/` (37), `alucobond.html` (10, CTR 5.6%), `rotulacion-vehicular.html` (9), `/lonas-cancun/` (7 clics, 595 imp), `control-solar.html` (7, CTR 6.7%).
+* **Rich results funcionando:** Fragmentos de productos y de reseñas ambos **7 válidos / 0 errores**. En SERP local real, `/lonas-cancun/` aparece **#2** con precio ($230–$350) y estrellas 5.0(4). La posición 9.6 de GSC es promedio global.
+* **Problema crítico:** `control-solar-en.html` y `/express/en/` llevan semanas en "Descubierta: actualmente sin indexar" (Google nunca las ha rastreado). EE. UU. sigue con 719 impresiones y 0 clics — la solución inglesa existe pero no está indexada. Las 7 landings `-en.html` nuevas (26-jun) aún no aparecen indexadas.
+* **Ya resuelto en servidor (errores GSC de rastreos viejos):** `/lonas-cancun` sin slash → 301 correcto; `/home-b2/` → 301 a home; `/sectores/` → 410 intencional. Se validó corrección en GSC (pendiente que Google re-rastree).
+
+### 2. ⚡ Lighthouse móvil (producción)
+* **Home:** Performance 83, Accesibilidad 100, Best Practices 100, SEO 100. LCP 4.1s (único punto débil; render-blocking: Google Fonts CSS ~846ms + style.css ~150ms).
+* **`/lonas-cancun/`:** Performance **71**, Accesibilidad **96**, BP 100, SEO 100. LCP 6.2s. Causas: (a) galería usa `assets/galeria/galeria-*.webp` a resolución completa (250–500 KB c/u, ~1.5 MB de ahorro posible); (b) botón WhatsApp `.quote-cta-btn` **falla contraste WCAG** (blanco sobre #25d366 ≈ 1.9:1); (c) hero LCP sin `fetchpriority=high`.
+
+### 3. 🌐 Presencia en internet
+* **SERP de marca "rotulate publicidad cancun":** sitio #1, Google Business Profile con **4.7★ (30 reseñas)**, perfil "Información completa", 385 interacciones/90d, 368 vistas/mes, actualizado hace 4 semanas. Facebook (330+ seguidores, 4.4★/7 reseñas) e Instagram (@rotulateoficial) visibles en primera página.
+* **Competidores en SERPs locales:** Hiplot, Impresiones Mágicas, Rótulos Martínez, Publicidad Rayo (este último compite en lonas "desde $95" — presión de precio en el snippet).
+
+### 4. 📋 Hallazgos accionables (backlog priorizado)
+1. **Indexación EN (máxima prioridad):** pedir indexación manual en GSC (Inspección de URLs → Solicitar indexación) para `/en/`, `control-solar-en.html`, `/express/en/` y las 7 landings `-en.html`. Son la llave de las 719 impresiones de EE. UU. sin clics.
+2. **Miniaturas de galería en `/lonas-cancun/`:** generar versiones ~400px con `sharp` (~1.5 MB de ahorro, LCP 6.2s→~3s estimado).
+3. **Contraste botón WhatsApp lonas:** texto oscuro (p.ej. `#0a3622`) sobre verde WhatsApp.
+4. **Canonical faltante** en `express/index.html` y `express/en/index.html`; `/express/` (ES) sigue fuera del sitemap.
+5. Opcional perf home: `preload`/inline de Google Fonts CSS para recortar ~0.8s de LCP.
+6. GBP: responder reseñas y publicar fotos recientes con regularidad (Google lo sugiere en el panel).
+
+---
+
 ## 📅 Resumen de la Sesión (27 de Junio, 2026)
 
 Añadimos el archivo `llms.txt`, anotaciones de WebMCP en formularios y optimizamos el rendimiento móvil y accesibilidad del sitio basándonos en el reporte de Google PageSpeed Insights.

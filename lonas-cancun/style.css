@@ -255,7 +255,7 @@
     gap: 0.5rem;
     text-align: center;
     background: #25d366; /* WhatsApp official green */
-    color: #fff;
+    color: #0a3622; /* texto oscuro: contraste WCAG >= 4.5:1 sobre el verde */
     border: none;
     font-size: 1.1rem;
     font-weight: 700;
@@ -271,7 +271,7 @@
     background: #20ba5a;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
-    color: #fff;
+    color: #0a3622;
 }
 
 .quote-cta-btn svg {
