@@ -51,9 +51,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Fuente asíncrona: media="print" evita bloquear el render; onload la activa -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap"></noscript>
+    <!-- Fuente cargada via <link> en vez de CSS @import (no bloquea render).
+         Nota: no usar el truco media="print"+onload — la CSP bloquea handlers inline. -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap">
 
     <link rel="stylesheet" href="style.css?v=2.7">
 
