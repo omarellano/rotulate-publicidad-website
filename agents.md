@@ -43,7 +43,14 @@ Auditoría integral (solo diagnóstico, sin cambios de código): SEO, GSC en viv
 * **Swap con fecha límite en `main.js`** (la CSP no permite scripts inline): se muestra solo hasta el **6-jul-2026 23:59 hora Cancún** (`2026-07-07T05:00:00Z`); pasada la fecha el astronauta vuelve **automáticamente sin deploy**. Hereda la animación de flotación del contenedor; clase `.ysisi-promo` en `style.css` (190px + glow verde/rojo). Versiones cacheadas bump a `?v=2.6`.
 * Limpieza opcional posterior: eliminar el bloque de `main.js`, la regla CSS y los 2 assets cuando pase el evento (no urgente, es inerte tras la fecha). La imagen fuente cruda quedó local en `assets/ysisi/` (sin trackear).
 
-### 8. 📋 Backlog restante
+### 8. ⚡ Optimización de rendimiento (commit `6e9a5f8`)
+* **Space Grotesk self-hosted:** fuente variable (300–700) en `assets/fonts/*.woff2` (29 KB, subsets latin + latin-ext con `unicode-range`). `@font-face` en `style.css` y en `assets/fonts/fonts.css` (para `/express/en/` que no usa style.css). Se eliminaron los `<link>` de Google Fonts y preconnects de las 22 páginas HTML. Elimina ~850ms de CSS bloqueante: **FCP móvil 2.7s → 1.2s**. CSP: `font-src` ahora incluye `'self'` (se conserva `fonts.gstatic.com` porque el bundle del SPA `/express/` aún lo usa).
+* **Carga diferida del stack del formulario:** Supabase + EmailJS + `supabase-config.js` + `upload.js` (~100 KB) ya no cargan con la página; `main.js` los inyecta vía IntersectionObserver (600px antes de llegar al formulario `#cotizar`) con respaldo `focusin`. `upload.js` ahora se inicializa con wrapper consciente de `readyState` (su listener de DOMContentLoaded no dispararía al cargarse tarde). Verificado en producción: cliente Supabase inicializa al scrollear al formulario.
+* **Caché de imágenes:** TTL 1 mes → 1 año en `.htaccess` (los assets versionan por nombre/?v=).
+* Versiones: `style.css?v=2.9` sitewide, `main.js?v=2.9`.
+* **Nota Lighthouse:** móvil 84 con LCP 3.9s y CLS 0.117 — el CLS/LCP degradado es efecto **temporal del swap del promo** "¿Y si sí?" (reemplaza la imagen del hero post-carga); al expirar el promo (6-jul 23:59) se estima ~90-92.
+
+### 9. 📋 Backlog restante
 1. GBP: responder reseñas y publicar fotos recientes con regularidad (Google lo sugiere en el panel).
 2. Vigilar en 1–2 semanas que `control-solar-en.html` y `/express/en/` pasen a "indexada" en GSC y que EE. UU. empiece a registrar clics; revisar también "URL descubiertas" del sitemap en BWT.
 3. Opcional: automatizar el ping de IndexNow en el workflow de deploy (curl al final de `deploy.yml` con las URLs modificadas).
