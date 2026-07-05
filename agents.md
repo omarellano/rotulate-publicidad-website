@@ -53,7 +53,11 @@ Auditoría integral (solo diagnóstico, sin cambios de código): SEO, GSC en viv
 ### 9. 💬 WhatsApp pre-llenado por servicio (commit `e2b6308`)
 * Los 60 enlaces `wa.me` (botón flotante + CTAs) de las 19 páginas ahora abren WhatsApp con mensaje específico del servicio, en el idioma de la página (ej. "Hola Rotúlate, quiero cotizar letras 3D para mi negocio." / "Hello Rotúlate, I'd like a quote for a custom awning."). Los `sameAs` de JSON-LD se dejaron sin parámetros. `/lonas-cancun/` ya lo tenía.
 
-### 10. 📋 Backlog restante
+### 10. 🍞 Breadcrumbs con schema (commit `7742946`)
+* Miga de pan visible (`Inicio › Servicio` / `Home › Service`) sobre el H1 de las **18 páginas de servicio** (9 ES + 8 EN + `/lonas-cancun/`), estilo de marca (blanco tenue, separador y hover lima), `aria-label` y `aria-current` correctos.
+* JSON-LD `BreadcrumbList` por página (2 niveles; ES apunta a `/`, EN a `/en/`). Clase `.breadcrumbs` en `style.css` (bump a `?v=3.0` en páginas tocadas).
+
+### 11. 📋 Backlog restante
 1. GBP: responder reseñas y publicar fotos recientes con regularidad (Google lo sugiere en el panel).
 2. Vigilar en 1–2 semanas que `control-solar-en.html` y `/express/en/` pasen a "indexada" en GSC y que EE. UU. empiece a registrar clics; revisar también "URL descubiertas" del sitemap en BWT.
 3. Opcional: automatizar el ping de IndexNow en el workflow de deploy (curl al final de `deploy.yml` con las URLs modificadas).
