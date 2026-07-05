@@ -6,6 +6,23 @@
 (function () {
     'use strict';
 
+    /* ── Promo temporal: Selección Mexicana (Copa del Mundo) ──
+       Sustituye la mascota del hero por el logo "¿Y si sí?" solo
+       hasta el 6-jul-2026 23:59 (hora Cancún, UTC-5). Pasada esa
+       fecha esta función no hace nada y el astronauta vuelve solo. */
+    (function () {
+        if (Date.now() >= Date.parse('2026-07-07T05:00:00Z')) return;
+        const img = document.querySelector('.astronaut-mascot');
+        if (!img) return;
+        const source = document.querySelector('.astronaut-mascot-container source[type="image/webp"]');
+        if (source) source.srcset = 'assets/ysisi-promo.webp';
+        img.src = 'assets/ysisi-promo.png';
+        img.alt = '¿Y si sí? ¡Vamos México por la Copa del Mundo! Astronauta de Rotúlate pateando un balón';
+        img.width = 350;
+        img.height = 294;
+        img.classList.add('ysisi-promo');
+    })();
+
     /* ── Throttle helper ───────────────────────────────────── */
     function throttle(fn, ms) {
         let last = 0;

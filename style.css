@@ -407,6 +407,12 @@ nav a:hover {
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Promo temporal Selección Mexicana (se activa desde main.js) */
+.astronaut-mascot.ysisi-promo {
+    width: 190px;
+    filter: drop-shadow(0 0 25px rgba(0, 104, 71, 0.45)) drop-shadow(0 0 10px rgba(206, 17, 38, 0.3));
+}
+
 .hero-content {
     position: relative;
     z-index: 2;
