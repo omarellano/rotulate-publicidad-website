@@ -426,6 +426,33 @@ nav a:hover {
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ── Breadcrumbs (páginas de servicio) ─────────────────── */
+.breadcrumbs {
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.breadcrumbs a {
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+    color: var(--color-accent-lime);
+}
+
+.breadcrumbs .breadcrumbs-sep {
+    margin: 0 0.5rem;
+    color: var(--color-accent-lime);
+}
+
+.breadcrumbs [aria-current="page"] {
+    color: #fff;
+    font-weight: 500;
+}
+
 /* Promo temporal Selección Mexicana (se activa desde main.js) */
 .astronaut-mascot.ysisi-promo {
     width: 190px;
