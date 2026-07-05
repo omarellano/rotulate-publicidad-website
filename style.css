@@ -415,7 +415,13 @@ nav a:hover {
 
 @media (min-width: 969px) {
     .astronaut-mascot.ysisi-promo {
-        width: 314px;
+        width: 628px;
+        max-width: 100%;
+    }
+
+    /* el contenedor del hero limita a 500px; ampliarlo mientras aloja el promo */
+    .hero-visual:has(.ysisi-promo) {
+        max-width: 660px;
     }
 }
 

@@ -18,8 +18,8 @@
         if (source) source.srcset = 'assets/ysisi-promo.webp';
         img.src = 'assets/ysisi-promo.png';
         img.alt = '¿Y si sí? ¡Vamos México por la Copa del Mundo! Astronauta de Rotúlate pateando un balón';
-        img.width = 350;
-        img.height = 294;
+        img.width = 1131;
+        img.height = 949;
         img.classList.add('ysisi-promo');
     })();
 
