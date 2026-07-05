@@ -23,13 +23,20 @@ Auditoría integral (solo diagnóstico, sin cambios de código): SEO, GSC en viv
 * **SERP de marca "rotulate publicidad cancun":** sitio #1, Google Business Profile con **4.7★ (30 reseñas)**, perfil "Información completa", 385 interacciones/90d, 368 vistas/mes, actualizado hace 4 semanas. Facebook (330+ seguidores, 4.4★/7 reseñas) e Instagram (@rotulateoficial) visibles en primera página.
 * **Competidores en SERPs locales:** Hiplot, Impresiones Mágicas, Rótulos Martínez, Publicidad Rayo (este último compite en lonas "desde $95" — presión de precio en el snippet).
 
-### 4. 📋 Hallazgos accionables (backlog priorizado)
-1. **Indexación EN (máxima prioridad):** pedir indexación manual en GSC (Inspección de URLs → Solicitar indexación) para `/en/`, `control-solar-en.html`, `/express/en/` y las 7 landings `-en.html`. Son la llave de las 719 impresiones de EE. UU. sin clics.
-2. **Miniaturas de galería en `/lonas-cancun/`:** generar versiones ~400px con `sharp` (~1.5 MB de ahorro, LCP 6.2s→~3s estimado).
-3. **Contraste botón WhatsApp lonas:** texto oscuro (p.ej. `#0a3622`) sobre verde WhatsApp.
-4. **Canonical faltante** en `express/index.html` y `express/en/index.html`; `/express/` (ES) sigue fuera del sitemap.
-5. Opcional perf home: `preload`/inline de Google Fonts CSS para recortar ~0.8s de LCP.
-6. GBP: responder reseñas y publicar fotos recientes con regularidad (Google lo sugiere en el panel).
+### 4. ✅ Fixes aplicados en la misma sesión (commit `f947a54`, deploy OK en 14s)
+1. **Miniaturas de galería `/lonas-cancun/`:** generadas con `sharp` a 720×540 (`galeria-XXX-thumb.webp`), 1,554 KB → 282 KB (−82%). HTML actualizado con `width/height` + `loading="lazy"`; versión CSS bump a `?v=2.6`. Verificado 200 en producción.
+2. **Contraste WCAG botón WhatsApp lonas:** `color: #0a3622` sobre verde `#25d366` (antes blanco ≈1.9:1).
+3. **Canonicals añadidos** a `express/index.html` y `express/en/index.html`; se corrigió el `og:image` placeholder de Lovable en `/express/` (ahora `hero-printer-DHSLDeTJ.jpg`); `/express/` añadido al sitemap; `lastmod` refrescados.
+4. **Google Fonts asíncrona en home** (`media="print"` + `onload` + `noscript`) para recortar ~0.8s de render-blocking.
+
+### 5. ✅ Indexación EN gestionada en GSC (en vivo)
+* Inspección URL por URL: `/en/` y las 7 landings `-en.html` **ya estaban indexadas** (el informe de GSC iba retrasado). Solo faltaban `control-solar-en.html` y `/express/en/`: se envió **"Solicitar indexación"** para ambas (cola prioritaria de rastreo, 5-jul-2026).
+* Crawlers de IA verificados con curl: GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot y Google-Extended reciben **200 OK** (ni robots.txt ni LiteSpeed los bloquean). `llms.txt` responde 200.
+
+### 6. 📋 Backlog restante
+1. GBP: responder reseñas y publicar fotos recientes con regularidad (Google lo sugiere en el panel).
+2. Dar de alta el sitio en **Bing Webmaster Tools** (el índice de Bing alimenta a ChatGPT; la verificación `site:` falló por CAPTCHA — revisar manualmente).
+3. Vigilar en 1–2 semanas que `control-solar-en.html` y `/express/en/` pasen a "indexada" y que EE. UU. empiece a registrar clics.
 
 ---
 
