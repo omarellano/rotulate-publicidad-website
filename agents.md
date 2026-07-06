@@ -4,6 +4,17 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 
 ---
 
+## 📅 Resumen de la Sesión (06 de Julio, 2026)
+
+### ⚽→🧑‍🚀 Retiro de la promo "¿Y si sí?" — mascota restaurada
+* Se ejecutó la limpieza pendiente (anotada en la sesión del 5-jul, punto 7): el astronauta del hero vuelve a ser la mascota permanente.
+* Eliminado el bloque del swap con fecha límite en `main.js`, las reglas CSS `.astronaut-mascot.ysisi-promo` (base + media query de 628px y el `:has` que ampliaba `.hero-visual`) en `style.css`, y los assets trackeados `assets/ysisi-promo.png`/`.webp`.
+* Versiones de caché: `style.css` y `main.js` bump a `?v=3.0` en `index.html`; `/en/index.html` referencia `style.css?v=3.0`.
+* La imagen fuente cruda sigue local sin trackear en `assets/ysisi/` (borrable cuando se quiera).
+* Nota: con el promo fuera, re-medir Lighthouse móvil — se estimaba recuperar ~90-92 al eliminar el swap post-carga que degradaba CLS/LCP.
+
+---
+
 ## 📅 Resumen de la Sesión (05 de Julio, 2026)
 
 Auditoría integral (solo diagnóstico, sin cambios de código): SEO, GSC en vivo, rendimiento, accesibilidad y presencia en internet.
