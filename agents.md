@@ -339,3 +339,7 @@ Si vas a continuar trabajando en este proyecto, te sugerimos enfocarte en las si
 * **sitemap.xml:** lastmod 2026-07-12 para `/` y `/control-solar.html`.
 * **Verificación:** los 6 bloques JSON-LD de ambas páginas parsean como JSON válido (script Node).
 * Nota: el selector 🇺🇸 EN y la sección de testimonios con 4 reseñas reales **ya existían** — la Fase 1 solo añadió el badge agregado y la corrección de schema.
+
+### Documentación de la investigación
+* La investigación completa de competencia (perfiles de los ~12 competidores, datos GSC de partida, análisis de autoridad, fundamentos GEO/AEO del blog y estado del plan) quedó documentada en [docs/analisis-competencia-jul-2026.md](file:///C:/Users/omac_/rtmx-web/docs/analisis-competencia-jul-2026.md).
+* Fase 1 desplegada y verificada en producción (deploy run 29212953747, success): 301 de /blog.html activo, badge 4.7★ visible en el home, sección hospitality en control-solar.html.
