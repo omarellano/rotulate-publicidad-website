@@ -53,6 +53,14 @@ Otros en la línea: **Ramen Neon** (anunciosluminososcancun.com — diseño noct
 - Los 3 instaladores XPEL autorizados en Cancún (ver localizador xpel.com) no tienen presencia web propia fuerte.
 - **Decisión de negocio (Omar, 12-jul-2026):** PPF es marginal/aspiracional — taller no adaptado. NO crear página de venta. Entrada de bajo riesgo: 1 artículo de blog para medir demanda → consultas atendidas vía subcontratista certificado XPEL → escalar solo si demanda y calidad se comprueban. Los instaladores XPEL de Cancún son los candidatos naturales para alianza.
 
+### 2.5 Competidores adicionales señalados por Omar (analizados 12-jul-2026)
+
+- **Sign Factory** (signfactory.mx): juega en otra liga — señalética integral B2B y *wayfinding* para hoteles y desarrollos, con sede corporativa en Cancún y presencia declarada en México, EE.UU. y República Dominicana. Casos de éxito hoteleros de peso: SHA México, Hotel AVA, Garza Blanca. Debilidades web: sin WhatsApp, sin formulario, sin precios, contadores rotos ("+0 años"), sin reseñas, sin inglés (pese a operar en EE.UU.). **Es la amenaza real en cuentas de hotelería grande** — el mismo segmento al que apuntamos con control solar hospitality y señalética. Su existencia valida ese ángulo.
+- **American Sign** (americansign.com.mx): rotulación, impresión digital, CNC router y corte láser con clientes de marca mayor (Apple, Nike, Adidas, Samsung… y en la zona: Mayakoba, Iberostar). Envíos a todo México. Muy débil en conversión web: sin WhatsApp visible, sin formularios, sin precios, sin blog activo, sin inglés. Compite por proyectos corporativos por relación comercial, no por SEO local.
+- **Kreativa** (kreativapublicidad.com): agencia con 15 años declarados, cobertura sureste + CDMX, posicionada como "Agencia Publicitaria en Cancún". Fuerte en espectaculares, publicidad móvil y estructuras. Estética moderna de fondo oscuro (la más parecida a la nuestra), WhatsApp prominente, blog en menú. Sin testimonios, sin precios, sin inglés.
+
+**Lectura estratégica:** estos tres compiten por cuentas B2B/hoteleras grandes más que por el SEO local de retail. Ninguno muestra reseñas ni precios, y ninguno tiene inglés — nuestras ventajas se sostienen también contra ellos. Contra Sign Factory (hotelería) nuestra arma es el nicho de control solar 3M + agilidad y precios transparentes; contra Kreativa, la especialización local y la prueba social.
+
 ## 3. Autoridad: quién está arriba y por qué
 
 Tres factores concretos explican que Suitprint e Igraphic ranqueen mejor:
@@ -99,7 +107,11 @@ Temas priorizados: cuánto cuesta rotular vehículo/flotilla en Cancún · lona 
   3. Eliminados `aggregateRating` auto-servidos/desactualizados del JSON-LD (index: 5.0/4 en LocalBusiness; control-solar: 6 copias en productos 3M) — política de Google contra reseñas auto-servidas.
   4. Sección "Control Solar para Hoteles, Airbnbs y Condominios" + FAQ hospitality en `control-solar.html`.
   5. (El selector 🇺🇸 EN y los testimonios ya existían.)
-- **Fase 2 (3–6 semanas):** páginas Playa del Carmen y Tulum · blog con 6–10 artículos GEO/AEO · portafolio con clientes nombrados (permisos confirmados).
+- **Fase 2 — desplegada el 12-jul-2026 (misma sesión):**
+  - `/blog/` con 6 artículos GEO/AEO (costo rotulación, lona front vs mesh, anuncios frente al mar, control solar vs polarizado, duración del vinil, PPF) — todos con "respuesta rápida" citable, BlogPosting + FAQPage + BreadcrumbList schema, y solo datos ya publicados (sin precios inventados).
+  - Páginas locales `/playa-del-carmen/` y `/tulum/` con contenido único por ciudad, precios reales de lonas y FAQ local con schema.
+  - 301 de `/blog.html` actualizado para apuntar a `/blog/`; Blog + ciudades en nav/footer del index; hero del index ahora menciona control solar 3M; sitemap con 9 URLs nuevas; eliminado el último `aggregateRating` auto-servido (Product de lonas-cancun).
+  - **Pendiente de Fase 2:** portafolio con clientes nombrados — falta que Omar indique qué cliente/proyecto es cada foto de `assets/nuevas_fotos/` (permisos ya confirmados).
 - **Fase 3:** cotizador de lonas por m² (Supabase) · campaña sistemática de reseñas post-venta por WhatsApp (meta: ~1/semana → ~55 en 6 meses) · responder todas las reseñas existentes.
 
 ## 8. Notas operativas

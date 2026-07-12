@@ -343,3 +343,20 @@ Si vas a continuar trabajando en este proyecto, te sugerimos enfocarte en las si
 ### Documentación de la investigación
 * La investigación completa de competencia (perfiles de los ~12 competidores, datos GSC de partida, análisis de autoridad, fundamentos GEO/AEO del blog y estado del plan) quedó documentada en [docs/analisis-competencia-jul-2026.md](file:///C:/Users/omac_/rtmx-web/docs/analisis-competencia-jul-2026.md).
 * Fase 1 desplegada y verificada en producción (deploy run 29212953747, success): 301 de /blog.html activo, badge 4.7★ visible en el home, sección hospitality en control-solar.html.
+
+---
+
+## 🚀 Sesión 12-jul-2026 (continuación) — Fase 2: blog GEO/AEO + páginas locales
+
+* **Blog nuevo en `/blog/`** (índice + 6 artículos, todos con BlogPosting + FAQPage + BreadcrumbList schema, caja de "respuesta rápida" citable por IA, y SOLO datos ya publicados en el sitio):
+  * `cuanto-cuesta-rotular-un-vehiculo-en-cancun.html`
+  * `lona-front-vs-microperforada.html` (precios reales $230/$260/$350 por m²)
+  * `cuanto-dura-un-anuncio-luminoso-frente-al-mar.html`
+  * `control-solar-vs-polarizado-hoteles-airbnb.html`
+  * `cuanto-dura-la-rotulacion-vehicular-en-cancun.html`
+  * `ppf-en-cancun-vale-la-pena.html` (medidor de demanda PPF acordado; NO promete instalación propia, orienta y canaliza)
+* **Páginas locales**: `/playa-del-carmen/` (ángulo: competencia comercial de la Quinta Avenida, un solo proveedor) y `/tulum/` (ángulo: estética del destino + materiales anti-salitre). Contenido único, Service schema con areaServed por ciudad, FAQ local.
+* **Integración**: 301 de `/blog.html` ahora → `/blog/`; Blog + Playa + Tulum en nav/footer del index; hero del index ahora menciona **control solar 3M** (lo señaló Omar: faltaba); sitemap +9 URLs (31 total); eliminado el último `aggregateRating` auto-servido que quedaba (Product schema de `/lonas-cancun/`).
+* **Análisis extra de competidores** (a petición de Omar): Sign Factory (B2B hotelero serio, sede Cancún), American Sign (corporativo, débil en conversión) y Kreativa (agencia 15 años, sureste). Documentados en `docs/analisis-competencia-jul-2026.md` §2.5 — ninguno muestra reseñas, precios ni inglés; nuestras ventajas se sostienen.
+* **Verificación local**: JSON-LD válido en los 11 archivos tocados; sitemap balanceado.
+* **Pendiente Fase 2**: portafolio con clientes nombrados — falta el mapeo foto→cliente de `assets/nuevas_fotos/` (Omar confirma permisos de todos los clientes).

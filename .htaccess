@@ -64,8 +64,8 @@
     # 8. Declarar URL antigua /sectores/ como eliminada permanentemente (410 Gone) para que Google la borre de su índice
     RewriteRule ^sectores/?$ - [G,L]
 
-    # 9. Redirigir /blog.html (huérfano: quedó en el servidor tras borrarse del repo, rsync no elimina remotos) a la home hasta que exista el blog real
-    RewriteRule ^blog\.html$ https://rotulatepublicidad.com/ [R=301,L]
+    # 9. Redirigir /blog.html (huérfano: quedó en el servidor tras borrarse del repo, rsync no elimina remotos) al blog nuevo
+    RewriteRule ^blog\.html$ https://rotulatepublicidad.com/blog/ [R=301,L]
 </IfModule>
 
 # --- Cache Control ---
