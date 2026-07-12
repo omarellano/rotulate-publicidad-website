@@ -326,6 +326,43 @@ nav a:hover {
     }
 }
 
+/* Badge de calificación de Google (hero) */
+.google-rating-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.1rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50px;
+    color: var(--color-gray);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.google-rating-badge strong {
+    color: var(--color-white);
+}
+
+.google-rating-badge .grb-stars {
+    color: var(--color-accent-lime);
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.google-rating-badge:hover {
+    color: var(--color-white);
+    border-color: rgba(0, 255, 0, 0.4);
+}
+
+@media (max-width: 480px) {
+    .google-rating-badge {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 /* ══ Hero Section — MOBILE FIRST ══════════════════════════ */
 .hero {
     position: relative;

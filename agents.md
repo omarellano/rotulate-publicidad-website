@@ -296,3 +296,46 @@ Si vas a continuar trabajando en este proyecto, te sugerimos enfocarte en las si
 * Converted the service cards in [en/index.html](file:///C:/Users/omac_/rtmx-web/en/index.html) into real click targets.
 * Added seven new English landings for the services that previously only existed in Spanish: vehicle wraps, illuminated signs, large format printing, 3D letters, alucobond facades, awnings, and neon flex.
 * Added reciprocal `hreflang` blocks to the Spanish service pages and updated `sitemap.xml` so the English pages are indexable and connected.
+
+---
+
+## 🔎 Sesión 12-jul-2026 — Análisis de competencia (Cancún + Riviera Maya)
+
+**Sin cambios de código en el sitio.** Sesión de investigación y planeación estratégica; solo se ajustó la descripción del negocio en `CLAUDE.md` (el PPF pasa de línea central a marginal/aspiracional, confirmado por Omar).
+
+### Hallazgos clave
+* **Competidores dominantes por línea:**
+  * Anuncios luminosos / letras 3D: **Suitprint** (suitprint.com) — el más fuerte en general: páginas por ciudad (Cancún/Playa/Tulum/Mérida), blog SEO local, 10+ años, portafolio con clientes nombrados, testimonios con foto. Débil en: saturación visual, sin inglés, sin precios.
+  * Lonas / gran formato: **Igraphic** (4.9★ Google y "+300 empresas" visibles en el sitio), Cuarto Gráfico (13 servicios, ~20 logos de clientes), Publicidad Rayo (**cotizador interactivo de precio**, único en la zona), CopyMaya, Viral Uno.
+  * Rotulación vehicular: mercado débil — Total Vinil rankea alto con sitio casi vacío. **Línea ganable a corto plazo.**
+  * PPF: casi sin competencia web local (titanauto.mx caído a nivel DNS; Technik está en CDMX; instaladores XPEL de Cancún sin sitios fuertes).
+* **Ventajas propias vs. todos los competidores:** precios visibles (mejor CTR: 7.69% control-solar, 6.12% alucobond), versión EN (nadie la tiene funcional), schema LocalBusiness/FAQPage/WebSite, diseño más moderno.
+* **⚠️ `blog.html` huérfano en producción:** existe en el servidor mostrando "No hay artículos" pero ya no está en el repo — el rsync del deploy no borra archivos remotos. Google lo indexa vacío (GSC: consulta "blog de rotulación y publicidad visual", pos. 22). Pendiente decidir: revivir con contenido o redirigir 301.
+
+### Decisión sobre PPF (Omar, 12-jul-2026)
+* PPF es **marginal/aspiracional**: taller no adaptado, no se descarta a futuro. **No crear página de venta.** Entrada de bajo riesgo: 1 artículo de blog para medir demanda → consultas se atienden vía subcontratista certificado XPEL → escalar solo si demanda y calidad se comprueban.
+
+### Plan de acción acordado
+* **Fase 1 (1–2 sem):** resolver blog.html huérfano; sección de reseñas de Google + clientes reales en el index; promover versión EN de forma visible; potenciar control solar arquitectónico (hoteles/Airbnbs — mejor CTR del sitio).
+* **Fase 2 (3–6 sem):** páginas locales Playa del Carmen y Tulum; lanzar blog con 6–10 artículos formato GEO/AEO (Q&A, respuestas de 40–60 palabras citables por IA, FAQPage schema, precios y datos de clima local); sección "nuestro proceso".
+* **Fase 3:** cotizador interactivo de lonas por m² (leads a Supabase); campaña sistemática de reseñas post-venta por WhatsApp.
+
+### Datos pendientes de Omar
+1. Cantidad y calificación actual de reseñas en Google Business.
+2. Permisos de clientes para nombrarlos en portafolio/testimonios.
+
+### Implementación Fase 1 (misma sesión, 12-jul-2026)
+* **.htaccess:** regla 301 `/blog.html` → `/` (resuelve la página huérfana indexada vacía).
+* **index.html:**
+  * Badge "★ 4.7 en Google · 30 opiniones" en el hero (`.google-rating-badge`, nueva clase en `style.css`, cache-bust a `?v=3.1`), enlazado al perfil de Google.
+  * Subtítulo de #testimonios ahora muestra la calificación real (4.7★ · 30 opiniones).
+  * **Eliminado `aggregateRating` (5.0/4, desactualizado) del JSON-LD LocalBusiness** — política de Google contra reseñas auto-servidas; se mantiene solo la representación visual.
+  * Card de Control Solar en #servicios ahora menciona hoteles y Airbnbs.
+* **control-solar.html:**
+  * Eliminados los 6 `aggregateRating` falsos (5.0/4) copiados en los productos 3M del OfferCatalog (riesgo de marcado engañoso).
+  * Nueva sección "Control Solar para Hoteles, Airbnbs y Condominios" (5 beneficios operativos + CTA WhatsApp con mensaje específico de hospitality).
+  * Nueva FAQ "¿Instalan en hoteles y rentas vacacionales en operación?" (visible + JSON-LD FAQPage).
+  * Meta description actualizada con hoteles/Airbnbs y Riviera Maya.
+* **sitemap.xml:** lastmod 2026-07-12 para `/` y `/control-solar.html`.
+* **Verificación:** los 6 bloques JSON-LD de ambas páginas parsean como JSON válido (script Node).
+* Nota: el selector 🇺🇸 EN y la sección de testimonios con 4 reseñas reales **ya existían** — la Fase 1 solo añadió el badge agregado y la corrección de schema.

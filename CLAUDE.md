@@ -1,7 +1,7 @@
 # Rotulate Publicidad - Website
 
 ## Proyecto
-Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulación vehicular, impresión gran formato y PPF (Paint Protection Film). Sitio estático (HTML/CSS/JS) desplegado en Hostinger.
+Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulación vehicular, impresión gran formato, anuncios luminosos y control solar arquitectónico, con base en Cancún, Q. Roo. El PPF (Paint Protection Film) es una línea marginal/aspiracional — no crear páginas de venta de PPF sin confirmar con Omar (taller no adaptado; se evalúa vía subcontrato). Sitio estático (HTML/CSS/JS) desplegado en Hostinger.
 
 ## URL Producción
 - **Sitio:** https://rotulatepublicidad.com
