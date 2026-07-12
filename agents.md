@@ -360,3 +360,8 @@ Si vas a continuar trabajando en este proyecto, te sugerimos enfocarte en las si
 * **Análisis extra de competidores** (a petición de Omar): Sign Factory (B2B hotelero serio, sede Cancún), American Sign (corporativo, débil en conversión) y Kreativa (agencia 15 años, sureste). Documentados en `docs/analisis-competencia-jul-2026.md` §2.5 — ninguno muestra reseñas, precios ni inglés; nuestras ventajas se sostienen.
 * **Verificación local**: JSON-LD válido en los 11 archivos tocados; sitemap balanceado.
 * **Pendiente Fase 2**: portafolio con clientes nombrados — falta el mapeo foto→cliente de `assets/nuevas_fotos/` (Omar confirma permisos de todos los clientes).
+
+### Post-Fase 2 (misma sesión)
+* Enlace "Blog" añadido al menú de TODAS las páginas (9 páginas de servicio + lonas-cancun; el index ya lo tenía) — commit `c1f5924`.
+* **Indexación solicitada en Search Console** (vía navegador de Omar): `/blog/`, `/playa-del-carmen/` y `/tulum/` añadidas a la cola prioritaria de rastreo, y `sitemap.xml` reenviado (el anterior databa del 26-jun con 22 páginas; ahora tiene 31 URLs).
+* Flujo para alimentar el blog documentado: cada artículo nuevo = archivo HTML en `/blog/` siguiendo la plantilla existente + tarjeta en `/blog/index.html` + entrada en `sitemap.xml` + push a main.
