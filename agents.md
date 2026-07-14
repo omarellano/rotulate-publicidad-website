@@ -380,3 +380,31 @@ Si vas a continuar trabajando en este proyecto, te sugerimos enfocarte en las si
 5. **Pendiente menor:** verificar si Omar purgó la caché de Hostinger (Cache Manager) tras los deploys del 12-jul.
 
 **Commits de la sesión:** `1625d55` (Fase 1), `1a710c2` (doc investigación), `157ccf8` (Fase 2), `c1f5924` (Blog en navs), `854dfae` (log GSC).
+
+---
+
+## 🧮 Sesión 14-jul-2026 — Fase 3: cotizador con leads + incidente Supabase
+
+### Cotizador de lonas (commit `62aa196`) — verificado e2e en producción
+* El cotizador interactivo YA existía en `/lonas-cancun/` (cálculo en vivo, mínimo 1m², ojillos, diseño). Lo que se agregó:
+  * **Campos opcionales** de nombre y WhatsApp en el formulario.
+  * **Registro en Supabase**: cada clic en "Enviar a WhatsApp" inserta la cotización (specs + total) en `cotizaciones_web` con `servicio='cotizador-lonas'`; anónimos marcados como "Visitante del cotizador (anónimo)". Dedupe de 5 min por firma. Fire-and-forget: nunca bloquea la apertura de WhatsApp.
+  * **EmailJS** (mismo service/template del formulario) solo cuando el visitante deja contacto.
+  * Stack Supabase+EmailJS con carga diferida (IntersectionObserver a 600px del cotizador).
+  * Mensaje de WhatsApp personalizado con el nombre. Cache-bust `main.js?v=2.7`.
+* Verificación: insert por curl (HTTP 201), insert desde la página en producción (OK), EmailJS disparado tras el flujo real de clic. Quedan ~4 filas de prueba "(ignorar)" en la tabla — borrables.
+
+### ⚠️ INCIDENTE: proyecto Supabase pausado (detectado 14-jul-2026)
+* El dominio `wtljdvexsksextnhpkkd.supabase.co` no resolvía en DNS (proyecto gratuito pausado por inactividad, ~1 semana sin peticiones). **El formulario principal estuvo perdiendo leads en silencio** desde la pausa.
+* Omar lo restauró desde el dashboard el 14-jul. Verificado funcionando después.
+* **Prevención (commit `c7e8546`):** workflow `.github/workflows/supabase-keepalive.yml` — ping a la API lunes y jueves 12:00 UTC; si responde 000/5xx el job FALLA y GitHub notifica por correo (doble función: keep-alive + monitor).
+
+### Warnings del linter de Supabase (supabase/warnings_supabase.txt, exportado por Omar)
+* Todos nivel WARN/SECURITY. Análisis y correcciones en **supabase/fix_warnings.sql** (correr en SQL Editor del dashboard):
+  * search_path fijado en 6 funciones; REVOKE de funciones SECURITY DEFINER vía API (triggers a nadie; helpers del panel solo a authenticated); DROP de la política de listado público del bucket `cotizaciones` (el aviso más relevante: cualquiera podía listar los archivos de clientes; las URLs públicas siguen funcionando sin ella).
+  * Intencionales (no tocar): insert anónimo en `cotizaciones_web` (así entran los leads) y acceso total de authenticated (el panel admin).
+  * Pendiente de Omar en dashboard: habilitar "Leaked password protection" en Auth.
+* **Hardening del hosting:** `.htaccess` ahora bloquea `.sql`/`.ps1` y las carpetas `supabase/`, `docs/`, `deploy_failures/`, `seo_performance/` (rsync sube todo; `supabase_setup.sql` y `deploy-local.ps1` estaban públicamente accesibles).
+
+### Nota de deploys
+* El run del commit `afd0ec3` (13-jul) marcó failure transitorio; el siguiente deploy (rsync = sync completo) subió todo. Sin impacto.

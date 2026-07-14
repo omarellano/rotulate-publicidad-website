@@ -66,6 +66,9 @@
 
     # 9. Redirigir /blog.html (huérfano: quedó en el servidor tras borrarse del repo, rsync no elimina remotos) al blog nuevo
     RewriteRule ^blog\.html$ https://rotulatepublicidad.com/blog/ [R=301,L]
+
+    # 10. Bloquear acceso web a carpetas internas que rsync sube al hosting
+    RewriteRule ^(supabase|docs|deploy_failures|seo_performance)/ - [F,L]
 </IfModule>
 
 # --- Cache Control ---
@@ -96,7 +99,7 @@
 </IfModule>
 
 # --- Block access to sensitive files ---
-<FilesMatch "\.(htaccess|htpasswd|env|git|gitignore|md)$">
+<FilesMatch "\.(htaccess|htpasswd|env|git|gitignore|md|sql|ps1)$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
