@@ -1,0 +1,39 @@
+name: Supabase Keep-Alive
+
+# Evita que el proyecto gratuito de Supabase se pause por inactividad
+# (pausa automática tras ~1 semana sin peticiones). Si el proyecto está
+# caído/pausado, el job FALLA y GitHub notifica por correo — funciona
+# también como monitor. Incidente que lo motivó: 14-jul-2026, proyecto
+# pausado en silencio y formulario de cotizaciones perdiendo leads.
+
+on:
+  schedule:
+    # Lunes y jueves 12:00 UTC — dos toques por semana, margen sobrado
+    - cron: '0 12 * * 1,4'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping a la API REST de Supabase
+        run: |
+          # La anon key es pública por diseño (ya se sirve en supabase-config.js del sitio)
+          ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind0bGpkdmV4c2tzZXh0bmhwa2tkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDg3MjUsImV4cCI6MjA5NjE4NDcyNX0.JtM9gA7JrdSkUvyUYUSNL5z1Gs5IzHAYxQ5yNsOGq2s"
+          URL="https://wtljdvexsksextnhpkkd.supabase.co/rest/v1/cotizaciones_web?select=id&limit=1"
+
+          CODE=$(curl -s -o /tmp/body -w "%{http_code}" --max-time 30 \
+            -H "apikey: $ANON_KEY" \
+            -H "Authorization: Bearer $ANON_KEY" \
+            "$URL" || echo "000")
+
+          echo "HTTP $CODE"
+          cat /tmp/body || true
+
+          # 2xx/4xx = proyecto vivo (RLS puede negar lectura y está bien).
+          # 000 (DNS caído) o 5xx = proyecto pausado o con problemas → fallar para notificar.
+          if [ "$CODE" = "000" ] || [ "${CODE:0:1}" = "5" ]; then
+            echo "::error::Supabase no responde (HTTP $CODE). El proyecto puede estar pausado: https://supabase.com/dashboard — restaurar con 'Restore project'. El formulario de cotizaciones y el cotizador de lonas NO están guardando leads mientras tanto."
+            exit 1
+          fi
+          echo "Supabase activo ✔"
