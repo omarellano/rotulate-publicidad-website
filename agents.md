@@ -441,3 +441,10 @@ Si vas a continuar trabajando en este proyecto, te sugerimos enfocarte en las si
 1. Portafolio con clientes nombrados (falta mapeo foto→cliente de `assets/nuevas_fotos/`).
 2. Campaña de reseñas post-venta por WhatsApp (meta ~1/semana).
 3. Blog: 1-2 artículos/mes (backlog en docs/analisis-competencia-jul-2026.md §6).
+
+### Cierre verificado de la sesión 14-jul-2026
+* Segundo SQL aplicado por Omar (revoke desde PUBLIC) y **verificado desde fuera con curl**: `has_role` y `get_user_empresa_id` devuelven 401 a anónimos, `handle_new_user` fuera de la API (404), listado del bucket cerrado, e insert anónimo del formulario/cotizador intacto (201).
+* "Leaked password protection": descartado — Supabase lo limita a plan Pro (error confirmado al intentar activarlo en free).
+* Filas de prueba eliminadas por Omar: 5, con `delete ... where nombre ilike '%(ignorar%' returning id, nombre` — la tabla queda solo con leads reales.
+* `supabase_fix_warnings.sql` actualizado en el repo a la versión final aplicada (idempotente, con la lección del grant vía PUBLIC).
+* **Nueva REGLA SIEMPRE en CLAUDE.md** (pedida por Omar): toda implementación/corrección/incidente se documenta en agents.md al momento de completarse y verificarse, sin que se pida.

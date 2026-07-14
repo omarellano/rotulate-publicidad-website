@@ -62,8 +62,8 @@ Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulació
 - El contenido de catálogos de proveedores (ej. 3M) se integra como HTML indexable + imágenes WebP optimizadas, no como imágenes de slides completas
 
 ## Reglas de Desarrollo (Obligatorio)
-- **Bitácora Única (Evitar Duplicaciones):** Es obligatorio documentar todos los cambios y actualizaciones de estado únicamente en [agents.md](file:///C:/Users/omac_/rtmx-web/agents.md) al final de cada sesión. `CLAUDE.md` se reserva estrictamente para guías técnicas y de estilo.
-- **Documentación post-implementación:** Después de cada implementación, cambio, corrección o mejora en el código, es obligatorio actualizar el log de cambios en el archivo `agents.md`.
+- **REGLA SIEMPRE — Documentar sin que se pida:** TODA implementación, cambio, corrección, incidente o decisión se documenta en [agents.md](file:///C:/Users/omac_/rtmx-web/agents.md) **en el mismo momento en que se completa y verifica**, sin esperar a que Omar lo pida y sin dejarlo para "el cierre de sesión". Si hubo commits, listarlos; si hubo verificación en producción, decir cómo se verificó; si quedó algo pendiente, dejarlo explícito. Ningún trabajo se considera terminado hasta que está en la bitácora.
+- **Bitácora Única (Evitar Duplicaciones):** `agents.md` es la única bitácora. `CLAUDE.md` se reserva estrictamente para guías técnicas, de estilo y reglas.
 
 ## Estilo y Marca
 - Todo diseño nuevo debe seguir el estilo existente del sitio: tema oscuro glassmorphism (`rgba(255,255,255,0.04)` en cards), acento lima `#C8F135` (`.text-accent-lime`), tipografía Space Grotesk, y reutilizar clases existentes (`.section-title`, `.faq-item`, `.cta-button`, etc.)
