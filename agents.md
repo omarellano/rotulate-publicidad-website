@@ -408,3 +408,36 @@ Si vas a continuar trabajando en este proyecto, te sugerimos enfocarte en las si
 
 ### Nota de deploys
 * El run del commit `afd0ec3` (13-jul) marcó failure transitorio; el siguiente deploy (rsync = sync completo) subió todo. Sin impacto.
+
+---
+
+## 🧮 Sesión 14-jul-2026 — Fase 3: cotizador con leads + incidente Supabase + hardening
+
+### Cotizador de lonas (commit `62aa196`) — verificado e2e en producción
+* El cotizador YA existía en `/lonas-cancun/` (cálculo en vivo, mínimo 1m², ojillos, diseño). Se agregó:
+  * Campos opcionales de **nombre y WhatsApp**; mensaje de WhatsApp personalizado con el nombre.
+  * **Registro en Supabase**: cada clic en "Enviar a WhatsApp" inserta la cotización (specs + total) en `cotizaciones_web` con `servicio='cotizador-lonas'`; anónimos marcados. Dedupe 5 min. Fire-and-forget (no bloquea WhatsApp).
+  * **EmailJS** (mismo service/template del formulario) solo cuando dejan contacto.
+  * Carga diferida del stack (IntersectionObserver, 600px). Cache-bust `main.js?v=2.7`.
+* Verificado: insert por curl (201), insert desde la página en producción (OK), EmailJS disparado en el flujo real.
+
+### ⚠️ INCIDENTE: proyecto Supabase pausado (detectado y resuelto 14-jul-2026)
+* `wtljdvexsksextnhpkkd.supabase.co` no resolvía en DNS: proyecto free pausado por inactividad. **El formulario principal estuvo perdiendo leads en silencio.** Omar lo restauró desde el dashboard; verificado funcionando.
+* **Prevención (commit `c7e8546`):** `.github/workflows/supabase-keepalive.yml` — ping lunes y jueves 12:00 UTC; si responde 000/5xx el job falla y GitHub notifica por correo (keep-alive + monitor). Primera corrida manual: success.
+
+### Warnings del linter de Supabase — RESUELTOS y verificados
+* Fuente: `supabase/warnings_supabase.txt` (exportado por Omar; carpeta gitignored, no se despliega).
+* Aplicado por Omar en SQL Editor (script final en `supabase_fix_warnings.sql`):
+  * search_path fijado en 6 funciones.
+  * **Lección técnica:** revocar EXECUTE solo a `anon` no sirvió — el permiso venía del rol `PUBLIC`. Se revocó de PUBLIC y se devolvió a `authenticated`/`service_role` donde aplica.
+  * Verificado desde fuera con curl: `has_role` y `get_user_empresa_id` → 401 para anon; `handle_new_user` fuera de la API (404); listado del bucket `cotizaciones` cerrado; **insert anónimo sigue en 201**.
+* "Leaked password protection": **descartado** — es de plan Pro (error al activarlo en free). Riesgo bajo.
+* Filas de prueba eliminadas por Omar (5, filtro `nombre ilike '%(ignorar%'` con RETURNING).
+
+### Hardening del hosting (commit `2d73823`)
+* `.htaccess`: FilesMatch ampliado a `.sql`/`.ps1` y 403 para `supabase/`, `docs/`, `deploy_failures/`, `seo_performance/`. `supabase_setup.sql` y `deploy-local.ps1` estaban públicamente accesibles — verificado 403 en producción tras el deploy; `robots.txt` y el sitio intactos.
+
+### Pendientes del plan (sin cambios)
+1. Portafolio con clientes nombrados (falta mapeo foto→cliente de `assets/nuevas_fotos/`).
+2. Campaña de reseñas post-venta por WhatsApp (meta ~1/semana).
+3. Blog: 1-2 artículos/mes (backlog en docs/analisis-competencia-jul-2026.md §6).
