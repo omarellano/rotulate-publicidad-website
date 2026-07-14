@@ -448,3 +448,13 @@ Si vas a continuar trabajando en este proyecto, te sugerimos enfocarte en las si
 * Filas de prueba eliminadas por Omar: 5, con `delete ... where nombre ilike '%(ignorar%' returning id, nombre` — la tabla queda solo con leads reales.
 * `supabase_fix_warnings.sql` actualizado en el repo a la versión final aplicada (idempotente, con la lección del grant vía PUBLIC).
 * **Nueva REGLA SIEMPRE en CLAUDE.md** (pedida por Omar): toda implementación/corrección/incidente se documenta en agents.md al momento de completarse y verificarse, sin que se pida.
+
+### Auditoría de seguridad (14-jul-2026, a petición de Omar) y cierre de sesión
+* **Verificado en vivo:** los 7 headers de seguridad activos (CSP estricta, HSTS 1 año, nosniff, X-Frame DENY, referrer, permissions policy); cero exposiciones (.git/.env/.md/.sql/.ps1 y carpetas internas → 403/404); Supabase endurecido (anon solo INSERT, funciones internas en 401, bucket sin listado).
+* **Riesgos aceptados por diseño:** anon key pública (protege RLS), 'unsafe-inline' solo en estilos.
+* **Margen de mejora identificado (sin acción por ahora):**
+  1. Spam directo a la API de leads (sin CAPTCHA) — actuar solo si aparece basura en la tabla (solución: Turnstile + edge function).
+  2. Respaldos: plan free de Supabase no tiene backups automáticos — Omar debe exportar `cotizaciones_web` a CSV periódicamente (o montar export automático si crece).
+  3. **Pendiente de Omar:** confirmar 2FA en GitHub, Hostinger, Supabase y Google — hoy el eslabón más débil son las cuentas, no el sitio.
+
+**Punto de arranque próxima sesión:** portafolio con clientes nombrados (falta mapeo foto→cliente de assets/nuevas_fotos/), campaña de reseñas post-venta, y blog 1-2 artículos/mes. Fase 3 (cotizador con leads) COMPLETA y verificada.
