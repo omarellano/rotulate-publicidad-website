@@ -365,3 +365,18 @@ Si vas a continuar trabajando en este proyecto, te sugerimos enfocarte en las si
 * Enlace "Blog" añadido al menú de TODAS las páginas (9 páginas de servicio + lonas-cancun; el index ya lo tenía) — commit `c1f5924`.
 * **Indexación solicitada en Search Console** (vía navegador de Omar): `/blog/`, `/playa-del-carmen/` y `/tulum/` añadidas a la cola prioritaria de rastreo, y `sitemap.xml` reenviado (el anterior databa del 26-jun con 22 páginas; ahora tiene 31 URLs).
 * Flujo para alimentar el blog documentado: cada artículo nuevo = archivo HTML en `/blog/` siguiendo la plantilla existente + tarjeta en `/blog/index.html` + entrada en `sitemap.xml` + push a main.
+
+---
+
+## 📍 Cierre de sesión (14-jul-2026) — Punto de arranque para la siguiente
+
+**Estado:** Fases 1 y 2 del plan de competencia desplegadas, verificadas en producción e indexación solicitada en GSC. Documentación completa en [docs/analisis-competencia-jul-2026.md](file:///C:/Users/omac_/rtmx-web/docs/analisis-competencia-jul-2026.md).
+
+**Próximos pasos (en orden de prioridad):**
+1. **Portafolio con clientes nombrados** (cierra Fase 2): Omar debe indicar qué cliente/proyecto es cada foto de `assets/nuevas_fotos/` (silanes-evento, alumik, WhatsApp jun-2026). Permisos de todos los clientes ya confirmados. Al armarlo: renombrar archivos (tienen espacios, regla del repo) y convertir a WebP.
+2. **Fase 3:** cotizador interactivo de lonas por m² (guardar leads en Supabase, tabla `cotizaciones`) + campaña de reseñas post-venta por WhatsApp (meta ~1/semana; hoy: 4.7★/30) + responder reseñas existentes en Google.
+3. **Monitorear en GSC (~2 semanas):** indexación de /blog/, /playa-del-carmen/, /tulum/ y los 6 artículos; primeras impresiones de las keywords nuevas.
+4. **Blog:** publicar 1-2 artículos/mes. Backlog de temas en §6 del doc de análisis (permisos de anuncios Benito Juárez/Solidaridad, toldos para restaurantes, etc.). Flujo: HTML en /blog/ + tarjeta en índice + sitemap + push.
+5. **Pendiente menor:** verificar si Omar purgó la caché de Hostinger (Cache Manager) tras los deploys del 12-jul.
+
+**Commits de la sesión:** `1625d55` (Fase 1), `1a710c2` (doc investigación), `157ccf8` (Fase 2), `c1f5924` (Blog en navs), `854dfae` (log GSC).
