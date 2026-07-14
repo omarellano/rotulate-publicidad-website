@@ -335,6 +335,20 @@
                                     <option value="avanzado">Logotipo o Idea desde cero — (Cotizar por WhatsApp)</option>
                                 </select>
                             </div>
+
+                            <div class="form-group-row">
+                                <div class="form-group">
+                                    <label for="lona-nombre">Tu nombre (opcional)</label>
+                                    <input type="text" id="lona-nombre" maxlength="100" autocomplete="name" placeholder="¿Cómo te llamas?"
+                                           toolparamdescription="Nombre del cliente (opcional) para personalizar la cotización y dar seguimiento">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lona-telefono">Tu WhatsApp (opcional)</label>
+                                    <input type="tel" id="lona-telefono" maxlength="20" autocomplete="tel" placeholder="998 123 4567" pattern="[\+]?[\d\s\-\(\)]{7,20}"
+                                           toolparamdescription="Teléfono o WhatsApp del cliente (opcional) para dar seguimiento a la cotización">
+                                    <small>Déjalo si prefieres que nosotros te escribamos.</small>
+                                </div>
+                            </div>
                         </form>
                     </div>
 
@@ -544,7 +558,7 @@
     <button class="back-to-top" id="back-to-top" aria-label="Volver arriba">&#8593;</button>
 
     <!-- Scripts -->
-    <script src="main.js?v=2.6" defer></script>
+    <script src="main.js?v=2.7" defer></script>
 </body>
 
 </html>

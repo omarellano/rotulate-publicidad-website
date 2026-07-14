@@ -118,6 +118,11 @@
     const grommetsInput = document.getElementById('lona-grommets');
     const designSelect = document.getElementById('lona-design');
     const qtyInput = document.getElementById('lona-qty');
+    const nombreInput = document.getElementById('lona-nombre');
+    const telefonoInput = document.getElementById('lona-telefono');
+
+    // Última cotización calculada (para registrarla en Supabase al hacer clic en WhatsApp)
+    let lastQuote = null;
 
     function calculateQuote() {
         if (!widthInput || !heightInput || !typeSelect || !grommetsInput || !designSelect || !qtyInput) return;
@@ -214,7 +219,10 @@
         }
 
         // WhatsApp message generator
-        let waText = `Hola Rotúlate, me gustaría cotizar una lona con las siguientes especificaciones:\n\n`;
+        const nombre = nombreInput ? nombreInput.value.trim().slice(0, 100) : '';
+        let waText = nombre
+            ? `Hola Rotúlate, soy ${nombre}, me gustaría cotizar una lona con las siguientes especificaciones:\n\n`
+            : `Hola Rotúlate, me gustaría cotizar una lona con las siguientes especificaciones:\n\n`;
         waText += `• Tipo de Lona: Lona ${typeLabels[type]}\n`;
         waText += `• Medidas: ${width}m x ${height}m\n`;
         waText += `• Cantidad: ${qty} pieza(s)\n`;
@@ -239,10 +247,21 @@
 
         const waEncoded = encodeURIComponent(waText);
         waButton.href = `https://wa.me/529984007987?text=${waEncoded}`;
+
+        // Snapshot de la cotización para el registro de leads
+        lastQuote = {
+            material: `Lona ${typeLabels[type]}`,
+            precioM2: pricePerM2,
+            medidas: `${width}m x ${height}m (${rawArea.toFixed(2)} m² reales, ${printableArea.toFixed(2)} m² de cobro)`,
+            piezas: qty,
+            ojillos: grommets,
+            diseno: design,
+            total: customDesignRequired ? 'Personalizado (diseño por cotizar)' : `$${finalTotal.toLocaleString('es-MX')} MXN`
+        };
     }
 
     // Bind inputs to dynamic recalculations
-    const inputs = [widthInput, heightInput, typeSelect, grommetsInput, designSelect, qtyInput];
+    const inputs = [widthInput, heightInput, typeSelect, grommetsInput, designSelect, qtyInput, nombreInput];
     inputs.forEach(input => {
         if (input) {
             // Recalculate on both input changes and focus losses
@@ -250,6 +269,146 @@
             input.addEventListener('change', calculateQuote);
         }
     });
+
+    /* ── 4.5 Registro de cotizaciones en Supabase ──────────────
+       Cada clic en "Enviar a WhatsApp" guarda la cotización en la
+       tabla cotizaciones_web (aunque el visitante sea anónimo) y,
+       si dejó contacto, dispara la notificación por EmailJS.
+       Nunca bloquea la apertura de WhatsApp: fire-and-forget. */
+    const EMAILJS_PUBLIC_KEY = 'Rn8OVcLm0OQq3lrLQ';
+    const EMAILJS_SERVICE = 'service_n44qqee';
+    const EMAILJS_TEMPLATE = 'template_wxr3rqu';
+
+    let stackPromise = null;
+
+    function loadScript(src) {
+        return new Promise(function (resolve, reject) {
+            const s = document.createElement('script');
+            s.src = src;
+            s.onload = resolve;
+            s.onerror = reject;
+            document.head.appendChild(s);
+        });
+    }
+
+    function ensureLeadStack() {
+        if (!stackPromise) {
+            stackPromise = (async function () {
+                if (!window.supabaseClient) {
+                    await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
+                    await loadScript('../supabase-config.js');
+                }
+                if (typeof emailjs === 'undefined') {
+                    await loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js');
+                }
+                if (typeof emailjs !== 'undefined' && !window.__emailjsInit) {
+                    emailjs.init(EMAILJS_PUBLIC_KEY);
+                    window.__emailjsInit = true;
+                }
+            })().catch(function (err) {
+                stackPromise = null; // permitir reintento en el siguiente clic
+                throw err;
+            });
+        }
+        return stackPromise;
+    }
+
+    // Evitar registros duplicados: misma cotización solo se guarda una vez cada 5 min
+    let lastSavedSignature = '';
+    let lastSavedAt = 0;
+
+    async function saveQuoteLead() {
+        if (!lastQuote) return;
+
+        const nombre = nombreInput ? nombreInput.value.trim().slice(0, 100) : '';
+        const telefono = telefonoInput ? telefonoInput.value.trim().slice(0, 20) : '';
+        const telefonoValido = telefono && /^[\+]?[\d\s\-\(\)]{7,20}$/.test(telefono);
+
+        const designLabels = {
+            ninguno: 'Ya tiene diseño listo',
+            basico: 'Básico (+$100)',
+            intermedio: 'Intermedio (+$200)',
+            avanzado: 'Avanzado / desde cero (por cotizar)'
+        };
+
+        const mensaje =
+            'Cotización generada en el cotizador de lonas (clic a WhatsApp):\n' +
+            '• Material: ' + lastQuote.material + ' ($' + lastQuote.precioM2 + '/m²)\n' +
+            '• Medidas: ' + lastQuote.medidas + '\n' +
+            '• Piezas: ' + lastQuote.piezas + '\n' +
+            '• Ojillos por pieza: ' + lastQuote.ojillos + '\n' +
+            '• Diseño: ' + (designLabels[lastQuote.diseno] || lastQuote.diseno) + '\n' +
+            '• Total estimado: ' + lastQuote.total;
+
+        const signature = mensaje + '|' + nombre + '|' + telefono;
+        const now = Date.now();
+        if (signature === lastSavedSignature && now - lastSavedAt < 5 * 60 * 1000) return;
+
+        await ensureLeadStack();
+        if (!window.supabaseClient) return;
+
+        const { error } = await window.supabaseClient
+            .from('cotizaciones_web')
+            .insert([{
+                nombre: nombre || 'Visitante del cotizador (anónimo)',
+                email: 'No proporcionado',
+                telefono: telefonoValido ? telefono : 'No proporcionado',
+                servicio: 'cotizador-lonas',
+                mensaje: mensaje,
+                archivos: []
+            }]);
+
+        if (error) {
+            console.error('No se pudo registrar la cotización:', error);
+            return;
+        }
+
+        lastSavedSignature = signature;
+        lastSavedAt = now;
+        console.log('[Cotizador] Cotización registrada en Supabase.');
+
+        // Notificación por correo solo cuando el visitante dejó contacto real
+        if ((nombre || telefonoValido) && typeof emailjs !== 'undefined') {
+            try {
+                await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+                    from_name: nombre || 'Visitante del cotizador de lonas',
+                    from_email: 'No proporcionado',
+                    phone: telefonoValido ? telefono : 'No proporcionado',
+                    service: 'Cotizador de lonas (lead con contacto)',
+                    message_details: mensaje,
+                    file_links: 'Sin archivos adjuntos'
+                });
+            } catch (emailError) {
+                console.error('No se pudo enviar la notificación por correo:', emailError);
+            }
+        }
+    }
+
+    (function initQuoteLeadTracking() {
+        const waButton = document.getElementById('quote-wa-btn');
+        const cotizadorSection = document.getElementById('cotizador');
+        if (!waButton) return;
+
+        // Precargar el stack cuando el visitante se acerca al cotizador
+        if (cotizadorSection && 'IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(function (entries) {
+                if (entries.some(function (e) { return e.isIntersecting; })) {
+                    observer.disconnect();
+                    ensureLeadStack().catch(function (err) {
+                        console.error('No se pudo precargar el stack de leads:', err);
+                    });
+                }
+            }, { rootMargin: '600px' });
+            observer.observe(cotizadorSection);
+        }
+
+        // El registro corre en segundo plano; WhatsApp abre en pestaña nueva sin esperar
+        waButton.addEventListener('click', function () {
+            saveQuoteLead().catch(function (err) {
+                console.error('Registro de cotización falló:', err);
+            });
+        });
+    })();
 
     /* ── 5. Custom Select Logic (Mobile & Accessibility Cohesion) ── */
     function initCustomSelects() {
