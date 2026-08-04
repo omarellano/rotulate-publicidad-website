@@ -4,6 +4,21 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 
 ---
 
+## 📅 Resumen de la Sesión (04 de Agosto, 2026)
+
+### 🔍 Análisis Google Search Console (export CSV, `search_info/`, solo diagnóstico)
+* **Ventana:** 3-may al 2-ago-2026, tipo de búsqueda Web (7 CSV: Gráfico, Consultas, Páginas, Países, Dispositivos, Aparición en búsquedas, Filtros).
+* **Totales:** 183 clics, 7,291 impresiones, CTR 2.51%, posición media ~7.8. **Vs. la auditoría del 05-jul** (124 clics / 4,780 impresiones / CTR 2.6% / pos 7.4): +47% clics y +52% impresiones, pero CTR y posición casi planos → el sitio gana visibilidad en más consultas de página 2 sin capturar proporcionalmente más clics.
+* **Páginas top:** home (56 clics, pos 5.78), `/express/` (37 clics, 1,411 imp, pos 9.23), `rotulacion-vehicular.html` (16), `alucobond.html` (16, mejor CTR 5.21%, pos 5.58), `/lonas-cancun/` (12 clics, 1,028 imp).
+* **Oportunidad #1 — "lonas cancun":** 173 impresiones (la consulta de más volumen del sitio), 0 clics, posición 9.62 — justo debajo de página 1. La página `/lonas-cancun/` en agregado está en pos 7.38, así que la brecha es específica de esa keyword exacta; reforzar title/H1/meta description con match exacto.
+* **Otras consultas de alto volumen y 0 clics (posición 10-19, "casi página 1"):** "anuncios luminosos cancun" (69 imp, pos 10.96), "rótulos cancun" (60, pos 14.4), "blog de rotulación y publicidad visual" (55, pos 17.65), "toldos cancun" (40, pos 16.43), "vinil cancun" (25, pos 16.76), "vinilos cancun" (22, pos 17.95), "publicidad cancun" (19, pos 18.89).
+* **Móvil vs. escritorio:** móvil mejor posición (6.81 vs 9.06) pero peor CTR (2.24% vs 2.88%) — posible snippet truncado en pantallas chicas, revisar longitud real de title/meta en SERP móvil.
+* **Inglés casi invisible:** `control-solar-en.html` (pos 20.4), `alucobond-en.html` (25.8), `toldos-en.html` (17.45). EE. UU. genera 977 impresiones pero solo 3 clics (CTR 0.31%) — mezcla de consultas irrelevantes ("3m solar panel film seattle") con audiencia real (hoteles/Airbnb) que no está aterrizando bien.
+* **Blog subaprovechado:** artículos individuales con buena posición (5-7) pero volumen mínimo (3-18 imp c/u); `blog.html` (índice) en pos 16.46 — falta enlazado interno/promoción para ganar tracción.
+* **Pendiente (no aplicado, solo backlog):** optimizar on-page de `/lonas-cancun/` para keyword exacta "lonas cancún"; revisar snippet móvil (title/meta length); evaluar refuerzo de contenido/enlaces internos del blog; decidir si vale la pena invertir en las páginas `-en.html` dado el bajo volumen real de audiencia angloparlante relevante.
+
+---
+
 ## 📅 Resumen de la Sesión (06 de Julio, 2026)
 
 ### ⚽→🧑‍🚀 Retiro de la promo "¿Y si sí?" — mascota restaurada
