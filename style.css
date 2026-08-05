@@ -2680,3 +2680,27 @@ nav a.active::after {
     .lb-prev { left: 0.25rem; }
     .lb-next { right: 0.25rem; }
 }
+
+/* WPO & Layout Utility Classes */
+.container-narrow {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 0 max(1.25rem, 4%);
+}
+.container-wide {
+    max-width: 1100px;
+    margin: 4rem auto;
+    padding: 0 max(1.25rem, 4%);
+}
+.glass-card-sm {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+.glass-list-item {
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    border-left: 3px solid #C8F135;
+}

@@ -37,6 +37,11 @@ jobs:
               --exclude='CLAUDE.md' \
               --exclude='.gitignore' \
               --exclude='LICENSE' \
+              --exclude='search_info' \
+              --exclude='seo_performance' \
+              --exclude='deploy_failures' \
+              --exclude='assets/ysisi' \
+              --exclude='assets/nuevas_fotos' \
               -e "ssh -p 65002 -i ~/.ssh/deploy_key -o ConnectTimeout=20" \
               . u944947843@157.173.209.165:domains/rotulatepublicidad.com/public_html/; then
               echo "Deploy exitoso en el intento $i"

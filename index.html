@@ -46,10 +46,12 @@
 
     <!-- Rendimiento: precargar imagen crítica de fondo del Hero -->
     <link rel="preload" as="image" href="assets/hero-space-bg-earth.jpg" type="image/jpeg">
+    <link rel="preload" as="image" href="assets/astronauta_mx.webp" type="image/webp" fetchpriority="high">
 
     <!-- Rendimiento: preconectar a dominios externos -->
-    <!-- Fuente cargada via <link> en vez de CSS @import (no bloquea render).
-         Nota: no usar el truco media="print"+onload — la CSP bloquea handlers inline. -->
+    <link rel="preconnect" href="https://wtljdvexsksextnhpkkd.supabase.co" crossorigin>
+    <link rel="dns-prefetch" href="https://region1.google-analytics.com">
+
     <link rel="stylesheet" href="style.css?v=3.1">
 
     <!-- Schema.org — LocalBusiness structured data -->

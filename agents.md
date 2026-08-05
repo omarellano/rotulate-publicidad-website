@@ -498,3 +498,9 @@ Ejecución de plan de optimización SEO basado en el análisis directo del direc
 ### 5. 🔗 Enlazado Interno del Blog
 * Enlazado contextual reforzado desde artículos clave en `/blog/` (ej. [`blog/ppf-en-cancun-vale-la-pena.html`](file:///C:/Users/omac_/rtmx-web/blog/ppf-en-cancun-vale-la-pena.html)) apuntando hacia las páginas de conversión de servicio ([`/rotulacion-vehicular.html`](file:///C:/Users/omac_/rtmx-web/rotulacion-vehicular.html)).
 
+### 6. ⚡ Optimización Técnica, Carga (WPO) y Cache-Busting (Fases A, B y C)
+* **Preload LCP & Preconnect:** Inyectadas etiquetas `<link rel="preload" as="image" ... fetchpriority="high">` para precargar las imágenes principales de hero (.webp/.jpg) en `index.html` y las 8 páginas de servicio. Se agregaron hints de red `preconnect` a la API de Supabase (`wtljdvexsksextnhpkkd.supabase.co`) y `dns-prefetch` a Google Analytics.
+* **Unificación de Caché:** Estandarizadas las versiones de archivos estáticos sitewide a `style.css?v=3.1` y `main.js?v=3.0`.
+* **Utilidades CSS:** Añadidas clases reutilizables de diseño (.container-narrow, .container-wide, .glass-card-sm, .glass-list-item) en `style.css` para recortar código inline en HTML.
+* **Deploy Rápido:** Agregadas exclusiones a `.github/workflows/deploy.yml` (`search_info`, `seo_performance`, `deploy_failures`, `assets/ysisi`, `assets/nuevas_fotos`) para agilizar la sincronización por rsync.
+
