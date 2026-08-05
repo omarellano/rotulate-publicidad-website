@@ -475,3 +475,26 @@ Si vas a continuar trabajando en este proyecto, te sugerimos enfocarte en las si
   3. **Pendiente de Omar:** confirmar 2FA en GitHub, Hostinger, Supabase y Google — hoy el eslabón más débil son las cuentas, no el sitio.
 
 **Punto de arranque próxima sesión:** portafolio con clientes nombrados (falta mapeo foto→cliente de assets/nuevas_fotos/), campaña de reseñas post-venta, y blog 1-2 artículos/mes. Fase 3 (cotizador con leads) COMPLETA y verificada.
+
+---
+
+## 📅 Resumen de la Sesión (05 de Agosto, 2026)
+
+Ejecución de plan de optimización SEO basado en el análisis directo del directorio `search_info/` (183 clics, 7,291 impresiones, CTR 2.51%):
+
+### 1. 📱 Optimización de Metadescripciones para Móviles (Evitar Truncamiento)
+* Recortadas las descripciones en `anuncios-luminosos.html`, `toldos.html`, `letras-3d.html`, `rotulacion-vehicular.html` y `gran-formato.html` a `< 125 caracteres`.
+* Antepuesto el llamado a la acción comercial (`¡Cotiza en 24h!`, `¡Cotiza hoy!`) al inicio de los snippets para evitar que queden fuera en pantallas pequeñas (elevando CTR móvil desde 2.24%).
+
+### 2. 💡 Refuerzo On-Page para "Anuncios Luminosos Cancún"
+* En [`anuncios-luminosos.html`](file:///C:/Users/omac_/rtmx-web/anuncios-luminosos.html), se añadió una rejilla de tarjetas explicativas con H3 para los 3 formatos clave: **Cajas de Luz**, **Letreros LED Retroiluminados** y **Neón Flex LED**, atacando la consulta en posición 10.96 (69 imp, 0 clics).
+
+### 3. 🇺🇸 Captura de Búsquedas B2B de EE. UU.
+* En [`express/en/index.html`](file:///C:/Users/omac_/rtmx-web/express/en/index.html), se añadieron 2 tarjetas de servicio B2B enfocadas en compradores corporativos internacionales: *"Commercial Signage B2B"* (LED channel letters & outdoor building signs) y *"Large Format Printing"* (oversized banners & trade show displays).
+
+### 4. 🏷️ Rich Snippets `Product` + `Offer`
+* Inyectado marcado estructurado `Product` con `AggregateOffer` en [`gran-formato.html`](file:///C:/Users/omac_/rtmx-web/gran-formato.html) ($230 a $350 MXN) y [`alucobond.html`](file:///C:/Users/omac_/rtmx-web/alucobond.html) ($1,450 a $2,200 MXN) para capturar rich snippets con precios en Google (887 imp, CTR 1.01%).
+
+### 5. 🔗 Enlazado Interno del Blog
+* Enlazado contextual reforzado desde artículos clave en `/blog/` (ej. [`blog/ppf-en-cancun-vale-la-pena.html`](file:///C:/Users/omac_/rtmx-web/blog/ppf-en-cancun-vale-la-pena.html)) apuntando hacia las páginas de conversión de servicio ([`/rotulacion-vehicular.html`](file:///C:/Users/omac_/rtmx-web/rotulacion-vehicular.html)).
+
