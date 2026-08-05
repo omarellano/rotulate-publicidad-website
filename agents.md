@@ -504,3 +504,12 @@ Ejecución de plan de optimización SEO basado en el análisis directo del direc
 * **Utilidades CSS:** Añadidas clases reutilizables de diseño (.container-narrow, .container-wide, .glass-card-sm, .glass-list-item) en `style.css` para recortar código inline en HTML.
 * **Deploy Rápido:** Agregadas exclusiones a `.github/workflows/deploy.yml` (`search_info`, `seo_performance`, `deploy_failures`, `assets/ysisi`, `assets/nuevas_fotos`) para agilizar la sincronización por rsync.
 
+### 📍 Cierre de Sesión (05 de Agosto, 2026)
+* **Commits:** `ba6001d` (SEO & B2B) y `47fee45` (WPO & Cache-Busting).
+* **Despliegues:** Ambos verificados en producción vía GitHub Actions (`completed success`) y respondiendo en vivo en Hostinger.
+* **Punto de arranque próxima sesión:** 
+  1. Portafolio con clientes nombrados (mapeo foto→cliente de `assets/nuevas_fotos/`).
+  2. Campaña de reseñas post-venta por WhatsApp (Google Business Profile 4.7★).
+  3. Continuación de parrilla del blog (1-2 artículos/mes en `/blog/`).
+
+
