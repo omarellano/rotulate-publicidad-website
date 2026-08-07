@@ -28,11 +28,21 @@ Codex intentó implementar la analítica del recorrido del usuario y quedó bloq
 - **Verificado en local** (servidor estático Node + Claude in Chrome): banner aparece, Consent Mode dispara `consent default` al cargar; al aceptar dispara `consent update` + `consent_granted` y persiste en `localStorage` (no reaparece en reload); `section_view` se dispara una vez por sección al hacer scroll; `scroll_depth` dispara en 25%; `cta_click` dispara `{cta_type:'whatsapp', cta_location:'floating'}` al hacer clic en el botón flotante; `form_start` dispara al enfocar el campo "nombre". Sin errores de consola. Balance de `<div>` verificado en las 35 páginas HTML del repo tras los cambios masivos.
 - **Commit y deploy:** `ab72114` — push a `main`, deploy automático verificado exitoso (11s). Confirmado en producción con curl: `https://rotulatepublicidad.com/analytics.js` (200), `https://rotulatepublicidad.com/privacidad.html` (200), CSP con `clarity.ms` presente, y HTML de home sirviendo `analytics.js?v=1.0` / `style.css?v=3.2` sin caché stale (`Cache-Control: max-age=0`, `x-hcdn-cache-status: DYNAMIC`).
 
-**Pendiente (Fase 0/2 — requieren a Omar, cuentas de terceros y GTM):**
-1. Confirmar/crear la propiedad GA4 para `rotulatepublicidad.com` → obtener Measurement ID.
-2. Crear el proyecto de Microsoft Clarity para `rotulatepublicidad.com` (iniciar sesión) → obtener Project ID.
-3. Con esos IDs, configurar en GTM-5623CPQG: variables de dataLayer (`section_name`, `cta_type`, `cta_location`, `percent`), activadores de evento personalizado por cada evento nuevo + `cotizacion_supabase_ok` como conversión, tag de configuración GA4, tag de Clarity condicionado al consentimiento, y publicar el contenedor.
-4. Verificar en producción tras publicar: Vista previa de GTM, GA4 Realtime/DebugView, primera grabación de sesión en Clarity, y confirmar que Clarity no dispara sin aceptar el banner.
+### ✅ Configuración de GTM para GA4 — completada (Fase 2, parcial)
+Omar creó la propiedad GA4 (Measurement ID `G-7RD98QCP79`) el mismo día. Con ese ID, configuré directamente en el contenedor GTM-5623CPQG (cuenta RTMX) vía navegador:
+- **Variables (4):** `DLV - section_name`, `DLV - cta_type`, `DLV - cta_location`, `DLV - percent` (Variable de capa de datos v2).
+- **Activadores (5):** `CE - section_view`, `CE - scroll_depth`, `CE - cta_click`, `CE - form_start`, `CE - cotizacion_supabase_ok (conversion)` — todos tipo Evento personalizado.
+- **Etiquetas (6):** `GA4 - Google Tag (config)` (tipo "Etiqueta de Google", dispara en Initialization - All Pages) + una etiqueta "Google Analytics: evento de GA4" por cada activador, con sus parámetros de evento conectados a las variables (`section_name`, `cta_type`+`cta_location`, `percent`).
+- **Publicado:** Versión 2 del contenedor, "GA4 - seguimiento del recorrido del usuario", publicada el 07/08/2026 18:25 por omar.arellano.mx@gmail.com (6 etiquetas, 5 activadores, 9 variables en total incluyendo las integradas).
+
+**Verificado en producción (rotulatepublicidad.com, tras publicar):** las peticiones a `google-analytics.com/g/collect` salen correctamente formadas — `tid=G-7RD98QCP79`, `en=page_view`, y `en=section_view&ep.section_name=servicios` al hacer scroll — confirmando que el dataLayer, los activadores y las etiquetas están bien conectados. **Nota:** esas peticiones devolvieron `503` en el navegador usado por Claude en esta sesión; no hubo errores de CSP en consola (la CSP ya permite `google-analytics.com`), así que probablemente es la misma interferencia de red/DNS de esta máquina hacia dominios de Google detectada antes (`analytics.google.com` no resolvía por DNS en este entorno). **Pendiente de que Omar confirme en GA4 Realtime/DebugView desde su propia red** que los eventos efectivamente están llegando (la estructura de las peticiones es correcta, falta solo la confirmación server-side).
+
+**Pendiente (requiere a Omar):**
+1. Confirmar en GA4 (Informes → Tiempo real, o DebugView) que los eventos `page_view`, `section_view`, `scroll_depth`, `cta_click`, `form_start`, `cotizacion_supabase_ok` están llegando.
+2. Marcar `cotizacion_supabase_ok` como conversión en GA4 (Admin → Eventos → activar el toggle, o Admin → Conversiones → Nuevo evento de conversión con ese nombre).
+3. Crear el proyecto de Microsoft Clarity para `rotulatepublicidad.com` (iniciar sesión con la cuenta que prefiera) → obtener Project ID.
+4. Con el Project ID de Clarity, agregar en GTM-5623CPQG la etiqueta de Clarity (dispara en All Pages, condicionada al consentimiento vía Consent Mode) y volver a publicar.
+5. Verificar que Clarity registre una grabación de sesión de prueba, y que no dispare sin aceptar el banner de consentimiento.
 
 
 ## 📅 Resumen de la Sesión (04 de Agosto, 2026)
