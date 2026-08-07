@@ -3,6 +3,37 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (07 de Agosto, 2026)
+
+### 🩹 Bloqueo de entorno con Codex (primer intento, sin cambios aplicados)
+Codex intentó implementar la analítica del recorrido del usuario y quedó bloqueado por un bug del sandbox de Windows al usar `apply_patch` (`orchestrator_helper_launch_failed ... codex-windows-sandbox-setup.exe ... program not found`). La lectura de archivos funcionaba pero la escritura no — no se aplicó ningún cambio. Quedaron documentadas las decisiones y hallazgos (ver detalle abajo), retomados y completados por Claude Code en la misma fecha.
+
+### ✅ Analítica del recorrido del usuario — implementada (Fase 1: código)
+**Pendiente original:** saber en qué parte del sitio los visitantes se quedan, qué secciones ven y cuáles no, para decidir mejoras con datos (GA4 + Microsoft Clarity vía el contenedor GTM-5623CPQG ya instalado).
+
+**Decisiones confirmadas (se mantienen):**
+- Conversión principal: contacto calificado (WhatsApp, teléfono, correo y formulario enviado).
+- Privacidad: banner con aceptación explícita antes de activar analítica o mapas de calor.
+- Alcance: Consent Mode, eventos de secciones/CTAs/formulario/cotizador, aviso de privacidad y configuración documentada de GTM.
+
+**Verificación previa en vivo (navegador, sesión de Omar):** el contenedor GTM-5623CPQG existe pero estaba vacío (sin tags/triggers); Microsoft Clarity no tenía sesión iniciada (no hay proyecto creado o no es accesible desde ese navegador); `analytics.google.com` no cargó (no se pudo confirmar si ya existe una propiedad GA4).
+
+**Implementado (código, sin necesidad de IDs externos — GA4/Clarity se conectan después vía GTM):**
+- `analytics.js` (nuevo): Google Consent Mode v2 (denegado por defecto, con `wait_for_update`), banner de consentimiento propio (Aceptar/Rechazar, elección guardada en `localStorage` como `rtmx_consent`), `section_view` por `IntersectionObserver` sobre las 8 secciones (`inicio, proceso, servicios, proyectos, nosotros, testimonios, faq, contacto`), `scroll_depth` (25/50/75/90%), `cta_click` (WhatsApp/tel/mailto, con `cta_location` por sección/header/footer/flotante), `form_start` (primer focus en `#cotizar`). No duplica el evento `cotizacion_supabase_ok` que ya emite `upload.js:299-301`.
+- `privacidad.html` (nuevo): aviso de privacidad (LFPDPPP, derechos ARCO, qué datos se recopilan, terceros: Supabase/EmailJS/GA4/Clarity), mismo layout que las páginas de servicio.
+- `.htaccess`: CSP ampliada con `https://www.clarity.ms` en `script-src`/`connect-src` (dominio a confirmar cuando se instale el tag real de Clarity vía GTM, puede requerir ajuste).
+- `analytics.js` incluido (con `defer`, después de `main.js`) en las 30 páginas que ya cargan `main.js` (index, 9 páginas de servicio ES + 8 EN, `en/`, `blog/` + 6 artículos, `lonas-cancun/`, `playa-del-carmen/`, `tulum/`, `privacidad.html`). No se tocó `404.html` ni `express/index.html` (no cargan `main.js`).
+- Enlace "Aviso de Privacidad" / "Privacy Notice" agregado al footer de esas mismas 30 páginas (el aviso de privacidad es una sola página, sin versión en inglés separada — tráfico angloparlante es marginal según auditoría GSC del 04-ago).
+- `style.css`: nuevas reglas para `#consent-banner` (glassmorphism + acento lima, reutiliza `.cta-button`/`.cta-secondary`); versión de cache bump a `?v=3.2` en las 30 páginas (antes mezcla de `3.0`/`3.1`).
+- **Verificado en local** (servidor estático Node + Claude in Chrome): banner aparece, Consent Mode dispara `consent default` al cargar; al aceptar dispara `consent update` + `consent_granted` y persiste en `localStorage` (no reaparece en reload); `section_view` se dispara una vez por sección al hacer scroll; `scroll_depth` dispara en 25%; `cta_click` dispara `{cta_type:'whatsapp', cta_location:'floating'}` al hacer clic en el botón flotante; `form_start` dispara al enfocar el campo "nombre". Sin errores de consola. Balance de `<div>` verificado en las 35 páginas HTML del repo tras los cambios masivos.
+- Sin commit todavía — pendiente confirmación de Omar antes de subir a `main` (deploy automático).
+
+**Pendiente (Fase 0/2 — requieren a Omar, cuentas de terceros y GTM):**
+1. Confirmar/crear la propiedad GA4 para `rotulatepublicidad.com` → obtener Measurement ID.
+2. Crear el proyecto de Microsoft Clarity para `rotulatepublicidad.com` (iniciar sesión) → obtener Project ID.
+3. Con esos IDs, configurar en GTM-5623CPQG: variables de dataLayer (`section_name`, `cta_type`, `cta_location`, `percent`), activadores de evento personalizado por cada evento nuevo + `cotizacion_supabase_ok` como conversión, tag de configuración GA4, tag de Clarity condicionado al consentimiento, y publicar el contenedor.
+4. Verificar en producción tras publicar: Vista previa de GTM, GA4 Realtime/DebugView, primera grabación de sesión en Clarity, y confirmar que Clarity no dispara sin aceptar el banner.
+
 
 ## 📅 Resumen de la Sesión (04 de Agosto, 2026)
 
