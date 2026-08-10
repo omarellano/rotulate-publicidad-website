@@ -3,6 +3,72 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (10 de Agosto, 2026)
+
+### 🚨 INCIDENTE CRÍTICO resuelto: formulario de cotización no guardaba nada (Supabase pausado + RLS incompleta)
+Al intentar verificar el evento `cotizacion_supabase_ok` en GA4 (ver pendiente de abajo), Omar reportó que el formulario daba error y no permitía enviar cotizaciones. Se investigó y resolvió en la misma sesión.
+
+**Causa raíz #1 — proyecto de Supabase pausado/inactivo:** el dominio `wtljdvexsksextnhpkkd.supabase.co` no resolvía en DNS ni siquiera consultando DNS públicos externos (8.8.8.8, 1.1.1.1 → "Non-existent domain"), confirmando que no era interferencia de red local sino que el proyecto free-tier de Supabase se había pausado por inactividad (migración fue el 5-jun-2026, sin evidencia de tráfico real reciente). **Omar restauró el proyecto desde el dashboard de Supabase.**
+
+**Causa raíz #2 — política RLS de INSERT faltante en la tabla real:** tras restaurar, la tabla que usa el código (`cotizaciones_web`, ver `upload.js:259`) se quedó sin política de seguridad a nivel de fila que permitiera `INSERT` al rol `anon`. Nota: el `supabase_setup.sql` del repo documenta una tabla llamada `cotizaciones` (desactualizado/no coincide con el nombre real en uso). Omar ejecutó en el SQL Editor:
+```sql
+alter table public.cotizaciones_web enable row level security;
+create policy "Allow anonymous inserts" on public.cotizaciones_web for insert to anon with check (true);
+create policy "Allow all access to authenticated users" on public.cotizaciones_web for all to authenticated using (true);
+```
+
+**Diagnóstico adicional (por qué seguía fallando tras la policy):** confirmé con `pg_policies`, `information_schema.role_table_grants` y `set role anon; insert...` en el SQL Editor que la tabla, los GRANTs y la policy estaban correctos — el INSERT directo en SQL funcionaba. El fallo persistía solo al pasar por la API REST **cuando la llamada pedía `.select()` tras el insert** (patrón `Prefer: return=representation`), porque no existe policy `SELECT` para `anon` sobre esa tabla. El código real de producción (`upload.js:258-260`) **no usa `.select()`**, así que no está afectado — confirmado con `.insert([leadData])` puro (sin `.select()`) → `status 201` exitoso.
+
+**Verificado end-to-end:** se envió una cotización de prueba real desde el formulario del sitio (botón "Enviar Cotización") → apareció "¡SOLICITUD ENVIADA!" → el evento `cotizacion_supabase_ok` llegó a GA4 en tiempo real (`Eventos por nombre de evento`, 1 evento). Ciclo completo formulario → Supabase → GA4 confirmado funcional.
+
+**Pendiente / backlog para Omar:**
+1. **Borrar los registros de prueba** insertados durante el diagnóstico en `cotizaciones_web` (nombres: "Prueba Interna Omar...", "SQL role test", "Prueba interna para verificar...") — vía SQL Editor: `delete from public.cotizaciones_web where nombre ilike 'Prueba%' or nombre ilike 'SQL role test';` (revisar antes de correr).
+2. **Riesgo recurrente:** el plan free-tier de Supabase pausa proyectos tras ~7 días sin actividad de API. Si el sitio recibe pocas cotizaciones reales en una semana, puede volver a pausarse silenciosamente y bloquear el formulario otra vez sin aviso. Evaluar: (a) upgrade a plan Pro de Supabase (evita pausas), o (b) un ping periódico programado (cron/GitHub Action) que mantenga actividad de API.
+3. Opcional: actualizar `supabase_setup.sql` en el repo para que refleje el nombre real de tabla (`cotizaciones_web`) y agregar la policy `SELECT` para `anon` si en el futuro se quiere usar `.select()` tras insertar (no es necesario para el funcionamiento actual).
+4. Revisar por qué el rol `anon` tiene GRANT de UPDATE/DELETE/TRUNCATE a nivel de tabla en `cotizaciones_web` (aunque neutralizado en la práctica por no existir policy RLS para esos comandos) — no es explotable hoy, pero sería más limpio revocar esos grants y dejar solo INSERT.
+
+---
+
+### ✅ Microsoft Clarity conectado vía GTM — Fase 2 completada
+Continuación del pendiente dejado el 07-ago (ver abajo y `clarity.md`). Omar creó el proyecto en Clarity y dio el Project ID `xyw1bj7bo1`.
+
+- Entré a GTM-5623CPQG (cuenta RTMX) vía navegador y creé la etiqueta **"Clarity - Microsoft Clarity"** usando la plantilla comunitaria oficial **"Microsoft Clarity - Official" de `microsoft`** (verificada ✅ en la galería), en vez de HTML personalizado.
+- Configuración: `Clarity Project Id` = `xyw1bj7bo1`; activador **All Pages**; **Configuración de consentimiento (BETA)** → "La etiqueta requiere consentimiento adicional para activarse" con `analytics_storage` — Clarity no dispara hasta que el visitante acepte el banner de `analytics.js` (mismo mecanismo de Consent Mode v2 ya usado para GA4).
+- **Publicado:** Versión 3 del contenedor, "Microsoft Clarity - etiqueta con consentimiento", el 10/08/2026 9:29 por omar.arellano.mx@gmail.com (7 etiquetas, 5 activadores, 9 variables en total).
+- **Verificado en producción (rotulatepublicidad.com, navegador de esta sesión):** sin aceptar el consentimiento, ninguna petición a `clarity.ms` (la condición de consentimiento funciona). Con `rtmx_consent=granted` en `localStorage`, `https://www.clarity.ms/tag/xyw1bj7bo1?ref=gtm` respondió **200 OK**. `https://scripts.clarity.ms/0.8.69/clarity.js` devolvió 503 en el navegador de esta sesión sin errores de CSP asociados — atribuido a la misma interferencia de red/DNS de esta máquina hacia dominios de Google/Microsoft ya detectada el 07-ago, no a la configuración.
+- **Confirmado por Omar:** el proyecto de Clarity ya aparece conectado tanto a Tag Manager como a Analytics (GA4) desde su propia red — cierra el pendiente.
+
+---
+
+### ✅ INCIDENTE resuelto: notificaciones de correo del formulario (EmailJS) no llegaban
+
+Omar reportó que el formulario de cotización "funciona" (se ve la pantalla de éxito) pero no le llegaba el correo de notificación de la solicitud.
+
+**Diagnóstico:** el guardado en Supabase (`cotizaciones_web`) siempre funcionó correctamente — el problema estaba aislado al paso de notificación por EmailJS (`upload.js:268-288`, `service_n44qqee` / `template_wxr3rqu`), cuyo error se traga en un `try/catch` para no bloquear la pantalla de éxito del usuario, por lo que el fallo era invisible sin revisar la consola del navegador.
+
+**Causa raíz:** se hizo una prueba en vivo en producción (envío real del formulario vía navegador) capturando la petición con `emailjs.send(...)` directamente en consola. Respuesta: `status 412 — "Gmail_API: Invalid grant. Please reconnect your Gmail account"`. La cuenta de Gmail conectada al servicio de EmailJS había perdido la autorización OAuth (token expirado/revocado).
+
+**Resolución:** Omar reconectó la cuenta de Gmail en el panel de EmailJS (Email Services → `service_n44qqee` → Reconnect). Verificado con una segunda prueba real vía `emailjs.send(...)` en consola tras la reconexión → `status 200 — OK`.
+
+**Nota:** el destinatario del correo (campo "To Email") está configurado dentro de la plantilla `template_wxr3rqu` en el panel de EmailJS, no en el código del repo.
+
+**Limpieza:** Omar borró desde el SQL Editor de Supabase las filas de prueba acumuladas en `cotizaciones_web` (de este incidente y del incidente de Supabase de arriba: "SQL role test", "Prueba Interna Omar (sin select)", "Prueba Interna Omar - Formulario Real", "PRUEBA DIAGNOSTICO (ignorar)") — confirmado limpio. Nota: la clave `anon` no tiene policy RLS de `SELECT` sobre esta tabla, así que verificaciones futuras por API con esa clave no son confiables; hay que confirmar desde el SQL Editor.
+
+---
+
+### 📍 Cierre de Sesión (10 de Agosto, 2026)
+* **Sin commits de código** — solo cambios de configuración externa (GTM, EmailJS) y datos (Supabase), documentados arriba. `agents.md` es el único archivo modificado en el repo.
+* **Incidentes resueltos hoy:**
+  1. Formulario de cotización no guardaba nada → Supabase pausado + RLS de INSERT faltante en `cotizaciones_web` (restaurado + policy creada por Omar).
+  2. Notificaciones por correo (EmailJS) no llegaban → token OAuth de Gmail expirado en `service_n44qqee` (Omar reconectó, verificado `200 OK`).
+* **Estado:** Clarity conectado vía GTM (versión 3 publicada), formulario end-to-end (Supabase + EmailJS) verificado funcional, tabla `cotizaciones_web` limpia de filas de prueba.
+* **Punto de arranque próxima sesión:**
+  1. Riesgo recurrente de pausa de Supabase por inactividad (free tier, ~7 días) — evaluar upgrade a Pro o ping periódico.
+  2. Revisar/actualizar `supabase_setup.sql` para reflejar el nombre real de tabla (`cotizaciones_web`) y revocar GRANTs de UPDATE/DELETE/TRUNCATE sobrantes al rol `anon`.
+  3. Continuar con el plan de competencia (portafolio con clientes nombrados, campaña de reseñas, parrilla del blog) — ver cierre del 05-ago.
+
+---
+
 ## 📅 Resumen de la Sesión (07 de Agosto, 2026)
 
 ### 🩹 Bloqueo de entorno con Codex (primer intento, sin cambios aplicados)
@@ -40,9 +106,7 @@ Omar creó la propiedad GA4 (Measurement ID `G-7RD98QCP79`) el mismo día. Con e
 **Pendiente (requiere a Omar):**
 1. Confirmar en GA4 (Informes → Tiempo real, o DebugView) que los eventos `page_view`, `section_view`, `scroll_depth`, `cta_click`, `form_start`, `cotizacion_supabase_ok` están llegando.
 2. Marcar `cotizacion_supabase_ok` como conversión en GA4 (Admin → Eventos → activar el toggle, o Admin → Conversiones → Nuevo evento de conversión con ese nombre).
-3. Crear el proyecto de Microsoft Clarity para `rotulatepublicidad.com` (iniciar sesión con la cuenta que prefiera) → obtener Project ID.
-4. Con el Project ID de Clarity, agregar en GTM-5623CPQG la etiqueta de Clarity (dispara en All Pages, condicionada al consentimiento vía Consent Mode) y volver a publicar.
-5. Verificar que Clarity registre una grabación de sesión de prueba, y que no dispare sin aceptar el banner de consentimiento.
+3. ✅ Resuelto el 10-ago-2026 — ver sesión del 10 de Agosto arriba: Clarity conectado vía GTM (Project ID `xyw1bj7bo1`), publicado y confirmado por Omar como conectado a Tag Manager y Analytics.
 
 
 ## 📅 Resumen de la Sesión (04 de Agosto, 2026)
