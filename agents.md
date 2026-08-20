@@ -8,6 +8,13 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 ### 🛡️ Verificación de Supabase Keep-Alive & Mantenimiento de Esquema SQL
 * **Verificación de Automatización:** Se auditó el estado del proyecto Supabase y la GitHub Action `.github/workflows/supabase-keepalive.yml`. Se confirmó vía GitHub CLI (`gh run list`) que el workflow se ejecuta automáticamente cada lunes y jueves (última ejecución exitosa hoy mismo 20-ago-2026 a las 12:49 UTC). El ping a la API devuelve `200 OK`, garantizando que el proyecto no se pause por inactividad y previniendo pérdidas de cotizaciones en el sitio web.
 * **Actualización de `supabase_setup.sql`:** Se actualizó el archivo de configuración SQL [supabase_setup.sql](file:///c:/Users/omac_/rtmx-web/supabase_setup.sql) en el repositorio para alinearlo exactamente con el nombre de la tabla activa de producción (`cotizaciones_web`), sus políticas RLS (`Allow anonymous inserts`, `Allow all access to authenticated users`) y almacenamiento de archivos.
+* **Intento de Configuración en GA4:** Se inició la navegación guiada en la consola web de Google Analytics (propiedad `Rotúlate Publicidad`). Debido a la naturaleza dinámica de los componentes en la UI de GA4, la tarea de marcación de conversión requiere la interacción directa en el panel de administración por parte del usuario.
+
+### 📍 Cierre de Sesión (20 de Agosto, 2026)
+* **Commits aplicados:** `dc4fe6b` y `[último commit]` en `main` — actualización de `supabase_setup.sql` y `AGENTS.md`.
+* **Estado:** Sitio web 100% operativo en producción. Supabase protegido automáticamente contra pausas por inactividad.
+* **Pendiente único para el usuario:**
+  * En GA4: ir a *Administrador ➔ Eventos* y marcar `cotizacion_supabase_ok` como conversión.
 
 ---
 ## 📅 Resumen de la Sesión (10 de Agosto, 2026)
