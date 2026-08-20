@@ -5,6 +5,13 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 ---
 ## 📅 Resumen de la Sesión (20 de Agosto, 2026)
 
+### 🖼️ Incorporación y Optimización de 24 Fotos Nuevas a la Galería Dinámica
+* **Procesamiento de `assets/nuevas_fotos/`:** Se auditaron las fotos en la carpeta local, confirmando que las 24 imágenes eran completamente nuevas respecto a la galería.
+* **Formato y Optimización WebP:** Con Node.js y Sharp se procesaron las 24 fotos generando versiones duales de alto rendimiento:
+  - **Imágenes Completas (`assets/galeria/galeria-104.webp` a `galeria-127.webp`):** Redimensionadas a un máximo de 1200px (calidad 80, ~37–240 KB c/u) con orientación automática EXIF preservada para visualización nítida en el lightbox.
+  - **Miniaturas (`assets/galeria/thumbs/galeria-104.webp` a `galeria-127.webp`):** Redimensionadas a un máximo de 500px (calidad 75, ~9–39 KB c/u) para carga ultrarrápida del grid dinámico.
+* **Actualización de `main.js`:** Se integraron las nuevas imágenes al arreglo `allImgs` (creciendo la galería a **121 trabajos reales** disponibles en el shuffle aleatorio). Cache-bust de `main.js` bump a `?v=3.1` en `index.html`.
+
 ### 📝 Nuevo Artículo de Blog: Vinil Adhesivo para Vidrieras y Fachadas
 * **Idea basada en datos de GSC:** siguiendo el reporte del 04-ago-2026, se identificó que "vinil cancún"/"vinilos cancún" (~47 impresiones combinadas, posición 16-18, **0 clics**) no tenían ningún artículo de blog de apoyo — a diferencia de lonas, toldos, permisos, vehicular y control solar, que ya lo tienen. Se confirmó que la página de servicio correcta para esa keyword es **`gran-formato.html`** (sección "Viniles Adhesivos"/"Vinil Microperforado"), no `rotulacion-tradicional.html` (que es pintura a mano y explícitamente se posiciona como alternativa al vinil) ni `rotulacion-vehicular.html` (vinil para autos, ya cubierto por 2 artículos existentes).
 * **Publicación:** Se creó [blog/vinil-adhesivo-vidrieras-fachadas-cancun.html](file:///c:/Users/omac_/rtmx-web/blog/vinil-adhesivo-vidrieras-fachadas-cancun.html) — vinil de corte, impreso, microperforado (one-way vision) y esmerilado (frost), dónde se usa cada uno, precio de referencia ($350 MXN/m², tomado del `Offer` ya existente en el JSON-LD de `gran-formato.html`) y durabilidad con tratamiento anti-UV/HP Latex. Mismo patrón que los artículos anteriores (JSON-LD `BlogPosting`+`FAQPage` con 4 preguntas+`BreadcrumbList`, respuesta rápida, CTA WhatsApp). Reutiliza `assets/gran-formato.jpg`/`.webp`. Añadido a `blog/index.html`, `sitemap.xml`, `llms.txt` y enlazado contextualmente desde `gran-formato.html`.

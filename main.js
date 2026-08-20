@@ -470,18 +470,17 @@
         // Selección curada: fotos instaladas o en proceso con buena composición
         var allImgs = [
             'galeria-001.webp','galeria-002.webp','galeria-003.webp','galeria-004.webp',
-            'galeria-005.webp','galeria-007.webp','galeria-009.webp','galeria-010.webp',
-            'galeria-011.webp','galeria-012.webp','galeria-013.webp','galeria-014.webp',
-            'galeria-015.webp','galeria-016.webp','galeria-017.webp','galeria-018.webp',
-            'galeria-019.webp','galeria-020.webp','galeria-021.webp','galeria-022.webp',
-            'galeria-023.webp','galeria-024.webp','galeria-025.webp','galeria-026.webp',
-            'galeria-027.webp','galeria-028.webp','galeria-029.webp','galeria-030.webp',
-            'galeria-032.webp','galeria-033.webp','galeria-034.webp',
-            'galeria-035.webp','galeria-036.webp','galeria-037.webp','galeria-038.webp',
-            'galeria-039.webp','galeria-040.webp','galeria-041.webp',
-            'galeria-044.webp','galeria-045.webp','galeria-046.webp',
-            'galeria-047.webp','galeria-048.webp','galeria-049.webp',
-            'galeria-053.webp','galeria-054.webp',
+            'galeria-005.webp','galeria-006.webp','galeria-007.webp','galeria-008.webp',
+            'galeria-009.webp','galeria-010.webp','galeria-011.webp','galeria-012.webp',
+            'galeria-013.webp','galeria-014.webp','galeria-015.webp','galeria-016.webp',
+            'galeria-017.webp','galeria-018.webp','galeria-019.webp','galeria-020.webp',
+            'galeria-021.webp','galeria-022.webp','galeria-023.webp','galeria-024.webp',
+            'galeria-025.webp','galeria-026.webp','galeria-027.webp','galeria-028.webp',
+            'galeria-029.webp','galeria-030.webp','galeria-032.webp','galeria-033.webp',
+            'galeria-034.webp','galeria-035.webp','galeria-036.webp','galeria-037.webp',
+            'galeria-038.webp','galeria-039.webp','galeria-040.webp','galeria-041.webp',
+            'galeria-044.webp','galeria-045.webp','galeria-046.webp','galeria-047.webp',
+            'galeria-048.webp','galeria-049.webp','galeria-053.webp','galeria-054.webp',
             'galeria-055.webp','galeria-056.webp','galeria-057.webp','galeria-058.webp',
             'galeria-059.webp','galeria-060.webp','galeria-061.webp','galeria-062.webp',
             'galeria-063.webp','galeria-064.webp','galeria-065.webp','galeria-066.webp',
@@ -494,7 +493,13 @@
             'galeria-091.webp','galeria-092.webp','galeria-093.webp','galeria-094.webp',
             'galeria-095.webp','galeria-096.webp','galeria-097.webp','galeria-098.webp',
             'galeria-099.webp','galeria-100.webp','galeria-101.webp','galeria-102.webp',
-            'galeria-103.webp'
+            'galeria-103.webp','galeria-104.webp','galeria-105.webp','galeria-106.webp',
+            'galeria-107.webp','galeria-108.webp','galeria-109.webp','galeria-110.webp',
+            'galeria-111.webp','galeria-112.webp','galeria-113.webp','galeria-114.webp',
+            'galeria-115.webp','galeria-116.webp','galeria-117.webp','galeria-118.webp',
+            'galeria-119.webp','galeria-120.webp','galeria-121.webp','galeria-122.webp',
+            'galeria-123.webp','galeria-124.webp','galeria-125.webp','galeria-126.webp',
+            'galeria-127.webp'
         ];
 
         // Fisher-Yates shuffle
