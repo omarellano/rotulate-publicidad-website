@@ -5,6 +5,14 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 ---
 ## 📅 Resumen de la Sesión (20 de Agosto, 2026)
 
+### 🖼️ Portafolio con clientes nombrados — implementado y verificado en producción
+* **Mapeo de `assets/nuevas_fotos/`** (pendiente desde jul-2026, permisos ya confirmados por Omar): identificadas 4 fotos/proyectos distintos entre los 17 archivos sin nombre de cliente — **Alumik** (letrero luminoso de canal en tienda), **Silanes** (escenografía en neón LED para el evento corporativo "Humanía"), **enviaflores.com** (rotulación vehicular completa, Toyota Avanza magenta) y **Fishing Joe's Tour Experience** (rotulación de lancha turística en Puerto Morelos).
+* **Nueva sección en `index.html`**: "Clientes que confían en nosotros" (`#clientes`), entre la Galería y Nosotros — 4 tarjetas reutilizando el patrón visual `.showcase-item`/`.showcase-overlay` ya existente (nombre del cliente en lima + título + descripción corta del trabajo), grid fijo 2×2 (`.clientes-grid`, nuevo bloque en `style.css`) que colapsa a 1 columna en móvil.
+* **Imágenes**: 1 foto representativa por cliente elegida de `assets/nuevas_fotos/`, redimensionadas a 1200px de ancho y convertidas a WebP+JPG (calidad ~72, ~70-200KB c/u) con Sharp (Node) en `assets/clientes/` — sin espacios en los nombres de archivo, siguiendo la regla del repo.
+* **Verificación**: probado localmente con servidor estático + Claude in Chrome (grid, overlay al hover, responsive); tras el push, deploy `32387604370` completado con éxito; confirmado en producción con curl (imágenes 200, sección presente en el HTML servido de `https://rotulatepublicidad.com/`).
+* **Commit:** `8a25b50`.
+* **Nota:** los 17 archivos originales quedan en `assets/nuevas_fotos/` (no se suben al hosting por exclusión en `.htaccess`/deploy) por si se quiere ampliar el portafolio a futuro con más fotos por cliente.
+
 ### 🛡️ Verificación de Supabase Keep-Alive & Mantenimiento de Esquema SQL
 * **Verificación de Automatización:** Se auditó el estado del proyecto Supabase y la GitHub Action `.github/workflows/supabase-keepalive.yml`. Se confirmó vía GitHub CLI (`gh run list`) que el workflow se ejecuta automáticamente cada lunes y jueves (última ejecución exitosa hoy mismo 20-ago-2026 a las 12:49 UTC). El ping a la API devuelve `200 OK`, garantizando que el proyecto no se pause por inactividad y previniendo pérdidas de cotizaciones en el sitio web.
 * **Actualización de `supabase_setup.sql`:** Se actualizó el archivo de configuración SQL [supabase_setup.sql](file:///c:/Users/omac_/rtmx-web/supabase_setup.sql) en el repositorio para alinearlo exactamente con el nombre de la tabla activa de producción (`cotizaciones_web`), sus políticas RLS (`Allow anonymous inserts`, `Allow all access to authenticated users`) y almacenamiento de archivos.
@@ -23,13 +31,12 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Integración Web:** Se añadió el botón *"★ Dejar una opinión en Google"* en la sección `#testimonios` de [index.html](file:///c:/Users/omac_/rtmx-web/index.html) y se actualizó la prueba social con enlace en [en/index.html](file:///c:/Users/omac_/rtmx-web/en/index.html).
 
 ### 📍 Cierre de Sesión (20 de Agosto, 2026)
-* **Commits aplicados:** `dc4fe6b`, `82190fd`, `9b4b4c1`, `e688a58`, `ff51fe8`, `0a540e7`, `5da1713`.
-* **Estado:** Sitio web 100% operativo en producción. Campaña de reseñas implementada con manual operativo y activos QR.
+* **Commits aplicados:** `dc4fe6b`, `82190fd`, `9b4b4c1`, `e688a58`, `ff51fe8`, `0a540e7`, `5da1713`, `8a25b50`.
+* **Estado:** Sitio web 100% operativo en producción. Campaña de reseñas implementada con manual operativo y activos QR. Portafolio con clientes nombrados desplegado y verificado.
 * **Backlog / Qué sigue en el plan de trabajo:**
-  1. **Portafolio con clientes reales nombrados (Fase 2 de competencia):** En proceso por Claude (mapeo y optimización de fotos en `assets/nuevas_fotos/`).
-  2. **Paridad en Inglés para Control Solar (`control-solar-en.html`):** Añadir la sección de hospitality/condominios en inglés.
-  3. **Marcar conversión en GA4:** En el panel de Google Analytics, activar `cotizacion_supabase_ok` como conversión.
-  4. **Parrilla del Blog:** Siguiente artículo: *Toldos comerciales para restaurantes en Cancún y Playa: telas, estructuras y resistencia al viento*.
+  1. **Paridad en Inglés para Control Solar (`control-solar-en.html`):** Añadir la sección de hospitality/condominios en inglés.
+  2. **Marcar conversión en GA4:** En el panel de Google Analytics, activar `cotizacion_supabase_ok` como conversión.
+  3. **Parrilla del Blog:** Siguiente artículo: *Toldos comerciales para restaurantes en Cancún y Playa: telas, estructuras y resistencia al viento*.
 
 ---
 ## 📅 Resumen de la Sesión (10 de Agosto, 2026)
