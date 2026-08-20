@@ -12,14 +12,20 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 
 ### 📝 Nuevo Artículo de Blog: Guía de Permisos de Anuncios en Quintana Roo y Riviera Maya
 * **Publicación GEO/AEO:** Se creó [blog/permisos-anuncios-publicitarios-quintana-roo-riviera-maya.html](file:///c:/Users/omac_/rtmx-web/blog/permisos-anuncios-publicitarios-quintana-roo-riviera-maya.html) abordando normativas, requisitos y reglamentos de anuncios comerciales y fachadas en Cancún (Benito Juárez), Playa del Carmen (Solidaridad), Tulum y Puerto Morelos.
-* **Estructura y Marcado Estructurado:** Formato con respuesta rápida optimizada para motores de búsqueda y citas de IA, esquemas JSON-LD validados (`BlogPosting`, `FAQPage` con 4 preguntas, `BreadcrumbList`), enlaces contextuales a servicios y páginas locales.
-* **Integración al Sitio:** Se agregó la tarjeta de portada en [blog/index.html](file:///c:/Users/omac_/rtmx-web/blog/index.html), se actualizó [sitemap.xml](file:///c:/Users/omac_/rtmx-web/sitemap.xml) con la nueva URL y fecha `lastmod` (`2026-08-20`), y se incorporó al índice de [llms.txt](file:///c:/Users/omac_/rtmx-web/llms.txt).
+* **Portada Editorial Optimizada:** Se generó y optimizó la imagen representativa en WebP y JPG (`assets/permisos-anuncios-quintana-roo.webp`/`.jpg`) con la licencia oficial de SEDETUS / Gobierno de Quintana Roo y plano con cotas arquitectónicas.
+* **Corrección de Footer & Auditoría Global:** Se corrigió la estructura del pie de página en el artículo para alinearlo con las clases de `style.css` (`.footer`, `.footer-inner`, etc.) y se corrió un script de auditoría estructural confirmando que las 34 páginas del sitio tienen etiquetas balanceadas y footers consistentes.
+* **Estructura y Marcado Estructurado:** Formato con respuesta rápida para citas de IA, esquemas JSON-LD validados (`BlogPosting`, `FAQPage` con 4 preguntas, `BreadcrumbList`), enlaces contextuales a servicios y páginas locales.
+* **Integración al Sitio:** Tarjeta en portada de [blog/index.html](file:///c:/Users/omac_/rtmx-web/blog/index.html), actualización de [sitemap.xml](file:///c:/Users/omac_/rtmx-web/sitemap.xml) con `lastmod` `2026-08-20`, y registro en [llms.txt](file:///c:/Users/omac_/rtmx-web/llms.txt).
 
 ### 📍 Cierre de Sesión (20 de Agosto, 2026)
-* **Commits aplicados:** `dc4fe6b`, `82190fd` y cambios listos para commit/deploy.
-* **Estado:** Sitio web 100% operativo en producción. Supabase protegido automáticamente contra pausas por inactividad. Nuevo artículo de blog listo para publicación e indexación.
-* **Pendiente único para el usuario:**
-  * En GA4: ir a *Administrador ➔ Eventos* y marcar `cotizacion_supabase_ok` como conversión.
+* **Commits aplicados:** `dc4fe6b`, `82190fd`, `9b4b4c1` (artículo nuevo), `e688a58` (portada oficial), `ff51fe8` (fix de footer).
+* **Estado:** Sitio web 100% operativo en producción (`completed success` en GitHub Actions).
+* **Backlog / Qué sigue en el plan de trabajo:**
+  1. **Solicitud de indexación en Google Search Console:** Enviar a rastreo prioritario la nueva URL `https://rotulatepublicidad.com/blog/permisos-anuncios-publicitarios-quintana-roo-riviera-maya.html` y reenviar `sitemap.xml`.
+  2. **Portafolio con clientes reales nombrados (Fase 2 de competencia):** Mapear y procesar fotos en `assets/nuevas_fotos/` (Silanes, Alumik, etc.) a WebP para publicar proyectos con nombres comerciales.
+  3. **Marcar conversión en GA4:** En el panel de Google Analytics, activar `cotizacion_supabase_ok` como conversión.
+  4. **Campaña de reseñas de Google:** Estrategia post-venta por WhatsApp (objetivo subir de 30 opiniones a 50+ en Google Business Profile).
+  5. **Continuidad de la parrilla del Blog:** Próximo artículo sugerido: *Toldos comerciales para restaurantes en Cancún y Playa: telas, estructuras y resistencia al viento*.
 
 ---
 ## 📅 Resumen de la Sesión (10 de Agosto, 2026)
