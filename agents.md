@@ -17,14 +17,19 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Estructura y Marcado Estructurado:** Formato con respuesta rápida para citas de IA, esquemas JSON-LD validados (`BlogPosting`, `FAQPage` con 4 preguntas, `BreadcrumbList`), enlaces contextuales a servicios y páginas locales.
 * **Indexación Solicitada:** Se envió la URL a rastreo prioritario en Google Search Console y se reenvió el `sitemap.xml` (marcado como "Correcto" por Google). Adicionalmente, se envió ping a la API de IndexNow (HTTP 200) para acelerar el rastreo en Bing y motores de IA.
 
+### ⭐ Campaña Sistemática de Reseñas en Google Business Profile
+* **Kit Operativo y Plantillas:** Se creó [docs/campana-resenas-google.md](file:///c:/Users/omac_/rtmx-web/docs/campana-resenas-google.md) con 4 plantillas de WhatsApp listas para copiar y pegar (instalación en sitio, mostrador/taller, B2B/hotelería y versión en inglés), junto con la estrategia y fórmulas de respuesta SEO.
+* **Activo Código QR Oficial:** Se generó el QR oficial en alta resolución (`assets/qr-google-resenas.png`/`.webp`) apuntando directamente a la ficha de reseñas de Google.
+* **Integración Web:** Se añadió el botón *"★ Dejar una opinión en Google"* en la sección `#testimonios` de [index.html](file:///c:/Users/omac_/rtmx-web/index.html) y se actualizó la prueba social con enlace en [en/index.html](file:///c:/Users/omac_/rtmx-web/en/index.html).
+
 ### 📍 Cierre de Sesión (20 de Agosto, 2026)
-* **Commits aplicados:** `dc4fe6b`, `82190fd`, `9b4b4c1`, `e688a58`, `ff51fe8`, `0a540e7`.
-* **Estado:** Sitio web 100% operativo en producción. Artículo en cola prioritaria de rastreo en Google Search Console e IndexNow.
+* **Commits aplicados:** `dc4fe6b`, `82190fd`, `9b4b4c1`, `e688a58`, `ff51fe8`, `0a540e7`, `5da1713`.
+* **Estado:** Sitio web 100% operativo en producción. Campaña de reseñas implementada con manual operativo y activos QR.
 * **Backlog / Qué sigue en el plan de trabajo:**
-  1. **Portafolio con clientes reales nombrados (Fase 2 de competencia):** Mapear y procesar fotos en `assets/nuevas_fotos/` (Silanes, Alumik, etc.) a WebP para publicar proyectos con nombres comerciales.
+  1. **Portafolio con clientes reales nombrados (Fase 2 de competencia):** En proceso por Claude (mapeo y optimización de fotos en `assets/nuevas_fotos/`).
+  2. **Paridad en Inglés para Control Solar (`control-solar-en.html`):** Añadir la sección de hospitality/condominios en inglés.
   3. **Marcar conversión en GA4:** En el panel de Google Analytics, activar `cotizacion_supabase_ok` como conversión.
-  4. **Campaña de reseñas de Google:** Estrategia post-venta por WhatsApp (objetivo subir de 30 opiniones a 50+ en Google Business Profile).
-  5. **Continuidad de la parrilla del Blog:** Próximo artículo sugerido: *Toldos comerciales para restaurantes en Cancún y Playa: telas, estructuras y resistencia al viento*.
+  4. **Parrilla del Blog:** Siguiente artículo: *Toldos comerciales para restaurantes en Cancún y Playa: telas, estructuras y resistencia al viento*.
 
 ---
 ## 📅 Resumen de la Sesión (10 de Agosto, 2026)
