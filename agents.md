@@ -58,8 +58,8 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Integración Web:** Se añadió el botón *"★ Dejar una opinión en Google"* en la sección `#testimonios` de [index.html](file:///c:/Users/omac_/rtmx-web/index.html) y se actualizó la prueba social con enlace en [en/index.html](file:///c:/Users/omac_/rtmx-web/en/index.html).
 
 ### 📍 Cierre de Sesión (20 de Agosto, 2026)
-* **Commits aplicados:** `dc4fe6b`, `82190fd`, `9b4b4c1`, `e688a58`, `ff51fe8`, `0a540e7`, `5da1713`, `8a25b50`, `0069bed`, `930dc23`, `1120f6a`, `47cb609`, `2315e1a`, `c5f2cc1`, `2b4215e`, `ced1a87`, `6514827`.
-* **Estado:** Sitio web 100% operativo en producción. Campaña de reseñas implementada con manual operativo y activos QR. Portafolio con clientes nombrados desplegado y verificado. GRANTs de `anon` limpiados en `cotizaciones_web`. Artículo de toldos publicado. Paridad en inglés de control solar cerrada.
+* **Commits aplicados:** `dc4fe6b`, `82190fd`, `9b4b4c1`, `e688a58`, `ff51fe8`, `0a540e7`, `5da1713`, `8a25b50`, `0069bed`, `930dc23`, `1120f6a`, `47cb609`, `2315e1a`, `c5f2cc1`, `2b4215e`, `ced1a87`, `6514827`, `1302450` (este último de una sesión en paralelo — 24 fotos nuevas a la galería dinámica, ver sección arriba).
+* **Estado:** Sitio web 100% operativo en producción. Campaña de reseñas implementada con manual operativo y activos QR. Portafolio con clientes nombrados desplegado y verificado. GRANTs de `anon` limpiados en `cotizaciones_web`. Galería dinámica ampliada a 121 trabajos reales. Artículos de toldos y vinil adhesivo publicados. Paridad en inglés de control solar cerrada.
 * **Backlog / Qué sigue en el plan de trabajo:**
   1. ✅ Resuelto — sección de hospitality/condominios agregada a `control-solar-en.html` (commit `c5f2cc1`).
   2. **Marcar conversión en GA4:** En el panel de Google Analytics, activar `cotizacion_supabase_ok` como conversión. Requiere acción directa de Omar en el panel.
