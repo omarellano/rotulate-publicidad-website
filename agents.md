@@ -5,6 +5,11 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 ---
 ## 📅 Resumen de la Sesión (20 de Agosto, 2026)
 
+### 🇺🇸 Paridad en inglés de Control Solar — sección hospitality/condominios
+* Se agregó a [control-solar-en.html](file:///c:/Users/omac_/rtmx-web/control-solar-en.html) la sección "Solar Control for Hotels, Airbnbs, and Condos" (traducción de la ya existente en `control-solar.html`), insertada entre el catálogo de líneas 3M y el FAQ — mismo punto donde vive en la versión en español. Cierra el pendiente de paridad ES/EN anotado desde el 07-ago-2026.
+* **Verificación:** balance de `<div>`/`<section>`/`<ul>` y JSON-LD validados con Node; probado en servidor estático local. Tras el push, deploy `32392860234` exitoso; confirmado en producción con curl (`grep` encuentra el título de la sección en el HTML servido).
+* **Commit:** `c5f2cc1`.
+
 ### 📝 Nuevo Artículo de Blog: Toldos para Restaurantes en Cancún y Playa del Carmen
 * **Publicación:** Se creó [blog/toldos-para-restaurantes-cancun-playa-del-carmen.html](file:///c:/Users/omac_/rtmx-web/blog/toldos-para-restaurantes-cancun-playa-del-carmen.html), siguiente artículo de la parrilla planeada (ver cierre de sesión de hoy más abajo). Cubre tipos de tela (PVC, acrílica, microperforada), tipos de estructura (fija, retráctil manual, cofre/pérgola) y resistencia al viento huracanado, con enlaces internos a `/toldos.html`, `/lonas-cancun/` y la guía de permisos publicada el mismo día.
 * **Estructura:** Mismo patrón que el artículo de permisos (JSON-LD `BlogPosting` + `FAQPage` con 4 preguntas + `BreadcrumbList`, caja de "respuesta rápida", CTA a WhatsApp). Reutiliza `assets/toldos.jpg`/`.webp` ya existentes (sin generar imagen nueva). Añadido a `blog/index.html` (tarjeta), `sitemap.xml` y `llms.txt`.
@@ -43,7 +48,7 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Commits aplicados:** `dc4fe6b`, `82190fd`, `9b4b4c1`, `e688a58`, `ff51fe8`, `0a540e7`, `5da1713`, `8a25b50`.
 * **Estado:** Sitio web 100% operativo en producción. Campaña de reseñas implementada con manual operativo y activos QR. Portafolio con clientes nombrados desplegado y verificado.
 * **Backlog / Qué sigue en el plan de trabajo:**
-  1. **Paridad en Inglés para Control Solar (`control-solar-en.html`):** Añadir la sección de hospitality/condominios en inglés.
+  1. ✅ Resuelto el 20-ago-2026 (más arriba en esta misma sesión) — sección de hospitality/condominios agregada a `control-solar-en.html`.
   2. **Marcar conversión en GA4:** En el panel de Google Analytics, activar `cotizacion_supabase_ok` como conversión.
   3. ✅ Resuelto el 20-ago-2026 (más abajo en esta misma sesión) — artículo de toldos para restaurantes publicado. **Siguiente en la parrilla del blog:** por definir.
 
