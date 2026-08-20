@@ -938,6 +938,38 @@ a.showcase-item {
     }
 }
 
+/* Clientes destacados */
+.clientes {
+    padding: 8rem 5%;
+    background:
+        radial-gradient(ellipse 60% 40% at 0% 50%, rgba(var(--color-accent-lime-rgb), 0.06), transparent),
+        linear-gradient(170deg, #080808 0%, #0a0a0a 100%);
+    border-top: 1px solid rgba(var(--color-accent-lime-rgb), 0.2);
+}
+
+.clientes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.cliente-name {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-accent-lime);
+    margin-bottom: 0.35rem;
+}
+
+@media (max-width: 700px) {
+    .clientes-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+}
+
 /* ── legacy proyectos (remove if section deleted) ─── */
 
 .proyectos-grid {
