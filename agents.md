@@ -10,9 +10,14 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Actualización de `supabase_setup.sql`:** Se actualizó el archivo de configuración SQL [supabase_setup.sql](file:///c:/Users/omac_/rtmx-web/supabase_setup.sql) en el repositorio para alinearlo exactamente con el nombre de la tabla activa de producción (`cotizaciones_web`), sus políticas RLS (`Allow anonymous inserts`, `Allow all access to authenticated users`) y almacenamiento de archivos.
 * **Intento de Configuración en GA4:** Se inició la navegación guiada en la consola web de Google Analytics (propiedad `Rotúlate Publicidad`). Debido a la naturaleza dinámica de los componentes en la UI de GA4, la tarea de marcación de conversión requiere la interacción directa en el panel de administración por parte del usuario.
 
+### 📝 Nuevo Artículo de Blog: Guía de Permisos de Anuncios en Quintana Roo y Riviera Maya
+* **Publicación GEO/AEO:** Se creó [blog/permisos-anuncios-publicitarios-quintana-roo-riviera-maya.html](file:///c:/Users/omac_/rtmx-web/blog/permisos-anuncios-publicitarios-quintana-roo-riviera-maya.html) abordando normativas, requisitos y reglamentos de anuncios comerciales y fachadas en Cancún (Benito Juárez), Playa del Carmen (Solidaridad), Tulum y Puerto Morelos.
+* **Estructura y Marcado Estructurado:** Formato con respuesta rápida optimizada para motores de búsqueda y citas de IA, esquemas JSON-LD validados (`BlogPosting`, `FAQPage` con 4 preguntas, `BreadcrumbList`), enlaces contextuales a servicios y páginas locales.
+* **Integración al Sitio:** Se agregó la tarjeta de portada en [blog/index.html](file:///c:/Users/omac_/rtmx-web/blog/index.html), se actualizó [sitemap.xml](file:///c:/Users/omac_/rtmx-web/sitemap.xml) con la nueva URL y fecha `lastmod` (`2026-08-20`), y se incorporó al índice de [llms.txt](file:///c:/Users/omac_/rtmx-web/llms.txt).
+
 ### 📍 Cierre de Sesión (20 de Agosto, 2026)
-* **Commits aplicados:** `dc4fe6b` y `[último commit]` en `main` — actualización de `supabase_setup.sql` y `AGENTS.md`.
-* **Estado:** Sitio web 100% operativo en producción. Supabase protegido automáticamente contra pausas por inactividad.
+* **Commits aplicados:** `dc4fe6b`, `82190fd` y cambios listos para commit/deploy.
+* **Estado:** Sitio web 100% operativo en producción. Supabase protegido automáticamente contra pausas por inactividad. Nuevo artículo de blog listo para publicación e indexación.
 * **Pendiente único para el usuario:**
   * En GA4: ir a *Administrador ➔ Eventos* y marcar `cotizacion_supabase_ok` como conversión.
 
