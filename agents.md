@@ -5,6 +5,12 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 ---
 ## 📅 Resumen de la Sesión (20 de Agosto, 2026)
 
+### 📝 Nuevo Artículo de Blog: Vinil Adhesivo para Vidrieras y Fachadas
+* **Idea basada en datos de GSC:** siguiendo el reporte del 04-ago-2026, se identificó que "vinil cancún"/"vinilos cancún" (~47 impresiones combinadas, posición 16-18, **0 clics**) no tenían ningún artículo de blog de apoyo — a diferencia de lonas, toldos, permisos, vehicular y control solar, que ya lo tienen. Se confirmó que la página de servicio correcta para esa keyword es **`gran-formato.html`** (sección "Viniles Adhesivos"/"Vinil Microperforado"), no `rotulacion-tradicional.html` (que es pintura a mano y explícitamente se posiciona como alternativa al vinil) ni `rotulacion-vehicular.html` (vinil para autos, ya cubierto por 2 artículos existentes).
+* **Publicación:** Se creó [blog/vinil-adhesivo-vidrieras-fachadas-cancun.html](file:///c:/Users/omac_/rtmx-web/blog/vinil-adhesivo-vidrieras-fachadas-cancun.html) — vinil de corte, impreso, microperforado (one-way vision) y esmerilado (frost), dónde se usa cada uno, precio de referencia ($350 MXN/m², tomado del `Offer` ya existente en el JSON-LD de `gran-formato.html`) y durabilidad con tratamiento anti-UV/HP Latex. Mismo patrón que los artículos anteriores (JSON-LD `BlogPosting`+`FAQPage` con 4 preguntas+`BreadcrumbList`, respuesta rápida, CTA WhatsApp). Reutiliza `assets/gran-formato.jpg`/`.webp`. Añadido a `blog/index.html`, `sitemap.xml`, `llms.txt` y enlazado contextualmente desde `gran-formato.html`.
+* **Verificación:** JSON-LD y balance de `<div>`/`<article>` validados con Node; probado en servidor estático local antes de subir. El deploy inicial (`32394274123`) falló tras 6 reintentos por el bloqueo intermitente de IPs de Hostinger ya documentado; se reintentó con `gh run rerun --failed` y quedó exitoso. Confirmado en producción con curl (artículo, índice del blog y `gran-formato.html` en 200; sitemap actualizado). Ping IndexNow enviado (200 OK).
+* **Commit:** `6514827`.
+
 ### 🇺🇸 Paridad en inglés de Control Solar — sección hospitality/condominios
 * Se agregó a [control-solar-en.html](file:///c:/Users/omac_/rtmx-web/control-solar-en.html) la sección "Solar Control for Hotels, Airbnbs, and Condos" (traducción de la ya existente en `control-solar.html`), insertada entre el catálogo de líneas 3M y el FAQ — mismo punto donde vive en la versión en español. Cierra el pendiente de paridad ES/EN anotado desde el 07-ago-2026.
 * **Verificación:** balance de `<div>`/`<section>`/`<ul>` y JSON-LD validados con Node; probado en servidor estático local. Tras el push, deploy `32392860234` exitoso; confirmado en producción con curl (`grep` encuentra el título de la sección en el HTML servido).
@@ -45,13 +51,14 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Integración Web:** Se añadió el botón *"★ Dejar una opinión en Google"* en la sección `#testimonios` de [index.html](file:///c:/Users/omac_/rtmx-web/index.html) y se actualizó la prueba social con enlace en [en/index.html](file:///c:/Users/omac_/rtmx-web/en/index.html).
 
 ### 📍 Cierre de Sesión (20 de Agosto, 2026)
-* **Commits aplicados:** `dc4fe6b`, `82190fd`, `9b4b4c1`, `e688a58`, `ff51fe8`, `0a540e7`, `5da1713`, `8a25b50`, `0069bed`, `930dc23`, `1120f6a`, `47cb609`, `2315e1a`, `c5f2cc1`, `2b4215e`.
+* **Commits aplicados:** `dc4fe6b`, `82190fd`, `9b4b4c1`, `e688a58`, `ff51fe8`, `0a540e7`, `5da1713`, `8a25b50`, `0069bed`, `930dc23`, `1120f6a`, `47cb609`, `2315e1a`, `c5f2cc1`, `2b4215e`, `ced1a87`, `6514827`.
 * **Estado:** Sitio web 100% operativo en producción. Campaña de reseñas implementada con manual operativo y activos QR. Portafolio con clientes nombrados desplegado y verificado. GRANTs de `anon` limpiados en `cotizaciones_web`. Artículo de toldos publicado. Paridad en inglés de control solar cerrada.
 * **Backlog / Qué sigue en el plan de trabajo:**
   1. ✅ Resuelto — sección de hospitality/condominios agregada a `control-solar-en.html` (commit `c5f2cc1`).
   2. **Marcar conversión en GA4:** En el panel de Google Analytics, activar `cotizacion_supabase_ok` como conversión. Requiere acción directa de Omar en el panel.
-  3. ✅ Resuelto — artículo de toldos para restaurantes publicado (commit `47cb609`). **Siguiente en la parrilla del blog:** por definir.
-  4. Opcional: enviar "Solicitar indexación" en GSC para el artículo de toldos (no se hizo por falta de conexión de la extensión de Chrome en esta sesión).
+  3. ✅ Resuelto — artículos de toldos (commit `47cb609`) y vinil adhesivo para vidrieras (commit `6514827`) publicados. **Siguiente en la parrilla del blog:** por definir — al elegir el siguiente, revisar el reporte de GSC más reciente por keywords "casi página 1" (posición 10-20, 0 clics) sin contenido de blog dedicado, como se hizo para estos dos.
+  4. Opcional: enviar "Solicitar indexación" en GSC para los artículos de toldos y vinil (no se hizo por falta de conexión de la extensión de Chrome en esta sesión).
+  5. Nota operativa: el deploy `32394274123` (vinil) falló primero por 6 intentos de bloqueo intermitente de Hostinger a IPs de GitHub y se resolvió con `gh run rerun --failed` — sigue siendo el procedimiento correcto documentado en `CLAUDE.md`, no requiere tocar el workflow.
 
 ---
 ## 📅 Resumen de la Sesión (10 de Agosto, 2026)
