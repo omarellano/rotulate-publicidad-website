@@ -3,6 +3,13 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (20 de Agosto, 2026)
+
+### 🛡️ Verificación de Supabase Keep-Alive & Mantenimiento de Esquema SQL
+* **Verificación de Automatización:** Se auditó el estado del proyecto Supabase y la GitHub Action `.github/workflows/supabase-keepalive.yml`. Se confirmó vía GitHub CLI (`gh run list`) que el workflow se ejecuta automáticamente cada lunes y jueves (última ejecución exitosa hoy mismo 20-ago-2026 a las 12:49 UTC). El ping a la API devuelve `200 OK`, garantizando que el proyecto no se pause por inactividad y previniendo pérdidas de cotizaciones en el sitio web.
+* **Actualización de `supabase_setup.sql`:** Se actualizó el archivo de configuración SQL [supabase_setup.sql](file:///c:/Users/omac_/rtmx-web/supabase_setup.sql) en el repositorio para alinearlo exactamente con el nombre de la tabla activa de producción (`cotizaciones_web`), sus políticas RLS (`Allow anonymous inserts`, `Allow all access to authenticated users`) y almacenamiento de archivos.
+
+---
 ## 📅 Resumen de la Sesión (10 de Agosto, 2026)
 
 ### 🚨 INCIDENTE CRÍTICO resuelto: formulario de cotización no guardaba nada (Supabase pausado + RLS incompleta)
