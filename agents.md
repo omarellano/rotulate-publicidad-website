@@ -45,12 +45,13 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Integración Web:** Se añadió el botón *"★ Dejar una opinión en Google"* en la sección `#testimonios` de [index.html](file:///c:/Users/omac_/rtmx-web/index.html) y se actualizó la prueba social con enlace en [en/index.html](file:///c:/Users/omac_/rtmx-web/en/index.html).
 
 ### 📍 Cierre de Sesión (20 de Agosto, 2026)
-* **Commits aplicados:** `dc4fe6b`, `82190fd`, `9b4b4c1`, `e688a58`, `ff51fe8`, `0a540e7`, `5da1713`, `8a25b50`.
-* **Estado:** Sitio web 100% operativo en producción. Campaña de reseñas implementada con manual operativo y activos QR. Portafolio con clientes nombrados desplegado y verificado.
+* **Commits aplicados:** `dc4fe6b`, `82190fd`, `9b4b4c1`, `e688a58`, `ff51fe8`, `0a540e7`, `5da1713`, `8a25b50`, `0069bed`, `930dc23`, `1120f6a`, `47cb609`, `2315e1a`, `c5f2cc1`, `2b4215e`.
+* **Estado:** Sitio web 100% operativo en producción. Campaña de reseñas implementada con manual operativo y activos QR. Portafolio con clientes nombrados desplegado y verificado. GRANTs de `anon` limpiados en `cotizaciones_web`. Artículo de toldos publicado. Paridad en inglés de control solar cerrada.
 * **Backlog / Qué sigue en el plan de trabajo:**
-  1. ✅ Resuelto el 20-ago-2026 (más arriba en esta misma sesión) — sección de hospitality/condominios agregada a `control-solar-en.html`.
-  2. **Marcar conversión en GA4:** En el panel de Google Analytics, activar `cotizacion_supabase_ok` como conversión.
-  3. ✅ Resuelto el 20-ago-2026 (más abajo en esta misma sesión) — artículo de toldos para restaurantes publicado. **Siguiente en la parrilla del blog:** por definir.
+  1. ✅ Resuelto — sección de hospitality/condominios agregada a `control-solar-en.html` (commit `c5f2cc1`).
+  2. **Marcar conversión en GA4:** En el panel de Google Analytics, activar `cotizacion_supabase_ok` como conversión. Requiere acción directa de Omar en el panel.
+  3. ✅ Resuelto — artículo de toldos para restaurantes publicado (commit `47cb609`). **Siguiente en la parrilla del blog:** por definir.
+  4. Opcional: enviar "Solicitar indexación" en GSC para el artículo de toldos (no se hizo por falta de conexión de la extensión de Chrome en esta sesión).
 
 ---
 ## 📅 Resumen de la Sesión (10 de Agosto, 2026)
