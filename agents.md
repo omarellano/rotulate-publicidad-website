@@ -5,12 +5,10 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 ---
 ## 📅 Resumen de la Sesión (20 de Agosto, 2026)
 
-### 🖼️ Incorporación y Optimización de 24 Fotos Nuevas a la Galería Dinámica
-* **Procesamiento de `assets/nuevas_fotos/`:** Se auditaron las fotos en la carpeta local, confirmando que las 24 imágenes eran completamente nuevas respecto a la galería.
-* **Formato y Optimización WebP:** Con Node.js y Sharp se procesaron las 24 fotos generando versiones duales de alto rendimiento:
-  - **Imágenes Completas (`assets/galeria/galeria-104.webp` a `galeria-127.webp`):** Redimensionadas a un máximo de 1200px (calidad 80, ~37–240 KB c/u) con orientación automática EXIF preservada para visualización nítida en el lightbox.
-  - **Miniaturas (`assets/galeria/thumbs/galeria-104.webp` a `galeria-127.webp`):** Redimensionadas a un máximo de 500px (calidad 75, ~9–39 KB c/u) para carga ultrarrápida del grid dinámico.
-* **Actualización de `main.js`:** Se integraron las nuevas imágenes al arreglo `allImgs` (creciendo la galería a **121 trabajos reales** disponibles en el shuffle aleatorio). Cache-bust de `main.js` bump a `?v=3.1` en `index.html`.
+### 🖼️ Incorporación y Optimización de Fotos Nuevas a la Galería Dinámica
+* **Procesamiento de `assets/nuevas_fotos/`:** Se auditaron las fotos en la carpeta local. Inicialmente se procesaron las 24 fotos en WebP dual (full 1200px + thumb 500px).
+* **Curaduría de Fotos de Rotulación Vehicular (enviaflores.com):** Se seleccionaron exclusivamente las **3 mejores tomas de producto terminado** (`galeria-118.webp` vista 3/4 frontal, `galeria-119.webp` vista lateral completa con logo, y `galeria-120.webp` vista posterior), retirando 6 fotos redundantes de ángulos intermedios y de proceso (`galeria-117`, `121`, `122`, `123`, `124`, `125`).
+* **Actualización de `main.js`:** Se ajustó el arreglo `allImgs` a **115 fotos curadas y balanceadas**. Cache-bust de `main.js` bump a `?v=3.1` en `index.html`.
 
 ### 📝 Nuevo Artículo de Blog: Vinil Adhesivo para Vidrieras y Fachadas
 * **Idea basada en datos de GSC:** siguiendo el reporte del 04-ago-2026, se identificó que "vinil cancún"/"vinilos cancún" (~47 impresiones combinadas, posición 16-18, **0 clics**) no tenían ningún artículo de blog de apoyo — a diferencia de lonas, toldos, permisos, vehicular y control solar, que ya lo tienen. Se confirmó que la página de servicio correcta para esa keyword es **`gran-formato.html`** (sección "Viniles Adhesivos"/"Vinil Microperforado"), no `rotulacion-tradicional.html` (que es pintura a mano y explícitamente se posiciona como alternativa al vinil) ni `rotulacion-vehicular.html` (vinil para autos, ya cubierto por 2 artículos existentes).

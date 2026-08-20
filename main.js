@@ -496,10 +496,8 @@
             'galeria-103.webp','galeria-104.webp','galeria-105.webp','galeria-106.webp',
             'galeria-107.webp','galeria-108.webp','galeria-109.webp','galeria-110.webp',
             'galeria-111.webp','galeria-112.webp','galeria-113.webp','galeria-114.webp',
-            'galeria-115.webp','galeria-116.webp','galeria-117.webp','galeria-118.webp',
-            'galeria-119.webp','galeria-120.webp','galeria-121.webp','galeria-122.webp',
-            'galeria-123.webp','galeria-124.webp','galeria-125.webp','galeria-126.webp',
-            'galeria-127.webp'
+            'galeria-115.webp','galeria-116.webp','galeria-118.webp','galeria-119.webp',
+            'galeria-120.webp','galeria-126.webp','galeria-127.webp'
         ];
 
         // Fisher-Yates shuffle
