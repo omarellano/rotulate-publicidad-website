@@ -5,6 +5,14 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 ---
 ## 📅 Resumen de la Sesión (20 de Agosto, 2026)
 
+### 📝 Nuevo Artículo de Blog: Toldos para Restaurantes en Cancún y Playa del Carmen
+* **Publicación:** Se creó [blog/toldos-para-restaurantes-cancun-playa-del-carmen.html](file:///c:/Users/omac_/rtmx-web/blog/toldos-para-restaurantes-cancun-playa-del-carmen.html), siguiente artículo de la parrilla planeada (ver cierre de sesión de hoy más abajo). Cubre tipos de tela (PVC, acrílica, microperforada), tipos de estructura (fija, retráctil manual, cofre/pérgola) y resistencia al viento huracanado, con enlaces internos a `/toldos.html`, `/lonas-cancun/` y la guía de permisos publicada el mismo día.
+* **Estructura:** Mismo patrón que el artículo de permisos (JSON-LD `BlogPosting` + `FAQPage` con 4 preguntas + `BreadcrumbList`, caja de "respuesta rápida", CTA a WhatsApp). Reutiliza `assets/toldos.jpg`/`.webp` ya existentes (sin generar imagen nueva). Añadido a `blog/index.html` (tarjeta), `sitemap.xml` y `llms.txt`.
+* **Corrección de contenido (a petición de Omar):** el borrador inicial mencionaba "toldos motorizados con sensor de viento" como opción de estructura — Omar aclaró que **no es un servicio que ofrezcan**. Se retiró esa mención del artículo nuevo (título de sección, lista, respuesta rápida y ambas copias del FAQ) y también de **`toldos.html`** (la página de servicio ya publicada tenía "sistemas motorizados con control remoto" en su FAQ y en la lista de ventajas — quedó desactualizado/incorrecto y se corrigió de paso).
+* **Verificación:** balance de `<div>`/JSON-LD validado con Node; probado con servidor estático local (`http://localhost:8099`, sin extensión de Chrome disponible en esta sesión para verificación visual). Tras el push, deploy `32391297141` exitoso; confirmado en producción con curl (artículo 200, `toldos.html` sin ninguna mención de "motoriz", sitemap actualizado). Ping IndexNow enviado (200 OK) para el artículo, `toldos.html`, `/blog/` y `sitemap.xml`.
+* **Commit:** `47cb609`.
+* **Pendiente opcional:** enviar "Solicitar indexación" en Google Search Console para la URL nueva (no se hizo esta sesión por falta de conexión con la extensión de Chrome).
+
 ### 🖼️ Portafolio con clientes nombrados — implementado y verificado en producción
 * **Mapeo de `assets/nuevas_fotos/`** (pendiente desde jul-2026, permisos ya confirmados por Omar): identificadas 4 fotos/proyectos distintos entre los 17 archivos sin nombre de cliente — **Alumik** (letrero luminoso de canal en tienda), **Silanes** (escenografía en neón LED para el evento corporativo "Humanía"), **enviaflores.com** (rotulación vehicular completa, Toyota Avanza magenta) y **Fishing Joe's Tour Experience** (rotulación de lancha turística en Puerto Morelos).
 * **Nueva sección en `index.html`**: "Clientes que confían en nosotros" (`#clientes`), entre la Galería y Nosotros — 4 tarjetas reutilizando el patrón visual `.showcase-item`/`.showcase-overlay` ya existente (nombre del cliente en lima + título + descripción corta del trabajo), grid fijo 2×2 (`.clientes-grid`, nuevo bloque en `style.css`) que colapsa a 1 columna en móvil.
@@ -37,7 +45,7 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Backlog / Qué sigue en el plan de trabajo:**
   1. **Paridad en Inglés para Control Solar (`control-solar-en.html`):** Añadir la sección de hospitality/condominios en inglés.
   2. **Marcar conversión en GA4:** En el panel de Google Analytics, activar `cotizacion_supabase_ok` como conversión.
-  3. **Parrilla del Blog:** Siguiente artículo: *Toldos comerciales para restaurantes en Cancún y Playa: telas, estructuras y resistencia al viento*.
+  3. ✅ Resuelto el 20-ago-2026 (más abajo en esta misma sesión) — artículo de toldos para restaurantes publicado. **Siguiente en la parrilla del blog:** por definir.
 
 ---
 ## 📅 Resumen de la Sesión (10 de Agosto, 2026)
