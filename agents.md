@@ -13,7 +13,8 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Integración:** Añadido a [blog/index.html](file:///C:/Users/omac_/rtmx-web/blog/index.html) (tarjeta al inicio), [sitemap.xml](file:///C:/Users/omac_/rtmx-web/sitemap.xml) (nueva URL y lastmod del índice del blog a 2026-08-21) y [llms.txt](file:///C:/Users/omac_/rtmx-web/llms.txt).
 * **Verificación:** 3 bloques JSON-LD parsean correctamente con PowerShell; `scratch/audit_html_structure.js` reporta 37 archivos HTML con etiquetas balanceadas. No se hizo verificación visual en navegador esta sesión.
 * **Commit y deploy:** commit `5aba324` enviado a `main`; workflow `Deploy to Hostinger` (run `32498000112`) terminó en `success`. Verificado en producción: `https://rotulatepublicidad.com/blog/letreros-para-negocios-cancun-riviera-maya.html` responde **HTTP 200** con el HTML actualizado.
-* **Pendiente opcional:** solicitar indexación de la URL nueva en Google Search Console.
+* **Portada del blog:** se intentó crear una imagen nueva para el artículo, pero no se generó: la herramienta integrada de imagen no estaba disponible en la sesión y la alternativa CLI requería `OPENAI_API_KEY`, que no estaba configurada. Queda pendiente para una próxima sesión.
+* **Pendientes para la próxima sesión:** solicitar indexación de la URL nueva en Google Search Console y generar/definir la portada del artículo.
 
 ---
 ## 📅 Resumen de la Sesión (20 de Agosto, 2026)
