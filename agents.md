@@ -12,7 +12,8 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Corrección solicitada por Omar:** se amplió la cobertura de Cancún a toda la Riviera Maya (Puerto Morelos, Playa del Carmen y Tulum) y se cambió el enfoque principal de “rótulos” a “letreros”. Se aclaró que en México “rótulo” suele referirse al letrero pintado a mano sobre muro, y esa técnica se agregó como opción explícita enlazando a `rotulacion-tradicional.html`. El archivo pasó de `rotulos-para-negocios-en-cancun.html` a `letreros-para-negocios-cancun-riviera-maya.html`, actualizando índice, sitemap y llms.
 * **Integración:** Añadido a [blog/index.html](file:///C:/Users/omac_/rtmx-web/blog/index.html) (tarjeta al inicio), [sitemap.xml](file:///C:/Users/omac_/rtmx-web/sitemap.xml) (nueva URL y lastmod del índice del blog a 2026-08-21) y [llms.txt](file:///C:/Users/omac_/rtmx-web/llms.txt).
 * **Verificación:** 3 bloques JSON-LD parsean correctamente con PowerShell; `scratch/audit_html_structure.js` reporta 37 archivos HTML con etiquetas balanceadas. No se hizo verificación visual en navegador esta sesión.
-* **Pendiente:** aún **sin commits ni push**. Para publicar, falta commitear y empujar a `main` (el deploy de GitHub Actions hará el rsync). Opcional después de deploy: solicitar indexación en Google Search Console para la URL nueva.
+* **Commit y deploy:** commit `5aba324` enviado a `main`; workflow `Deploy to Hostinger` (run `32498000112`) terminó en `success`. Verificado en producción: `https://rotulatepublicidad.com/blog/letreros-para-negocios-cancun-riviera-maya.html` responde **HTTP 200** con el HTML actualizado.
+* **Pendiente opcional:** solicitar indexación de la URL nueva en Google Search Console.
 
 ---
 ## 📅 Resumen de la Sesión (20 de Agosto, 2026)
