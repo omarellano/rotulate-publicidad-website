@@ -3,6 +3,18 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (21 de Agosto, 2026)
+
+### 📝 Nuevo Artículo de Blog: Letreros para Negocios en Cancún y Riviera Maya
+* **Justificación (GSC):** revisando `search_info/Consultas.csv` (último reporte local, 04-ago-2026), la oportunidad elegida fue **"rótulos cancun"**: 60 impresiones, posición media 14.4 y 0 clics, sin ningún artículo de blog dedicado. La variante sin acento ("rotulos cancun") también aparece con 2 clics y posición 6.13, por lo que el artículo busca reforzar ambas.
+* **Publicación:** Se creó [blog/letreros-para-negocios-cancun-riviera-maya.html](file:///C:/Users/omac_/rtmx-web/blog/letreros-para-negocios-cancun-riviera-maya.html). Cubre cómo elegir según distancia y horario, los formatos más usados (vinil de corte, lona, rótulo pintado, caja de luz, letras 3D, neón flex, alucobond), durabilidad frente al sol/salitre, precios de referencia ya publicados para materiales impresos (lona frontlit $230, mesh $260, translúcida $350 y vinil desde $350 MXN/m²), consideración de permisos y proceso de Rotúlate.
+* **Estructura:** Mismo patrón que los artículos recientes (JSON-LD `BlogPosting` + `FAQPage` con 4 preguntas + `BreadcrumbList`, respuesta rápida, CTA a WhatsApp). Reutiliza `assets/letras-3d.jpg`/`.webp` existentes; no se generó imagen nueva.
+* **Corrección solicitada por Omar:** se amplió la cobertura de Cancún a toda la Riviera Maya (Puerto Morelos, Playa del Carmen y Tulum) y se cambió el enfoque principal de “rótulos” a “letreros”. Se aclaró que en México “rótulo” suele referirse al letrero pintado a mano sobre muro, y esa técnica se agregó como opción explícita enlazando a `rotulacion-tradicional.html`. El archivo pasó de `rotulos-para-negocios-en-cancun.html` a `letreros-para-negocios-cancun-riviera-maya.html`, actualizando índice, sitemap y llms.
+* **Integración:** Añadido a [blog/index.html](file:///C:/Users/omac_/rtmx-web/blog/index.html) (tarjeta al inicio), [sitemap.xml](file:///C:/Users/omac_/rtmx-web/sitemap.xml) (nueva URL y lastmod del índice del blog a 2026-08-21) y [llms.txt](file:///C:/Users/omac_/rtmx-web/llms.txt).
+* **Verificación:** 3 bloques JSON-LD parsean correctamente con PowerShell; `scratch/audit_html_structure.js` reporta 37 archivos HTML con etiquetas balanceadas. No se hizo verificación visual en navegador esta sesión.
+* **Pendiente:** aún **sin commits ni push**. Para publicar, falta commitear y empujar a `main` (el deploy de GitHub Actions hará el rsync). Opcional después de deploy: solicitar indexación en Google Search Console para la URL nueva.
+
+---
 ## 📅 Resumen de la Sesión (20 de Agosto, 2026)
 
 ### 🖼️ Incorporación y Optimización de Fotos Nuevas a la Galería Dinámica
@@ -679,5 +691,3 @@ Ejecución de plan de optimización SEO basado en el análisis directo del direc
   1. Portafolio con clientes nombrados (mapeo foto→cliente de `assets/nuevas_fotos/`).
   2. Campaña de reseñas post-venta por WhatsApp (Google Business Profile 4.7★).
   3. Continuación de parrilla del blog (1-2 artículos/mes en `/blog/`).
-
-

@@ -146,8 +146,14 @@
     </url>
     <url>
         <loc>https://rotulatepublicidad.com/blog/</loc>
-        <lastmod>2026-08-20</lastmod>
+        <lastmod>2026-08-21</lastmod>
         <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://rotulatepublicidad.com/blog/letreros-para-negocios-cancun-riviera-maya.html</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
