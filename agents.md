@@ -22,7 +22,7 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 ### ➕ Ampliación: albañilería y plomería + decisión de NO crear página SEO aparte (todavía)
 * Omar pidió agregar **albañilería** y **plomería** al catálogo de RTMX Obra y Mantenimiento. Agregadas como `obra-albanileria` y `obra-plomeria` en el `<optgroup>` del formulario y como tarjetas en `#obra-mantenimiento` (9 categorías en total).
 * Omar preguntó si convenía crear una **página dedicada** para captar tráfico de Google. Recomendación dada (pendiente de decisión formal, no implementada): esperar a tener leads reales y al menos 1-2 subcontratistas confirmados con fotos de proyecto antes de invertir en una landing — una página sin portafolio ni aliados nombrados rankea mal y diluye el enfoque temático del dominio (hoy centrado en rotulación/señalización). Alternativa de bajo costo si se quiere probar SEO antes: un artículo de blog, mismo patrón usado con PPF. Sin acción de código en esta ampliación además del catálogo.
-* **Commit y deploy:** pendiente de push al cierre de esta sesión (ver historial de commits para el hash real).
+* **Commit y deploy:** commit `89586a9` enviado a `main`; workflow `Deploy to Hostinger` (run `33104090218`) terminó en `success`. Verificado en producción con curl: `obra-albanileria` y `obra-plomeria` presentes en el HTML servido.
 
 ---
 ## 📅 Resumen de la Sesión (21 de Agosto, 2026)
