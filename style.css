@@ -2736,6 +2736,40 @@ nav a.active::after {
     border-radius: 8px;
     border-left: 3px solid #C8F135;
 }
+.glass-list-item strong {
+    display: block;
+    color: var(--color-white);
+    margin-bottom: 0.35rem;
+}
+.glass-list-item p {
+    color: var(--color-gray);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* ── RTMX Obra y Mantenimiento ──────────────────────────── */
+.obra-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+.obra-nota {
+    margin-top: 2rem;
+    text-align: center;
+    color: var(--color-gray);
+    font-size: 0.9rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.obra-cta {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1.25rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
 /* ── Consent Banner ─────────────────────────────────────── */
 #consent-banner {

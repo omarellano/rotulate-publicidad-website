@@ -52,7 +52,7 @@
     <link rel="preconnect" href="https://wtljdvexsksextnhpkkd.supabase.co" crossorigin>
     <link rel="dns-prefetch" href="https://region1.google-analytics.com">
 
-    <link rel="stylesheet" href="style.css?v=3.2">
+    <link rel="stylesheet" href="style.css?v=3.3">
 
     <!-- Schema.org — LocalBusiness structured data -->
     <script type="application/ld+json">
@@ -208,6 +208,7 @@
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#obra-mantenimiento">Obra y Mtto</a></li>
                 <li><a href="#proceso">Proceso</a></li>
                 <li><a href="#proyectos">Galería</a></li>
                 <li><a href="#nosotros">Sobre Nosotros</a></li>
@@ -467,6 +468,27 @@
             </div>
         </section>
 
+        <section class="showcase" id="obra-mantenimiento" aria-label="RTMX Obra y Mantenimiento">
+            <h2 class="section-title reveal">RTMX <span class="text-accent-lime">Obra y Mantenimiento</span></h2>
+            <p class="section-subtitle reveal">Coordinamos, a través de nuestra red de aliados y contratistas certificados, servicios de obra y mantenimiento para tu negocio en Cancún y la Riviera Maya.</p>
+            <div class="container-wide">
+                <div class="obra-grid">
+                    <div class="glass-list-item reveal"><strong>Cancelería</strong><p>Puertas, ventanas y canceles de aluminio y PVC.</p></div>
+                    <div class="glass-list-item reveal"><strong>Herrería</strong><p>Estructuras, rejas, protecciones y trabajos en acero.</p></div>
+                    <div class="glass-list-item reveal"><strong>Fachadas de alucobond</strong><p>Revestimientos y remodelación de fachadas comerciales.</p></div>
+                    <div class="glass-list-item reveal"><strong>Electricidad</strong><p>Instalación y mantenimiento en alta, media y baja tensión.</p></div>
+                    <div class="glass-list-item reveal"><strong>Supervisión de obra</strong><p>Control de avance, calidad y cumplimiento normativo.</p></div>
+                    <div class="glass-list-item reveal"><strong>Mantenimiento y construcción</strong><p>Obra civil, remodelaciones y mantenimiento preventivo o correctivo.</p></div>
+                    <div class="glass-list-item reveal"><strong>Impermeabilización</strong><p>Techos, azoteas y losas.</p></div>
+                </div>
+                <p class="obra-nota reveal">Servicios coordinados por RTMX, una división de Rotulate Publicidad, con contratistas certificados por especialidad. Cotiza tu proyecto y te conectamos con el aliado adecuado.</p>
+                <div class="obra-cta reveal">
+                    <a href="#contacto" class="cta-button">Solicitar Cotización →</a>
+                    <a href="https://wa.me/529984007987?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20servicio%20de%20obra%20o%20mantenimiento%20(RTMX%20Obra%20y%20Mantenimiento)." class="cta-button cta-whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp →</a>
+                </div>
+            </div>
+        </section>
+
         <section class="galeria" id="proyectos" aria-label="Galería de trabajos">
             <h2 class="section-title reveal">Galería de <span class="text-accent-orange">Trabajos</span></h2>
             <p class="section-subtitle reveal">Proyectos reales realizados en Cancún y la Riviera Maya. Cada trabajo refleja nuestro compromiso con la calidad.</p>
@@ -723,17 +745,28 @@
                             <div class="form-field">
                                 <label for="servicio">Tipo de servicio *</label>
                                 <select id="servicio" name="servicio" required
-                                        toolparamdescription="Tipo de servicio publicitario requerido (anuncios-luminosos, neon-flex, letras-3d, rotulacion-vehicular, alucobond, control-solar, toldos, lonas-vinilos, etc.)">
+                                        toolparamdescription="Tipo de servicio requerido: publicitario/rotulación (anuncios-luminosos, neon-flex, letras-3d, rotulacion-vehicular, alucobond, control-solar, toldos, lonas-vinilos) u obra/mantenimiento vía RTMX (obra-canceleria, obra-herreria, obra-alucobond, obra-electricidad, obra-supervision, obra-mantenimiento-construccion, obra-impermeabilizacion), etc.">
                                     <option value="" disabled selected>Selecciona un servicio</option>
-                                    <option value="anuncios-luminosos">Anuncios luminosos</option>
-                                    <option value="neon-flex">Neón Flex</option>
-                                    <option value="letras-3d">Letras 3D</option>
-                                    <option value="rotulacion-tradicional">Rotulación tradicional (pintura a mano)</option>
-                                    <option value="rotulacion-vehicular">Rotulación vehicular</option>
-                                    <option value="alucobond">Fachadas de alucobond</option>
-                                    <option value="control-solar">Película de control solar</option>
-                                    <option value="toldos">Toldos publicitarios</option>
-                                    <option value="lonas-vinilos">Lonas, vinilos y banners</option>
+                                    <optgroup label="Rotulación y Publicidad">
+                                        <option value="anuncios-luminosos">Anuncios luminosos</option>
+                                        <option value="neon-flex">Neón Flex</option>
+                                        <option value="letras-3d">Letras 3D</option>
+                                        <option value="rotulacion-tradicional">Rotulación tradicional (pintura a mano)</option>
+                                        <option value="rotulacion-vehicular">Rotulación vehicular</option>
+                                        <option value="alucobond">Fachadas de alucobond</option>
+                                        <option value="control-solar">Película de control solar</option>
+                                        <option value="toldos">Toldos publicitarios</option>
+                                        <option value="lonas-vinilos">Lonas, vinilos y banners</option>
+                                    </optgroup>
+                                    <optgroup label="RTMX Obra y Mantenimiento">
+                                        <option value="obra-canceleria">Cancelería</option>
+                                        <option value="obra-herreria">Herrería</option>
+                                        <option value="obra-alucobond">Fachadas de alucobond (obra)</option>
+                                        <option value="obra-electricidad">Electricidad (alta, media y baja tensión)</option>
+                                        <option value="obra-supervision">Supervisión de obra</option>
+                                        <option value="obra-mantenimiento-construccion">Mantenimiento y construcción</option>
+                                        <option value="obra-impermeabilizacion">Impermeabilización</option>
+                                    </optgroup>
                                     <option value="otro">Otro</option>
                                 </select>
                             </div>
@@ -823,6 +856,7 @@
                 <h3>Navegación</h3>
                 <a href="#inicio">Inicio</a>
                 <a href="#servicios">Servicios</a>
+                <a href="#obra-mantenimiento">Obra y Mantenimiento</a>
                 <a href="#proceso">Proceso</a>
                 <a href="#proyectos">Galería</a>
                 <a href="#nosotros">Nosotros</a>

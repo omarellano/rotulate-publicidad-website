@@ -3,6 +3,23 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (27 de Agosto, 2026)
+
+### 🏗️ Nueva división: RTMX Obra y Mantenimiento (Fase 1 — validación como bróker)
+* **Decisión de negocio (Omar):** crear una división de servicios de obra — cancelería, herrería, fachadas de alucobond, electricidad (alta/media/baja tensión), supervisión de obra, mantenimiento y construcción, e impermeabilización — para atender clientes que ya preguntan por esto. Nombre elegido: **RTMX Obra y Mantenimiento**. Arranca como **bróker/referido** (Rotulate conecta al cliente con un aliado subcontratado y cobra comisión), no como gestor de obra con margen ni estructura nueva — modelo de bajo riesgo para validar demanda antes de invertir en seguros/contratos de PM. Mismo patrón que se usó con PPF (ver sesiones de jul-2026): validar con exposición mínima antes de escalar.
+* **Implementado en el sitio (Fase 1, sin páginas nuevas):**
+  - Nueva sección `#obra-mantenimiento` en [index.html](file:///C:/Users/omac_/rtmx-web/index.html) (entre "Servicios" y "Galería") con las 7 categorías en tarjetas `.glass-list-item`, nota aclarando que son "servicios coordinados por RTMX... con contratistas certificados por especialidad", y CTAs a `#contacto` y WhatsApp (mensaje distinto mencionando RTMX Obra y Mantenimiento).
+  - Enlaces de navegación agregados en nav principal y footer ("Obra y Mtto" / "Obra y Mantenimiento").
+  - Formulario de cotización: el `<select id="servicio">` ahora tiene dos `<optgroup>` — "Rotulación y Publicidad" (opciones existentes sin cambios de valor) y "RTMX Obra y Mantenimiento" (7 opciones nuevas: `obra-canceleria`, `obra-herreria`, `obra-alucobond`, `obra-electricidad`, `obra-supervision`, `obra-mantenimiento-construccion`, `obra-impermeabilizacion`). Verificado que la columna `servicio` en `cotizaciones_web` es `text not null` sin `CHECK`, así que los valores nuevos no requieren migración de base de datos.
+  - CSS nuevo en [style.css](file:///C:/Users/omac_/rtmx-web/style.css): `.obra-grid`, `.obra-nota`, `.obra-cta` y estilos hijos de `.glass-list-item` (clase existente que no se usaba en ningún otro lado del sitio, confirmado por grep antes de tocarla). Cache-bust `style.css?v=3.2` → `v=3.3` en `index.html`.
+* **Verificación:** balance de tags y unicidad de `id="obra-mantenimiento"` verificados con Node/grep. **No se hizo verificación visual en navegador** — la extensión Claude in Chrome no estaba conectada en esta sesión. Falta confirmar visualmente (desktop y mobile) antes o después del deploy.
+* **Pendiente:**
+  1. Verificación visual del nuevo bloque (extensión de Chrome no disponible esta sesión).
+  2. Definir y formalizar la red de aliados/subcontratistas por especialidad (mínimo 1-2 por categoría, con referencias verificables; electricidad de media/alta tensión requiere perito o DRO certificado — no negociable por responsabilidad legal).
+  3. Commit y deploy de este cambio (aún no se ha hecho commit — ver `git status`).
+  4. Medir en 60-90 días cuántas cotizaciones entran por las categorías `obra-*` antes de decidir si se escala a modelo de gestor de obra (PM) en alguna especialidad.
+
+---
 ## 📅 Resumen de la Sesión (21 de Agosto, 2026)
 
 ### 📝 Nuevo Artículo de Blog: Letreros para Negocios en Cancún y Riviera Maya
