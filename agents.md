@@ -13,11 +13,11 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
   - Formulario de cotización: el `<select id="servicio">` ahora tiene dos `<optgroup>` — "Rotulación y Publicidad" (opciones existentes sin cambios de valor) y "RTMX Obra y Mantenimiento" (7 opciones nuevas: `obra-canceleria`, `obra-herreria`, `obra-alucobond`, `obra-electricidad`, `obra-supervision`, `obra-mantenimiento-construccion`, `obra-impermeabilizacion`). Verificado que la columna `servicio` en `cotizaciones_web` es `text not null` sin `CHECK`, así que los valores nuevos no requieren migración de base de datos.
   - CSS nuevo en [style.css](file:///C:/Users/omac_/rtmx-web/style.css): `.obra-grid`, `.obra-nota`, `.obra-cta` y estilos hijos de `.glass-list-item` (clase existente que no se usaba en ningún otro lado del sitio, confirmado por grep antes de tocarla). Cache-bust `style.css?v=3.2` → `v=3.3` en `index.html`.
 * **Verificación:** balance de tags y unicidad de `id="obra-mantenimiento"` verificados con Node/grep. **No se hizo verificación visual en navegador** — la extensión Claude in Chrome no estaba conectada en esta sesión. Falta confirmar visualmente (desktop y mobile) antes o después del deploy.
+* **Commit y deploy:** commit `88a654a` enviado a `main`; workflow `Deploy to Hostinger` (run `33103683409`) terminó en `success`. Verificado en producción con curl: `https://rotulatepublicidad.com/` sirve `id="obra-mantenimiento"` y `style.css?v=3.3` responde HTTP 200.
 * **Pendiente:**
-  1. Verificación visual del nuevo bloque (extensión de Chrome no disponible esta sesión).
+  1. Verificación visual del nuevo bloque en navegador real (desktop y mobile) — solo se confirmó por curl/grep que el HTML/CSS llegaron a producción, no cómo se ve.
   2. Definir y formalizar la red de aliados/subcontratistas por especialidad (mínimo 1-2 por categoría, con referencias verificables; electricidad de media/alta tensión requiere perito o DRO certificado — no negociable por responsabilidad legal).
-  3. Commit y deploy de este cambio (aún no se ha hecho commit — ver `git status`).
-  4. Medir en 60-90 días cuántas cotizaciones entran por las categorías `obra-*` antes de decidir si se escala a modelo de gestor de obra (PM) en alguna especialidad.
+  3. Medir en 60-90 días cuántas cotizaciones entran por las categorías `obra-*` antes de decidir si se escala a modelo de gestor de obra (PM) en alguna especialidad.
 
 ---
 ## 📅 Resumen de la Sesión (21 de Agosto, 2026)
