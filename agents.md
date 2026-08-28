@@ -12,7 +12,7 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
   - Generado `assets/astronauta_mascota.webp` (~54 KB, Pillow q82) para conservar la optimización WebP del LCP.
   - Eliminados `assets/astronauta_mx.png` y `assets/astronauta_mx.webp` (ya sin referencias; mismo criterio que el retiro de la promo ysisi en jul-2026).
 * **Verificación:** grep confirma que ninguna otra página, script o CSS referenciaba `astronauta_mx`; el comportamiento de "huida del mouse" en `main.js` usa la clase `.astronaut-mascot` y no cambia. No se hizo verificación visual en navegador en esta sesión.
-* **Commit:** en branch `claude/astronauta-futbol-original-bfnbk3` (sesión remota); pendiente merge a `main` y deploy. Tras el deploy puede requerir purga de caché en Hostinger.
+* **Commit y deploy:** commit `12dbe29` en branch `claude/astronauta-futbol-original-bfnbk3`, mergeado a `main` (fast-forward) a petición de Omar ("pushea"). Workflow `Deploy to Hostinger` (run `33211454341`) terminó en `success`. **No se pudo verificar producción con curl** desde esta sesión: la política de red del entorno remoto bloquea conexiones a `rotulatepublicidad.com` (solo se confirmó el deploy por el estado del workflow). Puede requerir purga de caché en Hostinger para ver el cambio.
 
 
 ### 🏗️ Nueva división: RTMX Obra y Mantenimiento (Fase 1 — validación como bróker)
