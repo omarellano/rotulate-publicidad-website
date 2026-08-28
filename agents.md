@@ -3,7 +3,17 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
-## 📅 Resumen de la Sesión (27 de Agosto, 2026)
+## 📅 Resumen de la Sesión (28 de Agosto, 2026)
+
+### 🧑‍🚀 Hero: retirar astronauta con uniforme de fútbol y restaurar la mascota original
+* **Solicitud de Omar:** quitar del hero el astronauta con la playera de la selección mexicana / Mundial 2026 (`assets/astronauta_mx.png`/`.webp`) y regresar a la mascota original (astronauta montado en el cohete).
+* **Cambios:**
+  - `index.html`: el `<picture>` del hero y el `<link rel="preload">` del LCP ahora apuntan a `assets/astronauta_mascota.webp`/`.png` (la mascota original, idéntica a `astronauta_cohete.png`). Alt actualizado a "Astronauta mascota de Rotúlate montado en un cohete" y `height` corregido a 447 para la proporción real (801×1024).
+  - Generado `assets/astronauta_mascota.webp` (~54 KB, Pillow q82) para conservar la optimización WebP del LCP.
+  - Eliminados `assets/astronauta_mx.png` y `assets/astronauta_mx.webp` (ya sin referencias; mismo criterio que el retiro de la promo ysisi en jul-2026).
+* **Verificación:** grep confirma que ninguna otra página, script o CSS referenciaba `astronauta_mx`; el comportamiento de "huida del mouse" en `main.js` usa la clase `.astronaut-mascot` y no cambia. No se hizo verificación visual en navegador en esta sesión.
+* **Commit:** en branch `claude/astronauta-futbol-original-bfnbk3` (sesión remota); pendiente merge a `main` y deploy. Tras el deploy puede requerir purga de caché en Hostinger.
+
 
 ### 🏗️ Nueva división: RTMX Obra y Mantenimiento (Fase 1 — validación como bróker)
 * **Decisión de negocio (Omar):** crear una división de servicios de obra — cancelería, herrería, fachadas de alucobond, electricidad (alta/media/baja tensión), supervisión de obra, mantenimiento y construcción, e impermeabilización — para atender clientes que ya preguntan por esto. Nombre elegido: **RTMX Obra y Mantenimiento**. Arranca como **bróker/referido** (Rotulate conecta al cliente con un aliado subcontratado y cobra comisión), no como gestor de obra con margen ni estructura nueva — modelo de bajo riesgo para validar demanda antes de invertir en seguros/contratos de PM. Mismo patrón que se usó con PPF (ver sesiones de jul-2026): validar con exposición mínima antes de escalar.
