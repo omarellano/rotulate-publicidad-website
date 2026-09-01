@@ -31,6 +31,15 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Alcance:** solo se tocó `index.html` (el nav de la home, que era el que Omar señaló). Las ~19 páginas de servicio (`gran-formato.html`, `toldos.html`, etc.) usan su propio nav más corto (9 ítems, sin Obra y Mtto ni Contáctanos) pero **comparten el mismo emoji roto de "EN"** — no se tocaron esta sesión, pendiente de decidir si se les aplica el mismo tratamiento.
 
 ---
+## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — barrido final de huérfanos)
+
+### 🧹 8 assets huérfanos más, encontrados con un cruce completo
+* Al cierre de la sesión, Omar preguntó si quedaba algo más por mejorar. Se hizo un cruce automatizado (grep de todas las referencias `assets/*.{png,jpg,jpeg,webp,svg,ico}` en `.html`/`.js`/`.css` vs. el listado real de `assets/`) que encontró 8 archivos más sin ninguna referencia: `boat.png`, `excavator.png`, `printer.png`, `supercar.png`, `truck.png` (~330KB, huérfanos desde el commit inicial del sitio `ec7f05a` — nunca se usaron) y `assets/galeria/new1.jpg`, `new2.jpg`, `new3.jpg` (~800KB, no están en el arreglo `allImgs` de la galería dinámica de `main.js`).
+* **Se descartó borrar** `assets/qr-google-resenas.png`/`.webp` pese a no tener referencias en HTML — es intencional, generado para imprimir en stickers/notas de entrega físicas (campaña de reseñas), no para mostrarse en la web.
+* **Commit y deploy:** commit `b3da1ec`, deploy `success` a la primera (run `33534261731`).
+* **Pendiente sin resolver (decisión de Omar):** accesibilidad completa del dropdown "Más" (`aria-expanded` dinámico + cierre al click fuera) — se ofreció y Omar decidió no hacerlo por ahora.
+
+---
 ## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — Fase 4: imágenes + incidente de contenido)
 
 ### 🔍 Medición real con PageSpeed Insights antes de decidir la Fase 3
