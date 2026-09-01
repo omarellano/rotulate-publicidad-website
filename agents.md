@@ -31,6 +31,16 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Alcance:** solo se tocó `index.html` (el nav de la home, que era el que Omar señaló). Las ~19 páginas de servicio (`gran-formato.html`, `toldos.html`, etc.) usan su propio nav más corto (9 ítems, sin Obra y Mtto ni Contáctanos) pero **comparten el mismo emoji roto de "EN"** — no se tocaron esta sesión, pendiente de decidir si se les aplica el mismo tratamiento.
 
 ---
+## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — incidente de caché del menú)
+
+### 🐛 Incidente: el menú se veía roto en producción tras el paquete técnico de la auditoría
+* Tras aplicar el paquete de bajo riesgo de `docs/auditoria-tecnica-velocidad-ux-2026-09-01.md` (commit de Codex `71264d7`, que además incluyó sin querer todos los cambios que yo ya tenía hechos en el mismo árbol de trabajo compartido: exclusiones de deploy, caché CSS/JS a 1 año, `prefers-reduced-motion` en partículas/astronauta, unificación de versiones de `style.css`/`main.js`, y `lastmod` de sitemap), Omar reportó que el menú principal "quedó horrible". Captura de pantalla confirmó el dropdown "Más" permanentemente abierto y empujando el nav a dos líneas.
+* **Diagnóstico:** no era un bug de código. El HTML servido sí tenía la clase `nav-dropdown-toggle` (verificado con curl), pero el `style.css?v=3.3` servido por producción **no contenía las reglas `.nav-dropdown-menu`** (0 apariciones vía fetch + inspección de CSSOM en el navegador, contra 12 apariciones en el archivo local y en `git show HEAD:style.css`, con hash y bytes verificados idénticos). Los headers de respuesta (`x-hcdn-cache-status: MISS` pero `Last-Modified` reciente, y contenido inconsistente entre pedidos) apuntan a una capa de caché del lado del servidor de Hostinger/LiteSpeed atada a esa URL específica — el problema ya documentado en `CLAUDE.md` ("puede ser necesario purgar caché desde el panel de Hostinger").
+* **Mitigación:** se subió `style.css` a `v=3.4` en las 36 referencias del sitio (todas las páginas, incluido blog) para forzar una URL nunca antes cacheada. **Funcionó de inmediato**: verificado con curl que `style.css?v=3.4` sirve el contenido correcto (62,518 bytes, coincide byte a byte con el commit) y con captura de pantalla que el menú se ve correcto (una fila, dropdown funcional por hover, incluye ya "Obra y Mtto" — Omar pidió moverlo también al dropdown "Más" en el mismo momento).
+* **Commit y deploy:** commit `c27095b`, deploy `success` a la primera (run `33527011330`). Verificado visualmente con Claude in Chrome (captura antes/después) y por curl.
+* **Pendiente / riesgo latente:** si vuelve a pasar algo similar sin haber cambiado el contenido de un archivo (es decir, la URL con `?v=` ya cacheada sirve contenido viejo pese a que el origen tiene el archivo correcto), el siguiente paso es que Omar purgue el Cache Manager desde el hPanel de Hostinger — esta vez no hizo falta, pero es la causa raíz más probable si se repite.
+
+---
 ## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — switch de idioma en el resto de páginas)
 
 ### 🌐 Emoji de bandera roto — corregido en las 11 páginas restantes
