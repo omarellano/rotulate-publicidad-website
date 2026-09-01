@@ -3,6 +3,15 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — Fase B)
+
+### 🔗 Enlazado interno: `/express/` era una página huérfana
+* Al ejecutar la Fase A de SEO (ver sección de abajo) se detectó que `/express/` (1,102 impresiones en GSC, pos. 10.57) **no tenía ningún enlace interno** apuntando a ella desde ninguna otra página del sitio — ni home, ni `gran-formato.html`, ni el footer — pese a estar en el sitemap. Dependía solo de que Google la descubriera por su cuenta, lo cual explica que se quedara justo debajo del top 10 sin poder subir.
+* **Cambios:** agregada como 4ª tarjeta en el bloque "También te puede interesar" de `gran-formato.html` (la página temáticamente más cercana: lonas/viniles/impresión) + enlace en el footer-nav de esa misma página y de `index.html`. Enlace recíproco agregado en el footer de `express/index.html` hacia `/`, `/gran-formato.html` y `/lonas-cancun/` para cerrar el clúster de enlazado.
+* **Commit y deploy:** commit `f540488`. Primer intento de deploy falló por el timeout transitorio conocido del puerto 65002; reintentado con `gh run rerun --failed`, segundo intento `success` (run `33520026357`). Verificado en producción con curl en las 3 páginas.
+* **Nota de coordinación:** esta sesión corrió en paralelo con Codex trabajando en el blog sobre el mismo directorio de trabajo (working tree compartido). Se evitó deliberadamente tocar `blog/index.html`, `sitemap.xml`, `llms.txt`, `lonas-cancun/index.html` y `agents.md` mientras Codex tenía cambios sin commitear ahí, para no mezclar ni pisar su trabajo. Codex commiteó y desplegó su parte por separado (commit `a5b5162`, ver sección siguiente) antes de que se agregara esta entrada.
+
+---
 ## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — continuación)
 
 ### 📝 Nuevo artículo SEO: checklist de archivo para imprimir lonas y viniles
