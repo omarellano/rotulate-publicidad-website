@@ -3,6 +3,15 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — Fase C)
+
+### 🏷️ Consistencia de marca en datos estructurados ("rotulate" rankea en pos. 9.85)
+* Investigando por qué la búsqueda de marca propia "rotulate" solo rankea en posición 9.85 (dato de la Fase A), se encontró una inconsistencia real: **36 de ~40 apariciones** de `"name"` en JSON-LD del sitio usan **"Rotulate Publicidad"** (sin acento, igual que el dominio `rotulatepublicidad.com`), pero 4 archivos usaban **"Rotúlate Publicidad"** (con acento) en `Product.brand.name`, `LocalBusiness.name` o `meta name="author"`: `alucobond.html`, `gran-formato.html`, `express/index.html`, `express/en/index.html`. Nombres de entidad inconsistentes en datos estructurados diluyen la señal de marca que Google usa para el Knowledge Graph.
+* **Corrección:** unificadas las 4 páginas a "Rotulate Publicidad" (sin acento) en JSON-LD, meta author y alt de logo. **No se tocó** `index.html` (alt del astronauta, cosmético, de otra sesión) ni los archivos de `/blog/` que también tenían la variante con acento — fuera de alcance esta sesión.
+* **Commit y deploy:** commit `fba2ac4`, deploy `success` a la primera. Verificado en producción con curl (0 ocurrencias de "Rotúlate" en las 3 páginas revisadas).
+* **Nota:** esto es una corrección técnica de consistencia, no garantiza per se que la posición de "rotulate" suba — vale la pena revisar en 2-4 semanas junto con el resto de la volatilidad de posición señalada en la Fase A. Si no mejora, el siguiente sospechoso sería el Google Business Profile (nombre del perfil, categorías, NAP) — fuera del alcance de este repo.
+
+---
 ## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — Fase B)
 
 ### 🔗 Enlazado interno: `/express/` era una página huérfana
