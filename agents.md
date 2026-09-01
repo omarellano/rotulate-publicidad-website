@@ -3,6 +3,26 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (01 de Septiembre, 2026)
+
+### 🔎 Análisis de `search_info/` (GSC, últimos 3 meses) y Fase A de SEO on-page
+* Omar pidió revisar los reportes actualizados de `search_info/` (exportación de Google Search Console, ~230 clics / periodo mayo-agosto 2026) y armar un plan de acción. Hallazgos clave:
+  * Las impresiones casi se triplicaron entre junio (60-120/día) y finales de agosto (150-205/día) gracias al contenido de julio (blog, Playa del Carmen, Tulum), pero el CTR se mantuvo bajo (~2.5%) — oportunidad de ajustar títulos/metas antes de invertir en más contenido nuevo.
+  * El schema `Product`/`Offer` agregado el 5-ago en `gran-formato.html` y `alucobond.html` ya genera **"Fragmentos de productos"** en Google (1,152 impresiones, 15 clics) — confirma que esa táctica funciona.
+  * Páginas con impresiones altas y CTR débil pese a posición decente: `/lonas-cancun/` (1,306 impr., pos. 7.4, CTR 1.23% — es la página del cotizador), `/express/` (1,102 impr., pos. 10.57, CTR 1.91%), `gran-formato.html`, `toldos.html`, `neon-flex.html` y `anuncios-luminosos.html` (esta última ya se había tocado el 5-ago y seguía débil).
+  * Query "rotulate" (marca propia) rankea solo en pos. 9.85 — señal a revisar en otra sesión (posible tema de Google Business Profile).
+  * EE. UU. genera 1,123 impresiones pero solo 0.53% CTR — páginas `-en.html` en pos. 13-24; se decidió no invertir ahí por ahora.
+* **Fase A implementada** (títulos y meta descriptions, con CTA/beneficio antepuesto al inicio del snippet, siguiendo el patrón que ya funcionó el 5-ago): `lonas-cancun/index.html`, `express/index.html`, `gran-formato.html`, `toldos.html`, `neon-flex.html`, `anuncios-luminosos.html`. Open Graph y Twitter cards actualizados en consecuencia para mantener consistencia.
+* **Commit y deploy:** commit `0e6344a` (rebaseado sobre `origin/main` porque hubo un push concurrente — revert del astronauta del hero, sin conflicto real ya que no tocaba las mismas líneas). Primer intento de deploy falló por el timeout transitorio conocido del puerto 65002 (documentado en `CLAUDE.md`); reintentado con `gh run rerun --failed` y el segundo intento terminó en `success` (run `33518828047`).
+* **Verificado en producción con curl:** los `<title>` nuevos de `/lonas-cancun/`, `/express/` y `/toldos.html` ya se sirven en vivo.
+* **Pendiente (Fase B/C del plan, sin implementar todavía):**
+  1. Reforzar `/express/` con contenido/enlazado interno para empujarlo de pos. ~10.5 a top 10 (el ajuste de meta por sí solo no alcanza).
+  2. Retomar cadencia de blog (nada nuevo desde el 12-jul) — ayuda a "blog de rotulación y publicidad visual" (pos. 16.74) y a la autoridad general.
+  3. Portafolio con clientes nombrados y campaña de reseñas por WhatsApp (pendientes de sesiones anteriores, siguen sin resolver).
+  4. Monitorear en 2-3 semanas si se estabiliza la volatilidad de posición vista en agosto (picos a pos. 14-15 en días puntuales).
+  5. Investigar por qué la marca propia "rotulate" rankea en pos. 9.85.
+
+---
 ## 📅 Resumen de la Sesión (28 de Agosto, 2026)
 
 ### 🧑‍🚀 Hero: retirar astronauta con uniforme de fútbol y restaurar la mascota original
