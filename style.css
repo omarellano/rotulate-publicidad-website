@@ -249,6 +249,72 @@ nav a:hover {
     color: var(--color-accent-lime);
 }
 
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-toggle {
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-weight: 500;
+    font-size: 0.9rem;
+    font-family: inherit;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: var(--transition-smooth);
+}
+
+.nav-dropdown-toggle:hover,
+.nav-dropdown-toggle:focus-visible {
+    color: var(--color-accent-lime);
+}
+
+.nav-dropdown-menu {
+    list-style: none;
+    position: absolute;
+    top: calc(100% + 1.25rem);
+    left: 50%;
+    min-width: 160px;
+    padding: 0.5rem;
+    background: rgba(0, 0, 52, 0.97);
+    border: 1px solid rgba(200, 241, 53, 0.25);
+    border-radius: 8px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -6px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    z-index: 1001;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    padding: 0.55rem 0.75rem;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.nav-dropdown-menu a:hover {
+    background: rgba(200, 241, 53, 0.08);
+}
+
+.lang-switch {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    padding: 0.35rem 0.6rem;
+}
+
 .cta-button {
     display: inline-block;
     background: linear-gradient(135deg, var(--color-accent-orange), #e85a00);
@@ -1997,6 +2063,36 @@ nav a.active::after {
         font-size: 1.2rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         text-align: center;
+    }
+
+    /* En móvil, el submenú "Más" se muestra siempre expandido dentro de la lista */
+    .nav-dropdown {
+        position: static;
+        width: 100%;
+    }
+
+    .nav-dropdown-toggle {
+        display: none;
+    }
+
+    .nav-dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        min-width: 0;
+        width: 100%;
+    }
+
+    .lang-switch {
+        display: inline-block;
+        margin-top: 0.5rem;
+        border-color: rgba(255, 255, 255, 0.25);
     }
 
     /* Showcase overlays always visible on touch */
