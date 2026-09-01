@@ -3,6 +3,17 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — auditoría técnica)
+
+### ⚡ Auditoría de código, velocidad y experiencia de usuario
+* Omar pidió una auditoría completa del código del sitio para revisar mejoras de velocidad y experiencia de usuario antes de implementar cambios.
+* **Documento creado para revisión con el equipo:** `docs/auditoria-tecnica-velocidad-ux-2026-09-01.md`.
+* **Alcance revisado:** HTML/CSS/JS estático, assets, headers en producción, `.htaccess`, workflow de deploy a Hostinger, `robots.txt`, `sitemap.xml`, `main.js`, `upload.js`, `analytics.js`, `gtm.js`, `index.html` y `style.css`.
+* **Hallazgos principales:** oportunidad de excluir carpetas internas/pesadas del deploy (`assets/galeria-raw`, `assets/imagenes_blog`, `scratch`), versiones mezcladas de `style.css`/`main.js` entre páginas, `main.js` demasiado amplio para blogs/servicios, caché CSS/JS conservadora de 1 semana pese a usar `?v=`, assets grandes o posiblemente no usados, y necesidad de terminar la accesibilidad del nuevo dropdown del menú.
+* **Verificación:** `node scratch\audit_html_structure.js` confirma 38 HTML balanceados; `git diff --check` sin errores. No se aplicaron optimizaciones en esta sesión, solo documentación y plan.
+* **Nota:** el árbol local ya tenía cambios pendientes en `index.html`/`style.css` por el menú compactado; la auditoría los considera como cambio existente y no los revierte.
+
+---
 ## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — UX del menú)
 
 ### 🧭 Menú principal saturado en la home — compactado
@@ -17,6 +28,17 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Verificación:** servidor estático local (Node, puerto 8099) + Claude in Chrome — dropdown por hover confirmado visualmente, y el estado móvil confirmado inyectando temporalmente las reglas del media query `≤968px` (el `resize_window` de la extensión no cambia el viewport real en este entorno, se quedó fijo en 1920×945 pese a pedir tamaños menores). Tras el deploy, confirmado en producción con curl que el HTML servido tiene la nueva estructura.
 * **Commit y deploy:** commit `37a6a13`, deploy `success` a la primera (run `33523961665`).
 * **Alcance:** solo se tocó `index.html` (el nav de la home, que era el que Omar señaló). Las ~19 páginas de servicio (`gran-formato.html`, `toldos.html`, etc.) usan su propio nav más corto (9 ítems, sin Obra y Mtto ni Contáctanos) pero **comparten el mismo emoji roto de "EN"** — no se tocaron esta sesión, pendiente de decidir si se les aplica el mismo tratamiento.
+
+---
+## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — switch de idioma en el resto de páginas)
+
+### 🌐 Emoji de bandera roto — corregido en las 11 páginas restantes
+* Tras compactar el nav de la home, Omar pidió aplicar la misma corrección al resto de menús. Barrido completo (`grep -rl '🇺🇸\|🇪🇸\|🇲🇽'`) encontró el emoji roto en 11 archivos más (fuera de `index.html`, ya corregido, y sin tocar `/blog/`):
+  * `anuncios-luminosos.html`, `control-solar.html`, `control-solar-en.html`, `gran-formato.html`, `letras-3d.html`, `rotulacion-vehicular.html`, `toldos.html`, `playa-del-carmen/index.html`, `tulum/index.html` — `🇺🇸 EN` / `🇪🇸 ES` → texto plano con `class="lang-switch"` (mismo pill que en la home).
+  * `express/index.html` y `express/en/index.html` — `🇺🇸 EN` / `🇪🇸 Español` → texto plano `EN`/`ES` sin clase nueva (usan su propio bundle Tailwind, no `style.css`).
+* **Cache-bust:** las 9 páginas que cargan `style.css` estaban en `?v=3.2` (la home ya estaba en `v=3.3` desde la sesión de Obra y Mtto); se subieron a `v=3.3` para que el pill `.lang-switch` se vea correcto sin depender de que el navegador tuviera cacheado el CSS viejo.
+* **Alcance respetado:** no se tocó el largo/estructura de estos navs (ya son más cortos que el de la home — sin "Obra y Mtto" ni "Contáctanos"), ni ningún archivo de `/blog/`.
+* **Commit y deploy:** commit `3e41741`, deploy `success` a la primera (run `33524782969`). Verificado en producción con curl en las 11 páginas: 0 ocurrencias de emoji de bandera restantes en todo el sitio (fuera de blog).
 
 ---
 ## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — Fase C)
