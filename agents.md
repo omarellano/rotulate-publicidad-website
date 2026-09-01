@@ -3,6 +3,17 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — continuación)
+
+### 📝 Nuevo artículo SEO: checklist de archivo para imprimir lonas y viniles
+* **Investigación previa:** se cruzó `search_info/Consultas.csv` con el backlog de SEO: `/lonas-cancun/` mantiene 1,306 impresiones con CTR 1.23% y la consulta "lonas cancun" aparece con 151 impresiones, posición 9.62 y 0 clics; `/express/` concentra 1,102 impresiones con CTR 1.91%; `gran-formato.html` tiene 563 impresiones con CTR 1.95%. En búsquedas actuales, competidores como Printec, iGraphic, SuitPrint y Abig Ideas atacan precio/entrega, pero el hueco útil para el usuario es operativo: qué archivo mandar para que la lona o vinil no salga pixelado y no se retrase la entrega.
+* **Fuentes consultadas:** documentación de Google Search Central sobre contenido útil, Adobe Photoshop sobre resolución de impresión, HP Large Format sobre aplicaciones de señalización y CONAGUA sobre vientos/huracanes para contextualizar por qué el material y la ubicación importan en Cancún.
+* **Publicación:** se creó `blog/como-preparar-archivo-para-imprimir-lona-vinil-cancun.html` con estructura GEO/AEO: respuesta rápida, checklist de medidas/uso/archivo/fecha, tabla de formatos (PDF, AI/EPS, PSD/TIFF, JPG/PNG), explicación de resolución y pixeleo, márgenes/ojillos, recomendaciones para Canva, lista de datos para cotizar por WhatsApp, CTA a revisión de archivo y FAQ con schema.
+* **Portada:** se generó una imagen nueva específica del artículo con ImageGen (taller de gran formato, plotter, laptop con layout, swatches y viniles, sin texto ni marcas). Optimizada con Sharp a `assets/portada-archivo-lona-vinil.webp` (1200×675, ~78 KB) y `.jpg` (~101 KB). El artículo y la tarjeta del blog ya usan esta portada; `og:image` y JSON-LD apuntan al JPG.
+* **Integración:** añadido al inicio de `blog/index.html`, `sitemap.xml` (`lastmod` del blog actualizado a 2026-09-01), `llms.txt`, y enlazado contextualmente desde `lonas-cancun/index.html`, `gran-formato.html` y `express/index.html`.
+* **Intención SEO:** reforzar clusters de "lonas cancun", "impresión de lonas cerca de mi", "lonas express", "imprimir lona", "vinil cancun", "impresión en vinil cerca de mi" y consultas informacionales como "qué archivo necesitan para imprimir una lona", empujando páginas comerciales existentes sin crear una landing redundante.
+
+---
 ## 📅 Resumen de la Sesión (01 de Septiembre, 2026)
 
 ### 🔎 Análisis de `search_info/` (GSC, últimos 3 meses) y Fase A de SEO on-page
