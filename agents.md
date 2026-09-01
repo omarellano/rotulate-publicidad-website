@@ -10,7 +10,8 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Documento creado para revisión con el equipo:** `docs/auditoria-tecnica-velocidad-ux-2026-09-01.md`.
 * **Alcance revisado:** HTML/CSS/JS estático, assets, headers en producción, `.htaccess`, workflow de deploy a Hostinger, `robots.txt`, `sitemap.xml`, `main.js`, `upload.js`, `analytics.js`, `gtm.js`, `index.html` y `style.css`.
 * **Hallazgos principales:** oportunidad de excluir carpetas internas/pesadas del deploy (`assets/galeria-raw`, `assets/imagenes_blog`, `scratch`), versiones mezcladas de `style.css`/`main.js` entre páginas, `main.js` demasiado amplio para blogs/servicios, caché CSS/JS conservadora de 1 semana pese a usar `?v=`, assets grandes o posiblemente no usados, y necesidad de terminar la accesibilidad del nuevo dropdown del menú.
-* **Verificación:** `node scratch\audit_html_structure.js` confirma 38 HTML balanceados; `git diff --check` sin errores. No se aplicaron optimizaciones en esta sesión, solo documentación y plan.
+* **Verificación:** `node scratch\audit_html_structure.js` confirma 38 HTML balanceados; `git diff --check` sin errores.
+* **Quick wins aplicados antes del push:** `.github/workflows/deploy.yml` ahora excluye `assets/galeria-raw`, `assets/imagenes_blog`, `scratch`, `docs` y los `hero-space-bg*.png` no usados; `.htaccess` sube caché CSS/JS de 1 semana a 1 año usando la disciplina de `?v=`; `main.js` respeta `prefers-reduced-motion` en partículas del hero y la mascota astronauta.
 * **Nota:** el árbol local ya tenía cambios pendientes en `index.html`/`style.css` por el menú compactado; la auditoría los considera como cambio existente y no los revierte.
 
 ---

@@ -330,6 +330,9 @@
         // Skip setup on mobile/tablet to conserve resources
         if (window.innerWidth < 969) return;
 
+        // Respect reduced-motion preference
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
         var ctx = canvas.getContext('2d');
         var particles = [];
         var numParticles = 65;
@@ -621,6 +624,7 @@
     (function () {
         var astronaut = document.querySelector('.astronaut-mascot');
         if (!astronaut) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         window.addEventListener('mousemove', function (e) {
             if (window.innerWidth < 969) {
