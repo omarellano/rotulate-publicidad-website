@@ -3,6 +3,22 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — UX del menú)
+
+### 🧭 Menú principal saturado en la home — compactado
+* Omar reportó que el menú principal se veía saturado / a punto de desbordarse. Se confirmó con Chrome (ventana a 1920px): el `<nav>` tenía **11 links en una sola fila sin wrap** (Inicio, Servicios, Obra y Mtto, Proceso, Galería, Sobre Nosotros, Reseñas, FAQ, Blog, Contáctanos, EN) más el CTA "Solicitar Cotización" — había ido creciendo con cada sesión (Obra y Mtto, Blog y EN se agregaron después del diseño original) sin quitar nada. De paso se encontró un bug: el emoji 🇺🇸 no renderiza en Chrome de este entorno y se ve como texto roto "us EN".
+* **Decisión (Omar eligió entre 4 opciones):** quitar los ítems redundantes + agrupar los de menor prioridad en un dropdown.
+* **Implementado en `index.html`/`style.css`:**
+  - Quitados **"Inicio"** (el logo ya cumple esa función) y **"Contáctanos"** (el CTA naranja "Solicitar Cotización" ya lleva a `#contacto` y es más prominente).
+  - **"Proceso", "Reseñas" y "FAQ"** agrupados en un dropdown **"Más ▾"** — CSS puro (`:hover`/`:focus-within`), sin JS nuevo; `main.js` no necesitó cambios porque ya opera sobre `querySelectorAll('nav a')` genérico.
+  - **"EN"** pasó de emoji roto a texto plano en pill (`.lang-switch`, borde sutil).
+  - En móvil (`≤968px`) el dropdown se aplana automáticamente dentro del menú hamburguesa existente (el botón "Más" se oculta, los 3 links quedan como cualquier otro ítem de la lista) — no requiere tap-to-open ni lógica nueva.
+  - Nav visible en desktop queda en 6 links + Más + EN + CTA (antes 11 + CTA).
+* **Verificación:** servidor estático local (Node, puerto 8099) + Claude in Chrome — dropdown por hover confirmado visualmente, y el estado móvil confirmado inyectando temporalmente las reglas del media query `≤968px` (el `resize_window` de la extensión no cambia el viewport real en este entorno, se quedó fijo en 1920×945 pese a pedir tamaños menores). Tras el deploy, confirmado en producción con curl que el HTML servido tiene la nueva estructura.
+* **Commit y deploy:** commit `37a6a13`, deploy `success` a la primera (run `33523961665`).
+* **Alcance:** solo se tocó `index.html` (el nav de la home, que era el que Omar señaló). Las ~19 páginas de servicio (`gran-formato.html`, `toldos.html`, etc.) usan su propio nav más corto (9 ítems, sin Obra y Mtto ni Contáctanos) pero **comparten el mismo emoji roto de "EN"** — no se tocaron esta sesión, pendiente de decidir si se les aplica el mismo tratamiento.
+
+---
 ## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — Fase C)
 
 ### 🏷️ Consistencia de marca en datos estructurados ("rotulate" rankea en pos. 9.85)
