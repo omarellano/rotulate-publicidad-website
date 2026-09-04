@@ -3,6 +3,15 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (04 de Septiembre, 2026 — nueva mascota del hero)
+
+### 🤠 Robbie charro reemplaza a la mascota anterior
+* Omar pidió cambiar la mascota del hero por `assets/robbie_rocket_charro.png`, eliminar el fondo y optimizarla sin perder los efectos actuales de flotación/movimiento.
+* Se creó `assets/robbie-rocket-charro-hero.png` con transparencia real y su versión WebP `assets/robbie-rocket-charro-hero.webp`. La fuente original tenía el patrón cuadriculado integrado, no un canal alfa; se aisló por contorno y se verificó visualmente sobre azul marino. La fuente original no se modificó.
+* Optimización: el PNG fuente era 1.97 MB; el WebP transparente usado por navegadores modernos pesa 188 KB (~90% menos). El PNG fallback transparente, comprimido en paleta, pesa 398 KB.
+* `index.html`: preload LCP y `<picture>` cambiados a Robbie. Se mantuvo exactamente `astronaut-mascot-container` y `astronaut-mascot`, por lo que siguen activos `floatAstronaut`, las sombras y la interacción de huida del mouse en `main.js`; solo se actualizó alt y altura intrínseca a 525 por la nueva proporción.
+
+---
 ## 📅 Resumen de la Sesión (04 de Septiembre, 2026 — nuevo artículo SEO)
 
 ### 📐 Guía: elegir la medida de una lona para negocio
