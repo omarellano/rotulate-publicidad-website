@@ -10,6 +10,7 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * Se creó `assets/robbie-rocket-charro-hero.png` con transparencia real y su versión WebP `assets/robbie-rocket-charro-hero.webp`. La fuente original tenía el patrón cuadriculado integrado, no un canal alfa; se aisló por contorno y se verificó visualmente sobre azul marino. La fuente original no se modificó.
 * Optimización: el PNG fuente era 1.97 MB; el WebP transparente usado por navegadores modernos pesa 188 KB (~90% menos). El PNG fallback transparente, comprimido en paleta, pesa 398 KB.
 * `index.html`: preload LCP y `<picture>` cambiados a Robbie. Se mantuvo exactamente `astronaut-mascot-container` y `astronaut-mascot`, por lo que siguen activos `floatAstronaut`, las sombras y la interacción de huida del mouse en `main.js`; solo se actualizó alt y altura intrínseca a 525 por la nueva proporción.
+* **Commit y deploy:** commit `88b3db6` enviado a `main`. El primer workflow (run `33891102066`) agotó sus seis conexiones SSH al puerto 65002 de Hostinger antes de transferir archivos; reintentado con `gh run rerun --failed`, terminó en `success`.
 
 ---
 ## 📅 Resumen de la Sesión (04 de Septiembre, 2026 — nuevo artículo SEO)
