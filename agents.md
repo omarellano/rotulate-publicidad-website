@@ -3,6 +3,16 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (04 de Septiembre, 2026 — nuevo artículo SEO)
+
+### 📐 Guía: elegir la medida de una lona para negocio
+* Tras investigación profunda basada en `search_info/Consultas.csv`/`Páginas.csv` (corte 29-ago-2026), inventario del blog y SERP actual, se publicó `blog/medidas-lona-negocio-cancun.html`: **“¿Qué medida de lona necesito para mi negocio en Cancún?”**. Se eligió porque el clúster `lona/lonas` suma 796 impresiones en 125 consultas y la landing `/lonas-cancun/` tiene 1,306 impresiones con CTR 1.23%; el artículo responde la duda previa a cotizar (medidas, distancia de lectura, viento y acabados) sin duplicar el cotizador ni la guía Front vs. Mesh.
+* Contenido: respuesta rápida, tabla de tamaños orientativos por caso de uso, criterios de visibilidad, elección de material ante viento, precios vigentes publicados ($230/$260/$350 por m²), acabados, CTA al cotizador/WhatsApp y FAQPage + BlogPosting + BreadcrumbList schema.
+* Portada editorial original generada con ImageGen: `assets/portada-medidas-lona-negocio-cancun.webp` (95 KB) y `.jpg` (133 KB), 1200×675. Muestra medición realista de lona de gran formato en taller con contexto Caribe, sin texto ni marcas.
+* Integración: tarjeta al inicio de `blog/index.html`, URL en `sitemap.xml` (y `lastmod` del blog y `/lonas-cancun/` a 2026-09-04), `llms.txt` y enlace contextual desde FAQ de `/lonas-cancun/`. Investigación y justificación conservada en `docs/report-source.md` (excluida del deploy).
+* Verificación local: los 3 bloques JSON-LD parsean, enlaces internos y assets comprobados, `node scratch\audit_html_structure.js` reporta 39 HTML balanceados y `git diff --check` no reporta errores.
+
+---
 ## 📅 Resumen de la Sesión (01 de Septiembre, 2026 — auditoría técnica)
 
 ### ⚡ Auditoría de código, velocidad y experiencia de usuario
