@@ -54,6 +54,22 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Commits y deploy:** `fe897bd` (WebP + `<img>`), `f0f9c13` (cache-bust). El deploy de `fe897bd` (run `34165246910`) falló con el timeout transitorio conocido del puerto 65002 en los 6 reintentos; `gh run rerun --failed` → `success`. Tras subir los WebP, el edge de LiteSpeed servía un **404 negativo cacheado** de forma intermitente entre nodos para las URLs nuevas (eran 404 antes del deploy); con query string daban 200 con los bytes correctos. Se añadió `?v=1` a los 3 `<img>` (`f0f9c13`, deploy `success`) para forzar URLs nunca negative-cacheadas — **verificado en producción: los 3 `tipo-lona-*.webp?v=1` responden 200 y el HTML servido los referencia**.
 
 ---
+## 📅 Resumen de la Sesión (07 de Septiembre, 2026 — P0-05 y P0-06: consistencia comercial)
+
+* Omar confirmó las dos políticas comerciales que faltaban (vía pregunta directa):
+  - **Alucobond:** «Desde $990 pesos m², instalación y material».
+  - **Lonas:** «Mínimo 1 m²» (confirma el mínimo facturable ya vigente en el cotizador y el FAQ).
+* **P0-05 — Alucobond (`alucobond.html`):** el JSON-LD declaraba una `AggregateOffer` de $1,450–$2,200 sin ningún precio visible (viola las directrices de datos estructurados de Google). Corregido:
+  - JSON-LD: `AggregateOffer` reemplazada por un `Offer` único de `price` $990 MXN con `priceSpecification` → `UnitPriceSpecification` y `referenceQuantity` de 1 `MTK` (metro cuadrado UN/CEFACT), más `url`.
+  - Contenido visible: caja destacada (glass + acento lima) antes del FAQ con «Desde $990 MXN/m², incluye material e instalación» + nota de que el precio final depende de superficie, altura, estado de la fachada y acabado (visita de evaluación sin costo).
+  - FAQ nueva «¿Cuánto cuesta una fachada de Alucobond en Cancún?» con la misma cifra.
+  - `alucobond-en.html` no tiene schema de precio → no requiere cambio (tráfico EN marginal, fuera de alcance).
+* **P0-06 — Lonas (`lonas-cancun/index.html`):** la única contradicción real era la meta description, que decía «Sin mínimos». El cotizador (`lonas-cancun/main.js:198`) ya avisa del cobro mínimo de 1 m² por pieza cuando aplica, y el FAQ lo explica (visible + JSON-LD). Cambios:
+  - Meta description: «…Sin mínimos.» → «…desde $230/m² (cobro mínimo 1 m²)… impresas en HP Latex.» (título y `og:description` no mencionaban mínimos, no se tocaron).
+  - Nota permanente bajo las 3 tarjetas de tipo de lona: «Precios por m², con impresión, ojillos y bastilla incluidos. El cobro mínimo es de 1 m² por pieza.» (inline style, sin tocar CSS).
+* **Verificación local:** JSON-LD `alucobond.html` 3/3 y `lonas-cancun/index.html` 4/4 parsean; `audit_html_structure.js` → 39 HTML balanceados; `git diff --check` limpio.
+
+---
 ## 📅 Resumen de la Sesión (04 de Septiembre, 2026 — nueva mascota del hero)
 
 ### 🤠 Robbie charro reemplaza a la mascota anterior
