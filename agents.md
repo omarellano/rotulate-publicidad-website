@@ -44,6 +44,15 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Pendiente de verificar (requiere navegador/Omar):** que el banner se vea bien sobre el tema de Express, que `consent default`→`update` dispare y que GA4 reciba `page_view`/`section_view`/`cta_click` desde `/express/` vía DebugView/Realtime en la red de Omar. La carrera de orden GTM-async vs. `consent default` diferido sigue siendo un riesgo común a todo el sitio (no se resolvió aquí porque requeriría un script inline, bloqueado por CSP, o un archivo nuevo).
 
 ---
+## 📅 Resumen de la Sesión (07 de Septiembre, 2026 — microfix del plan: P0-04 assets faltantes del cotizador)
+
+* Omar pidió seguir. Se tomó P0-04 porque es una fragilidad real de producción y no depende de decisiones comerciales: `lonas-cancun/index.html` mostraba las 3 tarjetas «Tipos de Lonas» con `../assets/galeria/new1.jpg`, `new2.jpg`, `new3.jpg`, borradas del repo el 1-sep por «huérfanas» pero que **sí seguían referenciadas**. Sólo respondían 200 porque `rsync` sin `--delete` las dejó en Hostinger; un checkout limpio o un deploy con `--delete` habría roto las imágenes.
+* **Recuperación e inspección:** se descargaron las 3 de producción (1024×576 JPEG, 86–134 KB). Revisadas visualmente: son imágenes tipo stock generadas por IA, **on-topic y sin problemas de contenido/marca** (a diferencia del incidente `neon-flex` de «Sh*t Happens»): new3 = plotter HP Latex con impresión saliendo (Frontlit), new2 = lona mesh perforada en valla de obra (Mesh), new1 = caja de luz retroiluminada en fachada al anochecer (Translúcida/Backlight).
+* **Versionado con nombres reales + WebP:** convertidas con Sharp q78 a `assets/galeria/tipo-lona-frontlit.webp` (40 KB), `tipo-lona-mesh.webp` (88 KB) y `tipo-lona-backlight.webp` (42 KB) — carpeta que sí se despliega. Los 3 `<img>` de `lonas-cancun/index.html` ahora apuntan a esos WebP y llevan `width="1024" height="576" loading="lazy"` (antes sin dimensiones ni lazy — resuelve también parte del hueco de CLS que señalaba el plan en «Rendimiento»).
+* Los `new1/2/3.jpg` de Hostinger quedan ahora como **huérfanos de verdad** (0 referencias): se pueden borrar en la próxima limpieza manual del hosting sin riesgo.
+* **Verificación local:** `node scratch/audit_html_structure.js` → 39 HTML balanceados; 0 referencias restantes a `new[123].jpg` en HTML/JS/CSS; los 3 WebP no están en `.gitignore`.
+
+---
 ## 📅 Resumen de la Sesión (04 de Septiembre, 2026 — nueva mascota del hero)
 
 ### 🤠 Robbie charro reemplaza a la mascota anterior
