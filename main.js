@@ -28,14 +28,21 @@
         async function loadFormStack() {
             if (started) return;
             started = true;
+            // EmailJS solo sirve para la notificación por correo; upload.js ya tolera
+            // su ausencia (typeof emailjs !== 'undefined'). Se carga en paralelo y su
+            // fallo NO debe impedir que se cargue el controlador del formulario.
+            const emailjsReady = loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js')
+                .catch(function (err) {
+                    console.warn('EmailJS no se pudo cargar; el formulario funcionará sin notificación por correo.', err);
+                });
             try {
                 await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
                 await loadScript('supabase-config.js');
-                await loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js');
+                await emailjsReady; // si ya terminó, se inicializa antes de upload.js; si falló, no propaga
                 await loadScript('upload.js?v=2');
             } catch (err) {
                 started = false;
-                console.error('No se pudo cargar el stack del formulario:', err);
+                console.error('No se pudo cargar el stack del formulario (Supabase):', err);
             }
         }
 

@@ -127,12 +127,48 @@
     function calculateQuote() {
         if (!widthInput || !heightInput || !typeSelect || !grommetsInput || !designSelect || !qtyInput) return;
 
-        const width = Math.max(0.1, parseFloat(widthInput.value) || 0);
-        const height = Math.max(0.1, parseFloat(heightInput.value) || 0);
         const type = typeSelect.value;
-        const grommets = Math.max(0, parseInt(grommetsInput.value) || 0);
         const design = designSelect.value;
-        const qty = Math.max(1, parseInt(qtyInput.value) || 1);
+
+        const priceDisplay = document.getElementById('quote-total');
+        const breakdownDisplay = document.getElementById('quote-breakdown');
+        const waButton = document.getElementById('quote-wa-btn');
+        if (!priceDisplay || !breakdownDisplay || !waButton) return;
+
+        // Validación explícita: no se calcula ni se envía una cotización con datos inválidos
+        // (antes se forzaban a mínimos con Math.max y siempre mostraba un precio).
+        const MAX_DIM = 30; // m — por encima de esto es gran formato: va directo a WhatsApp
+        const rawWidth = parseFloat(String(widthInput.value).replace(',', '.'));
+        const rawHeight = parseFloat(String(heightInput.value).replace(',', '.'));
+        const rawGrommets = parseInt(grommetsInput.value, 10);
+        const rawQty = parseInt(qtyInput.value, 10);
+
+        const errors = [];
+        if (!isFinite(rawWidth) || rawWidth <= 0) errors.push('Escribe el ancho en metros (ej. 2.5).');
+        else if (rawWidth > MAX_DIM) errors.push('El ancho supera ' + MAX_DIM + ' m: escríbenos por WhatsApp para gran formato.');
+        if (!isFinite(rawHeight) || rawHeight <= 0) errors.push('Escribe la altura en metros (ej. 1.2).');
+        else if (rawHeight > MAX_DIM) errors.push('La altura supera ' + MAX_DIM + ' m: escríbenos por WhatsApp para gran formato.');
+        if (!Number.isInteger(rawQty) || rawQty < 1) errors.push('La cantidad de piezas debe ser 1 o más.');
+        if (!Number.isInteger(rawGrommets) || rawGrommets < 0) errors.push('La cantidad de ojillos no puede ser negativa.');
+
+        if (errors.length) {
+            lastQuote = null;
+            priceDisplay.textContent = '—';
+            breakdownDisplay.innerHTML = '<div class="breakdown-item min-charge-note">' +
+                errors.map(function (e) { return '⚠️ ' + e; }).join('<br>') + '</div>';
+            waButton.href = 'https://wa.me/529984007987?text=' + encodeURIComponent(
+                'Hola Rotúlate, quiero cotizar una lona pero necesito ayuda con las medidas.');
+            waButton.setAttribute('aria-disabled', 'true');
+            waButton.style.opacity = '0.6';
+            return;
+        }
+        waButton.removeAttribute('aria-disabled');
+        waButton.style.opacity = '';
+
+        const width = rawWidth;
+        const height = rawHeight;
+        const grommets = rawGrommets;
+        const qty = rawQty;
 
         // Área real vs Área de cobro mínimo (1x1m por pieza)
         const rawArea = width * height;
@@ -161,13 +197,6 @@
         const totalSinglePiece = basePrintingCost + grommetsCost;
         const totalPrintingAllPieces = totalSinglePiece * qty;
         const finalTotal = totalPrintingAllPieces + designCost;
-
-        // DOM nodes to update
-        const priceDisplay = document.getElementById('quote-total');
-        const breakdownDisplay = document.getElementById('quote-breakdown');
-        const waButton = document.getElementById('quote-wa-btn');
-
-        if (!priceDisplay || !breakdownDisplay || !waButton) return;
 
         // Visual labels mapping
         const typeLabels = {
@@ -269,6 +298,11 @@
             input.addEventListener('change', calculateQuote);
         }
     });
+
+    // Cálculo inicial: deja el precio, el desglose y el enlace de WhatsApp
+    // coherentes con los valores por defecto del formulario (antes quedaba
+    // el "$230 MXN" estático del HTML y lastQuote en null).
+    calculateQuote();
 
     /* ── 4.5 Registro de cotizaciones en Supabase ──────────────
        Cada clic en "Enviar a WhatsApp" guarda la cotización en la

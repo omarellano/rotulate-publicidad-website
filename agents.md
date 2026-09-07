@@ -72,6 +72,20 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **Los 6 P0 del plan quedan cerrados.** Falta la verificación visual en navegador de P0-02 (banner de Express) y P0-04/P0-06 (cómo se ven las nuevas imágenes y la nota en pantalla real), pendiente de una sesión con navegador conectado o de Omar.
 
 ---
+## 📅 Resumen de la Sesión (07 de Septiembre, 2026 — Semana 2 del plan: fiabilidad de formulario y cotizador)
+
+* Omar pidió seguir con la fiabilidad del formulario y el cotizador (sin depender de decisiones comerciales).
+* **`main.js` — EmailJS ya no bloquea el controlador del formulario:** `loadFormStack()` cargaba Supabase → config → EmailJS → `upload.js` en serie con `await`; si el CDN de EmailJS fallaba, `upload.js` nunca se cargaba y el formulario quedaba muerto. Ahora EmailJS se lanza **en paralelo** con su propio `.catch` (solo sirve para la notificación por correo, y `upload.js` ya tolera su ausencia con `typeof emailjs !== 'undefined'`). El `try/catch` que reinicia `started` ahora solo cubre el fallo de Supabase (crítico). Bump `main.js?v=3.3` → `?v=3.4` en las 35 páginas del `main.js` raíz.
+* **`lonas-cancun/main.js` — validación explícita del cotizador:** `calculateQuote()` forzaba los campos vacíos/inválidos a mínimos con `Math.max(0.1, …)` / `Math.max(1, …)`, así que siempre mostraba un precio y el botón de WhatsApp quedaba activo con datos basura (p. ej. 0.1 × 0.1 m). Ahora:
+  - Parseo sin coerción + lista de errores: ancho/alto deben ser número finito > 0 y ≤ 30 m (por encima → «escríbenos por WhatsApp para gran formato»); piezas entero ≥ 1; ojillos entero ≥ 0.
+  - Si hay errores: precio = «—», el desglose lista qué corregir, `lastQuote = null` (así `saveQuoteLead()` no registra un lead basura en Supabase) y el botón de WhatsApp apunta a un mensaje genérico («necesito ayuda con las medidas») con `aria-disabled` y opacidad 0.6 — nunca se envía una cotización con números inválidos, pero el contacto sigue disponible.
+  - Se elimina la redeclaración duplicada de `priceDisplay`/`breakdownDisplay`/`waButton` (ahora se obtienen una sola vez al inicio de la función).
+  - Se añade una llamada inicial a `calculateQuote()` para que el precio, el desglose y el enlace de WhatsApp arranquen coherentes con los valores por defecto (antes quedaba el «$230 MXN» estático del HTML y `lastQuote` en null hasta la primera interacción).
+  - Bump del `main.js` local de lonas `?v=3.2` → `?v=3.3` (solo en `lonas-cancun/index.html:580`).
+* **Verificación local:** `node --check` OK en ambos `main.js`; `audit_html_structure.js` → 39 HTML balanceados; `git diff --check` limpio.
+* **Pendiente:** prueba end-to-end real del formulario principal (envío → Supabase → pantalla de éxito → evento GA4) y del cotizador de lonas con datos inválidos/válidos en navegador — no se pudo reproducir un envío en esta sesión.
+
+---
 ## 📅 Resumen de la Sesión (04 de Septiembre, 2026 — nueva mascota del hero)
 
 ### 🤠 Robbie charro reemplaza a la mascota anterior
