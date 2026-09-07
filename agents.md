@@ -83,6 +83,7 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
   - Se añade una llamada inicial a `calculateQuote()` para que el precio, el desglose y el enlace de WhatsApp arranquen coherentes con los valores por defecto (antes quedaba el «$230 MXN» estático del HTML y `lastQuote` en null hasta la primera interacción).
   - Bump del `main.js` local de lonas `?v=3.2` → `?v=3.3` (solo en `lonas-cancun/index.html:580`).
 * **Verificación local:** `node --check` OK en ambos `main.js`; `audit_html_structure.js` → 39 HTML balanceados; `git diff --check` limpio.
+* **Commit y deploy:** commit `71e3af6`; workflow (run `34169207174`) → `success`. **Verificado en producción con curl:** la home sirve `main.js?v=3.4` (contiene `emailjsReady`), `/lonas-cancun/` sirve su `main.js?v=3.3` local (contiene la validación `errors.push`/`MAX_DIM`).
 * **Pendiente:** prueba end-to-end real del formulario principal (envío → Supabase → pantalla de éxito → evento GA4) y del cotizador de lonas con datos inválidos/válidos en navegador — no se pudo reproducir un envío en esta sesión.
 
 ---
