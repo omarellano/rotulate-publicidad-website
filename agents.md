@@ -3,6 +3,18 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (07 de Septiembre, 2026 — auditoría y plan SEO, UX y UI)
+
+* Omar pidió revisar a fondo el proyecto y proponer mejoras de SEO, UX y UI; después pidió **documentar antes de empezar**. Se conserva el detalle en [docs/plan-seo-ux-ui-2026-09-07.md](docs/plan-seo-ux-ui-2026-09-07.md). **Estado: propuesta documentada, sin implementación ni deploy.**
+* Alcance: 39 HTML versionados, enlaces, canonical/hreflang, JSON-LD, CSS/JS, formulario/cotizador, analítica, hosting/deploy y CSV de Search Console. Verificación HTTP: las 37 URLs del sitemap responden 200 y coinciden con sus canonical; 107 bloques JSON-LD parsean; sin duplicados exactos de títulos/metas ni anclas internas rotas en el barrido estático.
+* Fallos confirmados que pasan al inicio del backlog: `lonas-cancun/index.html` pide `analytics.js` en ruta relativa que devuelve 404; ambas páginas Express carecen de instrumentación común; `new1.jpg`, `new2.jpg`, `new3.jpg` **sí siguen referenciadas en lonas**, aunque se eliminaron del repo (corrige la conclusión de huérfanos del 1-sep). Hoy responden 200 porque permanecen en Hostinger: resolver antes de limpiar archivos remotos.
+* Inconsistencias comerciales: Alucobond declara $1,450–$2,200 solo en JSON-LD, sin precios visibles; la meta de lonas dice «Sin mínimos» pese al mínimo facturable de 1 m² por pieza. Confirmar políticas antes de modificar ofertas. Revisar doble evento de éxito del formulario y orden de consentimiento; no se verificó el contenedor GTM y no se afirma doble conteo real.
+* Plan propuesto: medición/consistencia → fiabilidad de formulario y cotizador → home y piloto lonas/Express → vehicular, Alucobond y anuncios con casos reales → enlazado, perfil local y contenido. Esfuerzos, dependencias y aceptación en el documento. Mantener marca y Robbie; no priorizar `main-lite.js`, ya descartado con evidencia histórica.
+* Corrección de backlog histórico: el portafolio nombrado **ya existe** (Alumik, Silanes, enviaflores.com y Fishing Joe’s); desarrollar y reutilizar esos casos. Accesibilidad completa de «Más» permanece como propuesta, respetando la decisión previa de posponerla.
+* Límites: GSC termina el 29-ago y no evalúa cambios de septiembre; navegador conectado no disponible; sin nueva medición Lighthouse, envíos de formularios ni acceso a configuración interna GTM/GA4/GBP. Hipótesis visuales y riesgos de código se distinguen de incidencias reproducidas.
+* Esta sesión únicamente agrega documentación; no se modifican archivos del sitio. Tras documentar el plan, Omar pidió hacer commit y push de estos dos archivos a `main`. La bitácora activa sigue exclusivamente aquí; el documento es la referencia detallada del plan.
+
+---
 ## 📅 Resumen de la Sesión (04 de Septiembre, 2026 — nueva mascota del hero)
 
 ### 🤠 Robbie charro reemplaza a la mascota anterior
