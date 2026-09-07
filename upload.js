@@ -298,7 +298,6 @@ const initCotizacionForm = () => {
 
             if (window.dataLayer) {
                 window.dataLayer.push({ event: 'cotizacion_supabase_ok' });
-                window.dataLayer.push({ event: 'cotizacion_firebase_ok' });
             }
 
         } catch (error) {

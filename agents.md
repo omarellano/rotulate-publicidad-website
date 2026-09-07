@@ -15,6 +15,16 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * Esta sesión únicamente agrega documentación; no se modifican archivos del sitio. Tras documentar el plan, Omar pidió hacer commit y push de estos dos archivos a `main`. La bitácora activa sigue exclusivamente aquí; el documento es la referencia detallada del plan.
 
 ---
+## 📅 Resumen de la Sesión (07 de Septiembre, 2026 — microfixes del plan: P0-01 y P0-03)
+
+* Omar pidió arrancar por los microfixes del plan: los dos arreglos de bajo riesgo que no dependen de decisiones comerciales ni de acceso a GTM/GA4.
+* **P0-01 — ruta de `analytics.js` en el cotizador de lonas:** `lonas-cancun/index.html:580` cargaba `analytics.js?v=1.0` como ruta relativa, que resuelve a `/lonas-cancun/analytics.js` (404) — la página del cotizador (1,306 impresiones en GSC, la de más volumen) llevaba tiempo sin instrumentación. Corregido a `/analytics.js?v=1.0` absoluto, igual que el resto de páginas en subcarpeta (`blog/`, `en/`, `playa-del-carmen/`, `tulum/`). Era la única página del sitio con la ruta rota.
+* **P0-03 — evento fantasma de Firebase:** `upload.js:301` empujaba `cotizacion_firebase_ok` al `dataLayer` en cada envío del formulario, además de `cotizacion_supabase_ok`. Código muerto desde la migración a Supabase de junio: el contenedor GTM-5623CPQG solo tiene el activador `CE - cotizacion_supabase_ok (conversion)` (ver bitácora del 07-ago), nada escucha el evento firebase, así que no había doble conteo real en GA4 — pero se elimina para dejar limpio el flujo. `upload.js` no se toca más que en esa línea.
+* **Cache-busting:** `upload.js` se carga dinámicamente desde `main.js:35` sin query string de versión y la caché JS está en 1 año. Se agregó `?v=2` a ese `loadScript('upload.js?v=2')` y se subió `main.js?v=3.2` → `?v=3.3` en las 35 páginas que cargan el `main.js` raíz, para que los navegadores que ya tienen `main.js` cacheado reciban la versión que pide el `upload.js` limpio. **No se tocó** `lonas-cancun/index.html:579` (usa su propio `lonas-cancun/main.js`, que no carga `upload.js` y no cambió).
+* **Verificación local:** `node scratch/audit_html_structure.js` → 39 HTML balanceados; `git diff --check` sin errores (solo avisos CRLF esperados en este repo Windows). 38 archivos tocados (35 HTML con el bump + `main.js` + `upload.js` + `lonas-cancun/index.html`). Sin verificación en navegador ni en producción todavía.
+* **Pendiente de este bloque:** confirmar tras el deploy con curl que `/analytics.js?v=1.0` responde 200 desde el contexto de `/lonas-cancun/` y que el HTML servido trae `main.js?v=3.3`; puede requerir purga de caché en Hostinger. Los demás P0 (P0-02 instrumentación de Express, P0-04 imágenes `new*.jpg`, P0-05 precios Alucobond, P0-06 mínimos de lonas) siguen abiertos: dependen de adaptar el banner de consentimiento al CSS de Express o de decisiones comerciales de Omar.
+
+---
 ## 📅 Resumen de la Sesión (04 de Septiembre, 2026 — nueva mascota del hero)
 
 ### 🤠 Robbie charro reemplaza a la mascota anterior

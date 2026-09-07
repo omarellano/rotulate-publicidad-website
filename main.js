@@ -32,7 +32,7 @@
                 await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
                 await loadScript('supabase-config.js');
                 await loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js');
-                await loadScript('upload.js');
+                await loadScript('upload.js?v=2');
             } catch (err) {
                 started = false;
                 console.error('No se pudo cargar el stack del formulario:', err);
