@@ -89,7 +89,9 @@
     }
 
     /* ── 3. section_view — qué secciones ve el usuario ─────── */
-    var TRACKED_SECTIONS = ['inicio', 'proceso', 'servicios', 'proyectos', 'nosotros', 'testimonios', 'faq', 'contacto'];
+    /* IDs de la home + IDs de plantillas separadas (Express ES/EN). */
+    var TRACKED_SECTIONS = ['inicio', 'proceso', 'servicios', 'proyectos', 'nosotros', 'testimonios', 'faq', 'contacto',
+        'ventajas', 'services', 'advantages', 'contact'];
     var seenSections = {};
 
     function initSectionTracking() {
@@ -162,8 +164,8 @@
 
     function ctaLocationFor(link) {
         if (link.classList.contains('whatsapp-float')) return 'floating';
-        if (link.closest('#main-header')) return 'header';
-        if (link.closest('.footer')) return 'footer';
+        if (link.closest('#main-header') || link.closest('header')) return 'header';
+        if (link.closest('.footer') || link.closest('footer')) return 'footer';
         var section = link.closest('section[id]');
         if (section) return section.id;
         return 'other';

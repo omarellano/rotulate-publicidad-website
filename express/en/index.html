@@ -30,6 +30,26 @@
   <link rel="stylesheet" crossorigin href="../assets/index-b314nm7x.css">
   <link rel="icon" href="../favicon.ico">
 
+  <!-- Google Tag Manager (self-hosted loader; GTM-5623CPQG) -->
+  <script src="/gtm.js" async></script>
+
+  <!-- Banner de consentimiento: analytics.js inyecta #consent-banner; estilos propios
+       porque Express no carga style.css. Paleta alineada al tema oscuro de Express. -->
+  <style>
+    #consent-banner{position:fixed;left:0;right:0;bottom:0;z-index:9999;padding:1rem max(1.25rem,4%);background:rgba(2,4,28,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,.1);transform:translateY(100%);opacity:0;transition:transform .4s ease,opacity .4s ease}
+    #consent-banner.visible{transform:translateY(0);opacity:1}
+    #consent-banner .consent-banner-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+    #consent-banner p{margin:0;font-size:.85rem;line-height:1.5;color:rgba(255,255,255,.78);flex:1 1 320px}
+    #consent-banner a{color:#39ff14;text-decoration:underline}
+    #consent-banner .consent-banner-actions{display:flex;gap:.75rem;flex-shrink:0}
+    #consent-banner button{font:inherit;font-weight:700;font-size:.85rem;letter-spacing:.02em;padding:.6rem 1.25rem;border-radius:8px;border:none;cursor:pointer}
+    #consent-banner #consent-accept{background:#ff6a00;color:#fff}
+    #consent-banner #consent-accept:hover{background:#e85f00}
+    #consent-banner #consent-reject{background:transparent;border:1px solid rgba(255,255,255,.35);color:rgba(255,255,255,.85)}
+    #consent-banner #consent-reject:hover{border-color:rgba(255,255,255,.7);color:#fff}
+    @media (max-width:560px){#consent-banner .consent-banner-inner{flex-direction:column;align-items:stretch;text-align:center}#consent-banner .consent-banner-actions{justify-content:center}}
+  </style>
+
   <!-- Schema.org — LocalBusiness structured data in English -->
   <script type="application/ld+json">
   {
@@ -123,6 +143,8 @@
   </script>
 </head>
 <body class="bg-background text-foreground min-h-screen font-sans antialiased">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5623CPQG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- Header / Navigation -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
@@ -147,7 +169,7 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+  <section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
     <div class="absolute inset-0 z-0">
       <img src="../assets/hero-printer-DHSLDeTJ.jpg" alt="High quality printing" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
@@ -450,7 +472,7 @@
   </footer>
 
   <!-- Floating WhatsApp Widget (Bottom-Right) -->
-  <a href="https://wa.me/529984007987?text=Hello,%20I'm%20interested%20in%20your%20express%20printing%20services." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 group" aria-label="Contact on WhatsApp">
+  <a href="https://wa.me/529984007987?text=Hello,%20I'm%20interested%20in%20your%20express%20printing%20services." target="_blank" rel="noopener noreferrer" class="whatsapp-float fixed bottom-6 right-6 z-50 group" aria-label="Contact on WhatsApp">
     <span class="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30"></span>
     <div class="relative flex items-center justify-center w-16 h-16 rounded-full bg-[#25D366] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 group-hover:shadow-[0_8px_30px_-4px_rgba(37,211,102,0.5)]">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle w-8 h-8 text-foreground"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
@@ -462,5 +484,7 @@
     </div>
   </a>
 
+  <!-- Analytics: Consent Mode v2, banner and events (section_view, scroll_depth, cta_click) -->
+  <script src="/analytics.js?v=1.1" defer></script>
 </body>
 </html>
