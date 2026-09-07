@@ -3,6 +3,37 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 🔒 CIERRE — 07 de Septiembre, 2026 (implementación del plan SEO/UX/UI: P0 + Semana 2)
+
+Resumen del día. El detalle de cada bloque está en las secciones «07 de Septiembre» de abajo; el plan completo en [docs/plan-seo-ux-ui-2026-09-07.md](docs/plan-seo-ux-ui-2026-09-07.md).
+
+**Los 6 P0 del plan están cerrados y verificados en producción:**
+| P0 | Qué se hizo | Verificación |
+|---|---|---|
+| P0-01 | `analytics.js` en `/lonas-cancun/` pasó a ruta absoluta `/analytics.js` (la relativa daba 404) | curl + navegador |
+| P0-02 | GTM + `analytics.js` + banner de consentimiento (tema de Express) en `express/index.html` y `express/en/index.html`; `id="inicio"` en el hero, `whatsapp-float` en el botón flotante | navegador: GTM/GA4 cargan, Consent Mode dispara, `section_view` OK |
+| P0-03 | Eliminado el evento muerto `cotizacion_firebase_ok` de `upload.js` | curl |
+| P0-04 | `new1/2/3.jpg` (borradas del repo pero aún referenciadas) recuperadas de prod, revisadas, versionadas como `assets/galeria/tipo-lona-{frontlit,mesh,backlight}.webp` con `width/height/loading` | curl (con `?v=1` por caché de LiteSpeed) |
+| P0-05 | Alucobond: precio visible «Desde $990 MXN/m² (material e instalación)» + `Offer`/`UnitPriceSpecification` alineado + FAQ de precio (antes el JSON-LD declaraba $1,450–$2,200 sin precio visible) | curl |
+| P0-06 | Lonas: quitado «Sin mínimos» de la meta (contradecía el mínimo de 1 m²), añadida nota permanente bajo las tarjetas | curl + navegador |
+
+**Semana 2 del plan (fiabilidad):**
+- `main.js`: EmailJS ya no bloquea la carga de `upload.js` (se carga en paralelo con su propio `.catch`). Bump `main.js?v=3.3`→`3.4`.
+- `lonas-cancun/main.js`: validación explícita del cotizador (antes `Math.max` forzaba mínimos y siempre cotizaba). Datos inválidos → precio «—», mensaje de qué corregir, WhatsApp con mensaje genérico, `lastQuote=null`. Cálculo inicial al cargar. Bump del `main.js` local `?v=3.2`→`3.3`. **Verificado en navegador** con 6 casos de entrada.
+
+**Datos comerciales que confirmó Omar hoy:** Alucobond desde $990/m² (material + instalación); lonas mínimo 1 m².
+
+**Commits (13):** `3b8ad6f`, `a558ae2`, `fe89e8c`, `e86c3fc`, `fe897bd`, `f0f9c13`, `e4b6faf`, `bc7b82b`, `ceb4ae9`, `71e3af6`, `4154bc1`, `850a8c1`, `12c9639`. Todos desplegados (`success`); dos deploys necesitaron `gh run rerun --failed` por el timeout transitorio del puerto 65002 (SSH de Hostinger intermitente toda la tarde).
+
+**Pendiente para la próxima sesión / para Omar:**
+1. **Envío real del formulario principal** desde la red de Omar: no se pudo probar aquí porque este entorno no resuelve el dominio de Supabase (`ENOTFOUND`). Confirmar fila en `cotizaciones_web` + evento `cotizacion_supabase_ok` en GA4 Realtime.
+2. **i18n del banner de consentimiento**: la página EN de Express lo muestra en español (texto hardcodeado en `analytics.js`). Menor.
+3. **Limpieza manual en Hostinger**: `assets/galeria/new1/2/3.jpg` ya son huérfanos reales (0 referencias) — borrables.
+4. **Semana 2 restante del plan**: errores por campo en el formulario, adjuntos accesibles por teclado, estados de envío comprensibles, correo **o** WhatsApp como canal (todo esto necesita más trabajo de UX).
+5. **Carrera de orden GTM-async vs. `consent default` diferido** (riesgo común a todo el sitio, no resuelto: requeriría script inline —bloqueado por CSP— o un archivo nuevo).
+6. Semanas 3+ del plan (home, plantillas de servicio con casos) siguen sin empezar y dependen de fotos/casos reales.
+
+---
 ## 📅 Resumen de la Sesión (07 de Septiembre, 2026 — auditoría y plan SEO, UX y UI)
 
 * Omar pidió revisar a fondo el proyecto y proponer mejoras de SEO, UX y UI; después pidió **documentar antes de empezar**. Se conserva el detalle en [docs/plan-seo-ux-ui-2026-09-07.md](docs/plan-seo-ux-ui-2026-09-07.md). **Estado: propuesta documentada, sin implementación ni deploy.**
