@@ -68,6 +68,8 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
   - Meta description: «…Sin mínimos.» → «…desde $230/m² (cobro mínimo 1 m²)… impresas en HP Latex.» (título y `og:description` no mencionaban mínimos, no se tocaron).
   - Nota permanente bajo las 3 tarjetas de tipo de lona: «Precios por m², con impresión, ojillos y bastilla incluidos. El cobro mínimo es de 1 m² por pieza.» (inline style, sin tocar CSS).
 * **Verificación local:** JSON-LD `alucobond.html` 3/3 y `lonas-cancun/index.html` 4/4 parsean; `audit_html_structure.js` → 39 HTML balanceados; `git diff --check` limpio.
+* **Commit y deploy:** commit `bc7b82b`. El deploy (run `34167006384`) volvió a fallar por el timeout transitorio del puerto 65002 (2ª vez esta sesión — el endpoint SSH de Hostinger estuvo intermitente toda la tarde); `gh run rerun --failed` → `success`. **Verificado en producción con curl:** `alucobond.html` sirve «Desde $990 MXN/m²» visible + `"price": "990.00"` con `UnitPriceSpecification` y ya sin `1450`/`2200`; `/lonas-cancun/` sirve la meta con «(cobro mínimo 1 m²)», 0 ocurrencias de «Sin mínimos», y la nota permanente bajo las tarjetas.
+* **Los 6 P0 del plan quedan cerrados.** Falta la verificación visual en navegador de P0-02 (banner de Express) y P0-04/P0-06 (cómo se ven las nuevas imágenes y la nota en pantalla real), pendiente de una sesión con navegador conectado o de Omar.
 
 ---
 ## 📅 Resumen de la Sesión (04 de Septiembre, 2026 — nueva mascota del hero)
