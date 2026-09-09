@@ -3,6 +3,15 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Resumen de la Sesión (09 de Septiembre, 2026 — nuevo título del hero de la home)
+
+* Omar pidió un título nuevo para el hero de la home orientado a conversión (mismo criterio ya aplicado en `placas-alucobond.html`: categoría + localidad + gancho concreto, en vez de branding genérico).
+* **Antes:** "Llevamos tu Marca al Siguiente Nivel" — genérico, no dice qué vendemos ni por qué cotizar ahora.
+* **Ahora:** H1 "Rótulos en Cancún / Cotiza Gratis en 24h" (categoría + localidad + velocidad/gratis, 2 líneas, mismo largo que el original para no romper el layout). Subtítulo actualizado para subir el dato de prueba social que antes solo vivía en la sección "Nosotros": "Lonas, banners, rotulación vehicular, anuncios luminosos, letras 3D y control solar 3M. Más de 1,000 proyectos entregados en Cancún y la Riviera Maya."
+* No se tocó el `<title>`/meta description de `index.html` (fuera de alcance de "el título del hero"; son cosas distintas).
+* **Verificado localmente** en navegador: el H1 nuevo mantiene el layout compacto de 2 líneas (el primer intento, con "y Publicidad" y "24 Horas", se partía en 3-4 líneas y se acortó).
+
+---
 ## 📅 Resumen de la Sesión (09 de Septiembre, 2026 — nueva línea: venta de placa de alucobond por hoja)
 
 * Omar propuso una nueva línea de negocio: vender la placa de alucobond suelta (sin instalación), por hoja, con envío a domicilio incluido en Cancún centro. Confirmó los datos comerciales antes de construir nada: **$1,850 MXN por hoja, precio neto, mismo precio en los 4 colores** (Negro Mate, Blanco Mate, Rojo Mate, Plata Satinado); **medida 1.22 × 2.44 m, 3 mm de espesor**; **envío gratis en 20 km a la redonda desde el centro de Cancún, con costo extra a la zona hotelera**. Ficha técnica del producto real que van a vender (Tach-Panel, de vinilosygraficos.com): dos láminas de aluminio de hasta 0.30 mm con núcleo de polietileno de alta densidad de 3 mm, pintura PVDF Kynar 500, rígido y ligero (enrutable, cortable, laminable, doblable), resistente a corrosión costera, admite impresión UV en cama plana.
