@@ -1004,6 +1004,49 @@ a.showcase-item {
     }
 }
 
+/* Galería de proyectos Alucobond (agrupada por cliente) */
+.ab-proyectos {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+    margin-top: 3rem;
+}
+
+.ab-proyecto-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ab-proyecto-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--color-white);
+}
+
+.ab-proyecto-meta {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ab-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    margin-top: 0;
+}
+
+@media (max-width: 480px) {
+    .ab-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
 /* Clientes destacados */
 .clientes {
     padding: 8rem 5%;
