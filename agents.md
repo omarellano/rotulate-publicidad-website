@@ -11,6 +11,7 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * No se tocó el `<title>`/meta description de `index.html` (fuera de alcance de "el título del hero"; son cosas distintas).
 * **Verificado localmente** en navegador: el H1 nuevo mantiene el layout compacto de 2 líneas (el primer intento, con "y Publicidad" y "24 Horas", se partía en 3-4 líneas y se acortó).
 * **Corrección de Omar (mismo día):** "Cancún" solo en el H1 restringe la percepción de cobertura — el negocio también atiende toda la Riviera Maya. Se descartó la idea de un título dinámico según la ubicación del usuario (geolocalización por IP poco confiable, complejidad extra, y las páginas dedicadas `playa-del-carmen/` y `tulum/` ya cubren el aterrizaje por ciudad) a favor de un cambio simple y estático. H1 final, 3 líneas balanceadas: "Rótulos en Cancún / y la Riviera Maya / Cotiza Gratis en 24h". Verificado en navegador: no se encima con la mascota Robbie.
+* **Deploy con incidente:** el primer intento (run `34415184907`) falló tras los 6 reintentos internos del workflow por el timeout intermitente del puerto 65002 de Hostinger (ya documentado); un segundo `gh run rerun --failed` también falló; el tercero tuvo éxito en 8s. **Verificado en producción con curl:** el H1 de 3 líneas ya se sirve en `rotulatepublicidad.com/`.
 
 ---
 ## 📅 Resumen de la Sesión (09 de Septiembre, 2026 — nueva línea: venta de placa de alucobond por hoja)
