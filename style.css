@@ -572,6 +572,16 @@ nav a:hover {
     hyphens: auto;
 }
 
+.hero-content h1.hero-title-home {
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+}
+
+.hero-title-home .hero-title-phrase {
+    white-space: nowrap;
+}
+
 .hero-content .cta-button {
     max-width: 100%;
     white-space: normal;

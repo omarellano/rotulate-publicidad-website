@@ -5,6 +5,7 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 ---
 ## 📅 Sesión — 09 de Septiembre, 2026 (iconos de servicios en el hero)
 
+* Corrección posterior en producción: Omar reportó «im-presión» cortado en desktop. Causa: `hyphens: auto` y `word-break: break-word` heredados del hero. Se desactivan solo en `.hero-title-home` y se agrupa «e impresión» con `white-space: nowrap` para que salte completo. Cache-bust global `style.css?v=3.8` en las páginas versionadas que lo cargan. Validación: 41/41 HTML balanceados y diff sin errores.
 * Actualización posterior de Omar: H1 final «Rótulos, anuncios e impresión / en Cancún y Riviera Maya / Cotiza ahora mismo», con acentos y tres líneas explícitas. Omar corrigió la cobertura para incluir Cancún después del primer push (`549e52f`). Sustituye el título de cobertura y cotización en 24h documentado anteriormente.
 * Omar pidió crear y cambiar los tres iconos del hero para representar mejor cada servicio. Se reemplazaron los SVG inline de `index.html`: pantalla → plotter con impresión, foco → letrero con destellos, capas → letra T en relieve con perspectiva.
 * Se conservaron tamaño, color heredado, enlaces y etiquetas; SVG decorativos con `aria-hidden="true"` y `focusable="false"`. Sin cambios en CSS/JS ni necesidad de subir sus versiones de caché.
@@ -28,7 +29,7 @@ Resumen del día. El detalle de cada bloque está en las tres secciones «09 de 
 
 **Commits del día (17):** `995810e`, `d9f77ca`, `3f1f0a8`, `50447d1`, `ada3569`, `9b2603b`, `98e2ff6`, `b955f68`, `dee7b19`, `8910d86`, `159f416`, `2af8de0`, `9d108cc`, `1c55e89`, `41536d0`, `a8b4e40`, `a2276b3`. Todos desplegados y verificados en producción con curl y/o navegador.
 
-**Versiones actuales de cache-bust:** `style.css?v=3.7`, `main.js?v=3.5`.
+**Versiones actuales de cache-bust:** `style.css?v=3.8`, `main.js?v=3.5`.
 
 **Pendiente para la próxima sesión:**
 1. Conseguir foto real de Rojo Mate para `placas-alucobond.html` (el proveedor no tiene foto de ese color en su página).
