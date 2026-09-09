@@ -5,7 +5,7 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 ---
 ## 📅 Sesión — 09 de Septiembre, 2026 (iconos de servicios en el hero)
 
-* Actualización posterior de Omar: H1 cambiado a «Rótulos, anuncios e impresión / en Riviera Maya / Cotiza ahora mismo», con acentos y tres líneas explícitas. Sustituye el título de cobertura y cotización en 24h documentado anteriormente. Cambio local, aún sin publicar.
+* Actualización posterior de Omar: H1 final «Rótulos, anuncios e impresión / en Cancún y Riviera Maya / Cotiza ahora mismo», con acentos y tres líneas explícitas. Omar corrigió la cobertura para incluir Cancún después del primer push (`549e52f`). Sustituye el título de cobertura y cotización en 24h documentado anteriormente.
 * Omar pidió crear y cambiar los tres iconos del hero para representar mejor cada servicio. Se reemplazaron los SVG inline de `index.html`: pantalla → plotter con impresión, foco → letrero con destellos, capas → letra T en relieve con perspectiva.
 * Se conservaron tamaño, color heredado, enlaces y etiquetas; SVG decorativos con `aria-hidden="true"` y `focusable="false"`. Sin cambios en CSS/JS ni necesidad de subir sus versiones de caché.
 * Verificación local: `node scratch/audit_html_structure.js` (41/41 HTML balanceados) y `git diff --check` sin errores. Omar autorizó posteriormente commit y push a `main` de ambos cambios. Pendiente revisión visual en navegador.
