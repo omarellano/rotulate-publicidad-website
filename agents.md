@@ -3,6 +3,33 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 🔒 CIERRE — 09 de Septiembre, 2026 (galería de Alucobond + nueva línea de placas + hero de conversión)
+
+Resumen del día. El detalle de cada bloque está en las tres secciones «09 de Septiembre» de abajo.
+
+**1. Galería de proyectos reales de Alucobond (`alucobond.html`):** 20 proyectos con nombre de cliente (Ford, GAC Motor, PEMEX, Wendy's, Coppel, Elektra, etc.) del instalador aliado, 44 fotos optimizadas y con corrección de color, foto de proceso + resultado, lightbox propio. Fuente confirmada con Omar como alianza permanente con permiso de uso. 5 de esas fotos (Mérida y Calkiní, únicas dentro de la Península de Yucatán) se sumaron también a la galería aleatoria de la home.
+
+**2. Nueva línea de negocio: venta de placa de alucobond por hoja (`placas-alucobond.html`):** $1,850 MXN/hoja neto, 1.22×2.44m, 3mm, envío gratis 20km desde el centro de Cancún (zona hotelera con costo extra). Calculadora de cantidad + color con total en vivo y cotización por WhatsApp. Fotos reales del producto (con permiso confirmado) para Negro Mate, Blanco Mate, Plata Satinado; Plata Cepillado y Naranja Mate marcados como agotados. Integrada en el formulario de cotización, la grilla de Servicios de la home, cross-link desde `alucobond.html` y `sitemap.xml`.
+
+**3. Hero de la home orientado a conversión:** de "Llevamos tu Marca al Siguiente Nivel" (genérico) a "Rótulos en Cancún / y la Riviera Maya / Cotiza Gratis en 24h" (categoría + cobertura completa + gancho de velocidad/gratis), subiendo también el dato de "+1,000 proyectos" al subtítulo. Se descartó título dinámico por geolocalización.
+
+**Incidentes técnicos del día (los tres ya corregidos y verificados en producción):**
+- Carpeta `assets/galeria/Alucobond/` subida con mayúscula pero referenciada en minúscula en el HTML — invisible en local (Windows, case-insensitive) pero rompía las fotos en Hostinger (Linux, case-sensitive).
+- `style.css` editado dos veces sin subir la versión (`?v=3.4`→`3.5`→`3.6`→`3.7`), dejando estilos nuevos cacheados sin aplicar — **lección aplicada a partir de la 2ª vez: subir la versión en el mismo commit que el cambio de CSS.**
+- Deploy del último commit del día falló 2 veces por el timeout intermitente conocido del puerto 65002 de Hostinger; el 3er intento (`gh run rerun --failed`) tuvo éxito.
+
+**Commits del día (17):** `995810e`, `d9f77ca`, `3f1f0a8`, `50447d1`, `ada3569`, `9b2603b`, `98e2ff6`, `b955f68`, `dee7b19`, `8910d86`, `159f416`, `2af8de0`, `9d108cc`, `1c55e89`, `41536d0`, `a8b4e40`, `a2276b3`. Todos desplegados y verificados en producción con curl y/o navegador.
+
+**Versiones actuales de cache-bust:** `style.css?v=3.7`, `main.js?v=3.5`.
+
+**Pendiente para la próxima sesión:**
+1. Conseguir foto real de Rojo Mate para `placas-alucobond.html` (el proveedor no tiene foto de ese color en su página).
+2. Decidir si se ofrece corte a medida con costo adicional real (hoy la FAQ lo menciona sin precio).
+3. Limpiar el archivo huérfano `assets/placas-alucobond/plata-brillante.webp` en Hostinger (ya no referenciado, el deploy no borra archivos removidos).
+4. Semanas 3+ del plan del 07-sep (home, plantillas de servicio con casos) siguen pendientes salvo lo ya cubierto hoy.
+5. Backlog histórico sin cambios: campaña de reseñas post-venta por WhatsApp, blog 1-2 artículos/mes.
+
+---
 ## 📅 Resumen de la Sesión (09 de Septiembre, 2026 — nuevo título del hero de la home)
 
 * Omar pidió un título nuevo para el hero de la home orientado a conversión (mismo criterio ya aplicado en `placas-alucobond.html`: categoría + localidad + gancho concreto, en vez de branding genérico).
