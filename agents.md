@@ -3,6 +3,14 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 📅 Sesión — 09 de Septiembre, 2026 (iconos de servicios en el hero)
+
+* Actualización posterior de Omar: H1 cambiado a «Rótulos, anuncios e impresión / en Riviera Maya / Cotiza ahora mismo», con acentos y tres líneas explícitas. Sustituye el título de cobertura y cotización en 24h documentado anteriormente. Cambio local, aún sin publicar.
+* Omar pidió crear y cambiar los tres iconos del hero para representar mejor cada servicio. Se reemplazaron los SVG inline de `index.html`: pantalla → plotter con impresión, foco → letrero con destellos, capas → letra T en relieve con perspectiva.
+* Se conservaron tamaño, color heredado, enlaces y etiquetas; SVG decorativos con `aria-hidden="true"` y `focusable="false"`. Sin cambios en CSS/JS ni necesidad de subir sus versiones de caché.
+* Verificación local: `node scratch/audit_html_structure.js` (41/41 HTML balanceados) y `git diff --check` sin errores. Omar autorizó posteriormente commit y push a `main` de ambos cambios. Pendiente revisión visual en navegador.
+
+---
 ## 🔒 CIERRE — 09 de Septiembre, 2026 (galería de Alucobond + nueva línea de placas + hero de conversión)
 
 Resumen del día. El detalle de cada bloque está en las tres secciones «09 de Septiembre» de abajo.
