@@ -15,10 +15,10 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
   - **Disponible sin foto (el proveedor no tiene foto de este color en su página):** Rojo Mate — sigue con el círculo de color CSS.
   - **Agotados (con foto real, deshabilitados y en gris):** Plata Brillante.
   - **Agotado (sin foto):** Naranja Mate — círculo CSS.
-  - ⚠️ **Supuesto sin confirmar con Omar:** el proveedor lista dos acabados plata — "Plata Brillante" y "Plata Cepillado" — y ninguno se llama textualmente "Plata Satinado". Mapeé `panelplatacepillado.jpg` (textura con líneas de cepillado visibles) → "Plata Satinado" (disponible) y `panelplata.jpg` (acabado mate/grano uniforme, sin líneas) → "Plata Brillante" (agotado), por eliminación de nombres de archivo. **Si Omar vende el otro acabado plata, hay que invertir esta asignación** (son solo 2 líneas en `placas-alucobond.html` + renombrar los 2 archivos webp).
+  - **Corregido por Omar (mismo día):** mi primer mapeo estaba invertido. Omar confirmó que "Plata Satinado" es la foto con textura de puntitos/grano fino (`panelplata.jpg`, sin líneas de cepillado) — **no** la de líneas de cepillado visibles. Reasignado: `panelplata.jpg` → **Plata Satinado** (disponible, `assets/placas-alucobond/plata-satinado.webp`); `panelplatacepillado.jpg` → **Plata Cepillado** (agotado, `assets/placas-alucobond/plata-cepillado.webp`, ya no "Plata Brillante" — ese nombre no aplica a ninguna de las dos fotos reales que tenemos). Archivo `plata-brillante.webp` eliminado.
   - Los botones "Agotado" tienen `disabled` (no seleccionables, verificado con clic en Plata Brillante → no cambia la selección).
 * **Cache-bust:** `style.css` cambió otra vez (`.color-swatch.agotado`, `.swatch-agotado-badge`, tamaño de foto) — esta vez subí la versión (`?v=3.6`→`3.7`) **en el mismo commit** que el cambio de CSS, aplicando la lección de la vez anterior.
-* **Pendiente:** confirmar con Omar cuál acabado plata es el que realmente vende (ver supuesto arriba); conseguir foto real de Rojo Mate si existe; definir si se ofrece corte a medida con costo adicional real (la FAQ ya lo menciona como posibilidad genérica, sin precio).
+* **Pendiente:** conseguir foto real de Rojo Mate si existe; definir si se ofrece corte a medida con costo adicional real (la FAQ ya lo menciona como posibilidad genérica, sin precio).
 
 ---
 ## 📅 Resumen de la Sesión (09 de Septiembre, 2026 — galería de proyectos de Alucobond)
