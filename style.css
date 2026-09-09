@@ -1086,17 +1086,47 @@ a.showcase-item {
 }
 
 .color-swatch .swatch-dot {
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+    object-fit: cover;
+    object-position: center;
 }
 
 .color-swatch .swatch-name {
     font-size: 0.85rem;
     font-weight: 600;
     text-align: center;
+}
+
+.color-swatch.agotado {
+    position: relative;
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.color-swatch.agotado:hover {
+    transform: none;
+}
+
+.color-swatch.agotado .swatch-dot {
+    filter: grayscale(1);
+}
+
+.swatch-agotado-badge {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    background: rgba(0, 0, 0, 0.75);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
 }
 
 .placa-calculadora {
