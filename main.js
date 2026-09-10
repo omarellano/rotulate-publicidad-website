@@ -5,6 +5,7 @@
 
 (function () {
     'use strict';
+    document.documentElement.classList.add('js');
 
     /* ── Carga diferida del stack del formulario ──────────────
        Supabase + EmailJS + upload.js (~100 KB) solo se descargan
@@ -39,7 +40,7 @@
                 await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
                 await loadScript('supabase-config.js');
                 await emailjsReady; // si ya terminó, se inicializa antes de upload.js; si falló, no propaga
-                await loadScript('upload.js?v=2');
+                await loadScript('upload.js?v=3');
             } catch (err) {
                 started = false;
                 console.error('No se pudo cargar el stack del formulario (Supabase):', err);

@@ -54,6 +54,12 @@ const initCotizacionForm = () => {
             fileInput.click();
         });
 
+        uploadZone.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            e.preventDefault();
+            fileInput.click();
+        });
+
         fileInput.addEventListener('change', () => {
             addFiles(fileInput.files);
             fileInput.value = ''; // Reset to allow same file selection
@@ -76,6 +82,15 @@ const initCotizacionForm = () => {
             }
         });
     }
+
+    form?.addEventListener('invalid', (e) => {
+        const field = e.target;
+        if (!field.matches('input, select, textarea')) return;
+        showFieldError(field, validationMessage(field));
+    }, true);
+
+    form?.addEventListener('input', (e) => clearFieldError(e.target));
+    form?.addEventListener('change', (e) => clearFieldError(e.target));
 
     function addFiles(files) {
         formError.style.display = 'none';
@@ -181,8 +196,8 @@ const initCotizacionForm = () => {
         const mensaje = (document.getElementById('mensaje')?.value || '').trim().substring(0, 2000);
 
         // D. Form Validation
-        if (!nombre || !email || !servicio) {
-            shakeInvalid();
+        if (!form.checkValidity()) {
+            form.reportValidity();
             return;
         }
 
@@ -192,11 +207,13 @@ const initCotizacionForm = () => {
         }
 
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showFieldError(document.getElementById('email'), 'Escribe un correo electrónico válido.');
             shakeField('email');
             return;
         }
 
         if (telefono && !/^[\+]?[\d\s\-\(\)]{7,20}$/.test(telefono)) {
+            showFieldError(document.getElementById('telefono'), 'Escribe un teléfono válido o déjalo vacío.');
             shakeField('telefono');
             return;
         }
@@ -330,10 +347,37 @@ const initCotizacionForm = () => {
 
     function shakeInvalid() {
         form.querySelectorAll('input:invalid, select:invalid').forEach(el => {
+            showFieldError(el, validationMessage(el));
             el.classList.add('input-shake');
             el.style.borderColor = 'var(--color-accent-orange)';
             setTimeout(() => { el.classList.remove('input-shake'); el.style.borderColor = ''; }, 600);
         });
+    }
+
+    function validationMessage(field) {
+        if (field.validity.valueMissing) return 'Este campo es obligatorio.';
+        if (field.validity.typeMismatch) return 'Escribe un correo electrónico válido.';
+        if (field.validity.patternMismatch) return 'Escribe un teléfono válido o déjalo vacío.';
+        if (field.validity.tooLong) return 'El texto excede el límite permitido.';
+        return 'Revisa este campo.';
+    }
+
+    function showFieldError(field, message) {
+        if (!field || !field.id) return;
+        const error = document.getElementById(field.id + '-error');
+        if (!error) return;
+        error.textContent = message;
+        error.classList.add('is-visible');
+        field.setAttribute('aria-invalid', 'true');
+    }
+
+    function clearFieldError(field) {
+        if (!field || !field.id) return;
+        const error = document.getElementById(field.id + '-error');
+        if (!error) return;
+        error.textContent = '';
+        error.classList.remove('is-visible');
+        field.removeAttribute('aria-invalid');
     }
 
     function shakeField(id) {

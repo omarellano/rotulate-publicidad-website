@@ -1530,6 +1530,26 @@ a.showcase-item {
     color: var(--color-gray);
 }
 
+.form-field-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-gray);
+}
+
+.form-field-error {
+    display: none;
+    margin: 0;
+    color: #ff9a66;
+    font-size: 0.8rem;
+    line-height: 1.35;
+}
+
+.form-field-error.is-visible { display: block; }
+
+.cotizar-form [aria-invalid="true"] { border-color: var(--color-accent-orange); }
+
 .cotizar-form input,
 .cotizar-form select,
 .cotizar-form textarea {
@@ -1588,6 +1608,12 @@ a.showcase-item {
 .upload-zone--done {
     border-color: rgba(0, 255, 0, 0.5);
     border-style: solid;
+}
+
+.upload-zone:focus-visible,
+.ufi-remove:focus-visible {
+    outline: 2px solid var(--color-accent-lime);
+    outline-offset: 3px;
 }
 
 .upload-zone-icon {
@@ -2048,6 +2074,11 @@ a.showcase-item {
 
 /* ── Scroll Reveal ──────────────────────────────────────── */
 .reveal {
+    opacity: 1;
+    transform: none;
+}
+
+.js .reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
@@ -2267,6 +2298,7 @@ nav a.active::after {
 
     .nav-dropdown-menu {
         position: static;
+        left: auto;
         opacity: 1;
         visibility: visible;
         transform: none;
@@ -2277,6 +2309,20 @@ nav a.active::after {
         margin: 0;
         min-width: 0;
         width: 100%;
+    }
+
+    /* La regla desktop usa translate para centrar el submenú. En móvil,
+       al ser estático, ese translate lo desplazaba fuera de la pantalla. */
+    #main-nav .nav-dropdown:hover .nav-dropdown-menu,
+    #main-nav .nav-dropdown:focus-within .nav-dropdown-menu {
+        transform: none;
+    }
+
+    /* Evita el zoom automático de Safari/iOS al enfocar controles pequeños. */
+    .cotizar-form input,
+    .cotizar-form select,
+    .cotizar-form textarea {
+        font-size: 16px;
     }
 
     .lang-switch {

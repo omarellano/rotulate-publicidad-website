@@ -52,7 +52,7 @@
     <link rel="preconnect" href="https://wtljdvexsksextnhpkkd.supabase.co" crossorigin>
     <link rel="dns-prefetch" href="https://region1.google-analytics.com">
 
-    <link rel="stylesheet" href="style.css?v=4.0">
+    <link rel="stylesheet" href="style.css?v=4.1">
 
     <!-- Schema.org — LocalBusiness structured data -->
     <script type="application/ld+json">
@@ -736,33 +736,36 @@
                 </div>
 
                 <div class="contacto-form-wrap">
-                    <form class="cotizar-form" id="cotizar" novalidate 
+                    <form class="cotizar-form" id="cotizar"
                           toolname="solicitar_cotizacion" 
                           tooldescription="Formulario para solicitar una cotización gratuita para servicios de rotulación publicitaria, anuncios luminosos, letras 3D, toldos, control solar y otros en Cancún.">
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="nombre">Nombre completo *</label>
-                                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required
+                                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required aria-describedby="nombre-error"
                                     maxlength="100" autocomplete="name"
                                     toolparamdescription="Nombre completo del cliente o de la empresa solicitante">
+                                <p class="form-field-error" id="nombre-error"></p>
                             </div>
                             <div class="form-field">
                                 <label for="email">Correo electrónico *</label>
-                                <input type="email" id="email" name="email" placeholder="tu@email.com" required
+                                <input type="email" id="email" name="email" placeholder="tu@email.com" required aria-describedby="email-error"
                                     maxlength="254" autocomplete="email"
                                     toolparamdescription="Dirección de correo electrónico del cliente para contacto">
+                                <p class="form-field-error" id="email-error"></p>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="telefono">Teléfono / WhatsApp</label>
-                                <input type="tel" id="telefono" name="telefono" placeholder="+52 998 400 7987"
+                                <input type="tel" id="telefono" name="telefono" placeholder="+52 998 400 7987" aria-describedby="telefono-error"
                                     maxlength="20" autocomplete="tel" pattern="[\+]?[\d\s\-\(\)]{7,20}"
                                     toolparamdescription="Número de teléfono o WhatsApp para aclarar dudas o enviar la cotización">
+                                <p class="form-field-error" id="telefono-error"></p>
                             </div>
                             <div class="form-field">
                                 <label for="servicio">Tipo de servicio *</label>
-                                <select id="servicio" name="servicio" required
+                                <select id="servicio" name="servicio" required aria-describedby="servicio-error"
                                         toolparamdescription="Tipo de servicio requerido: publicitario/rotulación (anuncios-luminosos, neon-flex, letras-3d, rotulacion-vehicular, alucobond, placa-alucobond, control-solar, toldos, lonas-vinilos) u obra/mantenimiento vía RTMX (obra-canceleria, obra-herreria, obra-alucobond, obra-electricidad, obra-supervision, obra-mantenimiento-construccion, obra-impermeabilizacion, obra-albanileria, obra-plomeria), etc.">
                                     <option value="" disabled selected>Selecciona un servicio</option>
                                     <optgroup label="Rotulación y Publicidad">
@@ -790,6 +793,7 @@
                                     </optgroup>
                                     <option value="otro">Otro</option>
                                 </select>
+                                <p class="form-field-error" id="servicio-error"></p>
                             </div>
                         </div>
 
@@ -808,13 +812,13 @@
 
                         <!-- Zona de Carga de Archivos (Drag & Drop) -->
                         <div class="form-field">
-                            <label>Adjuntar archivos o diseños (Opcional)</label>
-                            <div class="upload-zone" id="upload-zone">
+                            <span class="form-field-label" id="file-upload-label">Adjuntar archivos o diseños (Opcional)</span>
+                            <div class="upload-zone" id="upload-zone" role="button" tabindex="0" aria-labelledby="file-upload-label" aria-describedby="file-upload-help">
                                 <div class="upload-zone-icon">📤</div>
                                 <div class="upload-zone-text">
                                     <strong>Arrastra tu archivo aquí</strong>
                                     <span>o haz clic para seleccionar</span>
-                                    <small>Formatos aceptados: PDF, AI, PSD, PNG, JPG, ZIP (Máx. 24MB por archivo)</small>
+                                    <small id="file-upload-help">Formatos aceptados: PDF, AI, PSD, PNG, JPG, ZIP (Máx. 24MB por archivo)</small>
                                 </div>
                                 <input type="file" id="file-upload" name="file-upload" multiple style="display: none;" accept=".pdf,.ai,.psd,.png,.jpg,.jpeg,.zip,.rar"
                                        toolparamdescription="Archivos o diseños adjuntos para el proyecto (PDF, AI, PSD, PNG, JPG, ZIP de hasta 24MB)">
@@ -913,7 +917,7 @@
     <!-- Scripts de la aplicación. Supabase, EmailJS, supabase-config.js y
          upload.js se cargan de forma diferida desde main.js cuando el
          usuario se acerca al formulario de cotización. -->
-    <script src="main.js?v=3.6" defer></script>
+    <script src="main.js?v=3.7" defer></script>
     <script src="analytics.js?v=1.1" defer></script>
   <script src="/quote-context.js?v=1" defer></script>
 </body>
