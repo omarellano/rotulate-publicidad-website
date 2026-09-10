@@ -3,12 +3,18 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
-## 📅 Sesión — 09 de Septiembre, 2026 (iconos de servicios en el hero)
+## 🔒 CIERRE FINAL — 09 de Septiembre, 2026 (título e iconos del hero)
+
+**Estado al cerrar:** cambios subidos a `main`; los tres despliegues de esta sesión terminaron en `success`. Este cierre sustituye el título y las versiones anteriores documentadas abajo. Cache-bust vigente: `style.css?v=3.8`, `main.js?v=3.5`.
+
+**Commits y verificación:** `549e52f` (título e iconos, run `34418054373`), `4bd4fce` (incluir Cancún, run `34418091922`) y `6752264` (evitar partición de palabras, run `34418431758`). Tras el segundo deploy se consultó la home pública con curl y se confirmó el H1 final y los tres SVG nuevos. Para el último ajuste CSS se confirmó el éxito del workflow y la validación estática local; no se hizo comprobación visual en navegador, por lo que queda pendiente revisar el ajuste en desktop y móvil.
+
+**Próxima sesión:** revisar visualmente el hero y continuar con los pendientes comerciales/SEO del cierre anterior (foto de Rojo Mate, política de corte a medida, limpieza de archivos remotos y plan SEO/UX). No quedan cambios versionados del sitio sin commit al cerrar; las carpetas locales no versionadas se conservan fuera del commit.
 
 * Corrección posterior en producción: Omar reportó «im-presión» cortado en desktop. Causa: `hyphens: auto` y `word-break: break-word` heredados del hero. Se desactivan solo en `.hero-title-home` y se agrupa «e impresión» con `white-space: nowrap` para que salte completo. Cache-bust global `style.css?v=3.8` en las páginas versionadas que lo cargan. Validación: 41/41 HTML balanceados y diff sin errores.
 * Actualización posterior de Omar: H1 final «Rótulos, anuncios e impresión / en Cancún y Riviera Maya / Cotiza ahora mismo», con acentos y tres líneas explícitas. Omar corrigió la cobertura para incluir Cancún después del primer push (`549e52f`). Sustituye el título de cobertura y cotización en 24h documentado anteriormente.
 * Omar pidió crear y cambiar los tres iconos del hero para representar mejor cada servicio. Se reemplazaron los SVG inline de `index.html`: pantalla → plotter con impresión, foco → letrero con destellos, capas → letra T en relieve con perspectiva.
-* Se conservaron tamaño, color heredado, enlaces y etiquetas; SVG decorativos con `aria-hidden="true"` y `focusable="false"`. Sin cambios en CSS/JS ni necesidad de subir sus versiones de caché.
+* Se conservaron tamaño, color heredado, enlaces y etiquetas; SVG decorativos con `aria-hidden="true"` y `focusable="false"`. El reemplazo de iconos solo cambió HTML; la corrección posterior del título sí cambió CSS y subió su versión a 3.8.
 * Verificación local: `node scratch/audit_html_structure.js` (41/41 HTML balanceados) y `git diff --check` sin errores. Omar autorizó posteriormente commit y push a `main` de ambos cambios. Pendiente revisión visual en navegador.
 
 ---
