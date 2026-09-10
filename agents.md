@@ -3,6 +3,13 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## ✅ Cierre de despliegue — 10 de Septiembre, 2026 (partes 2A/2B)
+
+* Omar autorizó push tras la revisión visual. **Commit `ee8ccbf` subido a `main`; workflow `34507207770` terminado en `success`.** Publicadas las seis páginas EN ampliadas, navegación agrupada, contexto de cotización y corrección de cabeceras responsive. Este cierre sustituye el estado «local/sin push» de las entradas anteriores.
+* Verificación HTTP posterior: home ES/EN, Alucobond EN, `style.css?v=4.0`, `main.js?v=3.6`, `quote-context.js?v=1` y sitemap responden 200 y coinciden con los archivos locales normalizando saltos de línea. Evidencia `scratch/part2-live-*.txt`. Validación visual realizada antes del push en Chrome contra servidor local; no se enviaron formularios ni mensajes.
+* Carpetas locales y scripts de scratch excluidos del commit. Pendientes comerciales/editoriales y acceso Framer/GSC permanecen como se documentó; no confundir este despliegue con confirmación de indexación en Google.
+
+---
 ## ✅ Revisión en Chrome — 10 de Septiembre, 2026 (partes 2A/2B locales)
 
 * Omar conectó Chrome/Edge y pidió revisar los cambios. Probados en Chrome con servidor local `http://127.0.0.1:8765/` (`scratch/preview-server.cjs`, solo loopback). Esta revisión sustituye el bloqueo de navegador de los cierres anteriores. **Partes 2A/2B siguen sin commit/push/deploy.**
