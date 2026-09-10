@@ -2212,7 +2212,7 @@ nav a.active::after {
         display: none;
     }
 
-    nav {
+    #main-nav {
         position: fixed;
         top: 0;
         left: 0;
@@ -2227,18 +2227,19 @@ nav a.active::after {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         opacity: 0;
         visibility: hidden;
-        right: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
     }
 
-    nav.open {
+    #main-nav.open {
         opacity: 1;
         visibility: visible;
     }
 
-    nav ul {
+    #main-nav ul {
         flex-direction: column;
         gap: 0;
         width: 100%;
@@ -2246,7 +2247,7 @@ nav a.active::after {
         text-align: center;
     }
 
-    nav a {
+    #main-nav a {
         display: block;
         padding: 1rem 0;
         font-size: 1.2rem;

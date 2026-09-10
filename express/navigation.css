@@ -1,0 +1,47 @@
+/* Express comparte esta navegación entre ES y EN; no depende de JavaScript. */
+.express-nav a:focus-visible {
+    outline: 2px solid #39ff14;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+@media (max-width: 1023px) {
+    .express-header-row {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .express-header-row .express-nav {
+        display: flex;
+        order: 3;
+        flex: 0 0 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.25rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .express-header-row > a[aria-label] {
+        flex-shrink: 0;
+        min-width: 44px;
+        min-height: 44px;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .express-nav a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    #inicio {
+        padding-top: 9rem;
+    }
+
+    section[id] {
+        scroll-margin-top: 9rem;
+    }
+}
