@@ -1571,8 +1571,19 @@ a.showcase-item {
 }
 
 .cotizar-form select option {
-    background: var(--color-section-alt);
-    color: var(--color-white);
+    background-color: #151515;
+    color: #ffffff;
+}
+
+/* Los menús nativos respetan estas reglas de forma distinta según el navegador.
+   color-scheme mantiene controles y lista desplegable legibles en Chrome/Safari. */
+.cotizar-form select {
+    color-scheme: dark;
+}
+
+.cotizar-form select optgroup {
+    background-color: #151515;
+    color: #ffffff;
 }
 
 .cotizar-form input:focus,

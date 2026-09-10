@@ -40,7 +40,7 @@
                 await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
                 await loadScript('supabase-config.js');
                 await emailjsReady; // si ya terminó, se inicializa antes de upload.js; si falló, no propaga
-                await loadScript('upload.js?v=3');
+                await loadScript('upload.js?v=5');
             } catch (err) {
                 started = false;
                 console.error('No se pudo cargar el stack del formulario (Supabase):', err);

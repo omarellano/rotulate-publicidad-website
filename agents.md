@@ -3,6 +3,14 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## 🛠️ Corrección local pendiente de publicar — 10 de Septiembre, 2026 (formulario, selector y Clarity)
+
+* Omar reportó al adjuntar `Sin título-1.png`: `StorageUnknownError: Failed to fetch` y `ERR_NAME_NOT_RESOLVED` para `wtljdvexsksextnhpkkd.supabase.co`. Se reprodujo la comprobación directa con `curl`: el hostname no resuelve DNS. El fallo ocurre antes de Storage/RLS y **no lo causan el formato del archivo ni el código de carga**. Mientras el dominio no vuelva a resolver, tampoco se pueden guardar filas en `cotizaciones_web`.
+* Omar restauró el proyecto. Acción externa pendiente: probar un adjunto real y confirmar archivo en el bucket `cotizaciones` y fila en `cotizaciones_web`. El monitor se cambió de lunes/jueves a diario a las 12:00 UTC; genera actividad y reduce la detección de caídas a menos de un día. El plan Pro de Supabase es la única garantía del proveedor contra pausas por inactividad; no se inicia migración a Firebase.
+* Cambios locales preparados: el error de red del adjunto explica el problema y dirige a WhatsApp; el selector `Tipo de servicio` usa esquema oscuro y fondos/texto explícitos en `option`/`optgroup` para contraste consistente; la CSP añade `https://scripts.clarity.ms`, host real del script que carga GTM, eliminando el bloqueo de Clarity. Si Storage o la base de datos fallan por red, el formulario intenta mandar los datos por EmailJS; solo muestra éxito si ese respaldo se entrega, e indica qué adjunto debe enviarse por WhatsApp. Cache-bust: `style.css?v=4.2`, `main.js?v=3.9`, carga diferida `upload.js?v=5` en las 37 páginas que comparten esos recursos.
+* Validación local: `node --check` para ambos JS, auditoría de 41 HTML balanceados y `git diff --check` sin errores. No publicado aún y no se envió ningún formulario ni archivo de prueba.
+
+---
 ## ✅ Parte 3 desplegada — 10 de Septiembre, 2026 (formulario, contenido sin JS y correcciones móviles)
 
 * Mientras Omar revisa la versión antigua de Framer, se avanzó el siguiente bloque técnico. Omar autorizó publicación: **commit `42d18cf` en `main`; despliegue `34515759902` terminado en `success`.**

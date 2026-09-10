@@ -37,6 +37,8 @@ const initCotizacionForm = () => {
     const btnLoading = submitBtn?.querySelector('.btn-loading');
     
     const formSuccess = document.getElementById('form-success');
+    const formSuccessMessage = document.getElementById('form-success-message');
+    const formSuccessWhatsApp = document.getElementById('form-success-whatsapp');
     const formError = document.getElementById('form-error');
 
     // State
@@ -222,6 +224,7 @@ const initCotizacionForm = () => {
         setLoading(true);
         formError.style.display = 'none';
         const uploadedFileUrls = [];
+        const pendingFiles = [];
 
         try {
             // Step 1: Upload files to Supabase Storage (if any selected)
@@ -246,7 +249,12 @@ const initCotizacionForm = () => {
 
                     if (uploadError) {
                         console.error(`Error uploading ${file.name}:`, uploadError);
-                        throw new Error(`Error al subir ${file.name}. Inténtalo de nuevo.`);
+                        if (isNetworkError(uploadError)) {
+                            pendingFiles.push(file.name);
+                            updateProgress(100, `No se pudo adjuntar: ${file.name}`);
+                            break;
+                        }
+                        throw new Error(uploadErrorMessage(file.name, uploadError));
                     }
 
                     // Get public URL
@@ -268,7 +276,7 @@ const initCotizacionForm = () => {
                 email,
                 telefono: telefono || 'No proporcionado',
                 servicio,
-                mensaje: mensaje || 'Sin mensaje adicional',
+                mensaje: messageForRecord(mensaje, pendingFiles),
                 archivos: uploadedFileUrls
             };
 
@@ -278,44 +286,23 @@ const initCotizacionForm = () => {
 
             if (dbError) {
                 console.error('Database insert failed:', dbError);
+                if (isNetworkError(dbError)) {
+                    const backupSent = await sendEmailNotification({
+                        nombre, email, telefono, servicio, mensaje, uploadedFileUrls, pendingFiles
+                    });
+                    if (backupSent) {
+                        showSuccessState(pendingFiles, true);
+                        return;
+                    }
+                }
                 throw new Error('Error al registrar la cotización. Inténtalo de nuevo.');
             }
 
             // Step 3: Trigger real-time EmailJS notification
-            if (typeof emailjs !== 'undefined') {
-                try {
-                    const templateParams = {
-                        from_name: nombre,
-                        from_email: email,
-                        phone: telefono || 'No proporcionado',
-                        service: servicio,
-                        message_details: mensaje || 'Sin mensaje adicional',
-                        file_links: uploadedFileUrls.length > 0 
-                            ? uploadedFileUrls.map(f => `${f.name}: ${f.url}`).join('\n') 
-                            : 'Sin archivos adjuntos'
-                    };
-
-                    await emailjs.send("service_n44qqee", "template_wxr3rqu", templateParams);
-                    console.log('EmailJS notification sent successfully.');
-                } catch (emailError) {
-                    console.error('EmailJS notification failed to send:', emailError);
-                    // We do not throw the error here, so the user still gets the success screen
-                    // since the data has already been saved to Supabase.
-                }
-            }
+            await sendEmailNotification({ nombre, email, telefono, servicio, mensaje, uploadedFileUrls, pendingFiles });
 
             // Step 4: Show Success Screen
-            lastSubmitTime = Date.now();
-            localStorage.setItem('last_submit_time', lastSubmitTime.toString());
-            
-            form.style.display = 'none';
-            formSuccess.style.display = 'flex';
-            selectedFiles = [];
-            renderFileList();
-
-            if (window.dataLayer) {
-                window.dataLayer.push({ event: 'cotizacion_supabase_ok' });
-            }
+            showSuccessState(pendingFiles, false);
 
         } catch (error) {
             console.error('Submission failed:', error);
@@ -352,6 +339,69 @@ const initCotizacionForm = () => {
             el.style.borderColor = 'var(--color-accent-orange)';
             setTimeout(() => { el.classList.remove('input-shake'); el.style.borderColor = ''; }, 600);
         });
+    }
+
+    function uploadErrorMessage(fileName, error) {
+        const detail = `${error?.name || ''} ${error?.message || ''}`.toLowerCase();
+        if (/failed to fetch|network|name not resolved|enotfound/.test(detail)) {
+            return `No pudimos conectar con el servicio de archivos para subir "${fileName}". Inténtalo más tarde o envíalo por WhatsApp al +52 998 400 7987.`;
+        }
+        return `Error al subir ${fileName}. Inténtalo de nuevo.`;
+    }
+
+    function isNetworkError(error) {
+        const detail = `${error?.name || ''} ${error?.message || ''}`.toLowerCase();
+        return /failed to fetch|network|name not resolved|enotfound/.test(detail);
+    }
+
+    function messageForRecord(message, pendingFiles) {
+        const base = message || 'Sin mensaje adicional';
+        return pendingFiles.length
+            ? `${base}\n\n[Adjuntos no recibidos: ${pendingFiles.join(', ')}. Solicitar por WhatsApp.]`
+            : base;
+    }
+
+    async function sendEmailNotification({ nombre, email, telefono, servicio, mensaje, uploadedFileUrls, pendingFiles }) {
+        if (typeof emailjs === 'undefined') return false;
+        const fileLinks = uploadedFileUrls.map(file => `${file.name}: ${file.url}`);
+        if (pendingFiles.length) fileLinks.push(`Adjuntos pendientes por WhatsApp: ${pendingFiles.join(', ')}`);
+        try {
+            await emailjs.send("service_n44qqee", "template_wxr3rqu", {
+                from_name: nombre,
+                from_email: email,
+                phone: telefono || 'No proporcionado',
+                service: servicio,
+                message_details: messageForRecord(mensaje, pendingFiles),
+                file_links: fileLinks.length ? fileLinks.join('\n') : 'Sin archivos adjuntos'
+            });
+            console.log('EmailJS notification sent successfully.');
+            return true;
+        } catch (emailError) {
+            console.error('EmailJS notification failed to send:', emailError);
+            return false;
+        }
+    }
+
+    function showSuccessState(pendingFiles, usedEmailBackup) {
+        lastSubmitTime = Date.now();
+        localStorage.setItem('last_submit_time', lastSubmitTime.toString());
+        const filesText = pendingFiles.length ? ` Envía ${pendingFiles.join(', ')} por WhatsApp para completar tu solicitud.` : '';
+        if (formSuccessMessage) {
+            formSuccessMessage.textContent = usedEmailBackup
+                ? `Recibimos tus datos por correo, pero el sistema de cotizaciones está temporalmente fuera de línea.${filesText}`
+                : `Recibimos tu cotización. Te contactaremos en menos de 24 hrs.${filesText}`;
+        }
+        if (formSuccessWhatsApp && pendingFiles.length) {
+            const text = `Hola Rotúlate, acabo de enviar una cotización de ${document.getElementById('servicio')?.selectedOptions[0]?.textContent || 'un proyecto'}. Te comparto mi archivo pendiente: ${pendingFiles.join(', ')}.`;
+            formSuccessWhatsApp.href = `https://wa.me/529984007987?text=${encodeURIComponent(text)}`;
+        }
+        form.style.display = 'none';
+        formSuccess.style.display = 'flex';
+        selectedFiles = [];
+        renderFileList();
+        if (!usedEmailBackup && window.dataLayer) {
+            window.dataLayer.push({ event: 'cotizacion_supabase_ok' });
+        }
     }
 
     function validationMessage(field) {

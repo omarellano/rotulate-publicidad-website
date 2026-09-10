@@ -8,8 +8,9 @@ name: Supabase Keep-Alive
 
 on:
   schedule:
-    # Lunes y jueves 12:00 UTC — dos toques por semana, margen sobrado
-    - cron: '0 12 * * 1,4'
+    # Diario a las 12:00 UTC. Además de generar actividad suficiente para
+    # Free, reduce a menos de un día el tiempo de detección de una caída.
+    - cron: '0 12 * * *'
   workflow_dispatch:
 
 jobs:
