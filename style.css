@@ -2190,7 +2190,7 @@ nav a.active::after {
 }
 
 /* ── Responsive (non-hero items) ───────────────────────── */
-@media (max-width: 968px) {
+@media (max-width: 1280px) {
 
     /* Mobile menu */
     .menu-toggle {
@@ -2285,6 +2285,9 @@ nav a.active::after {
         border-color: rgba(255, 255, 255, 0.25);
     }
 
+}
+
+@media (max-width: 968px) {
     /* Showcase overlays always visible on touch */
     .showcase-overlay {
         transform: translateY(0);
@@ -2636,6 +2639,61 @@ nav a.active::after {
     }
 }
 
+/* Service directory in the shared navigation. */
+@media (min-width: 1281px) and (max-width: 1500px) {
+    #main-nav > ul { gap: .85rem; align-items: center; }
+    #main-nav > ul > li > a,
+    .service-menu > summary { white-space: nowrap; }
+}
+.service-menu > summary {
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 500;
+}
+.service-menu > summary:focus-visible,
+.service-menu a:focus-visible {
+    outline: 2px solid var(--color-accent-lime);
+    outline-offset: 3px;
+}
+#main-nav .service-menu-panel {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+    max-height: 65vh;
+    overflow-y: auto;
+    background: var(--color-dark);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.4);
+}
+#main-nav .service-menu-panel strong { color: var(--color-accent-lime); }
+#main-nav .service-menu-panel a {
+    display: block;
+    padding: .7rem 0;
+    font-size: .95rem;
+    white-space: normal;
+}
+@media (max-width: 1280px) {
+    #main-nav .service-menu { width: 100%; }
+    #main-nav .service-menu > summary { padding: 1rem 0; font-size: 1.2rem; }
+    #main-nav .service-menu-panel {
+        position: static;
+        grid-template-columns: minmax(0, 1fr);
+        max-height: none;
+        padding: 1rem;
+        box-shadow: none;
+        text-align: left;
+    }
+    #main-nav .service-menu-panel a { text-align: left; }
+}
+
 /* ── FAQ ─────────────────────────────────────────────── */
 .faq {
     padding: 6rem 5%;
@@ -2708,7 +2766,7 @@ nav a.active::after {
     display: none;
 }
 
-@media (max-width: 968px) {
+@media (max-width: 1280px) {
     .mobile-nav-cta {
         display: inline-flex;
         align-items: center;

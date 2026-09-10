@@ -81,6 +81,26 @@
     const navLinks = document.querySelectorAll('nav a');
     const sections = document.querySelectorAll('section[id]');
 
+    // Native details supplies keyboard activation and expanded state.
+    const serviceMenu = document.querySelector('.service-menu');
+    if (serviceMenu) {
+        document.addEventListener('click', function (event) {
+            if (!serviceMenu.contains(event.target)) serviceMenu.open = false;
+        });
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && serviceMenu.open) {
+                event.preventDefault();
+                serviceMenu.open = false;
+                serviceMenu.querySelector('summary').focus();
+            }
+        });
+        serviceMenu.addEventListener('focusout', function () {
+            setTimeout(function () {
+                if (!serviceMenu.contains(document.activeElement)) serviceMenu.open = false;
+            }, 0);
+        });
+    }
+
     /* ── 1. Header scroll effect (throttled) ───────────────── */
     function onScroll() {
         const scrollY = window.scrollY;
@@ -199,8 +219,9 @@
 
     // Close on Escape key
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && nav.classList.contains('open')) {
+        if (e.key === 'Escape' && !e.defaultPrevented && nav.classList.contains('open')) {
             closeMenu();
+            menuToggle.focus();
         }
     });
 
