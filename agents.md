@@ -3,6 +3,13 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotulate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## Incremento del 20% en logotipo del menú principal — 27 de septiembre de 2026
+
+* Omar pidió hacer crecer el logotipo del menú principal (`.logo-img`) un 20%.
+* Se actualizó la altura de `.logo-img` de `36px` a `43.2px` en `style.css` (tanto en la regla base como en la regla responsive `@media (max-width: 1280px)`).
+* Commit `9f5b77f` subido a `main`; despliegue de GitHub Actions a Hostinger (`36358865336`) completado con éxito (`completed / success`).
+
+---
 ## Nombre de marca normalizado — 27 de septiembre de 2026
 
 * Se adopta la grafía oficial **Rotulate Publicidad** sin acento, de acuerdo con el logotipo y el dominio. Se normalizaron 180 menciones en 44 archivos públicos del sitio, incluyendo páginas ES/EN, Express, blog, enlaces de WhatsApp, títulos, metadatos, schema y `llms.txt`. Los registros históricos internos se conservan como fueron escritos.
