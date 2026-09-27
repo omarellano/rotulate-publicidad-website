@@ -1172,3 +1172,23 @@ Ejecución de plan de optimización SEO basado en el análisis directo del direc
   1. Portafolio con clientes nombrados (mapeo foto→cliente de `assets/nuevas_fotos/`).
   2. Campaña de reseñas post-venta por WhatsApp (Google Business Profile 4.7★).
   3. Continuación de parrilla del blog (1-2 artículos/mes en `/blog/`).
+
+## 🔍 Revisión GSC en vivo (27-sep-2026)
+Revisión directa en Search Console (propiedad de dominio, búsqueda web, datos al 25-sep). Sin cambios en el sitio.
+
+* **28 días (29-ago → 25-sep) vs 28 anteriores:** 101 clics (vs 90, +12%) · 4,080 impresiones (vs 3,620, +13%) · CTR 2.5% (igual) · posición 8.1 (vs 8.5).
+* **3 meses (26-jun → 25-sep):** 273 clics · 11,500 impresiones · CTR 2.4% · pos. 8.2. Contra el trimestre mar–jun (~113 clics / ~4,146 imp) es **~2.4× clics y ~2.8× impresiones**.
+* **Consultas que suben:** "alucobond cancun" 6 clics (vs 2), pos. 1.7, CTR 28.6%; "lonas cancun" 62 imp (vs 15) pero pos. 11.5 y 1 clic; "lonas playa del carmen" 61 imp (vs 36), pos. 6.5; "vinil cancun" pos. 19.3 → 10.2; "rotulos cancun" 11.4 → 5.2 (0 clics con 27 imp).
+* **Páginas top (clics 28d):** home 19 · `/playa-del-carmen/` 15 (749 imp, la de más impresiones) · `/alucobond.html` 15 · `/rotulacion-vehicular.html` 11 · `/en/` 7 (pos. 24.7 → 12.8) · `/lonas-cancun/` 6 (429 imp).
+* **Nuevas con tracción:** `/blog/vinil-adhesivo-vidrieras-fachadas-cancun.html` 188 imp/2 clics; `/placas-alucobond.html` 39 imp/2 clics; `/blog/letreros-para-negocios-cancun-riviera-maya.html` 77 imp/1 clic.
+* **Alertas:** `/blog/permisos-anuncios-...` cayó 321 → 123 imp; `/toldos.html` 156 imp y 0 clics (antes 3); `/control-solar-en.html` 74 imp, pos. 19.5, 0 clics; `/gran-formato.html` 300 imp con solo 2 clics; `/express/` 344 imp pos. 12.5.
+* **Pendientes sugeridos:** subir `/lonas-cancun/` de pos. ~11 a top 5 (enlaces internos desde `/playa-del-carmen/` y blog, reseñas GBP); revisar title/meta de `/toldos.html` y `/gran-formato.html` (CTR <1%); aprovechar "rotulos cancun" (pos. 5.2, 0 clics) con snippet más atractivo.
+
+## ✏️ Títulos y descripciones por CTR (27-sep-2026)
+Acción derivada de la revisión GSC anterior. Datos por página de GSC (90 días) para elegir las palabras clave; todos los datos del snippet salen del contenido visible de cada página.
+
+* **`toldos.html`** (156 imp/28 d, 0 clics; consultas: "toldos cancun" pos. 12, "toldos y lonas cancun" pos. 10.7): title → `Toldos y Lonas en Cancún | Fijos, Retráctiles y con Logo`; description con fijos/retráctiles/marquesinas, logo impreso, lona UPF 50+, estructura anticorrosión y cotización en 24 h.
+* **`gran-formato.html`** (300 imp/28 d, 2 clics; consulta principal "impresión de carteles publicitarios en gran formato" pos. 11, "imprenta de gran formato" pos. 18): title → `Impresión Gran Formato en Cancún | Lonas, Carteles y Viniles`; description con "imprenta de gran formato", frontlit/backlit/mesh, HP Latex, desde $230/m² y entrega el mismo día o siguiente.
+* **Home `index.html`** (consultas con "rotulos": 177 imp/90 d, CTR 0.6%, pos. 6.6): title con la keyword primero → `Rótulos y Rotulación en Cancún | Rotulate Publicidad`; description con rótulos, anuncios luminosos, rotulación vehicular, lonas, taller propio, 25 años y cotización en 24 h.
+* `og:title`/`og:description` sincronizados en las tres páginas. Sin cambios de H1 ni de contenido.
+* **Medir:** comparar CTR de estas tres páginas en GSC a partir de ~11-oct-2026 (2 semanas tras el re-rastreo).
