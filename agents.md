@@ -10,6 +10,15 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * Commit `3e80849` subido a `main`; deploy Hostinger `36355542707` success. Home, Gran Formato, blog y Express respondieron HTTP 200 con `Rotulate` sin acento.
 
 ---
+## Cierre de sesión — 27 de septiembre de 2026
+
+* Robbie de Halloween está publicado en el hero: escoba espacial, parche mexicano en el hombro, calabaza iluminada y el estilo sencillo de la mascota. Se mantienen la flotación y la respuesta al cursor.
+* El canvas del hero muestra seis murciélagos morados y seis calabazas naranjas pequeñas; los ojos de las calabazas se encienden y apagan suavemente. Se retiraron las arañas. Los personajes solo aparecen en escritorio y se respetan las preferencias de movimiento reducido.
+* Despliegues de la mascota y partículas: `baed040` / `36353314431`; ajuste 6/6: `13756d4` / `36353576120`; calabazas: `991bde1` / `36353923756`. Los despliegues terminaron en success; `main.js?v=4.3` respondió HTTP 200 en producción.
+* La normalización de marca **Rotulate Publicidad** sin acento quedó en `3e80849` y se desplegó correctamente (`36355542707`). El verificador `scripts/check-brand-name.cjs` pasó en 59 archivos públicos. La bitácora de marca quedó versionada en `477ed56`.
+* Validaciones de partículas: sintaxis JS y pruebas locales de conteo 6/6, pausa/reanudación, movimiento reducido y ciclo de iluminación. La revisión visual final en navegador quedó pendiente porque la conexión CUA falló. Los demás cambios locales del workspace se conservaron aparte.
+
+---
 ## Calabazas en lugar de arañas — 27 de septiembre de 2026
 
 * Omar pidió sustituir las arañas por calabazas con ojos que se prendan y apaguen. Seis calabazas naranjas pequeñas con tallo, sonrisa y ojos triangulares; iluminación suave con fase individual y periodo apagado, conservando seis murciélagos. Cache-bust `main.js?v=4.3`.
