@@ -109,8 +109,10 @@
     const PRICES = {
         estandar: 230,     // Lona 13 oz Latex
         mesh: 260,         // Lona Mesh perforada
-        traslucida: 350    // Lona Translúcida (Backlight)
+        traslucida: 350,   // Lona Translúcida (Backlight)
+        economica: 120     // Lona eco-solvente: mínimo 3 m² por pedido, entrega 2-3 días
     };
+    const ECONOMICA_MIN_M2 = 3; // se suma el área de todas las piezas del pedido
 
     const widthInput = document.getElementById('lona-width');
     const heightInput = document.getElementById('lona-height');
@@ -170,12 +172,16 @@
         const grommets = rawGrommets;
         const qty = rawQty;
 
-        // Área real vs Área de cobro mínimo (1x1m por pieza)
+        // Área real vs Área de cobro mínimo:
+        // - HP Latex (estandar/mesh/traslucida): 1 m² por pieza
+        // - Económica: 3 m² sumando todas las piezas del pedido
         const rawArea = width * height;
-        const printableArea = Math.max(1.0, rawArea);
+        const isEconomica = type === 'economica';
+        const orderArea = rawArea * qty;
+        const printableArea = isEconomica ? Math.max(ECONOMICA_MIN_M2, orderArea) : Math.max(1.0, rawArea);
 
         const pricePerM2 = PRICES[type] || 230;
-        const basePrintingCost = printableArea * pricePerM2;
+        const printingTotal = isEconomica ? printableArea * pricePerM2 : printableArea * pricePerM2 * qty;
 
         // Ojillos: primer 4 pzas gratis por pieza, adicionales a $5 c/u
         const extraGrommets = Math.max(0, grommets - 4);
@@ -194,16 +200,18 @@
         }
 
         // Totales
-        const totalSinglePiece = basePrintingCost + grommetsCost;
-        const totalPrintingAllPieces = totalSinglePiece * qty;
-        const finalTotal = totalPrintingAllPieces + designCost;
+        const finalTotal = printingTotal + grommetsCost * qty + designCost;
 
         // Visual labels mapping
         const typeLabels = {
             estandar: '13 oz Calidad HP (la confiable para todos tus trabajos de promoción o publicidad)',
             mesh: 'Mesh (la que tiene hoyitos que dejan pasar el viento)',
-            traslucida: 'Translúcida (ideal para cajas de luz o anuncios luminosos)'
+            traslucida: 'Translúcida (ideal para cajas de luz o anuncios luminosos)',
+            economica: 'Económica eco-solvente (para volumen y eventos)'
         };
+        const deliveryNote = isEconomica
+            ? '🕒 Lona económica: entrega en 2 a 3 días hábiles. ¿La necesitas hoy o mañana? Elige la Lona 13 oz Calidad HP.'
+            : '';
 
         if (customDesignRequired) {
             priceDisplay.innerHTML = 'Personalizado';
@@ -213,6 +221,7 @@
                 <div class="breakdown-item"><strong>Ojillos:</strong> ${grommets} pzas por lona</div>
                 <div class="breakdown-item"><strong>Piezas:</strong> ${qty} pza(s)</div>
                 <div class="breakdown-item"><strong>Diseño:</strong> Logotipo o idea desde cero</div>
+                ${deliveryNote ? '<div class="breakdown-item bulk-note">' + deliveryNote + '</div>' : ''}
                 <div class="breakdown-item alert-msg">✨ El costo de la lona se calcula automáticamente, pero tu diseño requiere cotización personalizada. ¡Te daremos precio del diseño por WhatsApp de inmediato!</div>
             `;
         } else {
@@ -220,10 +229,12 @@
 
             let breakdownHTML = `
                 <div class="breakdown-item"><strong>Material:</strong> Lona ${typeLabels[type]} ($${pricePerM2}/m²)</div>
-                <div class="breakdown-item"><strong>Impresión:</strong> ${qty} pza(s) de ${width}m x ${height}m (${rawArea.toFixed(2)}m²) = $${(basePrintingCost * qty).toLocaleString('es-MX')} MXN</div>
+                <div class="breakdown-item"><strong>Impresión:</strong> ${qty} pza(s) de ${width}m x ${height}m (${rawArea.toFixed(2)}m²) = $${printingTotal.toLocaleString('es-MX')} MXN</div>
             `;
 
-            if (rawArea < 1.0) {
+            if (isEconomica && orderArea < ECONOMICA_MIN_M2) {
+                breakdownHTML += `<div class="breakdown-item min-charge-note">⚠️ La lona económica tiene pedido mínimo de ${ECONOMICA_MIN_M2} m² (sumando todas las piezas): se cobra el equivalente a ${ECONOMICA_MIN_M2} m² ($${(ECONOMICA_MIN_M2 * pricePerM2).toLocaleString('es-MX')} MXN). Para pedidos chicos puede convenirte la Lona 13 oz Calidad HP.</div>`;
+            } else if (!isEconomica && rawArea < 1.0) {
                 breakdownHTML += `<div class="breakdown-item min-charge-note">⚠️ Se aplica cobro mínimo de 1.0m² ($${pricePerM2} MXN) por pieza.</div>`;
             }
 
@@ -240,7 +251,11 @@
                 breakdownHTML += `<div class="breakdown-item"><strong>Diseño:</strong> Ya cuentas con diseño listo ($0)</div>`;
             }
 
-            if (qty >= 5 && rawArea < 1.0) {
+            if (deliveryNote) {
+                breakdownHTML += `<div class="breakdown-item bulk-note">${deliveryNote}</div>`;
+            }
+
+            if (!isEconomica && qty >= 5 && rawArea < 1.0) {
                 breakdownHTML += `<div class="breakdown-item bulk-note">💡 ¡Tienes un pedido de varias piezas pequeñas! Contáctanos por WhatsApp para un descuento especial agrupado.</div>`;
             }
 
@@ -255,6 +270,7 @@
         waText += `• Tipo de Lona: Lona ${typeLabels[type]}\n`;
         waText += `• Medidas: ${width}m x ${height}m\n`;
         waText += `• Cantidad: ${qty} pieza(s)\n`;
+        if (isEconomica) waText += `• Entrega: 2 a 3 días hábiles (lona económica, mínimo ${ECONOMICA_MIN_M2} m²)\n`;
         waText += `• Ojillos: ${grommets} pzas por pieza\n`;
 
         if (design === 'ninguno') {
@@ -281,7 +297,9 @@
         lastQuote = {
             material: `Lona ${typeLabels[type]}`,
             precioM2: pricePerM2,
-            medidas: `${width}m x ${height}m (${rawArea.toFixed(2)} m² reales, ${printableArea.toFixed(2)} m² de cobro)`,
+            medidas: isEconomica
+                ? `${width}m x ${height}m x ${qty} pza(s) (${orderArea.toFixed(2)} m² del pedido, ${printableArea.toFixed(2)} m² de cobro)`
+                : `${width}m x ${height}m (${rawArea.toFixed(2)} m² reales, ${printableArea.toFixed(2)} m² de cobro)`,
             piezas: qty,
             ojillos: grommets,
             diseno: design,
