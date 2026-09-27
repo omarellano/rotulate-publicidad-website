@@ -1193,3 +1193,20 @@ Acción derivada de la revisión GSC anterior. Datos por página de GSC (90 día
 * `og:title`/`og:description` sincronizados en las tres páginas. Sin cambios de H1 ni de contenido.
 * **Medir:** comparar CTR de estas tres páginas en GSC a partir de ~11-oct-2026 (2 semanas tras el re-rastreo).
 * **Commit `4b19011`**, deploy de GitHub Actions `success`; verificado en producción con `curl` (los 3 `<title>` nuevos sirven en vivo). Pendiente opcional: "Solicitar indexación" en GSC de las 3 URLs para acelerar el re-rastreo.
+
+## 📍 Revisión Google Business Profile (27-sep-2026)
+Primera revisión del panel de Rendimiento del Perfil de Negocio (abr–sep 2026). **A partir de ahora, toda revisión de rendimiento incluye GBP además de GSC** (pedido de Omar). Acceso: business.google.com/locations → "Rotúlate Publicidad" → perfil en google.com → "Rendimiento" (la cuenta administra otros 2 negocios ajenos: no tocarlos).
+
+* **Perfil:** 4.6★ con 35 reseñas (la bitácora decía 4.7). 2,535 personas vieron el perfil; ~555 el último mes.
+* **De dónde vienen:** Maps móvil 1,095 (43%) · Búsqueda móvil 807 (32%) · Búsqueda escritorio 396 (16%) · Maps escritorio 237 (9%). **75% móvil, 52% Maps.**
+* **535 interacciones:** **441 rutas "cómo llegar" (82%)** · 38 llamadas · 31 clics de chat · 25 clics al sitio. Por mes ≈ abr 48, may 82, jun 110, jul 105, ago 110, sep ~80 (mes incompleto).
+* **Llamadas al alza:** abr 0 → may 1 → jun 6 → jul 7 → ago 13 → sep 11 (parcial).
+* **Búsquedas que mostraron el perfil (36 términos):** imprenta **83** · publicidad 25 · dirección del local 19 · impresiones 18; el resto <15: anuncios publicitarios en cancun, banner, fotocopiadora, imprenta cancun, impresión en lona, impresora, lona, lonas, lonas cancun, lonas impresas cancún, lonas publicitarias, microperforado, office depot, publicidad rato cancun, rotulacion de vehiculos en cancun, rotulantes de locales, rotular, rotulista, rotulo, rotulo cancun, rotulos, rotulos cancun, rotulate publicidad (varias), tabloide, trabajos de diseñador grafico, vinil, vinil adhesivo cancun, viniles.
+* **Hallazgos:**
+  1. En Maps a Rotúlate la encuentran como **"imprenta"**, no como rotulista. El sitio casi no apunta a esa palabra (GSC: "imprenta de gran formato" pos. 18, "imprenta cancun" 1 imp).
+  2. El perfil genera sobre todo **visitas físicas** (rutas); el sitio recibe pocos clics desde GBP (25).
+  3. Búsquedas de papelería ("fotocopiadora", "office depot", "impresora", "tabloide") → tráfico poco calificado; revisar categorías secundarias del perfil.
+  4. **NAP inconsistente fuera del sitio:** directoriodeimprentas.com.mx lista "C. Samaní, 77536" con otro horario; el dominio viejo `rotulate.mx` sigue saliendo en Google con la marca.
+  5. Google sugiere "Quizás quisiste decir: Rotularte Publicidad" al buscar la marca → confusión con un competidor de nombre parecido.
+  6. El panel sugiere agregar foto exterior (ayuda a quienes piden rutas).
+* **Pendientes sugeridos:** UTM en el enlace del sitio en GBP para medirlo en GA4; revisar categorías y servicios del perfil; corregir el directorio con dirección vieja; foto exterior; campaña de reseñas (ya en backlog).
