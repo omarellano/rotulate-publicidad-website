@@ -46,7 +46,7 @@
 
     <!-- Rendimiento: precargar imagen crítica de fondo del Hero -->
     <link rel="preload" as="image" href="assets/hero-space-bg-earth.jpg" type="image/jpeg">
-    <link rel="preload" as="image" href="assets/robbie-rocket-charro-hero.webp" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/robbie-halloween-hero.webp" type="image/webp" fetchpriority="high">
 
     <!-- Rendimiento: preconectar a dominios externos -->
     <link rel="preconnect" href="https://wtljdvexsksextnhpkkd.supabase.co" crossorigin>
@@ -242,7 +242,7 @@
                 </picture>
             </div>
             <div class="hero-overlay" aria-hidden="true"></div>
-            <canvas id="hero-particles" class="hero-particles-canvas" aria-hidden="true"></canvas>
+            <canvas data-season="halloween" id="hero-particles" class="hero-particles-canvas" aria-hidden="true"></canvas>
             <div class="hero-content">
                 <h1 class="hero-title-home">Rótulos, anuncios <span class="hero-title-phrase">e impresión</span><br>en <span class="text-accent-lime">Cancún y Riviera Maya</span><br>Cotiza <span class="text-accent-lime">ahora mismo</span></h1>
                 <p>Lonas, banners, <strong>rotulación vehicular</strong>, anuncios luminosos, letras 3D y <strong>control solar 3M</strong>. Más de <strong>1,000 proyectos</strong> entregados en
@@ -306,8 +306,8 @@
             <div class="hero-visual">
                 <div class="astronaut-mascot-container">
                     <picture>
-                        <source srcset="assets/robbie-rocket-charro-hero.webp" type="image/webp">
-                        <img src="assets/robbie-rocket-charro-hero.png" alt="Robbie, la mascota charra de Rotulate, montado en un caballo cohete" class="astronaut-mascot" width="350" height="525" fetchpriority="high">
+                        <source srcset="assets/robbie-halloween-hero.webp" type="image/webp">
+                        <img src="assets/robbie-halloween-hero.png" alt="Robbie astronauta de Halloween en una escoba espacial, con calabaza iluminada y bandera de México" class="astronaut-mascot" width="850" height="1087" fetchpriority="high">
                     </picture>
                 </div>
 
@@ -917,7 +917,7 @@
     <!-- Scripts de la aplicación. Supabase, EmailJS, supabase-config.js y
          upload.js se cargan de forma diferida desde main.js cuando el
          usuario se acerca al formulario de cotización. -->
-    <script src="main.js?v=3.9" defer></script>
+    <script src="main.js?v=4.0" defer></script>
     <script src="analytics.js?v=1.1" defer></script>
   <script src="/quote-context.js?v=1" defer></script>
 </body>

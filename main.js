@@ -364,6 +364,8 @@
 
         var ctx = canvas.getContext('2d');
         var particles = [];
+        var halloween = canvas.dataset.season === 'halloween';
+        var critterIndex = 0;
         var numParticles = 65;
         var mouse = { x: null, y: null, active: false };
 
@@ -391,10 +393,15 @@
             this.vx = (Math.random() - 0.5) * 0.4;
             this.vy = (Math.random() - 0.5) * 0.4;
             this.size = Math.random() * 2 + 1;
+            this.kind = halloween && critterIndex < 8 ? (critterIndex < 6 ? 'bat' : 'spider') : null;
+            critterIndex++;
+            this.phase = Math.random() * Math.PI * 2;
+            this.scale = 0.65 + Math.random() * 0.25;
             this.color = Math.random() > 0.4 ? 'rgba(200, 241, 53, 0.7)' : 'rgba(255, 255, 255, 0.7)';
         }
 
         Particle.prototype.update = function () {
+            this.phase += 0.025;
             this.x += this.vx;
             this.y += this.vy;
 
@@ -414,7 +421,55 @@
             }
         };
 
+
+        // Tiny Halloween figures share Robbie's simple shapes and purple outlines.
+        function drawCritter(p) {
+            ctx.save();
+            ctx.translate(p.x, p.y + Math.sin(p.phase) * 3);
+            ctx.scale(p.scale, p.scale);
+            ctx.globalAlpha = 0.75;
+            ctx.strokeStyle = '#351b49';
+            ctx.fillStyle = '#9972b8';
+            ctx.lineWidth = 1.7;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            if (p.kind === 'bat') {
+                var flap = Math.sin(p.phase * 2) * 3;
+                ctx.beginPath();
+                ctx.moveTo(-2, -2);
+                ctx.quadraticCurveTo(-8, -8 + flap, -15, -6 + flap);
+                ctx.lineTo(-11, 2);
+                ctx.quadraticCurveTo(-7, -1, -5, 5);
+                ctx.lineTo(0, 3); ctx.lineTo(5, 5);
+                ctx.quadraticCurveTo(7, -1, 11, 2);
+                ctx.lineTo(15, -6 + flap);
+                ctx.quadraticCurveTo(8, -8 + flap, 2, -2);
+                ctx.closePath(); ctx.fill(); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(-3, 3);
+                ctx.lineTo(-4, -6); ctx.lineTo(0, -3);
+                ctx.lineTo(4, -6); ctx.lineTo(3, 3);
+                ctx.closePath(); ctx.fill(); ctx.stroke();
+            } else {
+                for (var side = -1; side <= 1; side += 2) {
+                    for (var leg = 0; leg < 4; leg++) {
+                        var y = -5 + leg * 3;
+                        ctx.beginPath(); ctx.moveTo(side * 3, y / 2);
+                        ctx.lineTo(side * 8, y); ctx.lineTo(side * 10, y + 3);
+                        ctx.strokeStyle = '#9972b8'; ctx.stroke();
+                    }
+                }
+                ctx.strokeStyle = '#351b49';
+                ctx.beginPath(); ctx.ellipse(0, 0, 4, 6, 0, 0, Math.PI * 2);
+                ctx.fill(); ctx.stroke();
+            }
+            ctx.fillStyle = '#fff1e8';
+            ctx.beginPath(); ctx.arc(-1.5, -1, 1, 0, Math.PI * 2);
+            ctx.arc(1.5, -1, 1, 0, Math.PI * 2); ctx.fill();
+            ctx.restore();
+        }
+
         Particle.prototype.draw = function () {
+            if (this.kind) { drawCritter(this); return; }
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fillStyle = this.color;
@@ -437,6 +492,7 @@
 
             for (var i = 0; i < particles.length; i++) {
                 var p1 = particles[i];
+                if (p1.kind) continue;
                 if (mouse.active && mouse.x !== null && mouse.y !== null) {
                     var dx = p1.x - mouse.x;
                     var dy = p1.y - mouse.y;
@@ -454,6 +510,7 @@
 
                 for (var j = i + 1; j < particles.length; j++) {
                     var p2 = particles[j];
+                    if (p2.kind) continue;
                     var dx = p1.x - p2.x;
                     var dy = p1.y - p2.y;
                     var dist = Math.sqrt(dx * dx + dy * dy);

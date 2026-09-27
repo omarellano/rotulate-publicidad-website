@@ -3,6 +3,15 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## Halloween en el hero — 27 de septiembre de 2026
+
+* Omar aprobó Robbie astronauta en escoba, calabaza iluminada y parche bordado de México en hombro derecho; solicitó reemplazar la mascota actual y añadir arañas o murciélagos pequeños a las partículas.
+* Home ES: preload y picture apuntan a `assets/robbie-halloween-hero.webp` (97,422 bytes) y fallback PNG, ambos 850×1087 con alfa. Alt y dimensiones actualizados; flotación y respuesta al cursor existentes conservadas. Original charro preservado. La home EN no contiene esa mascota/canvas.
+* `main.js`: seis murciélagos de unos 20–27 px y dos arañas de 13–18 px, dibujados en canvas con formas simples y tonos morados. Sustituyen ocho de las 65 partículas, con aleteo/balanceo; no reciben líneas de constelación. Activación limitada al canvas con `data-season="halloween"`. Se mantienen las exclusiones móvil/tablet (<969 px), movimiento reducido y pausa por IntersectionObserver. Home carga `main.js?v=4.0`.
+* Validación: `node --check main.js`, `git diff --check` y `scratch/verify-halloween.cjs` pasan (dibujo 6/2, exclusiones, pausa/reanudación y canvas sin tema). Sharp verificó transparencia y dimensiones. Revisión visual en navegador pendiente: dos intentos de CUA fallaron por `helper_unknown_error: setup refresh had errors`.
+* Estado: Omar autorizó push el 27-sep; se prepara commit aislado de Halloween y despliegue automático. Cambios previos de Express, CLAUDE.md, sitemap y carpetas ajenas conservados. Fuente aprobada generada con herramienta integrada: `.codex/generated_images/01a0e4c1-d58e-7c11-95d5-a3f8a3c67a83/exec-a043eb89-d835-45f1-959b-ec3c3cf876de.png`.
+
+---
 ## ✅ Cierre — 10 de Septiembre, 2026 (resiliencia de formulario, selector y Clarity)
 
 * Omar reportó al adjuntar `Sin título-1.png`: `StorageUnknownError: Failed to fetch` y `ERR_NAME_NOT_RESOLVED` para `wtljdvexsksextnhpkkd.supabase.co`. El diagnóstico confirmó que el fallo ocurría antes de Storage/RLS, por indisponibilidad del proyecto Supabase, no por el archivo ni el código de carga. Omar restauró el proyecto y confirmó posteriormente que el formulario ya funciona.
