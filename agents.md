@@ -5,45 +5,80 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 ---
 ## Nombre de marca normalizado — 27 de septiembre de 2026
 
-* Se fija **Rotulate Publicidad**, sin acento, según el logotipo y el dominio. Se corrigieron 180 apariciones en 44 archivos públicos: páginas ES/EN, artículos, enlaces de WhatsApp, metadatos, datos estructurados y `llms.txt`. Los registros históricos internos se conservan como fueron escritos.
-* Se añadió `scripts/check-brand-name.cjs`, ejecutable con `node scripts/check-brand-name.cjs`, para detectar futuras grafías acentuadas en archivos públicos; aprobado en 59 archivos.
-* Commit `3e80849` subido a `main`; deploy Hostinger `36355542707` success. Home, Gran Formato, blog y Express respondieron HTTP 200 con `Rotulate` sin acento.
+* Se adopta la grafía oficial **Rotulate Publicidad** sin acento, de acuerdo con el logotipo y el dominio. Se normalizaron 180 menciones en 44 archivos públicos del sitio, incluyendo páginas ES/EN, Express, blog, enlaces de WhatsApp, títulos, metadatos, schema y `llms.txt`. Los registros históricos internos se conservan como fueron escritos.
+* Se añadió `scripts/check-brand-name.cjs` para señalar futuras apariciones acentuadas en los archivos públicos. Ejecutar con `node scripts/check-brand-name.cjs`.
+* Commit `3e80849` subido a `main`; deploy Hostinger `36355542707` terminó en success. Home, Gran Formato, blog y Express responden 200 y muestran `Rotulate` sin acento. Se preservan otros cambios previos del workspace.
 
 ---
 ## Cierre de sesión — 27 de septiembre de 2026
 
-* Robbie de Halloween está publicado en el hero: escoba espacial, parche mexicano en el hombro, calabaza iluminada y el estilo sencillo de la mascota. Se mantienen la flotación y la respuesta al cursor.
-* El canvas del hero muestra seis murciélagos morados y seis calabazas naranjas pequeñas; los ojos de las calabazas se encienden y apagan suavemente. Se retiraron las arañas. Los personajes solo aparecen en escritorio y se respetan las preferencias de movimiento reducido.
-* Despliegues de la mascota y partículas: `baed040` / `36353314431`; ajuste 6/6: `13756d4` / `36353576120`; calabazas: `991bde1` / `36353923756`. Los despliegues terminaron en success; `main.js?v=4.3` respondió HTTP 200 en producción.
-* La normalización de marca **Rotulate Publicidad** sin acento quedó en `3e80849` y se desplegó correctamente (`36355542707`). El verificador `scripts/check-brand-name.cjs` pasó en 59 archivos públicos. La bitácora de marca quedó versionada en `477ed56`.
-* Validaciones de partículas: sintaxis JS y pruebas locales de conteo 6/6, pausa/reanudación, movimiento reducido y ciclo de iluminación. La revisión visual final en navegador quedó pendiente porque la conexión CUA falló. Los demás cambios locales del workspace se conservaron aparte.
-
----
-## Calabazas en lugar de arañas — 27 de septiembre de 2026
-
-* Omar pidió sustituir las arañas por calabazas con ojos que se prendan y apaguen. Seis calabazas naranjas pequeñas con tallo, sonrisa y ojos triangulares; iluminación suave con fase individual y periodo apagado, conservando seis murciélagos. Cache-bust `main.js?v=4.3`.
-* Verificación: sintaxis JS, diff check, VM de seis calabazas/seis murciélagos y exclusiones existentes; ojos comprobados apagados (alfa 0) y encendidos (0.9), sin partículas spider. Prueba de curvas ajustada para incluir las seis sonrisas nuevas. Publicación como continuación solicitada, sin cambios de Express.
+* Resultado final pedido por Omar: Robbie de Halloween en la escoba, parche de México en el hombro, seis murciélagos morados y seis calabazas naranjas pequeñas. Las calabazas tienen tallo, sonrisa y ojos triangulares que se iluminan y apagan suavemente, cada una con fase propia. Se retiraron las arañas. Cache-bust `main.js?v=4.3`.
+* Verificación: sintaxis JS, diff check y prueba local de seis calabazas/seis murciélagos, preferencias de movimiento, pausa del canvas y ciclo de ojos apagados/encendidos. Commit `991bde1`; deploy Hostinger `36353923756` success. HTTP 200 de `main.js?v=4.3` confirmó el código final en producción. No hubo revisión visual de la versión final en navegador en esta sesión.
 
 ---
 ## Patas animadas de arañas — 27 de septiembre de 2026
 
 * Omar pidió cuerpo negro y patas naranjas con movimiento. Cuerpo `#000000`, ocho patas `#ff6400` con flexión alternada al ritmo del aleteo; patas delanteras/traseras abiertas en sentidos opuestos para una silueta de araña. Se mantienen seis arañas y seis murciélagos. Cache-bust `main.js?v=4.2`.
-* Verificaciones: sintaxis JS, diff check, VM 6/6 y comprobación de coordenadas distintas entre fases, cuerpo negro y patas naranjas. Publicación como continuación del ajuste solicitado; cambios de Express excluidos.
+* Verificaciones: sintaxis JS, diff check, VM 6/6 y comprobación de coordenadas distintas entre fases, cuerpo negro y patas naranjas. Publicado en commit `1b91418`; despliegue `36353730329` success. HTTP 200 de main.js?v=4.2 confirma cuerpo negro y patas animadas. Cambios de Express excluidos.
 
 ---
-## Ajuste de partículas de Halloween — 27 de septiembre de 2026
+## Iteraciones previas de partículas de Halloween — 27 de septiembre de 2026
 
-* A petición de Omar, seis arañas y seis murciélagos. Arañas con cuerpo y patas Blaze Orange `#ff6400`; murciélagos morados. Total de 65 partículas conservado; doce son figuras. Home carga `main.js?v=4.1`.
-* Verificado: sintaxis JS, diff check y prueba VM actualizada (6/6, móvil, movimiento reducido, pausa/reanudación y canvas sin tema). Se publica como continuación del cambio autorizado de Halloween, excluyendo pendientes de Express.
+* Iteración intermedia: seis arañas naranjas y seis murciélagos morados, después reemplazada por calabazas a petición de Omar. Total de 65 partículas; doce son figuras. Home carga finalmente `main.js?v=4.3`.
+* Verificado: sintaxis JS, diff check y prueba VM actualizada (6/6, móvil, movimiento reducido, pausa/reanudación y canvas sin tema). Publicado en commit `13756d4`; despliegue `36353576120` success. HTTP 200 de main.js?v=4.1 confirma doce figuras y color naranja en producción. Pendientes de Express excluidos.
 
 ---
-## Halloween en el hero — 27 de septiembre de 2026
+## Mascota de Halloween en el hero — 27 de septiembre de 2026
 
 * Omar aprobó Robbie astronauta en escoba, calabaza iluminada y parche bordado de México en hombro derecho; solicitó reemplazar la mascota actual y añadir arañas o murciélagos pequeños a las partículas.
 * Home ES: preload y picture apuntan a `assets/robbie-halloween-hero.webp` (97,422 bytes) y fallback PNG, ambos 850×1087 con alfa. Alt y dimensiones actualizados; flotación y respuesta al cursor existentes conservadas. Original charro preservado. La home EN no contiene esa mascota/canvas.
 * `main.js`: seis murciélagos de unos 20–27 px y dos arañas de 13–18 px, dibujados en canvas con formas simples y tonos morados. Sustituyen ocho de las 65 partículas, con aleteo/balanceo; no reciben líneas de constelación. Activación limitada al canvas con `data-season="halloween"`. Se mantienen las exclusiones móvil/tablet (<969 px), movimiento reducido y pausa por IntersectionObserver. Home carga `main.js?v=4.0`.
 * Validación: `node --check main.js`, `git diff --check` y `scratch/verify-halloween.cjs` pasan (dibujo 6/2, exclusiones, pausa/reanudación y canvas sin tema). Sharp verificó transparencia y dimensiones. Revisión visual en navegador pendiente: dos intentos de CUA fallaron por `helper_unknown_error: setup refresh had errors`.
-* Estado: Omar autorizó push el 27-sep; se prepara commit aislado de Halloween y despliegue automático. Cambios previos de Express, CLAUDE.md, sitemap y carpetas ajenas conservados. Fuente aprobada generada con herramienta integrada: `.codex/generated_images/01a0e4c1-d58e-7c11-95d5-a3f8a3c67a83/exec-a043eb89-d835-45f1-959b-ec3c3cf876de.png`.
+* Estado: commit `baed040` subido a main por autorización de Omar. Deploy to Hostinger `36353314431` terminó en success. Cambios previos de Express, CLAUDE.md, sitemap y carpetas ajenas conservados. La imagen fuente generada se conservó fuera del repositorio en: `.codex/generated_images/01a0e4c1-d58e-7c11-95d5-a3f8a3c67a83/exec-a043eb89-d835-45f1-959b-ec3c3cf876de.png`.
+
+---
+## Pausa de sesión — 14 de septiembre de 2026
+
+* Omar pidió terminar la sesión sin publicar todavía. La ampliación de paleta y los fondos claros de Express quedan únicamente en el workspace local; **no hay autorización para commit, push ni subida a `main`** en esta sesión.
+* Mañana se retomará la revisión visual y se decidirá si se conservan Lavender Mist `#f1efff` y Peach Mist `#fff1e8`, o si requieren ajustes antes de publicar. Grey Olive `#9b9b9b` queda disponible como apoyo, pero ya no se usa como fondo principal de las secciones Express.
+* Estado verificado al cerrar: `scratch/verify-express-2026-09-14.cjs`, auditoría de estructura HTML (41 archivos) y `git diff --check` pasan; Chrome local revisado en móvil de 390 px y escritorio, sin overflow horizontal. No se enviaron formularios ni mensajes de WhatsApp.
+
+---
+## Ajuste visual y tecnología HP Latex en Express — 14 de septiembre de 2026
+
+* Omar pidió corregir «Listo ese mismo día entrega en nuestro taller» y reducir el predominio azul. La tarjeta de corte ahora muestra «Listo ese mismo día · Entrega en nuestro taller» (EN: «Ready the same day · Workshop collection») en peso 800. Para evitar el gris como fondo, se agregaron a la paleta Lavender Mist `#f1efff` y Peach Mist `#fff1e8`; Express usa Lavender Mist en Servicios, Peach Mist en Galería y CTA final, White en FAQ y Blaze Orange en Proceso. Las tarjetas oscuras conservan Deep Twilight y los acentos Lime para mantener contraste y jerarquía.
+* También se incorporó HP Latex en el hero, la introducción de servicios y metadatos ES/EN, asociándolo con color uniforme, calidad fotográfica y mayor durabilidad. La promesa temporal continúa ligada a encargar y pagar antes de las 11:00 a. m.; no se añadió una especificación técnica no confirmada.
+* Revisión visual en Chrome local a 390 px: hero, servicios en Lavender Mist, galería en Peach Mist, proceso en Blaze Orange, FAQ en White y CTA final en Peach Mist; sin overflow horizontal y con tarjetas/CTA legibles. A 320 px se conservan reglas de una columna, CTA de ancho completo y se oculta el texto secundario de la tarjeta de deadline para evitar compresión. Cache-bust CSS actualizado a `/express/express.css?v=3`; el verificador `scratch/verify-express-2026-09-14.cjs` ahora contempla los siete tonos. `git diff --check` correcto. Cambios locales sin commit/push/deploy.
+
+---
+## Texto de pago en Express — 14 de septiembre de 2026
+
+* Omar pidió corregir la línea de condiciones del hero a «Lunes a domingo · Mínimo 2 m² · Con cargo adicional y pago al ordenar». Aplicado en Express ES y traducido en EN. Solo texto HTML, sin cambios CSS/JS ni publicación.
+
+---
+## Iconos propios de Express — 14 de septiembre de 2026
+
+* Omar rechazó los iconos genéricos de los servicios. Se sustituyeron en Express ES/EN por SVG propios: lona tensada con cuatro ojillos, rollo de vinil con gráfica impresa y hoja de transferencia con letra recortada y esquina levantada. Trazos redondeados, colores heredados de la paleta oficial, tamaño 56 px, decorativos con `aria-hidden="true"` y `focusable="false"`.
+* Cache-bust de ambas páginas: `/express/express.css?v=2`; JS permanece v1. Verificación visual en Chrome local y `git diff --check`. Cambios locales sin commit/push/deploy; se conserva el rediseño anterior.
+
+---
+## Rediseño de Express implementado en local — 14 de septiembre de 2026
+
+* Omar pidió planificar y después autorizó empezar los cambios de UI/UX y una galería pequeña. Se implementaron `express/index.html` y `express/en/index.html`, con CSS compartido nuevo `/express/express.css?v=1` y mejora progresiva `/express/express.js?v=1`. El CSS compilado y `navigation.css` anteriores permanecen en disco pero estas dos páginas ya no los cargan. No se cambió el diseño global de la home ni de Lonas.
+* Condiciones confirmadas directamente por Omar: lunes a domingo; encargar y pagar antes de las 11:00 a. m. para tener la impresión el mismo día; después de las 11 se toma como pedido del día siguiente; mínimo de impresión Express 2 m²; cargo adicional al servicio normal, sin importe aún definido; entrega en taller; envío opcional por Uber/DiDi con costo según distancia y horario. Se sustituyó la promesa anterior de 24 horas por la regla de corte confirmada. El plazo de impresión se distingue del traslado.
+* Paleta exacta de marca y Space Grotesk: hero con foto real y condiciones junto al CTA, cabecera adaptable, tres servicios con mensajes de WhatsApp específicos, proceso de tres pasos, entrega y seis FAQ visibles en ambos idiomas. Botón móvil inferior con espacio reservado; se oculta mientras existe el aviso de consentimiento o está abierta la galería. El aviso compartido conserva su comportamiento y recibe traducción local en Express EN.
+* Galería fija de seis fotos existentes revisadas visualmente: `galeria-071`, `029`, `084`, `107`, `088`, `053` (escaparate, fondo de evento, gráfica comercial, puertas de cristal, interior y etiquetas). Miniaturas existentes con carga diferida y dimensiones reales. No se generaron fotografías nuevas ni se atribuyeron entregas Express a esos trabajos; el texto aclara que las aplicaciones terminadas son portafolio y la oferta corresponde a impresión con entrega en taller.
+* Ampliación mediante `dialog` nativo, controles anterior/siguiente, flechas del teclado, Escape y devolución del foco. Sin JS, los enlaces conservan el acceso al archivo de imagen y las FAQ usan `details/summary`; esta alternativa se comprobó en el marcado, no con JS desactivado en navegador.
+* Metadatos, Open Graph, Twitter y descripciones de schema ajustados a las condiciones nuevas; seis FAQ por idioma coinciden exactamente con JSON-LD. Se retiraron las horas L–V 08–18 del schema de Express porque no describían el servicio confirmado y no se inventó horario de apertura/cierre diario. Se conservaron canonical/hreflang, teléfono, enlaces de Gran Formato/Lonas y anclas históricas EN mediante alias. Sitemap: solo fechas de Express ES/EN a 14-sep.
+* Verificación local: `node --check express/express.js`, `scratch/verify-express-2026-09-14.cjs` (recursos, destinos WhatsApp, dimensiones, paleta, H1 y FAQ) y `git diff --check`. Auditoría estática del sitio: 40 HTML, 110 JSON-LD válidos, sin enlaces/anclas rotos, errores hreflang, títulos/descripciones duplicados exactos ni problemas de H1; salida en `scratch/express-audit-2026-09-14/`. Sin solicitudes HTTP a producción de este bloque.
+* Revisión real en Chrome local: ES a 320/360/390/768/1024/1440 px sin overflow horizontal; EN a 320/390/1440 px. Hero, servicios, galería, proceso y FAQ revisados visualmente; FAQ abierta con Enter, cambio de foto con flecha, Escape devuelve foco, foto vertical completa. EN: siete imágenes de hero/galería cargadas; aviso de privacidad traducido y CTA móvil oculto hasta rechazar el aviso. La consola mostró avisos de canal de mensajería de extensión; no se certifica consola completamente limpia ni auditoría integral de accesibilidad/Core Web Vitals.
+* Estado: cambios locales, sin commit/push/deploy ni envíos de WhatsApp/formularios. Vista previa en Chrome: `http://127.0.0.1:8765/express/`, servidor existente de scratch solo loopback. Pendiente revisión de Omar y publicación; las carpetas locales ajenas y los scripts/evidencias de scratch siguen fuera de los archivos del sitio a publicar.
+
+---
+## Paleta oficial guardada — 14 de septiembre de 2026
+
+* Omar proporcionó la paleta exacta y pidió conservarla para futuros proyectos de Rotúlate: Deep Twilight `#000052`, Lime `#00ff00`, Blaze Orange `#ff6400`, Grey Olive `#9b9b9b` y White `#ffffff`. El 14-sep añadió Lavender Mist `#f1efff` y Peach Mist `#fff1e8` para fondos claros de Express sin depender del gris. Guía permanente en «Estilo y Marca» de `CLAUDE.md`; sustituye el lima `#C8F135` indicado anteriormente.
+* El plan de rediseño de Express debe respetar esta paleta, Space Grotesk y la identidad del sitio. Esta actualización solo guarda instrucciones de marca; no modifica CSS/HTML público ni implementa el rediseño. Sin commit, push ni despliegue.
 
 ---
 ## ✅ Cierre — 10 de Septiembre, 2026 (resiliencia de formulario, selector y Clarity)

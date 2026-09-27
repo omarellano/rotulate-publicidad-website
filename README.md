@@ -1,6 +1,6 @@
-# Rotúlate Publicidad — Sitio Web Comercial
+# Rotulate Publicidad — Sitio Web Comercial
 
-Este es el repositorio del sitio web principal de **Rotúlate Publicidad**, una empresa líder en servicios de impresión en gran formato, rotulación vehicular, letras 3D, y publicidad exterior e interior basada en Cancún, Quintana Roo.
+Este es el repositorio del sitio web principal de **Rotulate Publicidad**, una empresa líder en servicios de impresión en gran formato, rotulación vehicular, letras 3D, y publicidad exterior e interior basada en Cancún, Quintana Roo.
 
 El sitio es **100% estático** (construido con HTML5, CSS3 vanilla y JavaScript moderno), lo que garantiza tiempos de carga ultrarrápidos, alta seguridad y excelente rendimiento de SEO local.
 

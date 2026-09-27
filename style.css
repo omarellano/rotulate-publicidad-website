@@ -190,7 +190,7 @@ header.scrolled {
 }
 
 .logo-img {
-    height: 36px;
+    height: 43.2px;
     width: auto;
     object-fit: contain;
     filter: brightness(1);
@@ -2247,7 +2247,7 @@ nav a.active::after {
     }
 
     .logo-img {
-        height: 36px;
+        height: 43.2px;
     }
 
     .header-cta {

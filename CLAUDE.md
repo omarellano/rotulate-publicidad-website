@@ -66,5 +66,12 @@ Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulació
 - **Bitácora Única (Evitar Duplicaciones):** `agents.md` es la única bitácora. `CLAUDE.md` se reserva estrictamente para guías técnicas, de estilo y reglas.
 
 ## Estilo y Marca
-- Nombre oficial de marca: **Rotulate Publicidad**, sin acento, conforme al logotipo y al dominio. Mantener esta grafía en el texto del sitio, metadatos, datos estructurados, mensajes prellenados y material nuevo.
-- Todo diseño nuevo debe seguir el estilo existente del sitio: tema oscuro glassmorphism (`rgba(255,255,255,0.04)` en cards), acento lima `#C8F135` (`.text-accent-lime`), tipografía Space Grotesk, y reutilizar clases existentes (`.section-title`, `.faq-item`, `.cta-button`, etc.)
+- Paleta oficial confirmada para Rotulate Publicidad por Omar el 14-sep-2026 para Express y futuros proyectos de la marca. Usar estos valores exactos; reemplaza la referencia anterior a lima `#C8F135`:
+  - Deep Twilight: `#000052` — RGB (0, 0, 82).
+  - Lime: `#00ff00` — RGB (0, 255, 0).
+  - Blaze Orange: `#ff6400` — RGB (255, 100, 0).
+  - Grey Olive: `#9b9b9b` — RGB (155, 155, 155).
+  - White: `#ffffff` — RGB (255, 255, 255).
+  - Lavender Mist: `#f1efff` — RGB (241, 239, 255), tono claro para fondos de sección sin recurrir al gris.
+  - Peach Mist: `#fff1e8` — RGB (255, 241, 232), tono cálido para fondos de sección y bloques de conversión.
+- Todo diseño nuevo debe seguir la identidad del sitio: tema oscuro, tarjetas translúcidas (`rgba(255,255,255,0.04)`), tipografía Space Grotesk y componentes coherentes con los existentes (`.section-title`, `.faq-item`, `.cta-button`, etc.). Comprobar contraste al combinar los colores oficiales.
