@@ -393,7 +393,7 @@
             this.vx = (Math.random() - 0.5) * 0.4;
             this.vy = (Math.random() - 0.5) * 0.4;
             this.size = Math.random() * 2 + 1;
-            this.kind = halloween && critterIndex < 8 ? (critterIndex < 6 ? 'bat' : 'spider') : null;
+            this.kind = halloween && critterIndex < 12 ? (critterIndex < 6 ? 'bat' : 'spider') : null;
             critterIndex++;
             this.phase = Math.random() * Math.PI * 2;
             this.scale = 0.65 + Math.random() * 0.25;
@@ -429,7 +429,7 @@
             ctx.scale(p.scale, p.scale);
             ctx.globalAlpha = 0.75;
             ctx.strokeStyle = '#351b49';
-            ctx.fillStyle = '#9972b8';
+            ctx.fillStyle = p.kind === 'spider' ? '#ff6400' : '#9972b8';
             ctx.lineWidth = 1.7;
             ctx.lineJoin = 'round';
             ctx.lineCap = 'round';
@@ -455,7 +455,7 @@
                         var y = -5 + leg * 3;
                         ctx.beginPath(); ctx.moveTo(side * 3, y / 2);
                         ctx.lineTo(side * 8, y); ctx.lineTo(side * 10, y + 3);
-                        ctx.strokeStyle = '#9972b8'; ctx.stroke();
+                        ctx.strokeStyle = '#ff6400'; ctx.stroke();
                     }
                 }
                 ctx.strokeStyle = '#351b49';

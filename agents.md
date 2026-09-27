@@ -3,6 +3,12 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## Ajuste de partículas de Halloween — 27 de septiembre de 2026
+
+* A petición de Omar, seis arañas y seis murciélagos. Arañas con cuerpo y patas Blaze Orange `#ff6400`; murciélagos morados. Total de 65 partículas conservado; doce son figuras. Home carga `main.js?v=4.1`.
+* Verificado: sintaxis JS, diff check y prueba VM actualizada (6/6, móvil, movimiento reducido, pausa/reanudación y canvas sin tema). Se publica como continuación del cambio autorizado de Halloween, excluyendo pendientes de Express.
+
+---
 ## Halloween en el hero — 27 de septiembre de 2026
 
 * Omar aprobó Robbie astronauta en escoba, calabaza iluminada y parche bordado de México en hombro derecho; solicitó reemplazar la mascota actual y añadir arañas o murciélagos pequeños a las partículas.
