@@ -1220,3 +1220,11 @@ Primera revisión del panel de Rendimiento del Perfil de Negocio (abr–sep 2026
 * **Etiquetas:** menú "Gran formato y viniles" → "Viniles, banners y carteles" (27 páginas, incluido el blog); tarjeta en la home → "Imprenta: Viniles, Banners y Carteles"; tarjeta relacionada en `rotulacion-vehicular.html` → "Viniles, Banners y Carteles / Imprenta digital en Cancún"; Playa del Carmen y Tulum "Lonas y gran formato" → "Lonas publicitarias" (enlazan a `/lonas-cancun/`).
 * **Decisiones:** el title de `/lonas-cancun/` se queda en "desde $230/m²" (opción A de Omar); revisarlo cuando haya datos de la lona económica. No se tocaron las páginas en inglés ni `express/` (tiene el rediseño sin publicar; su footer aún dice "Gran formato").
 * **Commit `d599b8f`**, deploy GitHub Actions `success`. Verificado en producción con `curl`: nuevo title y H1 de `gran-formato.html`, precio $120 en la description, opción `economica` y `main.js?v=3.4` servidos en `/lonas-cancun/`, y etiquetas nuevas en la home. Medir en GSC/GBP desde ~11-oct-2026 junto con los cambios de CTR del mismo día.
+
+## 🏷️ Revisión de categorías de Google Business Profile (27-sep-2026)
+Solo lectura; no se guardó nada en el perfil.
+
+* **Google propone un cambio de categorías pendiente de aceptar** (aviso "Google actualizó la categoría de tu empresa" con botón Aceptar): quita **Agencia de publicidad (PRINCIPAL)** y deja Imprenta, Diseñador gráfico, Impresora comercial, Servicio de impresión digital y Servicio de rotulación de vehículos. El panel público aún muestra "Agencia de publicidad en Cancún".
+* Dato clave: las 83 búsquedas de "imprenta" llegaron con Imprenta como categoría **secundaria**; no hace falta volverla principal para aparecer en esas búsquedas.
+* **Otros hallazgos del editor:** la descripción dice "En **RTMX** Publicidad…" (marca inconsistente con "Rotúlate Publicidad"); aviso en Ubicación "Se deben actualizar algunos de tus datos" (dirección: Cenote Lagarto de Oro, Smza 107, 77539); enlace del sitio sin UTM (`https://rotulatepublicidad.com/`); apertura mayo 2001; WhatsApp como chat principal.
+* **Pendiente decisión de Omar:** categoría principal y secundarias (propuesta en la conversación del 27-sep), corrección de la descripción, revisar el aviso de ubicación y agregar UTM.
