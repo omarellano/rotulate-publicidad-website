@@ -1235,3 +1235,4 @@ Solo lectura; no se guardó nada en el perfil.
   * Pendiente: comprobar en unos días que Google aprobó las ediciones; vigilar si "polarizado de ventanas" atrae búsquedas de polarizado automotriz; revisar el aviso de Ubicación.
   * **Actualización:** Omar guardó el enlace con UTM; verificado en el editor como "PENDIENTE" (en revisión de Google). En GA4, las visitas desde el perfil aparecerán como `google / organic`, campaña `gbp`.
   * **Hallazgo nuevo:** en Ubicación, "Áreas de servicio" solo lista **Tulum, Q.R.**; faltan Cancún, Playa del Carmen, Isla Mujeres y Cozumel (la descripción dice que se atienden). Pendiente decisión de Omar.
+  * **Actualización:** Omar agregó las áreas de servicio faltantes en GBP (reportado por Omar, no verificado en el editor). Revisar en la próxima consulta de rendimiento que Google las aprobó junto con categorías, descripción y UTM.
