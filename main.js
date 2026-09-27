@@ -393,7 +393,7 @@
             this.vx = (Math.random() - 0.5) * 0.4;
             this.vy = (Math.random() - 0.5) * 0.4;
             this.size = Math.random() * 2 + 1;
-            this.kind = halloween && critterIndex < 12 ? (critterIndex < 6 ? 'bat' : 'spider') : null;
+            this.kind = halloween && critterIndex < 12 ? (critterIndex < 6 ? 'bat' : 'pumpkin') : null;
             critterIndex++;
             this.phase = Math.random() * Math.PI * 2;
             this.scale = 0.65 + Math.random() * 0.25;
@@ -429,7 +429,7 @@
             ctx.scale(p.scale, p.scale);
             ctx.globalAlpha = 0.75;
             ctx.strokeStyle = '#351b49';
-            ctx.fillStyle = p.kind === 'spider' ? '#000000' : '#9972b8';
+            ctx.fillStyle = p.kind === 'pumpkin' ? '#ff6400' : '#9972b8';
             ctx.lineWidth = 1.7;
             ctx.lineJoin = 'round';
             ctx.lineCap = 'round';
@@ -450,21 +450,27 @@
                 ctx.lineTo(4, -6); ctx.lineTo(3, 3);
                 ctx.closePath(); ctx.fill(); ctx.stroke();
             } else {
-                for (var side = -1; side <= 1; side += 2) {
-                    for (var leg = 0; leg < 4; leg++) {
-                        var y = -5 + leg * 3;
-                        // Alternate the eight legs, matching the gentle wingbeat tempo.
-                        var step = Math.sin(p.phase * 2 + leg * Math.PI / 2 + side) * 2;
-                        var spread = leg < 2 ? -1 : 1;
-                        ctx.beginPath(); ctx.moveTo(side * 3, y / 2);
-                        ctx.lineTo(side * (7 + step * 0.35), y + spread * 2);
-                        ctx.lineTo(side * (10 + step * 0.5), y + spread * 5 + step);
-                        ctx.strokeStyle = '#ff6400'; ctx.stroke();
-                    }
-                }
-                ctx.strokeStyle = '#351b49';
-                ctx.beginPath(); ctx.ellipse(0, 0, 4, 6, 0, 0, Math.PI * 2);
+                // Compact jack-o-lantern with a slow, independently phased eye glow.
+                ctx.beginPath(); ctx.ellipse(0, 1, 9, 7, 0, 0, Math.PI * 2);
                 ctx.fill(); ctx.stroke();
+                ctx.strokeStyle = '#b83f00'; ctx.lineWidth = 0.8;
+                ctx.beginPath(); ctx.ellipse(0, 1, 4.5, 7, 0, 0, Math.PI * 2); ctx.stroke();
+                ctx.strokeStyle = '#9972b8'; ctx.lineWidth = 2.5;
+                ctx.beginPath(); ctx.moveTo(0, -6); ctx.lineTo(1, -9); ctx.stroke();
+                ctx.fillStyle = '#351b49';
+                ctx.beginPath(); ctx.moveTo(-5, 3); ctx.lineTo(-2, 4);
+                ctx.lineTo(0, 3); ctx.lineTo(2, 4); ctx.lineTo(5, 3);
+                ctx.quadraticCurveTo(0, 10, -5, 3); ctx.fill();
+                ctx.beginPath();
+                ctx.moveTo(-6, 0); ctx.lineTo(-3, -3); ctx.lineTo(-1, 0); ctx.closePath();
+                ctx.moveTo(1, 0); ctx.lineTo(3, -3); ctx.lineTo(6, 0); ctx.closePath();
+                ctx.fill();
+                var glow = Math.max(0, Math.sin(p.phase));
+                ctx.globalAlpha = 0.9 * glow;
+                ctx.fillStyle = '#fff3a3'; ctx.shadowColor = '#ffcc33';
+                ctx.shadowBlur = 5 * glow; ctx.fill();
+                ctx.restore();
+                return;
             }
             ctx.fillStyle = '#fff1e8';
             ctx.beginPath(); ctx.arc(-1.5, -1, 1, 0, Math.PI * 2);

@@ -3,6 +3,12 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## Calabazas en lugar de arañas — 27 de septiembre de 2026
+
+* Omar pidió sustituir las arañas por calabazas con ojos que se prendan y apaguen. Seis calabazas naranjas pequeñas con tallo, sonrisa y ojos triangulares; iluminación suave con fase individual y periodo apagado, conservando seis murciélagos. Cache-bust `main.js?v=4.3`.
+* Verificación: sintaxis JS, diff check, VM de seis calabazas/seis murciélagos y exclusiones existentes; ojos comprobados apagados (alfa 0) y encendidos (0.9), sin partículas spider. Prueba de curvas ajustada para incluir las seis sonrisas nuevas. Publicación como continuación solicitada, sin cambios de Express.
+
+---
 ## Patas animadas de arañas — 27 de septiembre de 2026
 
 * Omar pidió cuerpo negro y patas naranjas con movimiento. Cuerpo `#000000`, ocho patas `#ff6400` con flexión alternada al ritmo del aleteo; patas delanteras/traseras abiertas en sentidos opuestos para una silueta de araña. Se mantienen seis arañas y seis murciélagos. Cache-bust `main.js?v=4.2`.
