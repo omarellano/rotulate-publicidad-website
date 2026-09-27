@@ -1192,3 +1192,4 @@ Acción derivada de la revisión GSC anterior. Datos por página de GSC (90 día
 * **Home `index.html`** (consultas con "rotulos": 177 imp/90 d, CTR 0.6%, pos. 6.6): title con la keyword primero → `Rótulos y Rotulación en Cancún | Rotulate Publicidad`; description con rótulos, anuncios luminosos, rotulación vehicular, lonas, taller propio, 25 años y cotización en 24 h.
 * `og:title`/`og:description` sincronizados en las tres páginas. Sin cambios de H1 ni de contenido.
 * **Medir:** comparar CTR de estas tres páginas en GSC a partir de ~11-oct-2026 (2 semanas tras el re-rastreo).
+* **Commit `4b19011`**, deploy de GitHub Actions `success`; verificado en producción con `curl` (los 3 `<title>` nuevos sirven en vivo). Pendiente opcional: "Solicitar indexación" en GSC de las 3 URLs para acelerar el re-rastreo.
