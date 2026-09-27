@@ -3,6 +3,13 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotulate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## Nombre de marca normalizado — 27 de septiembre de 2026
+
+* Se fija **Rotulate Publicidad**, sin acento, según el logotipo y el dominio. Se corrigieron 180 apariciones en 44 archivos públicos: páginas ES/EN, artículos, enlaces de WhatsApp, metadatos, datos estructurados y `llms.txt`. Los registros históricos internos se conservan como fueron escritos.
+* Se añadió `scripts/check-brand-name.cjs`, ejecutable con `node scripts/check-brand-name.cjs`, para detectar futuras grafías acentuadas en archivos públicos; aprobado en 59 archivos.
+* Commit `3e80849` subido a `main`; deploy Hostinger `36355542707` success. Home, Gran Formato, blog y Express respondieron HTTP 200 con `Rotulate` sin acento.
+
+---
 ## Calabazas en lugar de arañas — 27 de septiembre de 2026
 
 * Omar pidió sustituir las arañas por calabazas con ojos que se prendan y apaguen. Seis calabazas naranjas pequeñas con tallo, sonrisa y ojos triangulares; iluminación suave con fase individual y periodo apagado, conservando seis murciélagos. Cache-bust `main.js?v=4.3`.
