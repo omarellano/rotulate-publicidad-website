@@ -1233,3 +1233,5 @@ Solo lectura; no se guardó nada en el perfil.
   * **Descripción:** "En RTMX Publicidad…" → "En Rotúlate Publicidad…" (resto igual, 738/750 caracteres).
   * **Sitio web con UTM:** `https://rotulatepublicidad.com/?utm_source=google&utm_medium=organic&utm_campaign=gbp` escrito en el editor pero **NO guardado** (el clasificador de permisos bloqueó la acción); queda para que Omar lo guarde.
   * Pendiente: comprobar en unos días que Google aprobó las ediciones; vigilar si "polarizado de ventanas" atrae búsquedas de polarizado automotriz; revisar el aviso de Ubicación.
+  * **Actualización:** Omar guardó el enlace con UTM; verificado en el editor como "PENDIENTE" (en revisión de Google). En GA4, las visitas desde el perfil aparecerán como `google / organic`, campaña `gbp`.
+  * **Hallazgo nuevo:** en Ubicación, "Áreas de servicio" solo lista **Tulum, Q.R.**; faltan Cancún, Playa del Carmen, Isla Mujeres y Cozumel (la descripción dice que se atienden). Pendiente decisión de Omar.
