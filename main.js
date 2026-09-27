@@ -429,7 +429,7 @@
             ctx.scale(p.scale, p.scale);
             ctx.globalAlpha = 0.75;
             ctx.strokeStyle = '#351b49';
-            ctx.fillStyle = p.kind === 'spider' ? '#ff6400' : '#9972b8';
+            ctx.fillStyle = p.kind === 'spider' ? '#000000' : '#9972b8';
             ctx.lineWidth = 1.7;
             ctx.lineJoin = 'round';
             ctx.lineCap = 'round';
@@ -453,8 +453,12 @@
                 for (var side = -1; side <= 1; side += 2) {
                     for (var leg = 0; leg < 4; leg++) {
                         var y = -5 + leg * 3;
+                        // Alternate the eight legs, matching the gentle wingbeat tempo.
+                        var step = Math.sin(p.phase * 2 + leg * Math.PI / 2 + side) * 2;
+                        var spread = leg < 2 ? -1 : 1;
                         ctx.beginPath(); ctx.moveTo(side * 3, y / 2);
-                        ctx.lineTo(side * 8, y); ctx.lineTo(side * 10, y + 3);
+                        ctx.lineTo(side * (7 + step * 0.35), y + spread * 2);
+                        ctx.lineTo(side * (10 + step * 0.5), y + spread * 5 + step);
                         ctx.strokeStyle = '#ff6400'; ctx.stroke();
                     }
                 }

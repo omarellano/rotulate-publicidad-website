@@ -3,6 +3,12 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotúlate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## Patas animadas de arañas — 27 de septiembre de 2026
+
+* Omar pidió cuerpo negro y patas naranjas con movimiento. Cuerpo `#000000`, ocho patas `#ff6400` con flexión alternada al ritmo del aleteo; patas delanteras/traseras abiertas en sentidos opuestos para una silueta de araña. Se mantienen seis arañas y seis murciélagos. Cache-bust `main.js?v=4.2`.
+* Verificaciones: sintaxis JS, diff check, VM 6/6 y comprobación de coordenadas distintas entre fases, cuerpo negro y patas naranjas. Publicación como continuación del ajuste solicitado; cambios de Express excluidos.
+
+---
 ## Ajuste de partículas de Halloween — 27 de septiembre de 2026
 
 * A petición de Omar, seis arañas y seis murciélagos. Arañas con cuerpo y patas Blaze Orange `#ff6400`; murciélagos morados. Total de 65 partículas conservado; doce son figuras. Home carga `main.js?v=4.1`.
