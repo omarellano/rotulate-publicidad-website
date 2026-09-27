@@ -159,7 +159,7 @@
             breakdownDisplay.innerHTML = '<div class="breakdown-item min-charge-note">' +
                 errors.map(function (e) { return '⚠️ ' + e; }).join('<br>') + '</div>';
             waButton.href = 'https://wa.me/529984007987?text=' + encodeURIComponent(
-                'Hola Rotúlate, quiero cotizar una lona pero necesito ayuda con las medidas.');
+                'Hola Rotulate, quiero cotizar una lona pero necesito ayuda con las medidas.');
             waButton.setAttribute('aria-disabled', 'true');
             waButton.style.opacity = '0.6';
             return;
@@ -265,8 +265,8 @@
         // WhatsApp message generator
         const nombre = nombreInput ? nombreInput.value.trim().slice(0, 100) : '';
         let waText = nombre
-            ? `Hola Rotúlate, soy ${nombre}, me gustaría cotizar una lona con las siguientes especificaciones:\n\n`
-            : `Hola Rotúlate, me gustaría cotizar una lona con las siguientes especificaciones:\n\n`;
+            ? `Hola Rotulate, soy ${nombre}, me gustaría cotizar una lona con las siguientes especificaciones:\n\n`
+            : `Hola Rotulate, me gustaría cotizar una lona con las siguientes especificaciones:\n\n`;
         waText += `• Tipo de Lona: Lona ${typeLabels[type]}\n`;
         waText += `• Medidas: ${width}m x ${height}m\n`;
         waText += `• Cantidad: ${qty} pieza(s)\n`;

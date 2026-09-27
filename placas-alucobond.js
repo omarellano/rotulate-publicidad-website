@@ -27,7 +27,7 @@
         var total = qty * PRICE;
         totalEl.textContent = '$' + total.toLocaleString('es-MX') + ' MXN';
 
-        var msg = 'Hola Rotúlate, quiero cotizar ' + qty + ' hoja(s) de placa de alucobond color ' + selectedColor + '.';
+        var msg = 'Hola Rotulate, quiero cotizar ' + qty + ' hoja(s) de placa de alucobond color ' + selectedColor + '.';
         waLink.href = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg);
     }
 

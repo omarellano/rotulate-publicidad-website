@@ -1,4 +1,4 @@
-/* Supabase Configuration — Rotúlate Publicidad */
+/* Supabase Configuration — Rotulate Publicidad */
 
 const SUPABASE_URL = "https://wtljdvexsksextnhpkkd.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind0bGpkdmV4c2tzZXh0bmhwa2tkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDg3MjUsImV4cCI6MjA5NjE4NDcyNX0.JtM9gA7JrdSkUvyUYUSNL5z1Gs5IzHAYxQ5yNsOGq2s";

@@ -4,7 +4,7 @@ Capturado del SPA en producción el 5-jul-2026 para la reconstrucción como HTML
 Estructura de referencia: `express/en/index.html` (ya estático, mismo diseño Tailwind compilado `../assets/index-b314nm7x.css`).
 
 ## Head
-- Title: Impresión de Lonas y Viniles Urgentes en Cancún | Rotúlate Publicidad
+- Title: Impresión de Lonas y Viniles Urgentes en Cancún | Rotulate Publicidad
 - Description: Impresión urgente de lonas y viniles en Cancún. Entrega en 24 horas, calidad fotográfica y precios competitivos. Cotiza ahora por WhatsApp.
 - Canonical: https://rotulatepublicidad.com/express/
 - hreflang: es → /express/, en → /express/en/, x-default → /express/
@@ -42,7 +42,7 @@ CTA: SOLICITAR COTIZACIÓN
 ## Footer
 - Logo + "Soluciones Gráficas Express en Cancún"
 - +52 998 400 7987 | Cancún, Quintana Roo
-- © 2026 Rotúlate Publicidad. Todos los derechos reservados.
+- © 2026 Rotulate Publicidad. Todos los derechos reservados.
 
 ## Notas técnicas
 - El SPA no tiene sección FAQ visible (la EN sí; no copiar FAQPage schema a ES sin sección visible).

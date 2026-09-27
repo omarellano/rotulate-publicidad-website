@@ -392,7 +392,7 @@ const initCotizacionForm = () => {
                 : `Recibimos tu cotización. Te contactaremos en menos de 24 hrs.${filesText}`;
         }
         if (formSuccessWhatsApp && pendingFiles.length) {
-            const text = `Hola Rotúlate, acabo de enviar una cotización de ${document.getElementById('servicio')?.selectedOptions[0]?.textContent || 'un proyecto'}. Te comparto mi archivo pendiente: ${pendingFiles.join(', ')}.`;
+            const text = `Hola Rotulate, acabo de enviar una cotización de ${document.getElementById('servicio')?.selectedOptions[0]?.textContent || 'un proyecto'}. Te comparto mi archivo pendiente: ${pendingFiles.join(', ')}.`;
             formSuccessWhatsApp.href = `https://wa.me/529984007987?text=${encodeURIComponent(text)}`;
         }
         form.style.display = 'none';

@@ -66,4 +66,5 @@ Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulació
 - **Bitácora Única (Evitar Duplicaciones):** `agents.md` es la única bitácora. `CLAUDE.md` se reserva estrictamente para guías técnicas, de estilo y reglas.
 
 ## Estilo y Marca
+- Nombre oficial de marca: **Rotulate Publicidad**, sin acento, conforme al logotipo y al dominio. Mantener esta grafía en el texto del sitio, metadatos, datos estructurados, mensajes prellenados y material nuevo.
 - Todo diseño nuevo debe seguir el estilo existente del sitio: tema oscuro glassmorphism (`rgba(255,255,255,0.04)` en cards), acento lima `#C8F135` (`.text-accent-lime`), tipografía Space Grotesk, y reutilizar clases existentes (`.section-title`, `.faq-item`, `.cta-button`, etc.)
