@@ -7,6 +7,7 @@
         'letras-3d': '3D letters',
         'rotulacion-tradicional': 'hand-painted signage',
         'rotulacion-vehicular': 'vehicle wraps',
+        'polarizado-autos': 'XPEL car window tint',
         'alucobond': 'installed aluminum composite facades',
         'placa-alucobond': 'aluminum composite panel sheets',
         'control-solar': 'solar control film',
