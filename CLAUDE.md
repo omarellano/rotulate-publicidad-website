@@ -66,6 +66,7 @@ Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulació
 - **Bitácora Única (Evitar Duplicaciones):** `agents.md` es la única bitácora. `CLAUDE.md` se reserva estrictamente para guías técnicas, de estilo y reglas.
 
 ## Estilo y Marca
+- Nombre oficial de marca: **Rotulate Publicidad**, sin acento, conforme al logotipo y al dominio. Mantener esta grafía en el texto del sitio, metadatos, datos estructurados, mensajes prellenados y material nuevo; `node scripts/check-brand-name.cjs` lo verifica. Única excepción: el `alternateName` del schema de la home (`index.html`, `en/index.html`) lista a propósito "Rotúlate Publicidad", "Rotúlate", "Rotulate" y "RTMX Publicidad" para que Google asocie las variantes (con acento, como aparece en Google Business Profile) a la misma empresa; no quitarlo.
 - Paleta oficial confirmada para Rotulate Publicidad por Omar el 14-sep-2026 para Express y futuros proyectos de la marca. Usar estos valores exactos; reemplaza la referencia anterior a lima `#C8F135`:
   - Deep Twilight: `#000052` — RGB (0, 0, 82).
   - Lime: `#00ff00` — RGB (0, 255, 0).

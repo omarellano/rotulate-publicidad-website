@@ -10,7 +10,8 @@ const badBrand = /Rot(?:ú|%C3%BA|&(?:uacute;|#0*250;|#x0*fa;)|\\u00f[aA])late/i
 const errors = [];
 for (const file of files) {
   if (excluded(file) || !textExtensions.has(path.extname(file).toLowerCase())) continue;
-  const content = fs.readFileSync(path.join(repoRoot, file), 'utf8');
+  // Schema alternateName intentionally lists the accented variants so Google maps them to the brand.
+  const content = fs.readFileSync(path.join(repoRoot, file), 'utf8').replace(/"alternateName"\s*:\s*\[[^\]]*\]/g, '');
   if (badBrand.test(content)) errors.push(file);
 }
 if (errors.length) {
