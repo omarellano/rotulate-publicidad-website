@@ -333,8 +333,13 @@
                 icon.style.transform = 'rotate(360deg)';
             }
 
-            // Regenerar galería con fotos aleatorias
-            initGaleriaAleatoria();
+            // Regenerar galería con fotos aleatorias (sin saltos de scroll):
+            // se guarda la posición y se restaura tras el repintado, porque
+            // los navegadores móviles (iOS Safari) no compensan el cambio de altura.
+            var y = window.pageYOffset;
+            initGaleriaAleatoria(true);
+            window.scrollTo(0, y);
+            requestAnimationFrame(function () { window.scrollTo(0, y); });
 
             // Resetear animación después de completar la rotación
             setTimeout(function () {
@@ -562,9 +567,15 @@
     }
 
     /* ── 8. Galería aleatoria de trabajos ─────────────────── */
-    function initGaleriaAleatoria() {
+    function initGaleriaAleatoria(isReload) {
         var grid = document.getElementById('galeria-grid');
         if (!grid) return;
+
+        // Al recargar, fijar la altura actual: si el grid se vacía, la página se
+        // acorta y el navegador deja el scroll más abajo (la vista "salta").
+        if (isReload) {
+            grid.style.minHeight = grid.offsetHeight + 'px';
+        }
 
         // Selección curada: fotos instaladas o en proceso con buena composición
         var allImgs = [
@@ -619,6 +630,24 @@
             div.appendChild(img);
             grid.appendChild(div);
         });
+
+        if (isReload) {
+            // Mostrar de inmediato (sin animación de entrada) y liberar la altura
+            // fija cuando las miniaturas ya tienen su tamaño real.
+            var pending = grid.querySelectorAll('img');
+            var release = function () { grid.style.minHeight = ''; };
+            var left = pending.length;
+            pending.forEach(function (im) {
+                var done = function () { if (--left === 0) release(); };
+                if (im.complete) { done(); }
+                else { im.addEventListener('load', done); im.addEventListener('error', done); }
+            });
+            setTimeout(release, 3000);
+            grid.querySelectorAll('.reveal').forEach(function (el) {
+                el.classList.add('revealed');
+            });
+            return;
+        }
 
         // Re-observe reveal elements inside the grid
         if (typeof revealObserver !== 'undefined') {

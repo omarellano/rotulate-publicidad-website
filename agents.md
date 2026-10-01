@@ -1356,3 +1356,10 @@ Solo lectura; no se guardó nada en el perfil.
 ## 🏷️ Menú: "Control solar" → "Control solar 3M" (28-sep-2026)
 * Pedido de Omar. Etiqueta del menú Servicios cambiada en las 38 páginas con menú: ES "Control solar 3M" (28), EN "3M solar control film" (10). Mismo enlace, sin otros cambios.
 * **Commit `5888ebb`**, deploy `success`; verificado con curl en producción en `/`, `/en/`, `polarizado-autos.html` y `/blog/`.
+
+## 🖼️ Galería: "Cargar otras fotos" movía la página en móvil (1-oct-2026)
+* **Reporte de Omar:** en móvil, al tocar "Cargar otras fotos" la página se desplazaba hacia abajo (las fotos sí cambiaban); en web de escritorio funcionaba bien.
+* **Causa probable:** `initGaleriaAleatoria()` (`main.js`) vaciaba el grid (`grid.textContent = ''`) y lo reconstruía; el botón está debajo del grid. Chrome de escritorio compensa con *scroll anchoring*, pero los navegadores móviles (iOS Safari no lo soporta) conservan el scroll en píxeles y la vista se desplaza.
+* **Cambio:** al recargar, (1) se guarda `pageYOffset` y se restaura con `scrollTo` (inmediato y en `requestAnimationFrame`), (2) se fija `min-height` del grid mientras cargan las miniaturas (se libera al cargarlas o a los 3 s), (3) las fotos nuevas entran ya con `revealed` (sin esperar al observer). La carga inicial no cambia.
+* **Verificación:** `node --check main.js` OK; prueba con Playwright/Chromium a 390 px (móvil, táctil) y 1366 px: el botón no cambia de posición tras el clic. **Limitación:** Chromium no reproducía el salto ni sin el arreglo (tiene scroll anchoring), así que no se pudo probar el fallo original; falta confirmar en un iPhone/Android real tras el deploy.
+* **Pendiente:** Omar confirma en su teléfono; si persiste, cambiar a reutilizar los `<div>` del grid y solo reemplazar `src` (sin tocar el DOM).
