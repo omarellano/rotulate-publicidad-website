@@ -3238,3 +3238,31 @@ nav a.active::after {
         justify-content: center;
     }
 }
+
+/* Ubicación (mapa embebido) */
+.ubicacion {
+    padding: 6rem 5%;
+    text-align: center;
+}
+
+.ubicacion-map {
+    max-width: 1000px;
+    height: 400px;
+    margin: 2rem auto 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.ubicacion-map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .ubicacion { padding: 4rem 5%; }
+    .ubicacion-map { height: 300px; }
+}
