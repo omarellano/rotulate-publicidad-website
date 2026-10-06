@@ -110,9 +110,8 @@
         estandar: 230,     // Lona 13 oz Latex
         mesh: 260,         // Lona Mesh perforada
         traslucida: 350,   // Lona Translúcida (Backlight)
-        economica: 120     // Lona eco-solvente: mínimo 3 m² por pedido, entrega 2-3 días
+        economica: 120     // Lona eco-solvente: cobro mínimo 1 m² por pieza, entrega 2-3 días
     };
-    const ECONOMICA_MIN_M2 = 3; // se suma el área de todas las piezas del pedido
 
     const widthInput = document.getElementById('lona-width');
     const heightInput = document.getElementById('lona-height');
@@ -180,16 +179,13 @@
         const grommets = rawGrommets;
         const qty = rawQty;
 
-        // Área real vs Área de cobro mínimo:
-        // - HP Latex (estandar/mesh/traslucida): 1 m² por pieza
-        // - Económica: 3 m² sumando todas las piezas del pedido
+        // Área real vs Área de cobro mínimo: 1 m² por pieza (HP Latex y económica)
         const rawArea = width * height;
         const isEconomica = type === 'economica';
-        const orderArea = rawArea * qty;
-        const printableArea = isEconomica ? Math.max(ECONOMICA_MIN_M2, orderArea) : Math.max(1.0, rawArea);
+        const printableArea = Math.max(1.0, rawArea);
 
         const pricePerM2 = PRICES[type] || PRICES.economica;
-        const printingTotal = isEconomica ? printableArea * pricePerM2 : printableArea * pricePerM2 * qty;
+        const printingTotal = printableArea * pricePerM2 * qty;
 
         // Ojillos: primer 4 pzas gratis por pieza, adicionales a $5 c/u
         const extraGrommets = Math.max(0, grommets - 4);
@@ -214,7 +210,7 @@
         // la mejora o el ahorro. Mismos ojillos y diseño en ambos casos.
         const extrasTotal = grommetsCost * qty + designCost;
         const hpTotal = Math.max(1.0, rawArea) * PRICES.estandar * qty + extrasTotal;
-        const ecoTotal = Math.max(ECONOMICA_MIN_M2, orderArea) * PRICES.economica + extrasTotal;
+        const ecoTotal = Math.max(1.0, rawArea) * PRICES.economica * qty + extrasTotal;
 
         // Visual labels mapping
         const typeLabels = {
@@ -246,9 +242,7 @@
                 <div class="breakdown-item"><strong>Impresión:</strong> ${qty} pza(s) de ${width}m x ${height}m (${rawArea.toFixed(2)}m²) = $${printingTotal.toLocaleString('es-MX')} MXN</div>
             `;
 
-            if (isEconomica && orderArea < ECONOMICA_MIN_M2) {
-                breakdownHTML += `<div class="breakdown-item min-charge-note">⚠️ La lona económica tiene pedido mínimo de ${ECONOMICA_MIN_M2} m² (sumando todas las piezas): se cobra el equivalente a ${ECONOMICA_MIN_M2} m² ($${(ECONOMICA_MIN_M2 * pricePerM2).toLocaleString('es-MX')} MXN). Para pedidos chicos puede convenirte la Lona HP Latex Premium.</div>`;
-            } else if (!isEconomica && rawArea < 1.0) {
+            if (rawArea < 1.0) {
                 breakdownHTML += `<div class="breakdown-item min-charge-note">⚠️ Se aplica cobro mínimo de 1.0m² ($${pricePerM2} MXN) por pieza.</div>`;
             }
 
@@ -271,16 +265,12 @@
 
             if (isEconomica) {
                 const delta = hpTotal - finalTotal;
-                if (delta <= 0) {
-                    breakdownHTML += `<div class="breakdown-item bulk-note upsell-note">💡 Para este pedido la <strong>Lona HP Latex Premium</strong> te sale en <strong>$${hpTotal.toLocaleString('es-MX')} MXN</strong> (igual o menos que la económica), con colores más intensos y entrega en 24 h. <button type="button" class="upsell-btn" data-switch-type="estandar">Ver con HP Latex</button></div>`;
-                } else {
-                    breakdownHTML += `<div class="breakdown-item bulk-note upsell-note">⬆️ ¿La quieres con mejor acabado y en 24 h? Mejórala a <strong>HP Latex Premium</strong> por <strong>+$${delta.toLocaleString('es-MX')} MXN</strong> en este pedido. <button type="button" class="upsell-btn" data-switch-type="estandar">Ver con HP Latex</button></div>`;
-                }
+                breakdownHTML += `<div class="breakdown-item bulk-note upsell-note">⬆️ ¿La quieres con mejor acabado y en 24 h? Mejórala a <strong>HP Latex Premium</strong> por <strong>+$${delta.toLocaleString('es-MX')} MXN</strong> en este pedido. <button type="button" class="upsell-btn" data-switch-type="estandar">Ver con HP Latex</button></div>`;
             } else if (type === 'estandar' && ecoTotal < finalTotal) {
                 breakdownHTML += `<div class="breakdown-item bulk-note upsell-note">💸 ¿No tienes prisa? Con la <strong>Lona Económica</strong> pagarías <strong>$${(finalTotal - ecoTotal).toLocaleString('es-MX')} MXN menos</strong> (entrega en 2 a 3 días hábiles). <button type="button" class="upsell-btn" data-switch-type="economica">Ver con Económica</button></div>`;
             }
 
-            if (!isEconomica && qty >= 5 && rawArea < 1.0) {
+            if (qty >= 5 && rawArea < 1.0) {
                 breakdownHTML += `<div class="breakdown-item bulk-note">💡 ¡Tienes un pedido de varias piezas pequeñas! Contáctanos por WhatsApp para un descuento especial agrupado.</div>`;
             }
 
@@ -295,7 +285,7 @@
         waText += `• Tipo de Lona: Lona ${typeLabels[type]}\n`;
         waText += `• Medidas: ${width}m x ${height}m\n`;
         waText += `• Cantidad: ${qty} pieza(s)\n`;
-        if (isEconomica) waText += `• Entrega: 2 a 3 días hábiles (lona económica, mínimo ${ECONOMICA_MIN_M2} m²)\n`;
+        if (isEconomica) waText += `• Entrega: 2 a 3 días hábiles (lona económica)\n`;
         waText += `• Ojillos: ${grommets} pzas por pieza\n`;
 
         if (design === 'ninguno') {
@@ -322,9 +312,7 @@
         lastQuote = {
             material: `Lona ${typeLabels[type]}`,
             precioM2: pricePerM2,
-            medidas: isEconomica
-                ? `${width}m x ${height}m x ${qty} pza(s) (${orderArea.toFixed(2)} m² del pedido, ${printableArea.toFixed(2)} m² de cobro)`
-                : `${width}m x ${height}m (${rawArea.toFixed(2)} m² reales, ${printableArea.toFixed(2)} m² de cobro)`,
+            medidas: `${width}m x ${height}m (${rawArea.toFixed(2)} m² reales, ${printableArea.toFixed(2)} m² de cobro)`,
             piezas: qty,
             ojillos: grommets,
             diseno: design,
