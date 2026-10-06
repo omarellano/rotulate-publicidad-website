@@ -259,6 +259,8 @@
                 breakdownHTML += `<div class="breakdown-item"><strong>Diseño:</strong> Ya cuentas con diseño listo ($0)</div>`;
             }
 
+            breakdownHTML += `<div class="breakdown-item"><small>El precio incluye impresión, bastilla y 4 ojillos por pieza. Los ojillos extra ($5 c/u) y el diseño se cobran por separado.</small></div>`;
+
             if (deliveryNote) {
                 breakdownHTML += `<div class="breakdown-item bulk-note">${deliveryNote}</div>`;
             }

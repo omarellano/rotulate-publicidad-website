@@ -22,3 +22,8 @@
 - La económica se cobra con **mínimo 1 m² por pieza** (una lona de 50×60 cm = $120); avisarlo desde el primer mensaje. Pedidos con muchas piezas chicas: agrupar y cotizar aparte. Entrega 2–3 días (se pueden juntar trabajos en una tanda).
 - Mesh ($260) y translúcida ($350) siguen publicadas con precio (no compiten con la económica).
 - Medir en 4 semanas: nº de cotizaciones de lona, % cerradas, % que aceptan mejora a HP, ticket promedio. Si cierran más pero casi nadie sube a HP, evaluar bajar la HP; si todos suben, evaluar subir la económica.
+
+## Qué incluye el precio (aclarado en el sitio el 6-oct-2026)
+- **Incluye:** impresión, bastilla y **4 ojillos por pieza**.
+- **No incluye (se cobra por separado):** ojillos extra ($5 c/u) y diseño (básico +$100, intermedio +$200, logotipo o idea desde cero por cotización). Si el cliente ya trae su archivo listo, no paga diseño.
+- Decirlo en el primer mensaje de WhatsApp junto con el precio, para evitar sorpresas al cerrar.
