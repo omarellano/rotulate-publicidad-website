@@ -1417,6 +1417,7 @@ Solo lectura; no se guardó nada en el perfil.
 | `/rotulacion-tradicional.html` | — | ⏳ Pendiente | No procesada. |
 | Extras (`/blog/lona-front-vs-microperforada.html`, `/blog/medidas-lona-negocio-cancun.html`, `/playa-del-carmen/`, `/tulum/`) | — | ⏳ Pendiente | Solo si queda cuota. |
 
+* **Acordado con Omar (6-oct, 20:05):** lo pendiente se retoma mañana, 7-oct-2026. Al terminar, actualizar esta misma sección con los resultados.
 * **Pendiente:** reintentar `/express/` (el error fue de Google, no de la página) y procesar `/blog/`, `/anuncios-luminosos.html` y `/rotulacion-tradicional.html`, luego los extras. Se usaron 3 solicitudes confirmadas del límite diario.
 * **Observación:** el reporte de fragmentos de producto de `/lonas-cancun/` marca como advertencias opcionales los campos `review` y `aggregateRating` del JSON-LD. No bloquean nada; agregarlos solo si hay reseñas reales visibles en la página.
 * **Siguiente chequeo: 4-nov-2026.** Revisar si Google ya reindexó las páginas y si el título de la home, las descripciones y el precio de lonas cambiaron en los resultados de búsqueda.
