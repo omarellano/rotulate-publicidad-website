@@ -1401,3 +1401,22 @@ Solo lectura; no se guardó nada en el perfil.
 * **Texto aprobado por Omar (opción C):** "Lonas de gran formato desde $120/m²: calidad producción (720 dpi), con bastilla y 4 ojillos incluidos. ¿Urgente o acabado premium? Mejórala a HP Latex ecológica con colores intensos y entrega en 24 h. Cotiza en segundos y ordena por WhatsApp." Se escribe "dpi" (sin s). "Gran formato" queda como término de apoyo en el hero, no en title ni H1 (decisión del 27-sep: casi no se busca).
 * **Cambio:** solo el párrafo del hero en `lonas-cancun/index.html`. **Pendiente de decisión de Omar:** meta description con "gran formato"/720 dpi y mismo texto en el hero de `gran-formato.html`.
 * **Aprobado por Omar (7-oct):** (1) meta description y og:description de `/lonas-cancun/`: "Lonas de gran formato en Cancún desde $120/m² (720 dpi). Mejórala a HP Latex y recíbela en 24 h. Cotiza en línea en 2 min."; (2) hero de `gran-formato.html` adaptado (la página cubre lonas, viniles, banners y carteles): "Lonas de gran formato desde $120/m² (calidad producción, 720 dpi, con bastilla y 4 ojillos incluidos) y viniles, banners y carteles en HP Latex con entrega en 24 h, para aparadores, fachadas, eventos y puntos de venta…". JSON-LD válido y `check-brand-name.cjs` OK. Va en el PR de seguimiento; no verificado en producción.
+
+## 🔎 Solicitud de indexación en Search Console (6-oct-2026)
+* **Contexto:** reindexación tras los cambios del 7-oct (PR #44 y #45): título nuevo de la home, precio de lonas desde $120/m², `data-nosnippet`. Ejecutado con Claude in Chrome sobre la propiedad de dominio `sc-domain:rotulatepublicidad.com` (única disponible).
+* **Resultado (hora Cancún, 6-oct-2026 ~20:00):**
+
+| URL | Estado en Google antes | Resultado de la solicitud | Notas |
+|---|---|---|---|
+| `/` | Está en Google, indexada. Último rastreo 5-oct-2026 19:33 | ✅ Se ha solicitado la indexación | Confirmado con el aviso de Google. |
+| `/lonas-cancun/` | Está en Google, indexada | ✅ Se ha solicitado la indexación | El primer intento no se pudo confirmar (la pestaña dejó de responder); se repitió en pestaña nueva y quedó confirmado. Un reporte de fragmentos mostraba rastreo del 16-sep-2026, previo al cambio de precio. |
+| `/gran-formato.html` | Está en Google, indexada | ✅ Se ha solicitado la indexación | Por error se disparó un "volver a solicitar" sobre esta URL; se canceló la prueba y sigue marcada como solicitada. |
+| `/express/` | Está en Google, indexada | ❌ Error de Google: "Se ha producido un problema al enviar la solicitud de indexación. Vuelve a intentarlo más tarde" | No fue cuota ni CAPTCHA. Se detuvo sin insistir, según las instrucciones. |
+| `/blog/` | — | ⏳ Pendiente | No procesada. |
+| `/anuncios-luminosos.html` | — | ⏳ Pendiente | No procesada. |
+| `/rotulacion-tradicional.html` | — | ⏳ Pendiente | No procesada. |
+| Extras (`/blog/lona-front-vs-microperforada.html`, `/blog/medidas-lona-negocio-cancun.html`, `/playa-del-carmen/`, `/tulum/`) | — | ⏳ Pendiente | Solo si queda cuota. |
+
+* **Pendiente:** reintentar `/express/` (el error fue de Google, no de la página) y procesar `/blog/`, `/anuncios-luminosos.html` y `/rotulacion-tradicional.html`, luego los extras. Se usaron 3 solicitudes confirmadas del límite diario.
+* **Observación:** el reporte de fragmentos de producto de `/lonas-cancun/` marca como advertencias opcionales los campos `review` y `aggregateRating` del JSON-LD. No bloquean nada; agregarlos solo si hay reseñas reales visibles en la página.
+* **Siguiente chequeo: 4-nov-2026.** Revisar si Google ya reindexó las páginas y si el título de la home, las descripciones y el precio de lonas cambiaron en los resultados de búsqueda.
