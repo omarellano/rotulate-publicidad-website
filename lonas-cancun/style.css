@@ -539,3 +539,23 @@
     border-left: 3px solid var(--color-accent-lime);
 }
 
+
+/* Sugerencia de mejora / ahorro en el desglose del cotizador */
+.breakdown-item.upsell-note .upsell-btn {
+    display: inline-block;
+    margin-top: 0.4rem;
+    background: transparent;
+    color: var(--color-accent-lime);
+    border: 1px solid var(--color-accent-lime);
+    border-radius: 6px;
+    padding: 0.25rem 0.7rem;
+    font: inherit;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.breakdown-item.upsell-note .upsell-btn:hover,
+.breakdown-item.upsell-note .upsell-btn:focus-visible {
+    background: var(--color-accent-lime);
+    color: var(--color-dark, #000052);
+}

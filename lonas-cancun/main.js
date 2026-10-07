@@ -110,9 +110,8 @@
         estandar: 230,     // Lona 13 oz Latex
         mesh: 260,         // Lona Mesh perforada
         traslucida: 350,   // Lona Translúcida (Backlight)
-        economica: 120     // Lona eco-solvente: mínimo 3 m² por pedido, entrega 2-3 días
+        economica: 120     // Lona eco-solvente: cobro mínimo 1 m² por pieza, entrega 2-3 días
     };
-    const ECONOMICA_MIN_M2 = 3; // se suma el área de todas las piezas del pedido
 
     const widthInput = document.getElementById('lona-width');
     const heightInput = document.getElementById('lona-height');
@@ -137,6 +136,14 @@
         const waButton = document.getElementById('quote-wa-btn');
         if (!priceDisplay || !breakdownDisplay || !waButton) return;
 
+        // Solo re-renderiza el desglose si cambió: el campo pierde foco al hacer clic en
+        // "Ver con HP Latex", dispara 'change' y, si se reconstruyera el botón, el clic se perdería.
+        function setBreakdown(html) {
+            if (breakdownDisplay.dataset.lastHtml === html) return;
+            breakdownDisplay.dataset.lastHtml = html;
+            breakdownDisplay.innerHTML = html;
+        }
+
         // Validación explícita: no se calcula ni se envía una cotización con datos inválidos
         // (antes se forzaban a mínimos con Math.max y siempre mostraba un precio).
         const MAX_DIM = 30; // m — por encima de esto es gran formato: va directo a WhatsApp
@@ -156,8 +163,8 @@
         if (errors.length) {
             lastQuote = null;
             priceDisplay.textContent = '—';
-            breakdownDisplay.innerHTML = '<div class="breakdown-item min-charge-note">' +
-                errors.map(function (e) { return '⚠️ ' + e; }).join('<br>') + '</div>';
+            setBreakdown('<div class="breakdown-item min-charge-note">' +
+                errors.map(function (e) { return '⚠️ ' + e; }).join('<br>') + '</div>');
             waButton.href = 'https://wa.me/529984007987?text=' + encodeURIComponent(
                 'Hola Rotulate, quiero cotizar una lona pero necesito ayuda con las medidas.');
             waButton.setAttribute('aria-disabled', 'true');
@@ -172,16 +179,13 @@
         const grommets = rawGrommets;
         const qty = rawQty;
 
-        // Área real vs Área de cobro mínimo:
-        // - HP Latex (estandar/mesh/traslucida): 1 m² por pieza
-        // - Económica: 3 m² sumando todas las piezas del pedido
+        // Área real vs Área de cobro mínimo: 1 m² por pieza (HP Latex y económica)
         const rawArea = width * height;
         const isEconomica = type === 'economica';
-        const orderArea = rawArea * qty;
-        const printableArea = isEconomica ? Math.max(ECONOMICA_MIN_M2, orderArea) : Math.max(1.0, rawArea);
+        const printableArea = Math.max(1.0, rawArea);
 
-        const pricePerM2 = PRICES[type] || 230;
-        const printingTotal = isEconomica ? printableArea * pricePerM2 : printableArea * pricePerM2 * qty;
+        const pricePerM2 = PRICES[type] || PRICES.economica;
+        const printingTotal = printableArea * pricePerM2 * qty;
 
         // Ojillos: primer 4 pzas gratis por pieza, adicionales a $5 c/u
         const extraGrommets = Math.max(0, grommets - 4);
@@ -202,20 +206,26 @@
         // Totales
         const finalTotal = printingTotal + grommetsCost * qty + designCost;
 
+        // Totales alternativos del mismo pedido (HP Latex vs económica) para sugerir
+        // la mejora o el ahorro. Mismos ojillos y diseño en ambos casos.
+        const extrasTotal = grommetsCost * qty + designCost;
+        const hpTotal = Math.max(1.0, rawArea) * PRICES.estandar * qty + extrasTotal;
+        const ecoTotal = Math.max(1.0, rawArea) * PRICES.economica * qty + extrasTotal;
+
         // Visual labels mapping
         const typeLabels = {
-            estandar: '13 oz Calidad HP (la confiable para todos tus trabajos de promoción o publicidad)',
+            estandar: 'HP Latex Premium 13 oz (colores intensos, entrega en 24 h)',
             mesh: 'Mesh (la que tiene hoyitos que dejan pasar el viento)',
             traslucida: 'Translúcida (ideal para cajas de luz o anuncios luminosos)',
-            economica: 'Económica eco-solvente (para volumen y eventos)'
+            economica: 'Económica (para volumen y eventos)'
         };
         const deliveryNote = isEconomica
-            ? '🕒 Lona económica: entrega en 2 a 3 días hábiles. ¿La necesitas hoy o mañana? Elige la Lona 13 oz Calidad HP.'
+            ? '🕒 Lona económica: entrega en 2 a 3 días hábiles.'
             : '';
 
         if (customDesignRequired) {
             priceDisplay.innerHTML = 'Personalizado';
-            breakdownDisplay.innerHTML = `
+            setBreakdown(`
                 <div class="breakdown-item"><strong>Material:</strong> Lona ${typeLabels[type]}</div>
                 <div class="breakdown-item"><strong>Medidas:</strong> ${width}m x ${height}m (${rawArea.toFixed(2)}m²)</div>
                 <div class="breakdown-item"><strong>Ojillos:</strong> ${grommets} pzas por lona</div>
@@ -223,18 +233,16 @@
                 <div class="breakdown-item"><strong>Diseño:</strong> Logotipo o idea desde cero</div>
                 ${deliveryNote ? '<div class="breakdown-item bulk-note">' + deliveryNote + '</div>' : ''}
                 <div class="breakdown-item alert-msg">✨ El costo de la lona se calcula automáticamente, pero tu diseño requiere cotización personalizada. ¡Te daremos precio del diseño por WhatsApp de inmediato!</div>
-            `;
+            `);
         } else {
             priceDisplay.innerHTML = `$${finalTotal.toLocaleString('es-MX')} MXN`;
 
             let breakdownHTML = `
-                <div class="breakdown-item"><strong>Material:</strong> Lona ${typeLabels[type]} ($${pricePerM2}/m²)</div>
+                <div class="breakdown-item"><strong>Material:</strong> Lona ${typeLabels[type]}${type === 'estandar' ? '' : ' ($' + pricePerM2 + '/m²)'}</div>
                 <div class="breakdown-item"><strong>Impresión:</strong> ${qty} pza(s) de ${width}m x ${height}m (${rawArea.toFixed(2)}m²) = $${printingTotal.toLocaleString('es-MX')} MXN</div>
             `;
 
-            if (isEconomica && orderArea < ECONOMICA_MIN_M2) {
-                breakdownHTML += `<div class="breakdown-item min-charge-note">⚠️ La lona económica tiene pedido mínimo de ${ECONOMICA_MIN_M2} m² (sumando todas las piezas): se cobra el equivalente a ${ECONOMICA_MIN_M2} m² ($${(ECONOMICA_MIN_M2 * pricePerM2).toLocaleString('es-MX')} MXN). Para pedidos chicos puede convenirte la Lona 13 oz Calidad HP.</div>`;
-            } else if (!isEconomica && rawArea < 1.0) {
+            if (rawArea < 1.0) {
                 breakdownHTML += `<div class="breakdown-item min-charge-note">⚠️ Se aplica cobro mínimo de 1.0m² ($${pricePerM2} MXN) por pieza.</div>`;
             }
 
@@ -251,15 +259,24 @@
                 breakdownHTML += `<div class="breakdown-item"><strong>Diseño:</strong> Ya cuentas con diseño listo ($0)</div>`;
             }
 
+            breakdownHTML += `<div class="breakdown-item"><small>El precio incluye impresión, bastilla y 4 ojillos por pieza. Los ojillos extra ($5 c/u) y el diseño se cobran por separado.</small></div>`;
+
             if (deliveryNote) {
                 breakdownHTML += `<div class="breakdown-item bulk-note">${deliveryNote}</div>`;
             }
 
-            if (!isEconomica && qty >= 5 && rawArea < 1.0) {
+            if (isEconomica) {
+                const delta = hpTotal - finalTotal;
+                breakdownHTML += `<div class="breakdown-item bulk-note upsell-note">⬆️ ¿La quieres con mejor acabado y en 24 h? Mejórala a <strong>HP Latex Premium</strong> por <strong>+$${delta.toLocaleString('es-MX')} MXN</strong> en este pedido. <button type="button" class="upsell-btn" data-switch-type="estandar">Ver con HP Latex</button></div>`;
+            } else if (type === 'estandar' && ecoTotal < finalTotal) {
+                breakdownHTML += `<div class="breakdown-item bulk-note upsell-note">💸 ¿No tienes prisa? Con la <strong>Lona Económica</strong> pagarías <strong>$${(finalTotal - ecoTotal).toLocaleString('es-MX')} MXN menos</strong> (entrega en 2 a 3 días hábiles). <button type="button" class="upsell-btn" data-switch-type="economica">Ver con Económica</button></div>`;
+            }
+
+            if (qty >= 5 && rawArea < 1.0) {
                 breakdownHTML += `<div class="breakdown-item bulk-note">💡 ¡Tienes un pedido de varias piezas pequeñas! Contáctanos por WhatsApp para un descuento especial agrupado.</div>`;
             }
 
-            breakdownDisplay.innerHTML = breakdownHTML;
+            setBreakdown(breakdownHTML);
         }
 
         // WhatsApp message generator
@@ -270,7 +287,7 @@
         waText += `• Tipo de Lona: Lona ${typeLabels[type]}\n`;
         waText += `• Medidas: ${width}m x ${height}m\n`;
         waText += `• Cantidad: ${qty} pieza(s)\n`;
-        if (isEconomica) waText += `• Entrega: 2 a 3 días hábiles (lona económica, mínimo ${ECONOMICA_MIN_M2} m²)\n`;
+        if (isEconomica) waText += `• Entrega: 2 a 3 días hábiles (lona económica)\n`;
         waText += `• Ojillos: ${grommets} pzas por pieza\n`;
 
         if (design === 'ninguno') {
@@ -297,9 +314,7 @@
         lastQuote = {
             material: `Lona ${typeLabels[type]}`,
             precioM2: pricePerM2,
-            medidas: isEconomica
-                ? `${width}m x ${height}m x ${qty} pza(s) (${orderArea.toFixed(2)} m² del pedido, ${printableArea.toFixed(2)} m² de cobro)`
-                : `${width}m x ${height}m (${rawArea.toFixed(2)} m² reales, ${printableArea.toFixed(2)} m² de cobro)`,
+            medidas: `${width}m x ${height}m (${rawArea.toFixed(2)} m² reales, ${printableArea.toFixed(2)} m² de cobro)`,
             piezas: qty,
             ojillos: grommets,
             diseno: design,
@@ -319,8 +334,21 @@
 
     // Cálculo inicial: deja el precio, el desglose y el enlace de WhatsApp
     // coherentes con los valores por defecto del formulario (antes quedaba
-    // el "$230 MXN" estático del HTML y lastQuote en null).
+    // el precio estático del HTML y lastQuote en null).
     calculateQuote();
+
+    // Botón "Ver con HP Latex / Económica" dentro del desglose: cambia el material
+    // y sincroniza el select personalizado.
+    const breakdownBox = document.getElementById('quote-breakdown');
+    if (breakdownBox) {
+        breakdownBox.addEventListener('click', function (e) {
+            const btn = e.target.closest ? e.target.closest('[data-switch-type]') : null;
+            if (!btn) return;
+            const target = btn.getAttribute('data-switch-type');
+            const option = document.querySelector('.custom-option[data-value="' + target + '"]');
+            if (option) option.click();
+        });
+    }
 
     /* ── 4.5 Registro de cotizaciones en Supabase ──────────────
        Cada clic en "Enviar a WhatsApp" guarda la cotización en la
