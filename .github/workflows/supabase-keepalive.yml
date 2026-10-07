@@ -1,40 +1,40 @@
 name: Supabase Keep-Alive
 
-# Evita que el proyecto gratuito de Supabase se pause por inactividad
+# Monitor de disponibilidad; no garantiza evitar la pausa del plan gratuito
 # (pausa automática tras ~1 semana sin peticiones). Si el proyecto está
-# caído/pausado, el job FALLA y GitHub notifica por correo — funciona
+# caído/pausado, el job FALLA; las notificaciones dependen de GitHub — funciona
 # también como monitor. Incidente que lo motivó: 14-jul-2026, proyecto
 # pausado en silencio y formulario de cotizaciones perdiendo leads.
 
 on:
   schedule:
-    # Diario a las 12:00 UTC. Además de generar actividad suficiente para
-    # Free, reduce a menos de un día el tiempo de detección de una caída.
+    # Diario a las 12:00 UTC; GitHub puede retrasar las tareas programadas.
     - cron: '0 12 * * *'
   workflow_dispatch:
+
+permissions: {}
 
 jobs:
   ping:
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     steps:
       - name: Ping a la API REST de Supabase
         run: |
           # La anon key es pública por diseño (ya se sirve en supabase-config.js del sitio)
           ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind0bGpkdmV4c2tzZXh0bmhwa2tkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDg3MjUsImV4cCI6MjA5NjE4NDcyNX0.JtM9gA7JrdSkUvyUYUSNL5z1Gs5IzHAYxQ5yNsOGq2s"
-          URL="https://wtljdvexsksextnhpkkd.supabase.co/rest/v1/cotizaciones_web?select=id&limit=1"
+          URL="https://wtljdvexsksextnhpkkd.supabase.co/rest/v1/cotizaciones_web?select=id&limit=0"
 
           CODE=$(curl -s -o /tmp/body -w "%{http_code}" --max-time 30 \
             -H "apikey: $ANON_KEY" \
             -H "Authorization: Bearer $ANON_KEY" \
-            "$URL" || echo "000")
+            "$URL") || CODE="000"
 
           echo "HTTP $CODE"
-          cat /tmp/body || true
+          # Never print response bodies: they may contain customer data.
 
-          # 2xx/4xx = proyecto vivo (RLS puede negar lectura y está bien).
-          # 000 (DNS caído) o 5xx = proyecto pausado o con problemas → fallar para notificar.
-          if [ "$CODE" = "000" ] || [ "${CODE:0:1}" = "5" ]; then
-            echo "::error::Supabase no responde (HTTP $CODE). El proyecto puede estar pausado: https://supabase.com/dashboard — restaurar con 'Restore project'. El formulario de cotizaciones y el cotizador de lonas NO están guardando leads mientras tanto."
-            exit 1
-          fi
-          echo "Supabase activo ✔"
+          # Expected statuses establish reachability, not successful form delivery.
+          case "$CODE" in
+            200|401|403) echo "Supabase API alcanzable (HTTP $CODE)" ;;
+            *) echo "::error::Supabase API no disponible o respuesta inesperada (HTTP $CODE). Revisar Dashboard y DNS."; exit 1 ;;
+          esac

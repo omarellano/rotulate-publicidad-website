@@ -14,8 +14,8 @@
     # Clickjacking protection
     Header set X-Frame-Options "DENY"
 
-    # XSS Protection (legacy browsers)
-    Header set X-XSS-Protection "1; mode=block"
+    # Disable the obsolete browser XSS filter; CSP is the active defense
+    Header set X-XSS-Protection "0"
 
     # Referrer Policy
     Header set Referrer-Policy "strict-origin-when-cross-origin"
@@ -34,10 +34,16 @@
 # --- Force HTTPS & Consolidate SEO (Non-WWW & Clean Index) ---
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # Block hidden paths (except ACME), internal files and stale deploy remnants.
+    RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L]
+    RewriteRule ^(?:supabase|docs|scripts|scratch|deploy_failures|search_info|seo_performance)(?:/|$) - [F,L,NC]
+    RewriteRule \.(?:md|sql|ps1|ya?ml|pem|key|p12|pfx|bak|old|log)(?:\..*)?$ - [F,L,NC]
+    RewriteRule ^(?:package(?:-lock)?\.json|.*\.env(?:\..*)?)$ - [F,L,NC]
     
     # 1. Redirigir WWW a Non-WWW (Consolida autoridad SEO)
-    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+    RewriteCond %{HTTP_HOST} ^www\.rotulatepublicidad\.com$ [NC]
+    RewriteRule ^(.*)$ https://rotulatepublicidad.com/$1 [R=301,L]
 
     # 2. Redirigir index.html de la raíz, también con parámetros (se conservan)
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+index\.html[?\s]
@@ -49,7 +55,7 @@
 
     # 4. Forzar HTTPS
     RewriteCond %{HTTPS} off
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    RewriteRule ^(.*)$ https://rotulatepublicidad.com%{REQUEST_URI} [L,R=301]
 
     # 5. Redirigir URLs heredadas de WordPress/Elementor antiguas a la raíz limpia
     RewriteRule ^home-b2/?$ https://rotulatepublicidad.com/ [R=301,L]

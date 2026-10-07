@@ -15,3 +15,13 @@ node_modules/
 
 # Supabase CLI temp files
 supabase/
+
+# Credentials and generated deployment artifacts
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+scratch/

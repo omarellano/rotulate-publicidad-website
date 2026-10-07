@@ -3,6 +3,84 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotulate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+
+## Publicación autorizada de seguridad — 6 de octubre de 2026
+
+* Omar autoriza desplegar a main los cambios de seguridad; se prepara sobre origin/main actual, preservando cambios recientes y Express restaurado. Rediseño de Express excluido. Pruebas y validación pública se documentarán al cierre.
+
+---
+## Express anterior restaurado y publicado — 6 de octubre de 2026
+
+* Revalidación solicitada por Omar: comparadas versiones 9026708 (10-sep), 3e80849 (27-sep antes del logo), 9f5b77f^, 9f5b77f y origin/main. Ambos blobs de 3e80849 coinciden con 9f5b77f^; deploy 36355542707 confirmó success para 3e80849. Deploy 36358865336 success para 9f5b77f, donde entra HTML del borrador. GET público ES/EN actual coincide con 3e80849 normalizando CRLF y espacios finales; ES blob idéntico, EN solo limpieza de whitespace. CSS compilado sin cambio desde integración 5-jun y navigation.css desde ajuste 10-sep. Esto confirma recuperación de la versión publicada inmediatamente anterior al rediseño, no certifica aprobación comercial separada de cada texto histórico. Sin nuevos cambios públicos.
+
+
+* Omar autorizó la restauración de la última versión aprobada. Borrador ES/EN/CSS/JS preservado en scratch/express-redesign-pending-2026-10-06/; sin autorización de publicación del rediseño.
+* Se utilizó worktree aislado en origin/main actual para preservar once revisiones remotas ajenas al checkout principal. Solo Express ES/EN y bitácora incluidos en el commit; todos los cambios locales de seguridad quedan pendientes.
+
+
+* Cierre de restauración: commit 60c2b1b0b872a738237a465abfa8856ae79c91fb enviado a main desde worktree basado en d193010. Deploy Hostinger 37556665639 completed/success. GET /express/ y /express/en/ HTTP 200 e igualdad exacta contra HTML restaurado normalizando CRLF; sin referencias a express.css/js del borrador. CSS compilado, navigation.css?v=1, fuentes e imagen hero HTTP 200. Revisión pública ES a 1440 sin overflow ni imágenes rotas; móvil ES/EN revisado en local. No envíos adicionales ni publicación del bloque de seguridad. Evidencia scratch/form-test-2026-10-06/express-restoration-live.json y express-restored-live.jpg.
+
+---
+## Corrección de alcance: Express sigue sin autorización — 6 de octubre de 2026
+
+* Omar aclaró que el diseño Express mostrado continúa como proyecto pendiente, sin autorización para publicar. Esto revoca la propuesta de incluirlo junto con seguridad y corrige la interpretación de la entrada anterior. No hubo commit, push ni despliegue de esta sesión.
+* Retirados express.css/js del índice Git y revertidos únicamente los cache-bust añadidos en esta revisión: HTML ES/EN nuevamente CSS v3/JS v1, sin diff contra HEAD; archivos de desarrollo conservados completos y sin versionar. No se publicará el rediseño sin aprobación expresa.
+* Investigación confirmó un incidente anterior: el commit 9f5b77f (27-sep, anunciado como aumento de logo) también reemplazó express/index.html y express/en/index.html con el HTML del rediseño, sin añadir CSS/JS. Producción sirve exactamente esos HTML (GET 200, comparación normalizando CRLF), con referencias a archivos que dieron 404 en la auditoría. La versión anterior 9f5b77f^ usa assets/index-b314nm7x.css y navigation.css?v=1, disponibles/versionados.
+* Próximo paso propuesto: restaurar la última versión aprobada en producción conservando el rediseño en una copia de desarrollo. Aún no se restauraron HTML ni se publicó seguridad; requiere decisión de Omar sobre recuperación de Express. El constructor vuelve a detectar los recursos pendientes, así que no se debe saltar el bloqueo ni publicar el borrador para resolverlo.
+
+---
+## Reparación de recursos de Express lista en local — 6 de octubre de 2026
+
+* Omar autorizó continuar con la reparación de Express para desbloquear publicación de las correcciones de seguridad. Se revisaron express.css y express.js existentes: corresponden a las páginas ya publicadas, pero estaban sin versionar y sus URLs devolvían 404. Ambos añadidos al índice Git; no se realizó commit/push/deploy.
+* Cache-bust ES/EN actualizado a express.css?v=4 y express.js?v=2. El constructor del paquete público ya pasa y contiene ambos recursos. Se mantuvo el contenido comercial aprobado y el diseño existente. CSP local alineada con frame-src Google que ya sirve producción, evitando perder el mapa en el siguiente despliegue.
+* Validación: verify-express-2026-09-14.cjs pasa (H1, seis fotos, seis FAQ/schema, enlaces, WhatsApp, dimensiones y siete tonos); sintaxis JS, tres pruebas de despliegue/monitor y regla de marca (63 archivos) pasan. git diff --check sin errores.
+* Navegador integrado con servidor local loopback: ES revisado visualmente a 390 y 1440 px; ES/EN a 320 y 1440 sin overflow horizontal ni imágenes rotas con src. Galería ES: apertura por Enter, flecha a imagen 2, Escape cierra y devuelve foco, FAQ abre por Enter. Consola local sin warnings/errors capturados. No se enviaron WhatsApps ni formularios en esta revisión. No es auditoría exhaustiva de dispositivos/accesibilidad.
+* Captura scratch/form-test-2026-10-06/express-desktop.jpg; preview localhost:8765/express/. Nuevas reglas Apache/LiteSpeed y workflow aún requieren verificación después de publicación. Publicación pendiente de autorización concreta; no se mezclaron carpetas ajenas sin versionar. Los cambios de Supabase que Omar aplicó anteriormente ya están activos y no dependen del deploy.
+
+---
+## Restauración de Supabase reportada — 6 de octubre de 2026
+
+* Cierre de prueba: Omar confirma recepción del correo de la solicitud RTMX-SEG-20261006-A. Quedan confirmados el éxito mostrado por formulario (carga/INSERT según flujo) y aceptación EmailJS, más entrega en bandeja confirmada por el destinatario. No hubo lectura administrativa independiente ni eliminación del registro/adjunto. Esta prueba cierra recuperación del recorrido probado; no cierra controles pendientes de bots, Storage, GitHub, publicación local, Express ni recurrencia de pausa Free.
+
+
+* Prueba real autorizada por Omar (haz la prueba, después continua): ejecutada desde home publicada en navegador integrado. Una solicitud con nombre PRUEBA SEGURIDAD 2026-10-06 — IGNORAR, correo reservado prueba@example.com, servicio otro, teléfono vacío y marcador RTMX-SEG-20261006-A. PNG de 1 píxel, PRUEBA-SEGURIDAD-NO-PRODUCIR.png; mensaje NO COTIZAR/NO PRODUCIR/NO RESPONDER. El selector respondió por Enter tras intento de clic sin efecto. Submit también activado por Enter; un envío efectivo observado (estado Enviando y posterior éxito).
+* Resultado: UI ¡Solicitud enviada! y texto normal Recibimos tu cotización, sin aviso de respaldo/adjunto pendiente. Por el flujo upload.js esto indica carga e INSERT aceptados; consola confirma EmailJS notification sent successfully a 2026-10-07T01:13:05.459Z (6-oct, 20:13 Cancún). No se accedió al registro mediante lectura administrativa ni se confirmó entrega en bandeja. No se eliminó el registro/archivo de prueba. Evidencia scratch/form-test-2026-10-06/solicitud-enviada.jpg; página de éxito conservada abierta. Sin commit/push/deploy.
+
+
+* Migración aplicada por Omar: resultado pg_policies confirma dos anon INSERT with_check=true preservadas y dos políticas authenticated/ALL restringidas al UID autorizado, una PERMISSIVE y otra RESTRICTIVE, ambas con USING/WITH CHECK explícitos. Ya no aparecen las dos políticas generales. Verificación posterior independiente: Auth settings 200 disable_signup=true; lectura REST anon con limit=0 devuelve 401/42501. No se accedió a datos personales ni se enviaron formularios. Falta prueba del panel con cuenta propietaria y prueba aislada de otro UID para confirmar comportamiento efectivo; Storage y demás tablas no cubiertos. Duplicación anon es redundante y se conserva por ahora.
+
+
+* Omar reporta eliminada la cuenta test y confirma que solo su cuenta debe administrar cotizaciones. Preparado scripts/restrict-cotizaciones-owner.sql, aún NO ejecutado: transacción, resolución de correo con comprobación de UID contra captura, RLS activa, reemplazo de dos políticas authenticated amplias por autorización del propietario más guardia RESTRICTIVE para impedir bypass por otras permisivas. Conserva anon INSERT y datos; grants CRUD authenticated y revocación de TRUNCATE/REFERENCES/TRIGGER; aborta si TRUNCATE sigue heredado o falta INSERT anon. Consulta final para verificar políticas. Bootstrap deja de crear acceso general authenticated. Sin conexión PostgreSQL administrativa para prueba de ejecución; revisión de SQL local, aplicación y pruebas del panel pendientes. La autorización se limita a cotizaciones_web; service_role/propietario DB siguen siendo privilegiados, Storage/ERP restante no cambian.
+
+
+* Contención aplicada por Omar y verificada vía GET Auth settings: HTTP 200, disable_signup=true. Registro público desactivado. No se crearon cuentas ni se modificaron políticas; las dos authenticated/ALL USING(true) siguen pendientes de reemplazo y las cuentas existentes conservan acceso según grants. Próximo paso: identificar personal autorizado y propósito de la cuenta de prueba visible antes de restringir acceso o retirar usuarios.
+
+
+* Hallazgo prioritario confirmado: Omar aporta qual=true para ambas políticas authenticated/ALL (with_check=null). La API pública Auth settings devuelve disable_signup=false, email=true y mailer_autoconfirm=false: registro por correo habilitado con confirmación. Combinación permite acceso indiscriminado por políticas a usuarios autenticados; falta confirmar grants efectivos y políticas restrictivas antes de afirmar explotación. No se creó cuenta ni se consultaron clientes. Recomendada contención cerrando autorregistro si el panel es de uso interno, seguida de autorización explícita del personal, revisión de usuarios existentes y roles ERP. No basta eliminar duplicados; no se ha aplicado contención ni migración.
+
+
+* Diagnóstico aportado por Omar: has_table_privilege(anon, public.cotizaciones_web, INSERT) = true. pg_policies devuelve dos políticas anon/INSERT con with_check=true (Allow anonymous inserts to web table y Allow anonymous inserts) y dos authenticated/ALL con with_check=null (Allow all access to authenticated users on web table y Allow all access to authenticated users). Son duplicadas en roles/comando/check mostrado; falta qual para determinar el alcance de acceso authenticated. No interpretar null como denegación ni acreditar envío completo solo con grants/policies. Pendiente condición USING, registro de usuarios y autorización del ERP; sin SQL de modificación ni envío de formulario.
+
+
+* Actualización: Omar confirma que cotizaciones_web aparece en Table Editor. Nueva comprobación REST de solo lectura: HTTP 401, código 42501 (permission denied for table cotizaciones_web); Auth health 200. El PGRST205 anterior ya no se reproduce. Lectura anónima denegada coincide con INSERT-only documentado; no habilitar SELECT para arreglar esa prueba. INSERT efectivo y políticas actuales aún pendientes de verificar; ningún envío realizado.
+
+
+* Omar confirmó que Dashboard mostraba paused y luego indicó haber restaurado el proyecto. Comprobación posterior de solo lectura: Auth /health HTTP 200; REST cotizaciones_web?select=id&limit=0 HTTP 404, PGRST205 (tabla no encontrada en schema cache). DNS ya responde, pero no se certifica recuperación del formulario. Pendiente revisar tabla, exposición/permisos y caché del esquema desde Dashboard; no crear tablas ni aplicar SQL sin diagnosticar.
+* Política oficial consultada: Free puede pausarse por poca actividad de base de datos durante 7 días, incluso con cierto uso. Visitas al sitio y cálculo local de precios no equivalen a consultas DB; la pausa no prueba cero uso del cotizador. Pro desde USD 25/mes elimina pausa por inactividad (no toda causa de interrupción). Monitor corregido sigue local, sin publicar. Sin envío de formularios ni cambio de plan.
+
+---
+## Auditoría de seguridad y endurecimiento local — 6 de octubre de 2026
+
+* Omar pidió revisar todo el proyecto/repositorio. Informe: `docs/auditoria-seguridad-2026-10-06.md`. Inventario de 625 archivos versionados, revisión de código propio/SQL/workflows, GitHub y HTTP público; escaneo heurístico de 1,514 blobs históricos de texto, sin imprimir credenciales. Solo coincide clave Firebase antigua (alerta GitHub #1 abierta, validez desconocida; no prueba compromiso).
+* Hallazgos prioritarios: main sin protección/rulesets; antispam solo de cliente; adjuntos con URL pública; política authenticated amplia en bootstrap, pendiente contrastar con servidor/ERP; SDKs CDN sin versión exacta/SRI. Secret scanning y push protection ya activos; Dependabot alerts desactivado. Sin acceso a hooks por scope faltante.
+* Incidente confirmado: Supabase no resuelve por DNS aquí; monitor GitHub run 37507626600 también registra HTTP 000000 pero success por fallo de la condición. Corregido localmente: normaliza fallo curl, solo acepta 200/401/403, no imprime body y consulta limit=0. No se restauró Supabase ni se envió prueba de formulario.
+* Producción: home 200 con cabeceras de seguridad, rutas sensibles muestreadas 403/404. Express referencia express.css/js que responden 404 y existen sin versionar localmente; estado preexistente. La CSP pública incluye frame-src Google ausente del .htaccess local; revisar diferencia antes de publicar.
+* Preparado: artefacto exclusivamente público/versionado, chequeo de recursos y sin symlinks; workflow con checkout SHA, token read-only no persistente, SSH estricto, secreto por env y despliegue serializado/solo main; deploy local con misma frontera y verificación de fallos; .htaccess y .gitignore reforzados; CI/Dependabot para Actions; bootstrap sin restaurar listado público y SQL de diagnóstico solo lectura para Supabase.
+* Validación: 3 pruebas automáticas pasan (incluyen 8 escenarios del monitor); sintaxis Node/PowerShell y diff check correctos. Constructor bloquea intencionalmente por los dos recursos Express sin versionar: no está listo para publicar hasta resolverlos. Apache/LiteSpeed nuevo no probado en ejecución; sin revisión visual ni pruebas de backend.
+* Sin commit/push/deploy ni ajustes remotos. No se tocó el trabajo previo de Express, no se ejecutó SQL, no se rotaron claves ni se reescribió historial. Prioridad siguiente: recuperar/verificar Supabase y resolver Express; después controles de servidor/RLS/adjuntos y protección de main. Informe distingue pendientes de lo corregido y límites de la revisión.
+
+---
+
 ## Restauración aprobada de Express — 6 de octubre de 2026
 
 * Omar aclaró que el rediseño de Express sigue pendiente y autorizó restaurar la última versión anterior. express/index.html y express/en/index.html recuperados desde 9f5b77f^; el commit del logo 9f5b77f había incluido el HTML del rediseño sin sus recursos.

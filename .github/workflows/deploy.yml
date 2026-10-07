@@ -1,65 +1,48 @@
 name: Deploy to Hostinger
-
 on:
   push:
     branches: [main]
   workflow_dispatch:
-
+permissions:
+  contents: read
+concurrency:
+  group: hostinger-production
+  cancel-in-progress: false
 jobs:
   deploy:
-    name: Deploy via SFTP
+    if: github.ref == 'refs/heads/main'
+    name: Deploy via SSH
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: List local files
-        run: find . -not -path './.git/*' -not -path './.github/*' | sort
-
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Validate and build public artifact
+        run: |
+          node --test scripts/build-deploy.test.mjs scripts/security-monitor.test.mjs
+          echo "DEPLOY_DIR=$(node scripts/build-deploy.mjs)" >> "$GITHUB_ENV"
       - name: Setup SSH key
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
+          umask 077
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          echo "[157.173.209.165]:65002 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/TCKkjOp9IfrzYjOUmatX+OsyzSDADH2Gq86/PkDMLO7qmLGIAeYknakIeYJdDprtlmaTTUd/Vp3bil3vmdU5PnI6AgKVbZVZLcwUT6nlU7WlpzuTykYaAyQxlpHIDvHo5tJkmopa7h2baT2RtrYdmQBHFEnCLY4ACp4S52QUZzVZMM/1iKjs4el9PZhTWu9hV/L6jVW86FVLVKoiYupIROHEolQbiL1Fu8QsY+ufHYj5UGyvlepjkScka7oGXQuNj9PdYMs+o82vw+vL6vX0MNWt36bYEl65BJTvqhoznNX6M/pX1dQdtFxoImlGi39tDpVlPfuSHG8y76/pZiZX/CkzlKcGnL72kaS8qcQ8xT7UAsNVYStWWwlKrPOkiO2NzdzHKzOEUk8orDkU0zb2C5XwDfaRL05yCBFOsOdx0j6dyQ7vJ1o6crlSbSQW6UDoYLXgkXkEMI2l9QivAJ3BnhUbKXCbpE8zfPTsPAgba1U2Z0Qec1bYEEQTFGU3pyU=" >> ~/.ssh/known_hosts
-          echo "[157.173.209.165]:65002 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBwUIwwRwS3/HsLYHimZ87m5orHtvlZDbNzu+iZpPpVni+7FFMCRaGuvnX1Zrd222vJaK1vie3Aujc3wmSAEyqo=" >> ~/.ssh/known_hosts
-          echo "[157.173.209.165]:65002 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGMEdxwrS1c2Jv3nW63liD8H71IvUCHEPEaffhfSYQYW" >> ~/.ssh/known_hosts
-
-      - name: Deploy via rsync over SSH
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          cp .github/known_hosts ~/.ssh/known_hosts
+      - name: Deploy public artifact over SSH
         run: |
-          # Hostinger bloquea intermitentemente las IPs de GitHub: reintentar
-          # hasta 6 veces con ConnectTimeout corto en lugar de fallar al primero
           for i in 1 2 3 4 5 6; do
-            if rsync -avz \
-              --exclude='.git' \
-              --exclude='.github' \
-              --exclude='README.md' \
-              --exclude='CLAUDE.md' \
-              --exclude='.gitignore' \
-              --exclude='LICENSE' \
-              --exclude='search_info' \
-              --exclude='seo_performance' \
-              --exclude='deploy_failures' \
-              --exclude='assets/ysisi' \
-              --exclude='assets/nuevas_fotos' \
-              --exclude='assets/galeria-raw' \
-              --exclude='assets/imagenes_blog' \
-              --exclude='scratch' \
-              --exclude='docs' \
-              --exclude='assets/hero-space-bg.png' \
-              --exclude='assets/hero-space-bg-2.png' \
-              --exclude='assets/hero-space-bg-3.png' \
-              -e "ssh -p 65002 -i ~/.ssh/deploy_key -o ConnectTimeout=20" \
-              . u944947843@157.173.209.165:domains/rotulatepublicidad.com/public_html/; then
+            if rsync -avz --chmod=D755,F644 \
+              -e "ssh -p 65002 -i ~/.ssh/deploy_key -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20" \
+              "$DEPLOY_DIR/" u944947843@157.173.209.165:domains/rotulatepublicidad.com/public_html/; then
               echo "Deploy exitoso en el intento $i"
               exit 0
             fi
-            echo "Intento $i falló; esperando 30s antes de reintentar..."
             sleep 30
           done
-          echo "Deploy falló tras 6 intentos"
           exit 1
-
       - name: Cleanup SSH key
         if: always()
         run: rm -f ~/.ssh/deploy_key

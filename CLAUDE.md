@@ -12,7 +12,7 @@ Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulació
 ├── index.html          # Página principal (single-page)
 ├── style.css           # Estilos globales (glassmorphism, responsive)
 ├── main.js             # Lógica principal (navegación, animaciones, lazy loading)
-├── upload.js           # Lógica de subida de archivos (Uploadcare)
+├── upload.js           # Lógica de adjuntos Supabase y avisos EmailJS
 ├── assets/             # Imágenes (hero, logos, iconos)
 ├── .github/workflows/  # GitHub Actions (deploy automático)
 └── CLAUDE.md           # Este archivo
@@ -20,17 +20,17 @@ Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulació
 
 ## Stack Técnico
 - **Frontend:** HTML5, CSS3 (variables, grid, flexbox), JavaScript vanilla (ES6+)
-- **Cotizaciones (formulario + archivos):** Supabase (tabla `cotizaciones` + bucket Storage `cotizaciones`), cliente en `supabase-config.js` y lógica en `upload.js`
+- **Cotizaciones (formulario + archivos):** Supabase (tabla `cotizaciones_web` + bucket Storage `cotizaciones`), cliente en `supabase-config.js` y lógica en `upload.js`
 - **Fuentes:** Google Fonts (Space Grotesk)
 - **Deploy:** GitHub Actions → rsync sobre SSH a Hostinger
 
 ## Deploy (GitHub Actions)
 - **Workflow:** `.github/workflows/deploy.yml`
 - **Trigger:** Push a `main` o `workflow_dispatch`
-- **Método:** `rsync` sobre SSH (puerto `65002`) — sustituyó al script Python ftplib anterior. Las llaves públicas del servidor están fijas en el workflow (`known_hosts` estático, sin `ssh-keyscan` porque fallaba desde los runners)
+- **Método:** `rsync` sobre SSH (puerto `65002`) — sustituyó al script Python ftplib anterior. Las llaves públicas del servidor están fijas en `.github/known_hosts` (`known_hosts` estático, sin `ssh-keyscan` porque fallaba desde los runners)
 - **Ruta remota:** `domains/rotulatepublicidad.com/public_html` (IMPORTANTE: esta es la ruta real, NO usar `public_html` solo)
 - **Secret necesario:** `SSH_PRIVATE_KEY`
-- **Exclusiones:** `.git`, `.github`, `README.md`, `CLAUDE.md`, `.gitignore`, `LICENSE` (agents.md y todo lo demás SÍ se sube)
+- **Paquete de despliegue:** `scripts/build-deploy.mjs` incluye únicamente archivos públicos versionados y comprueba recursos referenciados. Los archivos internos y locales no entran. `scripts/build-deploy.test.mjs` verifica la frontera.
 
 ### Notas importantes del deploy
 - Si el deploy falla con `Connection timed out` en el puerto 65002, es transitorio: reintentar con `gh run rerun <run-id> --failed` antes de tocar el workflow (pasó el 6 y el 12 de junio de 2026)
@@ -43,12 +43,12 @@ Sitio web comercial para **Rotulate Publicidad**, empresa mexicana de rotulació
 - **X-Content-Type-Options:** nosniff
 - **Referrer Policy:** strict-origin-when-cross-origin
 - **Anti-clickjacking:** `frame-ancestors 'none'` en CSP
-- **Formulario protegido:** honeypot anti-spam, rate limiting, validación/sanitización de inputs
+- **Formulario:** honeypot, límite temporal y validación del navegador ayudan a UX; no son una barrera contra peticiones directas. La seguridad depende de permisos y controles del servidor.
 - **Anti-XSS:** sanitización de datos del usuario antes de insertar en DOM
 
 ## Contacto del Negocio
 - **WhatsApp:** Botón flotante en el sitio
-- **Formulario:** Conectado a Formspree
+- **Formulario:** Supabase `cotizaciones_web`/Storage y EmailJS; conservar compatibilidad con el ERP al cambiar permisos.
 
 ## Estado de Proyecto & Bitácora
 - **Fuente única de verdad:** Para evitar la duplicación de información, toda la documentación activa sobre el estado de desarrollo, historial de cambios en cada sesión, notas de investigación y backlog de tareas pendientes residen **exclusivamente** en el archivo [agents.md](file:///C:/Users/omac_/rtmx-web/agents.md).

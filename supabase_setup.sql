@@ -1,6 +1,8 @@
 -- ============================================================
 -- SQL Setup for Supabase — Rotúlate Publicidad
--- Run this in the Supabase SQL Editor (https://supabase.com)
+-- HISTORICAL BOOTSTRAP, NOT a production security migration.
+-- Audit current grants, staff roles and bucket settings first with
+-- scripts/audit-supabase-readonly.sql. The ERP shares this project.
 -- ============================================================
 
 -- 1. Create the 'cotizaciones_web' table (Tabla activa de producción)
@@ -20,6 +22,9 @@ create table if not exists public.cotizaciones_web (
 alter table public.cotizaciones_web enable row level security;
 
 -- 3. Create RLS Policies for the table
+-- Match the INSERT-only anon grants applied in production in August 2026.
+revoke all on public.cotizaciones_web from anon;
+grant insert on public.cotizaciones_web to anon;
 -- Allow anyone (public/anonymous) to INSERT leads from the website form
 create policy "Allow anonymous inserts" 
 on public.cotizaciones_web 
@@ -27,12 +32,9 @@ for insert
 to anon 
 with check (true);
 
--- Allow authenticated users (admin, staff dashboard) to view/edit/delete leads
-create policy "Allow all access to authenticated users" 
-on public.cotizaciones_web 
-for all 
-to authenticated 
-using (true);
+-- Do not grant all signed-in users access to customer records.
+-- Configure the authorized owner separately using
+-- scripts/restrict-cotizaciones-owner.sql after verifying the existing account.
 
 -- 4. Create storage policies (Ensure a bucket named 'cotizaciones' is created in Supabase Storage)
 -- Allow anyone to upload files to the 'cotizaciones' bucket
@@ -44,12 +46,6 @@ with check (
   bucket_id = 'cotizaciones'
 );
 
--- Allow anyone to view/download files in the 'cotizaciones' bucket
-create policy "Allow public file reads"
-on storage.objects
-for select
-to anon
-using (
-  bucket_id = 'cotizaciones'
-);
-
+-- Do not recreate the anonymous listing policy removed in July 2026.
+-- Public bucket URLs remain accessible to anyone who knows the URL.
+-- Private bucket + authorized signed URLs requires coordinated frontend/ERP work.
