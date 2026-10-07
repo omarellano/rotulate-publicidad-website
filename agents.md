@@ -3,6 +3,14 @@
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotulate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---
+## Restauración aprobada de Express — 6 de octubre de 2026
+
+* Omar aclaró que el rediseño de Express sigue pendiente y autorizó restaurar la última versión anterior. express/index.html y express/en/index.html recuperados desde 9f5b77f^; el commit del logo 9f5b77f había incluido el HTML del rediseño sin sus recursos.
+* Borrador completo ES/EN/CSS/JS preservado fuera de archivos públicos en C:/Users/omac_/rtmx-web/scratch/express-redesign-pending-2026-10-06/. No se publica el proyecto pendiente ni el bloque local de seguridad.
+* Restauración preparada en checkout aislado basado en origin/main d193010, conservando las once revisiones remotas que faltaban en el workspace original. Solo dos HTML y esta bitácora integran el cambio; scripts/workflows/SQL de seguridad locales quedan pendientes.
+* Recursos de la versión anterior: assets/index-b314nm7x.css, navigation.css?v=1 y fuentes/imágenes existentes. Verificación local navegador ES/EN a 390 px sin overflow ni imágenes rotas; no envíos de WhatsApp/formularios. Despliegue y comprobación pública pendientes al preparar este commit.
+
+---
 ## Incremento del 20% en logotipo del menú principal — 27 de septiembre de 2026
 
 * Omar pidió hacer crecer el logotipo del menú principal (`.logo-img`) un 20%.
