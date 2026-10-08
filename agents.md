@@ -1507,3 +1507,8 @@ Solo lectura; no se guardó nada en el perfil.
 * **Pedido de Omar:** que la calabaza (cara tallada) prenda y apague.
 * **Cambio:** nuevos cuadros `assets/chuby-rocket-halloween-hero-lit.webp` y `...-blink-lit.webp` (ojos/boca de la calabaza en amarillo con resplandor; silueta idéntica). `main.js` sección 9b ahora combina 4 cuadros (ojos abiertos/cerrados × calabaza prendida/apagada): prendida ~1.1–2 s, apagada ~0.6–1.3 s, con titileo rápido ocasional; independiente del parpadeo. Respeta `prefers-reduced-motion`. `index.html` sube a `main.js?v=4.5` para invalidar caché.
 * **Pendiente:** verificar en producción tras el deploy.
+
+## ✅ Cierre: mascota Chuby Rocket en el hero (8-oct-2026)
+* **Commits en `main`:** `21e41fc` (Chuby reemplaza a Robbie), `6ab6d96` (parpadeo), `cff4a2c` (caché `main.js?v=4.4`), `6d65b84` (calabaza prende/apaga, `?v=4.5`).
+* **Deploy:** runs #376, #377 y #378 de "Deploy to Hostinger" en success. Verificado con curl en producción: `main.js?v=4.5` con la lógica nueva, home referencia `v=4.5` y los assets `chuby-rocket-halloween-*` responden 200.
+* **Pendiente (Omar):** confirmar a ojo en el sitio (Ctrl+Shift+R; purgar caché en Hostinger si hace falta). Los PNG/WebP de Robbie siguen en `assets/` sin uso en la home. El parpadeo y la calabaza no corren con "reducir movimiento" activado.
