@@ -746,39 +746,53 @@
         });
     })();
 
-    /* ── 9b. Chuby Rocket blink ─────────────────────────────── */
+    /* ── 9b. Chuby Rocket: parpadeo + calabaza que prende y apaga ── */
     (function () {
         var img = document.querySelector('.astronaut-mascot');
         var source = img && img.parentNode.querySelector('source');
         if (!img || !source) return;
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-        var openWebp = source.getAttribute('srcset');
+        var base = 'assets/chuby-rocket-halloween-';
         var openPng = img.getAttribute('src');
-        var blinkWebp = 'assets/chuby-rocket-halloween-blink.webp';
-        var blinkPng = 'assets/chuby-rocket-halloween-blink.png';
-        new Image().src = blinkWebp;
+        var blinkPng = base + 'blink.png';
+        var closed = false;
+        var lit = false;
 
-        function setFrame(closed) {
-            source.setAttribute('srcset', closed ? blinkWebp : openWebp);
+        // Precarga de los cuatro cuadros (ojos abiertos/cerrados × calabaza apagada/prendida)
+        ['hero', 'blink', 'hero-lit', 'blink-lit'].forEach(function (n) { new Image().src = base + n + '.webp'; });
+
+        function render() {
+            var name = (closed ? 'blink' : 'hero') + (lit ? '-lit' : '');
+            source.setAttribute('srcset', base + name + '.webp');
             img.setAttribute('src', closed ? blinkPng : openPng);
         }
 
         function blink() {
-            setFrame(true);
+            closed = true; render();
             setTimeout(function () {
-                setFrame(false);
+                closed = false; render();
                 // 30 % de las veces, doble parpadeo
                 if (Math.random() < 0.3) {
                     setTimeout(function () {
-                        setFrame(true);
-                        setTimeout(function () { setFrame(false); }, 130);
+                        closed = true; render();
+                        setTimeout(function () { closed = false; render(); }, 130);
                     }, 180);
                 }
             }, 140);
             setTimeout(blink, 2500 + Math.random() * 3000);
         }
+
+        function pumpkin() {
+            lit = !lit; render();
+            // prendida un rato, apagada un poco menos; a veces titila rápido
+            var wait = lit ? 1100 + Math.random() * 900 : 600 + Math.random() * 700;
+            if (!lit && Math.random() < 0.25) wait = 120;
+            setTimeout(pumpkin, wait);
+        }
+
         setTimeout(blink, 2000);
+        setTimeout(pumpkin, 800);
     })();
 
     /* ── 10. Astronaut Mouse Flee Behavior (Desktop Only) ───── */

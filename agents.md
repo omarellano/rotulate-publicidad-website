@@ -1502,3 +1502,8 @@ Solo lectura; no se guardó nada en el perfil.
 * **Diagnóstico:** el servidor ya servía `main.js` con el parpadeo (verificado con curl), pero `main.js?v=4.3` tiene `cache-control: max-age=604800` y el navegador de Omar conservaba la versión anterior.
 * **Fix:** `index.html` ahora carga `main.js?v=4.4` para invalidar la caché. Regla: al cambiar `main.js`, subir el `?v=` en el HTML.
 * **Pendiente:** si sigue sin parpadear tras recargar, revisar si el sistema tiene "reducir movimiento" activado (el parpadeo lo respeta).
+
+## 🎃 Calabaza de Chuby prende y apaga (8-oct-2026)
+* **Pedido de Omar:** que la calabaza (cara tallada) prenda y apague.
+* **Cambio:** nuevos cuadros `assets/chuby-rocket-halloween-hero-lit.webp` y `...-blink-lit.webp` (ojos/boca de la calabaza en amarillo con resplandor; silueta idéntica). `main.js` sección 9b ahora combina 4 cuadros (ojos abiertos/cerrados × calabaza prendida/apagada): prendida ~1.1–2 s, apagada ~0.6–1.3 s, con titileo rápido ocasional; independiente del parpadeo. Respeta `prefers-reduced-motion`. `index.html` sube a `main.js?v=4.5` para invalidar caché.
+* **Pendiente:** verificar en producción tras el deploy.
