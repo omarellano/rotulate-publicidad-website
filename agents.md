@@ -1497,3 +1497,8 @@ Solo lectura; no se guardó nada en el perfil.
 * **Pedido de Omar:** que Chuby parpadee.
 * **Cambio:** nuevo cuadro `assets/chuby-rocket-halloween-blink.webp/.png` (ojos reemplazados por líneas verdes planas, mismo tamaño/alfa). `main.js` sección 9b alterna el `<picture>` entre ambos cuadros ~140 ms cada 2.5–5.5 s (30 % doble parpadeo); respeta `prefers-reduced-motion`. Funciona junto a la flotación y el efecto de huida al cursor.
 * **Pendiente:** verificar en producción tras el deploy.
+
+## 🔧 Parpadeo de Chuby no aparecía por caché del navegador (8-oct-2026)
+* **Diagnóstico:** el servidor ya servía `main.js` con el parpadeo (verificado con curl), pero `main.js?v=4.3` tiene `cache-control: max-age=604800` y el navegador de Omar conservaba la versión anterior.
+* **Fix:** `index.html` ahora carga `main.js?v=4.4` para invalidar la caché. Regla: al cambiar `main.js`, subir el `?v=` en el HTML.
+* **Pendiente:** si sigue sin parpadear tras recargar, revisar si el sistema tiene "reducir movimiento" activado (el parpadeo lo respeta).
