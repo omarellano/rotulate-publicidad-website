@@ -1492,3 +1492,8 @@ Solo lectura; no se guardó nada en el perfil.
 * **Pedido de Omar:** cambiar la mascota del hero por su robot pequeño Chuby Rocket (versión bruja de Halloween), con el mismo efecto y tamaño que tenía Robbie.
 * **Cambio:** `index.html` (preload + `<picture>` + alt + width/height 975×1000) apunta a `assets/chuby-rocket-halloween-hero.webp` (~85 KB) con fallback PNG, recortados al contenido y con alfa. Sin cambios en CSS ni JS: se conservan la clase `.astronaut-mascot`, la flotación (`floatAstronaut`), el drop-shadow y la respuesta al cursor, con los mismos límites de tamaño (max 438×525 en desktop, 130 px en móvil). Archivos de Robbie preservados en `assets/`.
 * **Pendiente:** verificar visualmente en producción tras el deploy (purgar caché en Hostinger si hace falta).
+
+## 👁️ Chuby Rocket parpadea en el hero (8-oct-2026)
+* **Pedido de Omar:** que Chuby parpadee.
+* **Cambio:** nuevo cuadro `assets/chuby-rocket-halloween-blink.webp/.png` (ojos reemplazados por líneas verdes planas, mismo tamaño/alfa). `main.js` sección 9b alterna el `<picture>` entre ambos cuadros ~140 ms cada 2.5–5.5 s (30 % doble parpadeo); respeta `prefers-reduced-motion`. Funciona junto a la flotación y el efecto de huida al cursor.
+* **Pendiente:** verificar en producción tras el deploy.

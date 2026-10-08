@@ -746,6 +746,41 @@
         });
     })();
 
+    /* ── 9b. Chuby Rocket blink ─────────────────────────────── */
+    (function () {
+        var img = document.querySelector('.astronaut-mascot');
+        var source = img && img.parentNode.querySelector('source');
+        if (!img || !source) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        var openWebp = source.getAttribute('srcset');
+        var openPng = img.getAttribute('src');
+        var blinkWebp = 'assets/chuby-rocket-halloween-blink.webp';
+        var blinkPng = 'assets/chuby-rocket-halloween-blink.png';
+        new Image().src = blinkWebp;
+
+        function setFrame(closed) {
+            source.setAttribute('srcset', closed ? blinkWebp : openWebp);
+            img.setAttribute('src', closed ? blinkPng : openPng);
+        }
+
+        function blink() {
+            setFrame(true);
+            setTimeout(function () {
+                setFrame(false);
+                // 30 % de las veces, doble parpadeo
+                if (Math.random() < 0.3) {
+                    setTimeout(function () {
+                        setFrame(true);
+                        setTimeout(function () { setFrame(false); }, 130);
+                    }, 180);
+                }
+            }, 140);
+            setTimeout(blink, 2500 + Math.random() * 3000);
+        }
+        setTimeout(blink, 2000);
+    })();
+
     /* ── 10. Astronaut Mouse Flee Behavior (Desktop Only) ───── */
     (function () {
         var astronaut = document.querySelector('.astronaut-mascot');
