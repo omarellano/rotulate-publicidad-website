@@ -1512,3 +1512,10 @@ Solo lectura; no se guardó nada en el perfil.
 * **Commits en `main`:** `21e41fc` (Chuby reemplaza a Robbie), `6ab6d96` (parpadeo), `cff4a2c` (caché `main.js?v=4.4`), `6d65b84` (calabaza prende/apaga, `?v=4.5`).
 * **Deploy:** runs #376, #377 y #378 de "Deploy to Hostinger" en success. Verificado con curl en producción: `main.js?v=4.5` con la lógica nueva, home referencia `v=4.5` y los assets `chuby-rocket-halloween-*` responden 200.
 * **Pendiente (Omar):** confirmar a ojo en el sitio (Ctrl+Shift+R; purgar caché en Hostinger si hace falta). Los PNG/WebP de Robbie siguen en `assets/` sin uso en la home. El parpadeo y la calabaza no corren con "reducir movimiento" activado.
+
+## 🖼️ Logo nuevo del sitio (8-oct-2026)
+* **Pedido de Omar:** reemplazar el logo en todos los lugares donde se muestra por `logo_nuevo_web.svg` (CorelDRAW).
+* **Cambio:** nuevo `assets/logo-rotulate.svg` (vector, sin medidas en mm, viewBox 25794×5548) y `assets/logo-rotulate.png` regenerado a 1200×258 con alfa (mismo nombre de archivo, así los 60+ HTML, el JSON-LD `logo`/`image` de la home, lonas, Playa del Carmen y el blog toman el logo nuevo sin tocar rutas). Las 81 etiquetas `<img>` ahora usan `logo-rotulate.png?v=2` para saltar la caché de 7 días del servidor; las URLs de schema.org quedan sin query. El alto lo fija el CSS (`.logo-img` 43.2 px, `.footer-logo-img` 40 px, `.brand-logo-img` máx. 182 px), así que el nuevo logo (proporción 4.65:1 vs 5:1 antes) se ajusta solo.
+* **Verificación:** `node --test scripts/*.test.mjs` (3/3), `scripts/build-deploy.mjs` sin recursos faltantes y `check-brand-name.cjs` OK (el chequeo solo lee texto, no el contenido del SVG).
+* **Ojo (decisión de Omar):** el logo nuevo dice "Rotúlate" con acento y "SOLUCIONES GRÁFICAS" como subtítulo, mientras la regla de marca es "Rotulate Publicidad" sin acento. Alt text y metadatos siguen como "Rotulate Publicidad". El texto del logo es blanco: sirve solo sobre fondos oscuros. Favicon (`favicon.svg`, `favicon.ico`, `apple-touch-icon.png`) son los chevrones y no se tocaron.
+* **Pendiente:** merge a `main` y verificación visual tras el deploy.
