@@ -1548,3 +1548,10 @@ Solo lectura; no se guardó nada en el perfil.
 
 * Omar confirmó que el logo nuevo y la mascota Chuby Rocket (parpadeo y calabaza) ya se ven en el sitio en producción. Cierra los pendientes de verificación visual de las entradas del 8-oct. Comprobación adicional con curl: la home referencia `logo-rotulate.png?v=2`, `main.js?v=4.5` y los assets de Chuby; logo PNG/SVG responden según el resultado de la sesión.
 * Sin pendientes de este bloque. Siguen abiertos los de seguridad (protección de main/Dependabot, antispam en servidor, adjuntos, Firebase/CDN, MFA/respaldos) y el rediseño de Express, sin autorización de publicación.
+
+## 🔒 Seguridad P1: protección de main y Dependabot — 13 de octubre de 2026
+
+* Decisión de Omar: protección básica (sin exigir PR ni checks, para conservar el push directo a main) y Dependabot con alertas + actualizaciones automáticas de seguridad.
+* Aplicado vía API de GitHub en `omarellano/rotulate-publicidad-website` (repo público): ruleset `Proteger main` (id 25037794, enforcement active, rama por defecto) con reglas `deletion` y `non_fast_forward` — bloquea borrar main y force-push, sin bypass. Vulnerability alerts activadas (GET 204) y automated security fixes `enabled:true`. `.github/dependabot.yml` ya existía para GitHub Actions. Alertas abiertas al activar: 0.
+* Verificación: `rules/branches/main` devuelve las dos reglas; el push de este commit comprueba que el push directo sigue permitido.
+* Siguen pendientes: (2) antispam/rate limit en servidor, (3) privacidad, límites y URLs de adjuntos con el ERP, (4) Firebase histórico y versiones exactas/SRI de SDKs CDN, (5) MFA, respaldos y registros. Si en el futuro se quiere exigir `Security checks` o PR, se agrega al mismo ruleset.
