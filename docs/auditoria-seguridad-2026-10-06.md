@@ -87,3 +87,16 @@ Omar aclaró que el rediseño sigue sin autorización. Retirados los dos recurso
 ### Restauración publicada
 
 Omar autorizó recuperar la versión anterior aprobada. Commit 60c2b1b, deploy 37556665639 success. ES/EN HTTP 200 y coinciden con archivos restaurados; recursos de estilos/fuentes/hero HTTP 200. Borrador preservado en scratch/express-redesign-pending-2026-10-06/. Se publicaron solo dos HTML y bitácora; correcciones locales de seguridad siguen pendientes.
+
+
+## Cierre de publicación de seguridad — 6 de octubre de 2026
+
+* Commit c49a85a1132536b3309bf259f3dfa290fee48b09 publicado en main por autorización de Omar. Hostinger run 37557379335 y Security checks 37557379346 completed/success. Monitor manual 37557387497 success con HTTP 401 esperado (lectura anon denegada, API alcanzable).
+* Producción: home ES/EN, Express ES/EN y Lonas HTTP 200. Rutas scripts, agents.md, .env, .git/config, SQL y docs HTTP 403; ruta inexistente .well-known 404. Cabeceras CSP (incluido frame-src Google), HSTS, nosniff y X-XSS-Protection 0 confirmadas. Redirección index.html 301 conserva query. No envío de formulario adicional; la prueba previa llegó al correo de Omar.
+* Express rediseñado excluido; se conserva restauración 60c2b1b. Pendientes: antispam/rate limit en servidor, protección y límites de adjuntos coordinados con ERP, clave Firebase histórica, dependencias CDN fijas/SRI, protección main y controles de cuenta/backups. Dependabot Actions configurado, alertas remotas aún sin habilitar. Monitor no garantiza evitar pausa Free.
+
+
+
+### Fin de sesión
+
+Omar pidió documentar y terminar por hoy. Estado vigente: seguridad publicada y verificada (c49a85a), Express anterior restaurado, rediseño excluido. Próxima sesión: protección main/Dependabot, controles de servidor y adjuntos, Firebase/CDN y controles de cuenta. Detalle de entrega y respaldos en agents.md. Cierre documental local; sin nuevo despliegue.

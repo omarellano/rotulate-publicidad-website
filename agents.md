@@ -1488,6 +1488,24 @@ Solo lectura; no se guardó nada en el perfil.
 * **Cambio:** solo el párrafo del hero en `lonas-cancun/index.html`. **Pendiente de decisión de Omar:** meta description con "gran formato"/720 dpi y mismo texto en el hero de `gran-formato.html`.
 * **Aprobado por Omar (7-oct):** (1) meta description y og:description de `/lonas-cancun/`: "Lonas de gran formato en Cancún desde $120/m² (720 dpi). Mejórala a HP Latex y recíbela en 24 h. Cotiza en línea en 2 min."; (2) hero de `gran-formato.html` adaptado (la página cubre lonas, viniles, banners y carteles): "Lonas de gran formato desde $120/m² (calidad producción, 720 dpi, con bastilla y 4 ojillos incluidos) y viniles, banners y carteles en HP Latex con entrega en 24 h, para aparadores, fachadas, eventos y puntos de venta…". JSON-LD válido y `check-brand-name.cjs` OK. Va en el PR de seguimiento; no verificado en producción.
 
+
+## Cierre de publicación de seguridad — 6 de octubre de 2026
+
+* Commit c49a85a1132536b3309bf259f3dfa290fee48b09 publicado en main por autorización de Omar. Hostinger run 37557379335 y Security checks 37557379346 completed/success. Monitor manual 37557387497 success con HTTP 401 esperado (lectura anon denegada, API alcanzable).
+* Producción: home ES/EN, Express ES/EN y Lonas HTTP 200. Rutas scripts, agents.md, .env, .git/config, SQL y docs HTTP 403; ruta inexistente .well-known 404. Cabeceras CSP (incluido frame-src Google), HSTS, nosniff y X-XSS-Protection 0 confirmadas. Redirección index.html 301 conserva query. No envío de formulario adicional; la prueba previa llegó al correo de Omar.
+* Express rediseñado excluido; se conserva restauración 60c2b1b. Pendientes: antispam/rate limit en servidor, protección y límites de adjuntos coordinados con ERP, clave Firebase histórica, dependencias CDN fijas/SRI, protección main y controles de cuenta/backups. Dependabot Actions configurado, alertas remotas aún sin habilitar. Monitor no garantiza evitar pausa Free.
+
+
+---
+## Pausa y entrega de sesión — 6 de octubre de 2026
+
+* Omar pidió documentar y terminar por hoy. El bloque de seguridad está publicado en main (c49a85a); no quedan despliegues ni pruebas de este bloque en ejecución. Cierre y resultados públicos detallados en la entrada anterior y docs/auditoria-seguridad-2026-10-06.md.
+* Verificación final: HTML público de home, Express ES/EN y Lonas coincide con el checkout actualizado de main, normalizando saltos de línea. Copia principal adelantada por fast-forward sin perder revisiones remotas; respaldos de los archivos propios previos en scratch/security-published-workspace-backup-2026-10-06/. Worktree de seguridad enviado a archivo tras completar el trabajo.
+* Supabase: autorregistro desactivado y políticas de cotizaciones_web restringidas al propietario, aplicadas por Omar y comprobadas según evidencia de la sesión. Una prueba real de solicitud/adjunto llegó por correo, confirmado por Omar. No se eliminó el registro/archivo de prueba RTMX-SEG-20261006-A. No se certifica auditoría integral del ERP ni de todas las tablas/buckets.
+* Retomar por prioridad: (1) protección de main y alertas Dependabot remotas; (2) antispam/rate limit en servidor; (3) privacidad, límites y URLs de adjuntos coordinados con ERP; (4) revisión/restricción o retiro de Firebase histórico y versiones exactas/SRI para SDKs CDN; (5) MFA, respaldos y registros. El monitor diario detecta indisponibilidad; no garantiza evitar la pausa automática del plan Free.
+* Rediseño Express NO autorizado para publicación. Preservado en scratch/express-redesign-pending-2026-10-06/ y CSS/JS locales sin versionar. Producción conserva restauración 60c2b1b. No incluir borrador ni carpetas ajenas en siguientes commits.
+* Este cierre documental queda guardado localmente, sin nuevo commit/push ni otro despliegue. Sesión terminada por petición de Omar; no continuar tareas pendientes hoy.
+
 ## 🤖 Hero: Chuby Rocket reemplaza a Robbie de Halloween (8-oct-2026)
 * **Pedido de Omar:** cambiar la mascota del hero por su robot pequeño Chuby Rocket (versión bruja de Halloween), con el mismo efecto y tamaño que tenía Robbie.
 * **Cambio:** `index.html` (preload + `<picture>` + alt + width/height 975×1000) apunta a `assets/chuby-rocket-halloween-hero.webp` (~85 KB) con fallback PNG, recortados al contenido y con alfa. Sin cambios en CSS ni JS: se conservan la clase `.astronaut-mascot`, la flotación (`floatAstronaut`), el drop-shadow y la respuesta al cursor, con los mismos límites de tamaño (max 438×525 en desktop, 130 px en móvil). Archivos de Robbie preservados en `assets/`.
@@ -1519,3 +1537,9 @@ Solo lectura; no se guardó nada en el perfil.
 * **Verificación:** `node --test scripts/*.test.mjs` (3/3), `scripts/build-deploy.mjs` sin recursos faltantes y `check-brand-name.cjs` OK (el chequeo solo lee texto, no el contenido del SVG).
 * **Ojo (decisión de Omar):** el logo nuevo dice "Rotúlate" con acento y "SOLUCIONES GRÁFICAS" como subtítulo, mientras la regla de marca es "Rotulate Publicidad" sin acento. Alt text y metadatos siguen como "Rotulate Publicidad". El texto del logo es blanco: sirve solo sobre fondos oscuros. Favicon (`favicon.svg`, `favicon.ico`, `apple-touch-icon.png`) son los chevrones y no se tocaron.
 * **Pendiente:** merge a `main` y verificación visual tras el deploy.
+
+## ✅ Decisión: el logo nuevo conserva el acento — 13 de octubre de 2026
+
+* Omar confirmó que el logo nuevo (`assets/logo-rotulate.svg`/`.png`, "Rotúlate" con acento y subtítulo "SOLUCIONES GRÁFICAS") se queda tal cual. Resuelve el "Ojo" abierto de la entrada del 8-oct. No se modifica el SVG/PNG.
+* Alcance: la decisión es solo sobre la imagen del logo. El texto del sitio, alt text, metadatos y datos estructurados siguen como "Rotulate Publicidad" sin acento (regla de marca de CLAUDE.md; `check-brand-name.cjs` pasa). No se tocó código ni se desplegó nada.
+* Pendiente: verificación visual del logo en producción (Ctrl+Shift+R). CLAUDE.md ajustado el mismo día: la regla de grafía sin acento queda "conforme al dominio" y aclara que el logotipo gráfico lleva acento.
