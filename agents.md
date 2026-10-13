@@ -1543,3 +1543,8 @@ Solo lectura; no se guardó nada en el perfil.
 * Omar confirmó que el logo nuevo (`assets/logo-rotulate.svg`/`.png`, "Rotúlate" con acento y subtítulo "SOLUCIONES GRÁFICAS") se queda tal cual. Resuelve el "Ojo" abierto de la entrada del 8-oct. No se modifica el SVG/PNG.
 * Alcance: la decisión es solo sobre la imagen del logo. El texto del sitio, alt text, metadatos y datos estructurados siguen como "Rotulate Publicidad" sin acento (regla de marca de CLAUDE.md; `check-brand-name.cjs` pasa). No se tocó código ni se desplegó nada.
 * Pendiente: verificación visual del logo en producción (Ctrl+Shift+R). CLAUDE.md ajustado el mismo día: la regla de grafía sin acento queda "conforme al dominio" y aclara que el logotipo gráfico lleva acento.
+
+## ✅ Confirmado en producción: logo nuevo y Chuby Rocket — 13 de octubre de 2026
+
+* Omar confirmó que el logo nuevo y la mascota Chuby Rocket (parpadeo y calabaza) ya se ven en el sitio en producción. Cierra los pendientes de verificación visual de las entradas del 8-oct. Comprobación adicional con curl: la home referencia `logo-rotulate.png?v=2`, `main.js?v=4.5` y los assets de Chuby; logo PNG/SVG responden según el resultado de la sesión.
+* Sin pendientes de este bloque. Siguen abiertos los de seguridad (protección de main/Dependabot, antispam en servidor, adjuntos, Firebase/CDN, MFA/respaldos) y el rediseño de Express, sin autorización de publicación.
