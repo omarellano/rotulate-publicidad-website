@@ -1564,3 +1564,10 @@ Solo lectura; no se guardó nada en el perfil.
 * **Verificación local (Chrome, servidor loopback):** texto normal se pega sin cambios; HTML con imagen muestra el aviso; imagen pegada se adjunta (dos pegados → `imagen-pegada-1/2.png`) y el aviso pasa a lima; `.txt` soltado se rechaza con el error de formato existente. Sin envío real del formulario. Pruebas `build-deploy`/`security-monitor` 3/3 y paquete de despliegue OK.
 * **Publicado:** commit `b2d4576`, deploy 38488096790 success. curl a producción: home sirve `main.js?v=4.6`, `style.css?v=4.4` y `#mensaje-hint`; `upload.js?v=6` contiene la lógica nueva.
 * **Pendiente:** responder al cliente de la muestra (sin teléfono) para pedir las imágenes. El script antispam (prioridad 2 de seguridad) quedó en pausa por este incidente; formatos a restringir según Omar: solo imágenes PNG/JPG (no CDR/AI desde la web).
+
+---
+## Cierre de sesión — 13 de octubre de 2026
+
+* Omar pidió terminar por hoy. Todo lo de la sesión está en main y desplegado; sin trabajos en ejecución ni cambios versionados pendientes.
+* Hecho hoy: pull/fusión de `agents.md` con el trabajo del 8-oct; decisión del logo con acento y ajuste de regla en CLAUDE.md; confirmación en producción de logo y Chuby; ruleset `Proteger main` + Dependabot; fix de imágenes pegadas en el formulario (`b2d4576`).
+* Retomar: (1) Omar debe responder al cliente de la muestra para pedir sus imágenes y mover la captura `assets/Correo/` (datos de cliente) fuera de assets; (2) script antispam de la opción A (límites del bucket solo PNG/JPG/WebP, trigger con largos y topes de envío) + ajustes de EmailJS — falta saber cuántas cotizaciones llegan en un día pesado; (3) adjuntos privados/URLs con ERP; (4) Firebase histórico y SRI de CDN; (5) MFA y respaldos. Rediseño Express sigue sin autorización.
