@@ -85,6 +85,68 @@ const initCotizacionForm = () => {
         });
     }
 
+    // 4b. Imágenes pegadas o soltadas en el mensaje: el textarea solo guarda
+    // texto, así que se pasan a adjuntos en lugar de perderse como "image.png".
+    const messageField = document.getElementById('mensaje');
+    let pastedCount = 0;
+
+    function imageFilesFrom(fileList) {
+        return Array.from(fileList || [])
+            .filter(file => file.type.startsWith('image/'))
+            .map(file => {
+                pastedCount += 1;
+                const ext = file.type === 'image/jpeg' ? 'jpg' : (file.type.split('/')[1] || 'png');
+                return new File([file], `imagen-pegada-${pastedCount}.${ext}`, { type: file.type });
+            });
+    }
+
+    function attachFromMessage(files, hasText) {
+        if (files.length) {
+            const before = selectedFiles.length;
+            addFiles(files);
+            const added = selectedFiles.length - before;
+            if (!added) return true; // addFiles ya mostró el motivo (formato o tamaño)
+            showMessageHint(`Agregamos ${added === 1 ? 'el archivo' : `${added} archivos`} a tus adjuntos (abajo).`);
+            uploadZone?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            return true;
+        }
+        if (hasText) {
+            showMessageHint('Las imágenes no se pueden pegar dentro del texto. Guárdalas y agrégalas en "Adjuntar archivos".');
+        }
+        return false;
+    }
+
+    function showMessageHint(text) {
+        const hint = document.getElementById('mensaje-hint');
+        if (!hint) return;
+        hint.textContent = text;
+        hint.classList.add('form-hint--active');
+    }
+
+    messageField?.addEventListener('paste', (e) => {
+        const data = e.clipboardData;
+        if (!data) return;
+        const html = data.getData('text/html') || '';
+        const files = imageFilesFrom(data.files);
+        const hasImageMarkup = /<img[\s>]/i.test(html);
+        if (!files.length && !hasImageMarkup) return;
+        // Solo imagen (captura o "copiar imagen"): se evita pegar texto vacío.
+        if (files.length && !data.getData('text/plain')) e.preventDefault();
+        attachFromMessage(files, hasImageMarkup);
+    });
+
+    messageField?.addEventListener('dragover', (e) => {
+        if (Array.from(e.dataTransfer?.types || []).includes('Files')) e.preventDefault();
+    });
+
+    messageField?.addEventListener('drop', (e) => {
+        const files = Array.from(e.dataTransfer?.files || []);
+        if (!files.length) return;
+        e.preventDefault();
+        // Soltados conservan su nombre; solo los pegados se renombran.
+        attachFromMessage(files, false);
+    });
+
     form?.addEventListener('invalid', (e) => {
         const field = e.target;
         if (!field.matches('input, select, textarea')) return;

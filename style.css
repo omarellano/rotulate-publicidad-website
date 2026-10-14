@@ -1548,6 +1548,15 @@ a.showcase-item {
 
 .form-field-error.is-visible { display: block; }
 
+.form-hint {
+    margin: 0;
+    color: var(--color-gray);
+    font-size: 0.8rem;
+    line-height: 1.35;
+}
+
+.form-hint--active { color: var(--color-accent-lime); }
+
 .cotizar-form [aria-invalid="true"] { border-color: var(--color-accent-orange); }
 
 .cotizar-form input,
