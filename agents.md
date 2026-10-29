@@ -4,6 +4,12 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 
 ---
 
+## 🔒 CIERRE — 29 de octubre de 2026
+
+* **Hecho hoy:** galería de la home ampliada de 120 a 138 fotos (`galeria-133` a `galeria-150`), incluida la del Tren Maya en el AIFA; Aldo's recortada sin la persona; subtítulo de `#proyectos` ampliado a «otros puntos del país». Commits `befaa7f`, `c9b557c`, `41ebad3`, `a8589d8` (+ este cierre). Deploys con éxito y verificados con curl en producción; no se revisó en navegador.
+* **Pendiente:** 9 fotos sin GPS se publicaron sin ubicación confirmada (Aldo's, Cruz Azul ×2, letrero luminoso Tulum, silo nocturno, INNA, congreso GNP ×3, Solvimás); retirar si Omar indica que alguna no aplica. Las 13 reservas siguen en `scratch/fotos-revision-2026-10-29/reservas/` por si se quieren más. Sigue abierto el backlog previo (diagnóstico SEO del 28-oct, etc.).
+* **Estado de Git:** `main` sincronizado con origin; los archivos sin trackear previos (Express, `assets/nuevas_fotos/`, `scratch/`, etc.) se dejaron intactos.
+
 ## Fotos nuevas integradas a la galería de la home — 29 de octubre de 2026
 
 * Omar pidió terminar la subida pendiente ("terminemos esta tarea"), que se tomó como aprobación de la propuesta de 18 fotos de abajo.
