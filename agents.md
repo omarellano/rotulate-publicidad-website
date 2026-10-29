@@ -11,6 +11,7 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * Las otras 17 entran como `assets/galeria/galeria-133.webp` a `galeria-149.webp` (lado mayor máximo 1200 px, q80; 41–229 KB) y `assets/galeria/thumbs/` (500 px de ancho, q75; 12–54 KB), generadas con Sharp a partir de `scratch/fotos-revision-2026-10-29/seleccionadas/`. Correspondencia id→archivo en `scratch/fotos-revision-2026-10-29/integracion.json`. Nombres genéricos y el alt genérico de la galería: no se publican nombres de clientes en texto.
 * `main.js`: 17 entradas nuevas en `allImgs` de `initGaleriaAleatoria()` (137 en total, sin duplicados, todas con versión completa y miniatura); `index.html` sube a `main.js?v=4.7`.
 * Verificación local: `node --check main.js`, `scripts/build-deploy.test.mjs` (0 fallos), `check-brand-name.cjs` OK, hoja de contacto de las 17 miniaturas revisada visualmente (orientación y recorte correctos). Observación: en `galeria-133` (Aldo's) aparece una persona en el borde inferior; si Omar lo prefiere se recorta o se retira.
+* **Publicado:** commit `befaa7f` en `main`; deploy run `40924377968` terminó con éxito. Verificado con curl en producción: la home carga `main.js?v=4.7` (contiene `galeria-149`), y `galeria-133`, `galeria-141` y `thumbs/galeria-149` responden 200 `image/webp` con los tamaños locales. No se probó en navegador. Si alguna foto no aparece, purgar caché en Hostinger.
 
 ## Fotos nuevas preparadas para revisión — 29 de octubre de 2026
 
