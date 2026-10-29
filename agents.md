@@ -4,6 +4,36 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 
 ---
 
+## 🔍 Revisión en vivo de Search Console y Google Business Profile — 29 de octubre de 2026
+
+* Revisión en modo estrictamente solo lectura en el navegador de Omar (`omar.arellano.mx@gmail.com`), sin modificar sitio, paneles ni categorías.
+* **Google Search Console (`sc-domain:rotulatepublicidad.com`, datos hasta el 27-oct-2026):**
+  * **3 meses (28-jul a 27-oct-2026):** **362 clics**, **14.2 mil impresiones**, **CTR 2.6%**, **posición media 8.0**.
+  * **Últimos 28 días vs. 28 anteriores:** **139 clics** vs. 111 (**+25.2%**), **5.44 mil impresiones** vs. 4.08 mil (**+33.3%**), **CTR 2.6%** vs. 2.7% (-0.1 pp), **posición media 7.7** vs. 7.6.
+  * **Páginas que más crecieron (28d vs. 28d anteriores):**
+    * `/toldos.html`: **10 clics** vs. 0 (+10), **332 imp.** vs. 157 (+175), CTR **3.0%** vs. 0%, pos. **6.8** vs. 8.2 (el cambio de snippet del 27-sep destrabó los clics).
+    * `/gran-formato.html`: **10 clics** vs. 1 (+9), **628 imp.** vs. 295 (+333, +113%), CTR **1.6%** vs. 0.3%, pos. **8.9** vs. 9.1 (el cambio a «Imprenta en Cancún» y lona desde $120 duplicó impresiones y multiplicó clics ×10).
+    * `/lonas-cancun/`: **14 clics** vs. 9 (+5), **722 imp.** vs. 460 (+262), CTR 1.9%, pos. 7.1.
+    * `/?utm_source=google&utm_medium=organic&utm_campaign=gbp`: **5 clics** vs. 0, **319 imp.** vs. 25, pos. 4.4.
+    * `/express/`: **9 clics** vs. 5 (+4), **426 imp.** vs. 371, pos. **9.3** vs. 11.8 (entró a 1.ª página).
+    * `/anuncios-luminosos.html`: **5 clics** vs. 1 (+4), **146 imp.** vs. 94, pos. **8.3** vs. 11.0.
+    * `/placas-alucobond.html`: **5 clics** vs. 2 (+3), **68 imp.** vs. 49, CTR **7.4%**, pos. 6.6.
+  * **Páginas líderes y alertas (28d):** `/playa-del-carmen/` sigue #1 en clics e impresiones (**18 clics**, **918 imp.**, pos. 6.0); la home `/` tuvo **16 clics** (vs. 25, pero sumando los +5 clics del enlace UTM de GBP llega a **21 clics** y **848 imp.** combinadas); `/alucobond.html` pasó de 17 a **8 clics** (compensado parcialmente por la subida de `/placas-alucobond.html` a 5 clics).
+  * **Consultas destacadas (28d vs. 28d anteriores):**
+    * Nuevas en top 10 tras el cambio del 27-sep: `imprenta cancun` (**154 imp.** vs. 0, pos. **8.7**), `imprentas cancun` (**42 imp.** vs. 0, pos. **8.2**), `lonas económicas en cancún` (**1 clic**, **39 imp.** vs. 0, pos. **4.6**).
+    * Mejoras fuertes de posición: `lonas cancun` subió de pos. **11.6 → 8.2** (117 imp. vs. 69); `toldos cancun` de **11.4 → 7.9** (56 imp. vs. 33, 1 clic); `anuncios luminosos cancun` de **16.4 → 12.1** (51 imp. vs. 34); `rotulos cancun` de **5.1 → 3.8** (CTR 4.3%).
+  * **Indexación y Sitemaps (al 22-oct-2026):** **39 páginas indexadas** / **15 sin indexar** (7 con redirección, 5 páginas alternativas con canonical `?servicio=`, 1 error de redirección ya validado y 2 en «Descubierta: actualmente sin indexar»: `/blog/como-preparar-archivo-para-imprimir-lona-vinil-cancun.html` y `/blog/medidas-lona-negocio-cancun.html`). `sitemap.xml` **Correcto** (última lectura 21-oct, **40 páginas descubiertas**).
+  * **Core Web Vitals (al 25-oct-2026):** sin datos suficientes en CrUX (móvil y ordenador). HTTPS: 29 páginas válidas, 0 errores.
+  * **Datos estructurados y corrección aplicada (29-oct-2026):** Fragmentos de reseñas **6 válidos / 0 errores**; Breadcrumbs **24 válidos / 0 errores**; Fragmentos de productos tenía **10 válidos y 14 no válidos** (`Debe especificarse "offers", "review" o "aggregateRating"`). Los 14 errores provenían de `control-solar.html` (6 líneas 3M), `polarizado-autos.html` (4 líneas XPEL) y `polarizado-autos-en.html` (4 líneas XPEL), donde `hasOfferCatalog.itemListElement[].itemOffered` usaba `"@type": "Product"` sin precio unitario, además de `control-solar-en.html` donde habían quedado 6 `aggregateRating` antiguos (5.0/4). Se corrigieron los 4 archivos cambiando `itemOffered` a `"@type": "Service"` (igual que en `index.html`), retirando el `aggregateRating` antiguo de `control-solar-en.html` y actualizando `lastmod` en `sitemap.xml`. Quedan como `Product` únicamente las 4 páginas con `offers` reales (`/lonas-cancun/`, `gran-formato.html`, `alucobond.html`, `placas-alucobond.html`).
+* **Google Business Profile — «Rotúlate Publicidad» (Mayo–Octubre 2026):**
+  * **Calificación:** **4.6 ★** con **38 reseñas** (subió de 35 a 38 reseñas desde el 27-sep).
+  * **Vistas del perfil (may–oct):** **2,936 personas** (50% Maps / 50% Búsqueda; 79% móvil / 21% escritorio). En **octubre (en curso)** van **691 personas** vs. **562 en septiembre** (+23% mes contra mes).
+  * **Interacciones (may–oct):** **598 totales** (484 «Cómo llegar», 53 llamadas, 31 chats, 30 clics al sitio web).
+  * **Octubre (en curso) vs. Septiembre completo:** **95 interacciones** (casi igualando las 96 de todo septiembre a falta de cerrar el mes), destacando un récord de **15 llamadas** (vs. 11 en sep y 13 en ago) y **7 clics al sitio web** (vs. 2 en sep).
+  * **Búsquedas top en GBP (may–oct):** `imprenta` (**63**), `publicidad` (**57**), `publicidad creativa` (**35**), dirección SM 107 (**19**), `impresiones` (**18**).
+
+---
+
 ## 🔒 CIERRE — 29 de octubre de 2026
 
 * **Hecho hoy:** galería de la home ampliada de 120 a 138 fotos (`galeria-133` a `galeria-150`), incluida la del Tren Maya en el AIFA; Aldo's recortada sin la persona; subtítulo de `#proyectos` ampliado a «otros puntos del país». Commits `befaa7f`, `c9b557c`, `41ebad3`, `a8589d8` (+ este cierre). Deploys con éxito y verificados con curl en producción; no se revisó en navegador.
