@@ -613,7 +613,7 @@
             'galeria-137.webp','galeria-138.webp','galeria-139.webp','galeria-140.webp',
             'galeria-141.webp','galeria-142.webp','galeria-143.webp','galeria-144.webp',
             'galeria-145.webp','galeria-146.webp','galeria-147.webp','galeria-148.webp',
-            'galeria-149.webp'
+            'galeria-149.webp','galeria-150.webp'
         ];
 
         // Fisher-Yates shuffle
