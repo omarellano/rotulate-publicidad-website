@@ -4,6 +4,32 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 
 ---
 
+## 🚀 Optimización SEO (Playa del Carmen, Lonas Cancún, Gran Formato) y actualización de precio de lona a $130/m² — 30 de octubre de 2026
+
+* **Actualización comercial solicitada por Omar:** el precio base de la **Lona Económica (eco-solvente)** sube de **$120/m² a $130/m²** en todo el sitio, metadatos, datos estructurados (`Product` / `AggregateOffer` / `FAQPage`) y calculadora en línea:
+  * `lonas-cancun/main.js` (`PRICES.economica = 130`) y `lonas-cancun/index.html` (`main.js?v=4.0`, precio inicial `$130 MXN`, opciones del selector, tarjetas, FAQ y Schema `Product` con `lowPrice`/`price` `"130.00"`).
+  * `gran-formato.html` (meta description, hero, tarjeta de material, FAQ y Schema `Product` con `lowPrice`/`price` `"130.00"`).
+  * `playa-del-carmen/index.html`, `tulum/index.html`, `index.html` y los 3 artículos del blog con precios de referencia (`blog/lona-front-vs-microperforada.html`, `blog/medidas-lona-negocio-cancun.html`, `blog/letreros-para-negocios-cancun-riviera-maya.html`).
+  * Verificado con `git grep`: 0 referencias residuales a `$120` o `120.00` en precios de lonas.
+* **Mejoras SEO (CTR, contenido, LCP y enlazado interno) en las 3 páginas prioritarias:**
+  1. **`playa-del-carmen/index.html`:**
+     * `<title>` actualizado a `Lonas desde $130/m², Letreros y Anuncios Luminosos en Playa del Carmen | Rotulate` y `meta description` enfocada en lonas desde $130/m² (opción 24h HP Latex), anuncios luminosos anti-salitre, letras 3D, rótulos y rotulación vehicular.
+     * Añadidas tarjetas de servicio para **Viniles para aparadores y vidrieras** (`/gran-formato.html`, desde $350/m²) y **Fachadas de Alucobond** (`/alucobond.html`).
+     * Añadido bloque de **Guías útiles para tu negocio en Playa del Carmen** enlazando a `permisos-anuncios-publicitarios-quintana-roo-riviera-maya.html`, `letreros-para-negocios-cancun-riviera-maya.html`, `toldos-para-restaurantes-cancun-playa-del-carmen.html` y `medidas-lona-negocio-cancun.html`.
+     * Añadido `<link rel="preload" as="image" href="/assets/anuncios-luminosos.webp" type="image/webp" fetchpriority="high">` para mejorar LCP.
+  2. **`lonas-cancun/index.html`:**
+     * `<title>` actualizado a `Impresión de Lonas en Cancún desde $130/m² | Cotizador en Línea y 24h` y `meta description` optimizada para búsquedas de `impresión de lonas en cancún` y `lonas cancún`.
+     * Añadido bloque de tarjetas hacia las 3 guías de lonas del blog (`medidas-lona-negocio-cancun.html`, `como-preparar-archivo-para-imprimir-lona-vinil-cancun.html`, `lona-front-vs-microperforada.html`) para reforzar rastreo e indexación, más enlaces en el `<footer>` hacia `/blog/`, `/gran-formato.html`, `/express/`, `/playa-del-carmen/` y `/tulum/`.
+     * Añadido `<link rel="preload" as="image" href="../assets/gran-formato.webp" type="image/webp" fetchpriority="high">`.
+  3. **`gran-formato.html`:**
+     * `<title>` actualizado a `Imprenta en Cancún: Lonas desde $130/m², Viniles y Gran Formato | Rotulate` y `meta description` con precios visibles de lona (`$130/m²`) y vinil adhesivo/microperforado (`$350/m²`).
+     * Añadido precio visible **`Desde $350/m²`** en las tarjetas HTML de **Viniles Adhesivos** y **Vinil Microperforado** (alineado con su Schema `Product`) y enlace contextual a `blog/medidas-lona-negocio-cancun.html`.
+* **`sitemap.xml`:** `lastmod` actualizado a `2026-10-30` en las 8 URLs modificadas.
+* **Verificación local:** 26 bloques JSON-LD validados sin errores de sintaxis, `node --check lonas-cancun/main.js` OK, `check-brand-name.cjs` OK, `build-deploy.test.mjs` OK (2/2 pass).
+* **Publicado y verificado en producción:** commit `a6f7358` en `main`, deploy run `41077227755` completado con éxito. Verificado con `curl` en `https://rotulatepublicidad.com/lonas-cancun/`, `/lonas-cancun/main.js?v=4.0` (`economica: 130`), `/playa-del-carmen/` y `/gran-formato.html`: sirven los nuevos `<title>`, descripciones, enlaces internos y el precio actualizado de **$130/m²**.
+
+---
+
 ## 🔍 Revisión en vivo de Search Console y Google Business Profile — 29 de octubre de 2026
 
 * Revisión en modo estrictamente solo lectura en el navegador de Omar (`omar.arellano.mx@gmail.com`), sin modificar sitio, paneles ni categorías.
