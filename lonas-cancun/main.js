@@ -110,7 +110,7 @@
         estandar: 230,     // Lona 13 oz Latex
         mesh: 260,         // Lona Mesh perforada
         traslucida: 350,   // Lona Translúcida (Backlight)
-        economica: 120     // Lona eco-solvente: cobro mínimo 1 m² por pieza, entrega 2-3 días
+        economica: 130     // Lona eco-solvente: cobro mínimo 1 m² por pieza, entrega 2-3 días
     };
 
     const widthInput = document.getElementById('lona-width');
