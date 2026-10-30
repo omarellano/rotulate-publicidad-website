@@ -27,6 +27,9 @@ Este archivo sirve para transferir el contexto del desarrollo actual del sitio w
 * **`sitemap.xml`:** `lastmod` actualizado a `2026-10-30` en las 8 URLs modificadas.
 * **Verificación local:** 26 bloques JSON-LD validados sin errores de sintaxis, `node --check lonas-cancun/main.js` OK, `check-brand-name.cjs` OK, `build-deploy.test.mjs` OK (2/2 pass).
 * **Publicado y verificado en producción:** commit `a6f7358` en `main`, deploy run `41077227755` completado con éxito. Verificado con `curl` en `https://rotulatepublicidad.com/lonas-cancun/`, `/lonas-cancun/main.js?v=4.0` (`economica: 130`), `/playa-del-carmen/` y `/gran-formato.html`: sirven los nuevos `<title>`, descripciones, enlaces internos y el precio actualizado de **$130/m²**.
+* **📌 Punto de continuación para cuando retome Omar:**
+  1. **Punto 2 (Medición y analítica en `analytics.js` y `upload.js`):** cubrir el hueco de medición cuando el formulario cae en el respaldo de **EmailJS** (distinguir solicitud guardada en Supabase `cotizacion_supabase_ok` vs. respaldo exitoso por EmailJS sin doble conteo) y revisar el orden de inicialización de Consent Mode respecto a `gtm.js`.
+  2. **Punto 3 (Galería — opcional):** confirmar si las 9 fotos sin GPS publicadas ayer se conservan todas o si se desea incorporar alguna de las 13 fotos en reserva (`scratch/fotos-revision-2026-10-29/reservas/`).
 
 ---
 
