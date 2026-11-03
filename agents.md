@@ -1,5 +1,15 @@
 # Handoff para Agentes de IA — Estado del Proyecto
 
+## Cierre de sesión — 3 de noviembre de 2026
+
+* Omar pidió documentar y cerrar. Chuby Rocket de Día de Muertos quedó publicado con parpadeo, luz en los ojos de la calaverita y las mismas medidas/flotación del hero; detalle técnico y validaciones en la entrada siguiente.
+* Commits enviados a `main`: `911a28a` (implementación) y `7a9f02e` (confirmación del despliegue). Deploy `41662496661` exitoso; recursos nuevos confirmados por HTTP en producción. No hay despliegues ni pruebas de este trabajo en ejecución.
+* Pendiente: revisión visual del hero en navegador móvil/escritorio; no se pudo realizar porque el navegador integrado no estuvo disponible. No confundir la verificación HTTP con una revisión visual de producción.
+* Al iniciar el cierre, sin cambios versionados pendientes. Archivos locales sin seguimiento, original de Chuby y borrador Express conservados; no se incorporaron al despliegue. Rediseño Express continúa sin autorización para publicar.
+* Sesión cerrada por petición de Omar. No continuar el backlog de analítica, seguridad o galería hasta que lo solicite.
+
+---
+
 ## Chuby Rocket de Día de Muertos — 3 de noviembre de 2026
 
 * Pedido de Omar: sustituir la mascota del hero por `assets/chuby-rocket-dia-muertos`, con parpadeo, ojos de la calaverita que prenden/apagan y el mismo tamaño/flotación.
