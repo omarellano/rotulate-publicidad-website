@@ -751,26 +751,18 @@
         });
     })();
 
-    /* ── 9b. Chuby Rocket: parpadeo + calabaza que prende y apaga ── */
+    /* ── 9b. Chuby Rocket: parpadeo + ojos de la calaverita ── */
     (function () {
-        var img = document.querySelector('.astronaut-mascot');
-        var source = img && img.parentNode.querySelector('source');
-        if (!img || !source) return;
+        var img = document.querySelector('.chuby-muertos');
+        if (!img) return;
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-        var base = 'assets/chuby-rocket-halloween-';
-        var openPng = img.getAttribute('src');
-        var blinkPng = base + 'blink.png';
         var closed = false;
         var lit = false;
 
-        // Precarga de los cuatro cuadros (ojos abiertos/cerrados × calabaza apagada/prendida)
-        ['hero', 'blink', 'hero-lit', 'blink-lit'].forEach(function (n) { new Image().src = base + n + '.webp'; });
-
         function render() {
-            var name = (closed ? 'blink' : 'hero') + (lit ? '-lit' : '');
-            source.setAttribute('srcset', base + name + '.webp');
-            img.setAttribute('src', closed ? blinkPng : openPng);
+            img.classList.toggle('is-blinking', closed);
+            img.classList.toggle('is-lit', lit);
         }
 
         function blink() {
@@ -788,16 +780,15 @@
             setTimeout(blink, 2500 + Math.random() * 3000);
         }
 
-        function pumpkin() {
+        function skull() {
             lit = !lit; render();
-            // prendida un rato, apagada un poco menos; a veces titila rápido
+            // Luz suave e independiente del parpadeo, sin destellos rápidos.
             var wait = lit ? 1100 + Math.random() * 900 : 600 + Math.random() * 700;
-            if (!lit && Math.random() < 0.25) wait = 120;
-            setTimeout(pumpkin, wait);
+            setTimeout(skull, wait);
         }
 
         setTimeout(blink, 2000);
-        setTimeout(pumpkin, 800);
+        setTimeout(skull, 800);
     })();
 
     /* ── 10. Astronaut Mouse Flee Behavior (Desktop Only) ───── */

@@ -1,5 +1,15 @@
 # Handoff para Agentes de IA — Estado del Proyecto
 
+## Chuby Rocket de Día de Muertos — 3 de noviembre de 2026
+
+* Pedido de Omar: sustituir la mascota del hero por `assets/chuby-rocket-dia-muertos`, con parpadeo, ojos de la calaverita que prenden/apagan y el mismo tamaño/flotación.
+* Preparado `assets/chuby-rocket-dia-muertos-hero.webp` (1000×1000, alfa, 140,082 bytes). Original intacto. Herramienta integrada imagegen usada para retirar el fondo cuadriculado incorporado; instrucción: retirar solo el fondo, conservar pose, proporciones, flores, colores, detalles y figura completa, con transparencia real. Sharp usado para reducir y codificar WebP.
+* `index.html`: preload nuevo y SVG con ilustración raster y capas de ojos; lienzo proporcional a los 975×1000 anteriores. `style.css`: conserva límites de 130 px móvil / 438 px escritorio, flotación de 6 s y sombra; capas de parpadeo y luz con transición suave. `main.js`: parpadeo de 140 ms y doble parpadeo ocasional, luz independiente sin titileo rápido; respeta reducir movimiento. Se conserva reacción al cursor. Caché: CSS v4.5, JS v4.9.
+* Verificación local: renderizados de ojos abiertos y cerrados/luz encendida revisados sobre fondo oscuro (`scratch/chuby-muertos/`); sintaxis JS, pruebas de build-deploy 2/2, marca y diff --check correctos. Ejecución aislada de la lógica confirma cierre/reapertura, independencia de luz y ausencia de temporizadores con reducir movimiento. Navegador integrado no disponible ("browser access host is unavailable"); pendiente revisión visual del hero en navegador móvil/escritorio.
+* Cambios locales, sin commit, push ni despliegue. Express y archivos previos ajenos conservados.
+
+---
+
 Este archivo sirve para transferir el contexto del desarrollo actual del sitio web **Rotulate Publicidad** a cualquier agente de IA que colabore en el futuro. Es la **fuente única de verdad** para documentar el estado activo de desarrollo, la bitácora de sesiones históricas, notas de investigación y el backlog de tareas pendientes (evitando duplicar esta información en `CLAUDE.md`).
 
 ---

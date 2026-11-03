@@ -529,6 +529,26 @@ nav a:hover {
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Mismo lienzo y medidas que Chuby de Halloween; solo se animan los ojos. */
+.chuby-muertos {
+    display: block;
+    aspect-ratio: 975 / 1000;
+}
+
+.chuby-blink,
+.chuby-skull-glow {
+    opacity: 0;
+}
+
+.chuby-muertos.is-blinking .chuby-blink,
+.chuby-muertos.is-lit .chuby-skull-glow {
+    opacity: 1;
+}
+
+.chuby-skull-glow {
+    transition: opacity 240ms ease-in-out;
+}
+
 /* ── Breadcrumbs (páginas de servicio) ─────────────────── */
 .breadcrumbs {
     font-size: 0.85rem;
