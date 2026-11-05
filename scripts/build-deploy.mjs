@@ -9,10 +9,10 @@ export function isPublicPath(file) {
     if (file.includes('\\') || file.split('/').some(p => !p || p.startsWith('.'))) return false;
     if (/^(?:assets\/(?:ysisi|nuevas_fotos|galeria-raw|imagenes_blog|ideas)\/)/i.test(file)) return false;
     if (/^assets\/hero-space-bg(?:-[23])?\.png$/.test(file)) return false;
-    if (!/\.(?:html|css|js|json|xml|txt|png|jpe?g|jfif|webp|svg|ico|pdf|woff2?|ttf|otf|avif|gif|mp4|webm)$/i.test(file)) return false;
+    if (!/\.(?:html|css|js|json|webmanifest|xml|txt|png|jpe?g|jfif|webp|svg|ico|pdf|woff2?|ttf|otf|avif|gif|mp4|webm)$/i.test(file)) return false;
     if (!file.includes('/')) {
         return /\.(?:html|css|js|ico|png|svg|webp|jpe?g)$/.test(file) ||
-            /^(?:manifest\.json|sitemap\.xml|robots\.txt|llms\.txt|[a-f0-9]{32}\.txt)$/.test(file);
+            /^(?:manifest\.json|site\.webmanifest|sitemap\.xml|robots\.txt|llms\.txt|[a-f0-9]{32}\.txt)$/.test(file);
     }
     return /^(?:assets|blog|en|express|lonas-cancun|playa-del-carmen|tulum)\//.test(file);
 }
