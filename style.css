@@ -543,13 +543,11 @@ nav a:hover {
     opacity: 1;
 }
 
-.chuby-neon-dim {
-    filter: brightness(0.18) saturate(0.7);
-}
-
 .chuby-neon-green,
 .chuby-neon-orange {
     opacity: 1;
+    filter: brightness(1.7) saturate(1.25);
+    mix-blend-mode: screen;
 }
 
 .chuby-neon.is-animated .chuby-neon-green {
@@ -560,7 +558,7 @@ nav a:hover {
     animation: chubyOrangeLight 5s ease-in-out infinite;
 }
 
-/* Verde, luego naranja, ambas encendidas y una pausa tenue. */
+/* Se intensifica el brillo del tubo, sin oscurecer el soporte de acrílico. */
 @keyframes chubyGreenLight {
     0%, 10%, 94%, 100% { opacity: 0; }
     24%, 80% { opacity: 1; }
@@ -573,7 +571,12 @@ nav a:hover {
 
 @media (prefers-reduced-motion: reduce) {
     .chuby-neon .chuby-neon-green,
-    .chuby-neon .chuby-neon-orange { animation: none; opacity: 1; }
+    .chuby-neon .chuby-neon-orange {
+        animation: none;
+        opacity: 1;
+        filter: none;
+        mix-blend-mode: normal;
+    }
     .chuby-neon .chuby-neon-blink { opacity: 0; }
 }
 

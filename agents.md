@@ -1825,3 +1825,8 @@ Solo lectura; no se guardó nada en el perfil.
 * Omar eligió la primera propuesta generada y pidió publicarla con parpadeo y encendido verde seguido del naranja. Original conservado en scratch/chuby-neon/original-aprobado.png. Activo publicado assets/chuby-neon-hero.webp, alfa, 1000×1000, 118016 bytes.
 * La portada conserva tamaño, flotación y reacción al cursor. SVG superpone las capas de párpados y las dos flechas. Secuencia de 5 s: tenue, verde, ambas encendidas, pausa tenue; transiciones suaves. Parpadeo de 140 ms con pausa aleatoria. Respeta reducir movimiento y detiene temporizadores de parpadeo al ocultar la pestaña.
 * Verificación local en Chrome, 390 px y 1440 px: captura de ojos abiertos/cerrados y de los tres estados del letrero, secuencia de opacidades correcta, sin desbordamiento horizontal. Al activar reducir movimiento desaparecen las clases animadas y las flechas quedan encendidas. Pruebas del repositorio 3/3, marca y sintaxis JS correctas. Caché de portada CSS v4.11 y JS v5.6.
+
+## Corrección del brillo de Chuby Neón — 9 de noviembre de 2026
+
+* Omar señaló los bloques oscuros del letrero al apagarse. Se retiraron las capas raster oscurecidas que tapaban también el acrílico. La ilustración conserva su iluminación base y se intensifica por separado el brillo de cada tubo, verde seguido de naranja. Las máscaras de color limitan el refuerzo luminoso a los tubos, con bordes suavizados.
+* Se comprobó en Chrome la secuencia de opacidades, el aspecto de brillo bajo, verde reforzada y ambas reforzadas, móvil sin desbordamiento y reducir movimiento. CSS de la portada v4.12.
