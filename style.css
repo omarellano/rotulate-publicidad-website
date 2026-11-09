@@ -966,6 +966,62 @@ a.showcase-item {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+/* Filtros de la galería */
+.galeria-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 2rem;
+}
+
+.galeria-filtro {
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-gray);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.7rem 1.1rem;
+    min-height: 44px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.galeria-filtro:hover {
+    color: var(--color-white);
+    border-color: rgba(var(--color-accent-lime-rgb), 0.5);
+}
+
+.galeria-filtro[aria-pressed="true"] {
+    color: var(--color-dark);
+    background: var(--color-accent-lime);
+    border-color: var(--color-accent-lime);
+}
+
+.galeria-filtro:focus-visible,
+button.galeria-item:focus-visible {
+    outline: 3px solid var(--color-accent-lime);
+    outline-offset: 3px;
+}
+
+/* Las fotos son <button> para poder abrirlas con teclado */
+button.galeria-item {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+}
+
+button.galeria-item .galeria-label {
+    opacity: 1;
+    transform: none;
+}
+
 .galeria-item:hover .galeria-label {
     opacity: 1;
     transform: translateY(0);
@@ -3225,6 +3281,70 @@ nav a.active::after {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+}
+
+/* Resumen de la división en la home (el detalle vive en /obra-mantenimiento.html) */
+.obra-teaser {
+    padding: 3rem 5%;
+}
+.obra-teaser-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+}
+.obra-teaser-text {
+    flex: 1 1 320px;
+}
+.obra-teaser-text h2 {
+    font-size: 1.6rem;
+    margin: 0.75rem 0 0.5rem;
+}
+.obra-teaser-text p {
+    color: var(--color-gray);
+    max-width: 620px;
+}
+a.obra-card {
+    display: block;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+a.obra-card:hover,
+a.obra-card:focus-visible {
+    background: rgba(var(--color-accent-lime-rgb), 0.08);
+    transform: translateY(-2px);
+}
+
+/* Hero de la home: el botón de cotizar va antes de los accesos a servicios */
+.hero-actions + .hero-features-inline {
+    margin-top: 1.75rem;
+    margin-bottom: 0;
+}
+
+/* Teléfonos: se compacta el hero para que el botón entre en la primera pantalla */
+@media (max-width: 600px) {
+    .hero:not(.service-hero) {
+        padding-top: 2rem;
+    }
+
+    .hero:not(.service-hero) .hero-visual {
+        margin-bottom: 1rem;
+    }
+
+    .hero:not(.service-hero) .hero-content h1 {
+        margin-bottom: 1rem;
+    }
+
+    .hero:not(.service-hero) .hero-content p {
+        margin-bottom: 1.25rem;
+    }
 }
 
 /* ── Consent Banner ─────────────────────────────────────── */

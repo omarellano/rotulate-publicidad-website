@@ -361,10 +361,15 @@
 
     let stackPromise = null;
 
-    function loadScript(src) {
+    function loadScript(src, integrity) {
         return new Promise(function (resolve, reject) {
             const s = document.createElement('script');
             s.src = src;
+            // Versión fija + hash: si el CDN sirviera otro contenido, el navegador lo rechaza.
+            if (integrity) {
+                s.integrity = integrity;
+                s.crossOrigin = 'anonymous';
+            }
             s.onload = resolve;
             s.onerror = reject;
             document.head.appendChild(s);
@@ -375,11 +380,11 @@
         if (!stackPromise) {
             stackPromise = (async function () {
                 if (!window.supabaseClient) {
-                    await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
+                    await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js', 'sha384-uteMfOloLDGt042uDz+xHGF3ym63/WQ6rFq7murQRG8Ih7QrXGEGNtWd8688sb4O');
                     await loadScript('../supabase-config.js');
                 }
                 if (typeof emailjs === 'undefined') {
-                    await loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js');
+                    await loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js', 'sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS');
                 }
                 if (typeof emailjs !== 'undefined' && !window.__emailjsInit) {
                     emailjs.init(EMAILJS_PUBLIC_KEY);

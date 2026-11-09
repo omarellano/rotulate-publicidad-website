@@ -12,7 +12,16 @@
         'placa-alucobond': 'aluminum composite panel sheets',
         'control-solar': 'solar control film',
         'toldos': 'awnings',
-        'lonas-vinilos': 'large format printing, banners and vinyl'
+        'lonas-vinilos': 'large format printing, banners and vinyl',
+        'obra-canceleria': 'aluminum and PVC windows and doors',
+        'obra-herreria': 'metalwork',
+        'obra-alucobond': 'aluminum composite facade works',
+        'obra-electricidad': 'electrical work',
+        'obra-supervision': 'construction supervision',
+        'obra-mantenimiento-construccion': 'maintenance and construction',
+        'obra-impermeabilizacion': 'waterproofing',
+        'obra-albanileria': 'masonry',
+        'obra-plomeria': 'plumbing'
     };
     const values = new URLSearchParams(window.location.search).getAll('servicio');
     if (values.length !== 1 || !Object.prototype.hasOwnProperty.call(labels, values[0])) return;

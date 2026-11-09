@@ -295,10 +295,14 @@ const initCotizacionForm = () => {
                 
                 for (let i = 0; i < selectedFiles.length; i++) {
                     const file = selectedFiles[i];
-                    const timestamp = Date.now();
+                    // El bucket es público: el nombre lleva un identificador aleatorio
+                    // para que la URL no se pueda adivinar a partir de la hora de envío.
+                    const randomId = (window.crypto && crypto.randomUUID)
+                        ? crypto.randomUUID()
+                        : Array.from(crypto.getRandomValues(new Uint8Array(16)), b => b.toString(16).padStart(2, '0')).join('');
                     // Sanitize file name: remove non-alphanumeric/spaces/dots
                     const sanitizedName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
-                    const fileName = `${timestamp}_${sanitizedName}`;
+                    const fileName = `${randomId}_${sanitizedName}`;
                     
                     updateProgress(50, `Subiendo: ${file.name}`);
                     

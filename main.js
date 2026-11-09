@@ -16,10 +16,15 @@
         if (!form) return;
         let started = false;
 
-        function loadScript(src) {
+        function loadScript(src, integrity) {
             return new Promise(function (resolve, reject) {
                 const s = document.createElement('script');
                 s.src = src;
+                // Versión fija + hash: si el CDN sirviera otro contenido, el navegador lo rechaza.
+                if (integrity) {
+                    s.integrity = integrity;
+                    s.crossOrigin = 'anonymous';
+                }
                 s.onload = resolve;
                 s.onerror = reject;
                 document.head.appendChild(s);
@@ -32,15 +37,15 @@
             // EmailJS solo sirve para la notificación por correo; upload.js ya tolera
             // su ausencia (typeof emailjs !== 'undefined'). Se carga en paralelo y su
             // fallo NO debe impedir que se cargue el controlador del formulario.
-            const emailjsReady = loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js')
+            const emailjsReady = loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js', 'sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS')
                 .catch(function (err) {
                     console.warn('EmailJS no se pudo cargar; el formulario funcionará sin notificación por correo.', err);
                 });
             try {
-                await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
+                await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js', 'sha384-uteMfOloLDGt042uDz+xHGF3ym63/WQ6rFq7murQRG8Ih7QrXGEGNtWd8688sb4O');
                 await loadScript('supabase-config.js');
                 await emailjsReady; // si ya terminó, se inicializa antes de upload.js; si falló, no propaga
-                await loadScript('upload.js?v=7');
+                await loadScript('upload.js?v=8');
             } catch (err) {
                 started = false;
                 console.error('No se pudo cargar el stack del formulario (Supabase):', err);
@@ -355,6 +360,19 @@
         });
     })();
 
+    (function () {
+        var filtros = document.querySelectorAll('.galeria-filtro');
+        filtros.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                filtros.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+                var y = window.pageYOffset;
+                initGaleriaAleatoria(true);
+                window.scrollTo(0, y);
+                requestAnimationFrame(function () { window.scrollTo(0, y); });
+            });
+        });
+    })();
+
     /* ── Constellation Canvas Animation ──────────────────── */
     function initHeroParticles() {
         var canvas = document.getElementById('hero-particles');
@@ -577,63 +595,48 @@
             grid.style.minHeight = grid.offsetHeight + 'px';
         }
 
-        // Selección curada: fotos instaladas o en proceso con buena composición
-        var allImgs = [
-            'galeria-001.webp','galeria-002.webp','galeria-003.webp','galeria-004.webp',
-            'galeria-005.webp','galeria-006.webp','galeria-007.webp','galeria-008.webp',
-            'galeria-009.webp','galeria-010.webp','galeria-011.webp','galeria-012.webp',
-            'galeria-013.webp','galeria-014.webp','galeria-015.webp','galeria-016.webp',
-            'galeria-017.webp','galeria-018.webp','galeria-019.webp','galeria-020.webp',
-            'galeria-021.webp','galeria-022.webp','galeria-023.webp','galeria-024.webp',
-            'galeria-025.webp','galeria-026.webp','galeria-027.webp','galeria-028.webp',
-            'galeria-029.webp','galeria-030.webp','galeria-032.webp','galeria-033.webp',
-            'galeria-034.webp','galeria-035.webp','galeria-036.webp','galeria-037.webp',
-            'galeria-038.webp','galeria-039.webp','galeria-040.webp','galeria-041.webp',
-            'galeria-044.webp','galeria-045.webp','galeria-046.webp','galeria-047.webp',
-            'galeria-048.webp','galeria-049.webp','galeria-053.webp','galeria-054.webp',
-            'galeria-055.webp','galeria-056.webp','galeria-057.webp','galeria-058.webp',
-            'galeria-059.webp','galeria-060.webp','galeria-061.webp','galeria-062.webp',
-            'galeria-063.webp','galeria-064.webp','galeria-065.webp','galeria-066.webp',
-            'galeria-067.webp','galeria-068.webp','galeria-069.webp','galeria-070.webp',
-            'galeria-071.webp','galeria-072.webp','galeria-073.webp','galeria-074.webp',
-            'galeria-075.webp','galeria-076.webp','galeria-077.webp','galeria-078.webp',
-            'galeria-079.webp','galeria-080.webp','galeria-081.webp','galeria-082.webp',
-            'galeria-083.webp','galeria-084.webp','galeria-085.webp','galeria-086.webp',
-            'galeria-087.webp','galeria-088.webp','galeria-089.webp','galeria-090.webp',
-            'galeria-091.webp','galeria-092.webp','galeria-093.webp','galeria-094.webp',
-            'galeria-095.webp','galeria-096.webp','galeria-097.webp','galeria-098.webp',
-            'galeria-099.webp','galeria-100.webp','galeria-101.webp','galeria-102.webp',
-            'galeria-103.webp','galeria-104.webp','galeria-105.webp','galeria-106.webp',
-            'galeria-107.webp','galeria-108.webp','galeria-109.webp','galeria-110.webp',
-            'galeria-111.webp','galeria-112.webp','galeria-113.webp','galeria-114.webp',
-            'galeria-115.webp','galeria-116.webp','galeria-118.webp','galeria-119.webp',
-            'galeria-120.webp','galeria-126.webp','galeria-127.webp','galeria-128.webp',
-            'galeria-129.webp','galeria-130.webp','galeria-131.webp','galeria-132.webp',
-            'galeria-133.webp','galeria-134.webp','galeria-135.webp','galeria-136.webp',
-            'galeria-137.webp','galeria-138.webp','galeria-139.webp','galeria-140.webp',
-            'galeria-141.webp','galeria-142.webp','galeria-143.webp','galeria-144.webp',
-            'galeria-145.webp','galeria-146.webp','galeria-147.webp','galeria-148.webp',
-            'galeria-149.webp','galeria-150.webp'
-        ];
+        // Selección curada, clasificada por tipo de trabajo (filtros de la galería)
+        var GALERIA = {
+            vehicular: { label: 'Rotulación vehicular', nums: [38, 39, 44, 45, 46, 47, 48, 74, 75, 76, 77, 112, 113, 114, 118, 119, 120, 126, 127, 134, 135, 136, 140, 142] },
+            anuncios: { label: 'Anuncios, letras y neón', nums: [4, 5, 6, 8, 9, 11, 13, 14, 15, 17, 18, 19, 20, 32, 33, 34, 35, 36, 40, 41, 56, 58, 61, 62, 66, 68, 69, 72, 78, 79, 81, 82, 86, 87, 91, 95, 96, 99, 102, 104, 108, 109, 110, 111, 128, 129, 131, 133, 137, 138, 143] },
+            impresion: { label: 'Lonas, viniles y eventos', nums: [1, 2, 3, 7, 10, 12, 16, 21, 22, 23, 24, 25, 26, 28, 29, 30, 37, 49, 53, 54, 55, 57, 64, 65, 67, 70, 71, 73, 83, 84, 85, 88, 89, 90, 97, 98, 100, 101, 105, 106, 107, 141, 145, 146, 147, 148, 149, 150] },
+            fachadas: { label: 'Fachadas, toldos y pintura', nums: [27, 59, 60, 63, 80, 92, 93, 94, 103, 115, 116, 130, 132, 139, 144] }
+        };
+
+        var activo = document.querySelector('.galeria-filtro[aria-pressed="true"]');
+        var cat = activo ? activo.getAttribute('data-cat') : 'todos';
+        var pool = [];
+        Object.keys(GALERIA).forEach(function (key) {
+            if (cat !== 'todos' && cat !== key) return;
+            GALERIA[key].nums.forEach(function (n) { pool.push({ n: n, cat: key }); });
+        });
 
         // Fisher-Yates shuffle
-        for (var i = allImgs.length - 1; i > 0; i--) {
+        for (var i = pool.length - 1; i > 0; i--) {
             var j = Math.floor(Math.random() * (i + 1));
-            var tmp = allImgs[i]; allImgs[i] = allImgs[j]; allImgs[j] = tmp;
+            var tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp;
         }
 
         // Pick 12 for display, uniform size
-        var selected = allImgs.slice(0, 12);
+        var selected = pool.slice(0, 12);
         grid.textContent = '';
-        selected.forEach(function (f) {
-            var div = document.createElement('div');
-            div.className = 'galeria-item reveal';
+        selected.forEach(function (it) {
+            var label = GALERIA[it.cat].label;
+            // <button>: se puede enfocar con Tab y abrir con Enter o Espacio.
+            var item = document.createElement('button');
+            item.type = 'button';
+            item.className = 'galeria-item reveal';
             var img = document.createElement('img');
-            img.src = 'assets/galeria/thumbs/' + f;
-            img.alt = 'Trabajo Rotulate Publicidad Cancún';
+            img.src = 'assets/galeria/thumbs/galeria-' + ('00' + it.n).slice(-3) + '.webp';
+            img.alt = 'Ampliar foto: ' + label + ', trabajo de Rotulate Publicidad';
             img.loading = 'lazy';
-            div.appendChild(img);
-            grid.appendChild(div);
+            var caption = document.createElement('span');
+            caption.className = 'galeria-label';
+            caption.setAttribute('aria-hidden', 'true');
+            caption.textContent = label;
+            item.appendChild(img);
+            item.appendChild(caption);
+            grid.appendChild(item);
         });
 
         if (isReload) {
@@ -674,6 +677,9 @@
         // Build overlay
         var lb = document.createElement('div');
         lb.id = 'lightbox';
+        lb.setAttribute('role', 'dialog');
+        lb.setAttribute('aria-modal', 'true');
+        lb.setAttribute('aria-label', 'Foto ampliada');
         lb.innerHTML =
             '<button class="lb-close" aria-label="Cerrar">&times;</button>' +
             '<button class="lb-prev" aria-label="Anterior">&#8249;</button>' +
@@ -684,6 +690,7 @@
         var lbImg     = lb.querySelector('.lb-img');
         var lbCaption = lb.querySelector('.lb-caption');
         var current   = 0;
+        var opener    = null;
 
         function open(index) {
             var items = Array.from(grid.querySelectorAll('.galeria-item'));
@@ -697,7 +704,12 @@
             lbImg.src = src;
             lbImg.alt = alt;
             lbCaption.textContent = label ? label.textContent : '';
-            lb.classList.add('active');
+            if (!lb.classList.contains('active')) {
+                // Al abrir: recordar quién abrió y llevar el foco al botón de cerrar.
+                opener = document.activeElement;
+                lb.classList.add('active');
+                lb.querySelector('.lb-close').focus();
+            }
             document.body.style.overflow = 'hidden';
         }
 
@@ -705,6 +717,8 @@
             lb.classList.remove('active');
             document.body.style.overflow = '';
             lbImg.src = '';
+            if (opener && document.contains(opener)) opener.focus();
+            opener = null;
         }
 
         function prev() {
@@ -740,6 +754,13 @@
             if (e.key === 'Escape')    close();
             if (e.key === 'ArrowLeft')  prev();
             if (e.key === 'ArrowRight') next();
+            if (e.key === 'Tab') {
+                // El foco no sale del visor mientras está abierto.
+                var btns = Array.from(lb.querySelectorAll('button'));
+                var idx = btns.indexOf(document.activeElement);
+                e.preventDefault();
+                btns[(idx + (e.shiftKey ? btns.length - 1 : 1) + btns.length) % btns.length].focus();
+            }
         });
 
         // Touch swipe
