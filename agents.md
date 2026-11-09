@@ -1731,3 +1731,14 @@ Solo lectura; no se guardó nada en el perfil.
 
 * **Diagnóstico:** `assets/logo-rotulate-oficial.png` es idéntico byte por byte al `assets/logo-rotulate.png` versionado, y el SVG "oficial" solo difiere en saltos de línea. Era un renombrado local del 13-oct; ninguna página usa el nombre "oficial".
 * **Acción (aprobada por Omar):** `git restore` de `assets/logo-rotulate.png` y `.svg`. Las copias `logo-rotulate-oficial.*` quedan sin versionar, sin tocar. `scripts/build-deploy.mjs` vuelve a generar el paquete sin recursos faltantes.
+
+## ✅ Publicado: arreglos rápidos de la revisión — 9 de noviembre de 2026
+
+* **Commit en `main`:** `313f777` (43 archivos). Runs `Deploy to Hostinger` 42706776333 y `Security checks` 42706777973 en success.
+* **Verificado en producción con curl:** la home sirve `style.css?v=4.6`, `main.js?v=5.0` y el `accept` nuevo, sin "v1.02"; `style.css?v=4.6` contiene el arreglo del banner y el orden móvil de contacto y ya no tiene `#C8F135`; `upload.js?v=7` con `['png','jpg','jpeg']`; `rotulacion-vehicular.html` referencia `style.css?v=4.6`; `assets/logo-rotulate.png` responde 200. **No verificado a ojo en un teléfono real**; purgar caché en Hostinger si no se ven los cambios.
+
+## 🚨 Supabase no resuelve desde hace ~26 días — 9 de noviembre de 2026
+
+* **Hallazgo al publicar:** el workflow `Supabase Keep-Alive` lleva 26 ejecuciones seguidas en failure con `HTTP 000` (última en success: 13-oct-2026). Hoy `wtljdvexsksextnhpkkd.supabase.co` da "Non-existent domain" también desde la red local (REST y Auth health sin respuesta). Coincide con un proyecto Free pausado, pero **no está confirmado**: hay que verlo en el Dashboard.
+* **Impacto probable:** el formulario de la home no puede guardar la cotización ni subir adjuntos; `upload.js` cae al respaldo por EmailJS (el cliente ve "Recibimos tus datos por correo…" y se le pide mandar los archivos por WhatsApp). El registro de leads del cotizador de lonas tampoco se guarda. **No se probó un envío real**, así que no está confirmado que el respaldo por correo esté llegando. El ERP comparte el mismo proyecto.
+* **Acción de Omar:** entrar al Dashboard de Supabase y restaurar el proyecto; después confirmar con el monitor (`gh workflow run supabase-keepalive.yml`) y un envío de prueba. Revisar si llegaron cotizaciones por correo desde el 14-oct. El monitor falla a diario pero nadie recibe el aviso: activar notificaciones de Actions por correo o cambiar el aviso.
