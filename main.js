@@ -641,44 +641,34 @@
         });
     })();
 
-    /* ── 9b. Chuby Rocket: parpadeo + ojos de la calaverita ── */
+    /* ── 9b. Chuby Neón: parpadeo y encendido secuencial ── */
     (function () {
-        var img = document.querySelector('.chuby-muertos');
-        if (!img) return;
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-        var closed = false;
-        var lit = false;
-
-        function render() {
-            img.classList.toggle('is-blinking', closed);
-            img.classList.toggle('is-lit', lit);
-        }
+        var mascot = document.querySelector('.chuby-neon');
+        if (!mascot) return;
+        var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        var blinkTimer;
+        var reopenTimer;
 
         function blink() {
-            closed = true; render();
-            setTimeout(function () {
-                closed = false; render();
-                // 30 % de las veces, doble parpadeo
-                if (Math.random() < 0.3) {
-                    setTimeout(function () {
-                        closed = true; render();
-                        setTimeout(function () { closed = false; render(); }, 130);
-                    }, 180);
-                }
+            mascot.classList.add('is-blinking');
+            reopenTimer = setTimeout(function () {
+                mascot.classList.remove('is-blinking');
+                blinkTimer = setTimeout(blink, 2800 + Math.random() * 3000);
             }, 140);
-            setTimeout(blink, 2500 + Math.random() * 3000);
         }
 
-        function skull() {
-            lit = !lit; render();
-            // Luz suave e independiente del parpadeo, sin destellos rápidos.
-            var wait = lit ? 1100 + Math.random() * 900 : 600 + Math.random() * 700;
-            setTimeout(skull, wait);
+        function updateAnimation() {
+            clearTimeout(blinkTimer);
+            clearTimeout(reopenTimer);
+            mascot.classList.remove('is-blinking');
+            var active = !reducedMotion.matches && !document.hidden;
+            mascot.classList.toggle('is-animated', active);
+            if (active) blinkTimer = setTimeout(blink, 2200);
         }
 
-        setTimeout(blink, 2000);
-        setTimeout(skull, 800);
+        reducedMotion.addEventListener('change', updateAnimation);
+        document.addEventListener('visibilitychange', updateAnimation);
+        updateAnimation();
     })();
 
     /* ── 10. Astronaut Mouse Flee Behavior (Desktop Only) ───── */

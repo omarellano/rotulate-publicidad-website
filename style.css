@@ -529,24 +529,52 @@ nav a:hover {
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Mismo lienzo y medidas que Chuby de Halloween; solo se animan los ojos. */
-.chuby-muertos {
+/* Chuby Neón conserva el lienzo y los límites de tamaño del hero. */
+.chuby-neon {
     display: block;
     aspect-ratio: 975 / 1000;
 }
 
-.chuby-blink,
-.chuby-skull-glow {
+.chuby-neon-blink {
     opacity: 0;
 }
 
-.chuby-muertos.is-blinking .chuby-blink,
-.chuby-muertos.is-lit .chuby-skull-glow {
+.chuby-neon.is-blinking .chuby-neon-blink {
     opacity: 1;
 }
 
-.chuby-skull-glow {
-    transition: opacity 240ms ease-in-out;
+.chuby-neon-dim {
+    filter: brightness(0.18) saturate(0.7);
+}
+
+.chuby-neon-green,
+.chuby-neon-orange {
+    opacity: 1;
+}
+
+.chuby-neon.is-animated .chuby-neon-green {
+    animation: chubyGreenLight 5s ease-in-out infinite;
+}
+
+.chuby-neon.is-animated .chuby-neon-orange {
+    animation: chubyOrangeLight 5s ease-in-out infinite;
+}
+
+/* Verde, luego naranja, ambas encendidas y una pausa tenue. */
+@keyframes chubyGreenLight {
+    0%, 10%, 94%, 100% { opacity: 0; }
+    24%, 80% { opacity: 1; }
+}
+
+@keyframes chubyOrangeLight {
+    0%, 32%, 94%, 100% { opacity: 0; }
+    46%, 80% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chuby-neon .chuby-neon-green,
+    .chuby-neon .chuby-neon-orange { animation: none; opacity: 1; }
+    .chuby-neon .chuby-neon-blink { opacity: 0; }
 }
 
 /* ── Breadcrumbs (páginas de servicio) ─────────────────── */
