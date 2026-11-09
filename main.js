@@ -45,9 +45,10 @@
                 await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js', 'sha384-uteMfOloLDGt042uDz+xHGF3ym63/WQ6rFq7murQRG8Ih7QrXGEGNtWd8688sb4O');
                 await loadScript('supabase-config.js');
                 await emailjsReady; // si ya terminó, se inicializa antes de upload.js; si falló, no propaga
-                await loadScript('upload.js?v=8');
+                await loadScript('upload.js?v=9');
             } catch (err) {
                 started = false;
+                document.getElementById('form-error').style.display = 'flex';
                 console.error('No se pudo cargar el stack del formulario (Supabase):', err);
             }
         }
@@ -64,7 +65,7 @@
             loadFormStack();
         }
         // respaldo por si el observer no dispara (p. ej. navegación con ancla)
-        form.addEventListener('focusin', loadFormStack, { once: true });
+        form.addEventListener('focusin', loadFormStack);
     })();
 
     /* ── Throttle helper ───────────────────────────────────── */
@@ -598,8 +599,8 @@
         // Selección curada, clasificada por tipo de trabajo (filtros de la galería)
         var GALERIA = {
             vehicular: { label: 'Rotulación vehicular', nums: [38, 39, 44, 45, 46, 47, 48, 74, 75, 76, 77, 112, 113, 114, 118, 119, 120, 126, 127, 134, 135, 136, 140, 142] },
-            anuncios: { label: 'Anuncios, letras y neón', nums: [4, 5, 6, 8, 9, 11, 13, 14, 15, 17, 18, 19, 20, 32, 33, 34, 35, 36, 40, 41, 56, 58, 61, 62, 66, 68, 69, 72, 78, 79, 81, 82, 86, 87, 91, 95, 96, 99, 102, 104, 108, 109, 110, 111, 128, 129, 131, 133, 137, 138, 143] },
-            impresion: { label: 'Lonas, viniles y eventos', nums: [1, 2, 3, 7, 10, 12, 16, 21, 22, 23, 24, 25, 26, 28, 29, 30, 37, 49, 53, 54, 55, 57, 64, 65, 67, 70, 71, 73, 83, 84, 85, 88, 89, 90, 97, 98, 100, 101, 105, 106, 107, 141, 145, 146, 147, 148, 149, 150] },
+            anuncios: { label: 'Anuncios, letras, neón y señalética', nums: [4, 5, 6, 8, 9, 11, 13, 14, 15, 17, 18, 19, 20, 32, 33, 34, 35, 36, 40, 41, 56, 58, 61, 62, 66, 68, 69, 72, 78, 79, 81, 82, 86, 87, 91, 95, 96, 97, 98, 99, 100, 102, 104, 108, 109, 110, 111, 128, 129, 131, 133, 137, 138, 143] },
+            impresion: { label: 'Lonas, viniles y eventos', nums: [1, 2, 3, 7, 10, 12, 16, 21, 22, 23, 24, 25, 26, 28, 29, 30, 37, 49, 53, 54, 55, 57, 64, 65, 67, 70, 71, 73, 83, 84, 85, 88, 89, 90, 101, 105, 106, 107, 141, 145, 146, 147, 148, 149, 150] },
             fachadas: { label: 'Fachadas, toldos y pintura', nums: [27, 59, 60, 63, 80, 92, 93, 94, 103, 115, 116, 130, 132, 139, 144] }
         };
 

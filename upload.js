@@ -465,10 +465,14 @@ const initCotizacionForm = () => {
         formSuccess.style.display = 'flex';
         selectedFiles = [];
         renderFileList();
-        if (!usedEmailBackup && window.dataLayer) {
-            window.dataLayer.push({ event: 'cotizacion_supabase_ok' });
+        if (window.dataLayer) {
+            window.dataLayer.push({ event: usedEmailBackup ? 'cotizacion_emailjs_ok' : 'cotizacion_supabase_ok' });
         }
     }
+
+    // El envío se habilita cuando el formulario ya tiene su controlador.
+    if (formError) formError.style.display = 'none';
+    if (submitBtn) submitBtn.disabled = false;
 
     function validationMessage(field) {
         if (field.validity.valueMissing) return 'Este campo es obligatorio.';
