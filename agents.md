@@ -1758,3 +1758,9 @@ Solo lectura; no se guardó nada en el perfil.
 * **Publicado:** commit `0bbd8b6` en `main` (workflow, prueba y `scripts/keepalive-setup.sql`); `Deploy to Hostinger` y `Security checks` en success.
 * **Monitor lanzado a mano (run 42708265332): falla con HTTP 404** porque la tabla `public.keepalive` aún no existe. El aviso funcionó: abrió el issue [omarellano/rotulate-publicidad-website#47](https://github.com/omarellano/rotulate-publicidad-website/issues/47).
 * **Pendiente de Omar:** ejecutar `scripts/keepalive-setup.sql` completo en Dashboard → SQL Editor; luego relanzar el monitor (`gh workflow run supabase-keepalive.yml`), confirmar verde y cerrar el issue #47. Hacer un envío de prueba del formulario y revisar el correo por cotizaciones llegadas por el respaldo entre el 14-oct y hoy. Activar notificaciones de GitHub por correo.
+
+## ✅ Keep-alive de Supabase en verde — 9 de noviembre de 2026
+
+* Omar ejecutó `scripts/keepalive-setup.sql`; el resultado mostró la política "Keepalive lectura anonima" (`{anon}`, SELECT).
+* **Verificado:** GET anon a `/rest/v1/keepalive` devuelve `[{"id":1}]` con HTTP 200; POST anon se rechaza con 401 (la tabla no admite escritura por la API). Monitor lanzado a mano, run 42708712020: success con HTTP 200. Issue #47 cerrado.
+* **Pendiente de Omar:** envío de prueba del formulario de la home; revisar el correo por cotizaciones del respaldo entre el 14-oct y hoy; activar notificaciones de GitHub por correo. Vigilar un mes: si se pausa con el monitor en verde, pasar a plan Pro.
