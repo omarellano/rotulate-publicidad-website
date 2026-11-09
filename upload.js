@@ -45,7 +45,7 @@ const initCotizacionForm = () => {
     let selectedFiles = [];
     let lastSubmitTime = parseInt(localStorage.getItem('last_submit_time') || '0', 10);
 
-    const ALLOWED_EXTENSIONS = ['pdf', 'ai', 'psd', 'png', 'jpg', 'jpeg', 'zip', 'rar'];
+    const ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg'];
     const MAX_FILE_SIZE = 24 * 1024 * 1024; // 24 MB
 
     // 4. File Selection and Drag-and-Drop
@@ -163,7 +163,7 @@ const initCotizacionForm = () => {
             
             // Validate extension
             if (!ALLOWED_EXTENSIONS.includes(ext)) {
-                showFormError(`El formato .${ext} no está permitido. Envía archivos vectoriales (AI, PDF, PSD), imágenes o ZIP.`);
+                showFormError(`El formato .${ext} no está permitido aquí. Adjunta imágenes PNG o JPG; otros archivos envíalos por WhatsApp al +52 998 400 7987.`);
                 shakeField('upload-zone');
                 return;
             }

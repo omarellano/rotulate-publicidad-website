@@ -281,7 +281,7 @@ nav a:hover {
     min-width: 160px;
     padding: 0.5rem;
     background: rgba(0, 0, 52, 0.97);
-    border: 1px solid rgba(200, 241, 53, 0.25);
+    border: 1px solid rgba(0, 255, 0, 0.25);
     border-radius: 8px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
     opacity: 0;
@@ -306,7 +306,7 @@ nav a:hover {
 }
 
 .nav-dropdown-menu a:hover {
-    background: rgba(200, 241, 53, 0.08);
+    background: rgba(0, 255, 0, 0.08);
 }
 
 .lang-switch {
@@ -318,7 +318,7 @@ nav a:hover {
 .cta-button {
     display: inline-block;
     background: linear-gradient(135deg, var(--color-accent-orange), #e85a00);
-    color: var(--color-white);
+    color: var(--color-dark);
     padding: 0.85rem 1.8rem;
     border-radius: 8px;
     text-decoration: none;
@@ -803,11 +803,11 @@ nav a:hover {
 .showcase {
     padding: 8rem 5%;
     background:
-        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200, 241, 53, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 255, 0, 0.08) 0%, transparent 60%),
         radial-gradient(ellipse 50% 40% at 0% 100%, rgba(0, 0, 180, 0.3) 0%, transparent 60%),
         linear-gradient(160deg, #00021a 0%, #000c3a 40%, #000528 100%);
     border-top: 3px solid var(--color-accent-lime);
-    border-bottom: 1px solid rgba(200, 241, 53, 0.15);
+    border-bottom: 1px solid rgba(0, 255, 0, 0.15);
 }
 
 .section-title {
@@ -1165,8 +1165,8 @@ a.showcase-item {
     align-items: center;
     gap: 1.5rem;
     padding: 1.5rem 1.75rem;
-    background: rgba(200, 241, 53, 0.08);
-    border: 1px solid rgba(200, 241, 53, 0.25);
+    background: rgba(0, 255, 0, 0.08);
+    border: 1px solid rgba(0, 255, 0, 0.25);
     border-radius: 12px;
     margin: 1.5rem 0;
 }
@@ -2192,7 +2192,7 @@ a.showcase-item {
     height: 40px;
     border-radius: 50%;
     background: var(--color-accent-orange);
-    color: var(--color-white);
+    color: var(--color-dark);
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
@@ -2462,7 +2462,33 @@ nav a.active::after {
 
     .contacto-inner {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 0;
+    }
+
+    /* El formulario sube justo debajo del título; ventajas y enlaces van después. */
+    .contacto-info {
+        display: contents;
+    }
+
+    .contacto-info .eyebrow {
+        justify-self: start;
+    }
+
+    .contacto-info>p {
+        margin-bottom: 1.5rem;
+    }
+
+    .contacto-form-wrap {
+        order: 1;
+        margin-bottom: 3rem;
+    }
+
+    .upload-features {
+        order: 2;
+    }
+
+    .contacto-direct {
+        order: 3;
     }
 
     .contacto-form-wrap {
@@ -3164,7 +3190,7 @@ nav a.active::after {
     padding: 1rem 1.25rem;
     background: rgba(255, 255, 255, 0.04);
     border-radius: 8px;
-    border-left: 3px solid #C8F135;
+    border-left: 3px solid #00ff00;
 }
 .glass-list-item strong {
     display: block;
@@ -3261,6 +3287,10 @@ nav a.active::after {
         flex-direction: column;
         align-items: stretch;
         text-align: center;
+    }
+
+    .consent-banner-inner p {
+        flex: 0 0 auto;
     }
 
     .consent-banner-actions {

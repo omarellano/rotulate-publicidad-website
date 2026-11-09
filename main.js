@@ -40,7 +40,7 @@
                 await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
                 await loadScript('supabase-config.js');
                 await emailjsReady; // si ya terminó, se inicializa antes de upload.js; si falló, no propaga
-                await loadScript('upload.js?v=6');
+                await loadScript('upload.js?v=7');
             } catch (err) {
                 started = false;
                 console.error('No se pudo cargar el stack del formulario (Supabase):', err);
@@ -402,7 +402,7 @@
             critterIndex++;
             this.phase = Math.random() * Math.PI * 2;
             this.scale = 0.65 + Math.random() * 0.25;
-            this.color = Math.random() > 0.4 ? 'rgba(200, 241, 53, 0.7)' : 'rgba(255, 255, 255, 0.7)';
+            this.color = Math.random() > 0.4 ? 'rgba(0, 255, 0, 0.7)' : 'rgba(255, 255, 255, 0.7)';
         }
 
         Particle.prototype.update = function () {
@@ -517,7 +517,7 @@
                         ctx.moveTo(p1.x, p1.y);
                         ctx.lineTo(mouse.x, mouse.y);
                         var alpha = (150 - dMouse) / 150 * 0.15;
-                        ctx.strokeStyle = 'rgba(200, 241, 53, ' + alpha + ')';
+                        ctx.strokeStyle = 'rgba(0, 255, 0, ' + alpha + ')';
                         ctx.lineWidth = 0.6;
                         ctx.stroke();
                     }
