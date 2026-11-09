@@ -1,10 +1,12 @@
 name: Supabase Keep-Alive
 
-# Monitor de disponibilidad; no garantiza evitar la pausa del plan gratuito
-# (pausa automática tras ~1 semana sin peticiones). Si el proyecto está
-# caído/pausado, el job FALLA; las notificaciones dependen de GitHub — funciona
-# también como monitor. Incidente que lo motivó: 14-jul-2026, proyecto
-# pausado en silencio y formulario de cotizaciones perdiendo leads.
+# Hace una consulta real a la tabla public.keepalive (scripts/keepalive-setup.sql)
+# para generar actividad en el plan gratuito, que pausa proyectos con poca
+# actividad en 7 días. Reduce el riesgo de pausa, no lo elimina: solo un plan
+# de pago lo garantiza. Si el proyecto está caído/pausado o la tabla no existe,
+# el job FALLA y abre (o comenta) un issue de aviso.
+# Incidentes: 14-jul-2026 y ~14-oct-2026 (pausado pese a pings diarios que
+# recibían 401 sobre cotizaciones_web).
 
 on:
   schedule:
@@ -18,12 +20,14 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     timeout-minutes: 2
+    permissions:
+      issues: write
     steps:
-      - name: Ping a la API REST de Supabase
+      - name: Consulta real a la tabla keepalive de Supabase
         run: |
           # La anon key es pública por diseño (ya se sirve en supabase-config.js del sitio)
           ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind0bGpkdmV4c2tzZXh0bmhwa2tkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDg3MjUsImV4cCI6MjA5NjE4NDcyNX0.JtM9gA7JrdSkUvyUYUSNL5z1Gs5IzHAYxQ5yNsOGq2s"
-          URL="https://wtljdvexsksextnhpkkd.supabase.co/rest/v1/cotizaciones_web?select=id&limit=0"
+          URL="https://wtljdvexsksextnhpkkd.supabase.co/rest/v1/keepalive?select=id&limit=1"
 
           CODE=$(curl -s -o /tmp/body -w "%{http_code}" --max-time 30 \
             -H "apikey: $ANON_KEY" \
@@ -31,10 +35,27 @@ jobs:
             "$URL") || CODE="000"
 
           echo "HTTP $CODE"
-          # Never print response bodies: they may contain customer data.
+          # Never print response bodies.
 
-          # Expected statuses establish reachability, not successful form delivery.
+          # Solo un 200 prueba que la consulta llegó a la base de datos.
           case "$CODE" in
-            200|401|403) echo "Supabase API alcanzable (HTTP $CODE)" ;;
+            200) echo "Consulta a keepalive correcta (HTTP 200)" ;;
+            401|403|404) echo "::error::Supabase responde pero la tabla keepalive no existe o no permite lectura anon (HTTP $CODE). Ejecutar scripts/keepalive-setup.sql."; exit 1 ;;
             *) echo "::error::Supabase API no disponible o respuesta inesperada (HTTP $CODE). Revisar Dashboard y DNS."; exit 1 ;;
           esac
+
+      - name: Avisar con un issue si falla
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          TITLE="Supabase no responde (monitor keep-alive)"
+          BODY="El monitor diario de Supabase falló: el proyecto no responde (posible pausa; formulario y ERP sin servicio) o falta la tabla keepalive (ejecutar scripts/keepalive-setup.sql). El motivo exacto está en esta ejecución: $RUN_URL"
+          EXISTING=$(gh issue list --repo "$REPO" --state open --search "\"$TITLE\" in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --repo "$REPO" --body "Sigue fallando: $RUN_URL"
+          else
+            gh issue create --repo "$REPO" --title "$TITLE" --body "$BODY"
+          fi
