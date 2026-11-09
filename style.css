@@ -2360,6 +2360,12 @@ nav a.active::after {
         overscroll-behavior: contain;
     }
 
+    /* Los submenús móviles declaran visibility: visible. Al cerrar el menú,
+       retirar todo el panel impide que esos enlaces intercepten los gestos. */
+    #main-nav:not(.open) {
+        display: none;
+    }
+
     #main-nav.open {
         opacity: 1;
         visibility: visible;
