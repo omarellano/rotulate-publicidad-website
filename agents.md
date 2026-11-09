@@ -1799,3 +1799,9 @@ Solo lectura; no se guardó nada en el perfil.
 * GitHub ya tenía Email habilitado para Actions (solo fallos), repositorios seguidos y conversaciones en las que se participa. Prueba visual de producción en Chrome con Pixel 5 emulado: inicio, obra y lonas a 393 px sin desbordamiento. Pendiente comprobación en teléfono físico.
 * Revisión de las 138 miniaturas: señalética 97, 98 y 100 pasa al filtro de anuncios, ahora identificado también como señalética. Texto de obra alineado con el modelo de coordinación por especialidad. Corregida la ventana en la que el botón podía enviar antes de cargar el controlador. El respaldo exitoso por correo emite cotizacion_emailjs_ok en dataLayer. Prueba de navegador con carga retrasada y respuestas simuladas confirma un único evento de éxito en cada ruta. Recepción del nuevo evento en GA4 pendiente de configuración/verificación del contenedor.
 * Durante la prueba se observaron peticiones de Clarity bloqueadas por CSP. Revisar su activación en GTM frente al consentimiento antes de ampliar permisos de red. La decisión de mascota queda al final por indicación de Omar.
+
+## Galería con títulos por foto y carga acumulativa — 9 de noviembre de 2026
+
+* Se revisaron las 138 imágenes de la portada. En galeria.js cada número de archivo tiene una descripción individual y una categoría. La tarjeta, el nombre accesible y el visor utilizan esa descripción.
+* La galería se baraja una vez por visita. «Cargar más fotos» añade hasta 12 imágenes sin repetir identificadores ni sustituir las anteriores. Al cambiar de filtro comienza la primera tanda de la selección. El botón desaparece al agotarse las fotos.
+* Verificación en Chrome a 390 px: 138 en Todos, 24 en vehicular, 55 en anuncios y señalética, 44 en impresiones y eventos y 15 en fachadas. Comprobadas las rutas de todas las miniaturas y ampliaciones, títulos del visor al navegar, cierre por Escape y retorno del foco. Pruebas del repositorio y marca correctas.

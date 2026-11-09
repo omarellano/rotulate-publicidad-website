@@ -321,59 +321,6 @@
     onScroll();
 
     initHeroParticles();
-    initGaleriaAleatoria();
-
-    // Configurar botón de recarga de galería sin recargar la página
-    (function () {
-        var btn = document.getElementById('btn-reload-galeria');
-        if (!btn) return;
-        var icon = btn.querySelector('.reload-icon');
-        var rotating = false;
-
-        btn.addEventListener('click', function () {
-            if (rotating) return;
-            rotating = true;
-
-            // Animación del icono (giro de 360 grados)
-            if (icon) {
-                icon.style.transform = 'rotate(360deg)';
-            }
-
-            // Regenerar galería con fotos aleatorias (sin saltos de scroll):
-            // se guarda la posición y se restaura tras el repintado, porque
-            // los navegadores móviles (iOS Safari) no compensan el cambio de altura.
-            var y = window.pageYOffset;
-            initGaleriaAleatoria(true);
-            window.scrollTo(0, y);
-            requestAnimationFrame(function () { window.scrollTo(0, y); });
-
-            // Resetear animación después de completar la rotación
-            setTimeout(function () {
-                if (icon) {
-                    icon.style.transition = 'none';
-                    icon.style.transform = 'rotate(0deg)';
-                    // Forzar reflow
-                    icon.offsetHeight;
-                    icon.style.transition = '';
-                }
-                rotating = false;
-            }, 600); // 600ms coincide con la duración de la transición en style.css (0.6s)
-        });
-    })();
-
-    (function () {
-        var filtros = document.querySelectorAll('.galeria-filtro');
-        filtros.forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                filtros.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
-                var y = window.pageYOffset;
-                initGaleriaAleatoria(true);
-                window.scrollTo(0, y);
-                requestAnimationFrame(function () { window.scrollTo(0, y); });
-            });
-        });
-    })();
-
     /* ── Constellation Canvas Animation ──────────────────── */
     function initHeroParticles() {
         var canvas = document.getElementById('hero-particles');
@@ -585,91 +532,6 @@
         }
     }
 
-    /* ── 8. Galería aleatoria de trabajos ─────────────────── */
-    function initGaleriaAleatoria(isReload) {
-        var grid = document.getElementById('galeria-grid');
-        if (!grid) return;
-
-        // Al recargar, fijar la altura actual: si el grid se vacía, la página se
-        // acorta y el navegador deja el scroll más abajo (la vista "salta").
-        if (isReload) {
-            grid.style.minHeight = grid.offsetHeight + 'px';
-        }
-
-        // Selección curada, clasificada por tipo de trabajo (filtros de la galería)
-        var GALERIA = {
-            vehicular: { label: 'Rotulación vehicular', nums: [38, 39, 44, 45, 46, 47, 48, 74, 75, 76, 77, 112, 113, 114, 118, 119, 120, 126, 127, 134, 135, 136, 140, 142] },
-            anuncios: { label: 'Anuncios, letras, neón y señalética', nums: [4, 5, 6, 8, 9, 11, 13, 14, 15, 17, 18, 19, 20, 32, 33, 34, 35, 36, 40, 41, 56, 58, 61, 62, 66, 68, 69, 72, 78, 79, 81, 82, 86, 87, 91, 95, 96, 97, 98, 99, 100, 102, 104, 108, 109, 110, 111, 128, 129, 131, 133, 137, 138, 143] },
-            impresion: { label: 'Lonas, viniles y eventos', nums: [1, 2, 3, 7, 10, 12, 16, 21, 22, 23, 24, 25, 26, 28, 29, 30, 37, 49, 53, 54, 55, 57, 64, 65, 67, 70, 71, 73, 83, 84, 85, 88, 89, 90, 101, 105, 106, 107, 141, 145, 146, 147, 148, 149, 150] },
-            fachadas: { label: 'Fachadas, toldos y pintura', nums: [27, 59, 60, 63, 80, 92, 93, 94, 103, 115, 116, 130, 132, 139, 144] }
-        };
-
-        var activo = document.querySelector('.galeria-filtro[aria-pressed="true"]');
-        var cat = activo ? activo.getAttribute('data-cat') : 'todos';
-        var pool = [];
-        Object.keys(GALERIA).forEach(function (key) {
-            if (cat !== 'todos' && cat !== key) return;
-            GALERIA[key].nums.forEach(function (n) { pool.push({ n: n, cat: key }); });
-        });
-
-        // Fisher-Yates shuffle
-        for (var i = pool.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            var tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp;
-        }
-
-        // Pick 12 for display, uniform size
-        var selected = pool.slice(0, 12);
-        grid.textContent = '';
-        selected.forEach(function (it) {
-            var label = GALERIA[it.cat].label;
-            // <button>: se puede enfocar con Tab y abrir con Enter o Espacio.
-            var item = document.createElement('button');
-            item.type = 'button';
-            item.className = 'galeria-item reveal';
-            var img = document.createElement('img');
-            img.src = 'assets/galeria/thumbs/galeria-' + ('00' + it.n).slice(-3) + '.webp';
-            img.alt = 'Ampliar foto: ' + label + ', trabajo de Rotulate Publicidad';
-            img.loading = 'lazy';
-            var caption = document.createElement('span');
-            caption.className = 'galeria-label';
-            caption.setAttribute('aria-hidden', 'true');
-            caption.textContent = label;
-            item.appendChild(img);
-            item.appendChild(caption);
-            grid.appendChild(item);
-        });
-
-        if (isReload) {
-            // Mostrar de inmediato (sin animación de entrada) y liberar la altura
-            // fija cuando las miniaturas ya tienen su tamaño real.
-            var pending = grid.querySelectorAll('img');
-            var release = function () { grid.style.minHeight = ''; };
-            var left = pending.length;
-            pending.forEach(function (im) {
-                var done = function () { if (--left === 0) release(); };
-                if (im.complete) { done(); }
-                else { im.addEventListener('load', done); im.addEventListener('error', done); }
-            });
-            setTimeout(release, 3000);
-            grid.querySelectorAll('.reveal').forEach(function (el) {
-                el.classList.add('revealed');
-            });
-            return;
-        }
-
-        // Re-observe reveal elements inside the grid
-        if (typeof revealObserver !== 'undefined') {
-            grid.querySelectorAll('.reveal').forEach(function (el) {
-                revealObserver.observe(el);
-            });
-        } else {
-            grid.querySelectorAll('.reveal').forEach(function (el) {
-                el.classList.add('revealed');
-            });
-        }
-    }
-
     /* ── 9. Lightbox para Galería de Trabajos ──────────────── */
     (function () {
         var grid = document.getElementById('galeria-grid');
@@ -702,8 +564,14 @@
             var src   = gridImgSrc.replace('/thumbs/', '/');
             var alt   = item.querySelector('img').alt;
             var label = item.querySelector('.galeria-label');
-            lbImg.src = src;
-            lbImg.alt = alt;
+            // Un nodo nuevo evita mostrar la imagen anterior bajo el título nuevo
+            // mientras se descarga una ampliación.
+            var nextImg = document.createElement('img');
+            nextImg.className = 'lb-img';
+            nextImg.alt = alt;
+            nextImg.src = src;
+            lbImg.replaceWith(nextImg);
+            lbImg = nextImg;
             lbCaption.textContent = label ? label.textContent : '';
             if (!lb.classList.contains('active')) {
                 // Al abrir: recordar quién abrió y llevar el foco al botón de cerrar.
@@ -717,7 +585,7 @@
         function close() {
             lb.classList.remove('active');
             document.body.style.overflow = '';
-            lbImg.src = '';
+            lbImg.removeAttribute('src');
             if (opener && document.contains(opener)) opener.focus();
             opener = null;
         }
