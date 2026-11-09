@@ -45,7 +45,7 @@
                 await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js', 'sha384-uteMfOloLDGt042uDz+xHGF3ym63/WQ6rFq7murQRG8Ih7QrXGEGNtWd8688sb4O');
                 await loadScript('supabase-config.js');
                 await emailjsReady; // si ya terminó, se inicializa antes de upload.js; si falló, no propaga
-                await loadScript('upload.js?v=9');
+                await loadScript('upload.js?v=10');
             } catch (err) {
                 started = false;
                 document.getElementById('form-error').style.display = 'flex';

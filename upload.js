@@ -465,8 +465,8 @@ const initCotizacionForm = () => {
         formSuccess.style.display = 'flex';
         selectedFiles = [];
         renderFileList();
-        if (window.dataLayer) {
-            window.dataLayer.push({ event: usedEmailBackup ? 'cotizacion_emailjs_ok' : 'cotizacion_supabase_ok' });
+        if (window.rtmxTrack) {
+            window.rtmxTrack({ event: usedEmailBackup ? 'cotizacion_emailjs_ok' : 'cotizacion_supabase_ok' });
         }
     }
 

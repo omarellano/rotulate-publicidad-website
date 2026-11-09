@@ -12,29 +12,6 @@
 
     var CONSENT_KEY = 'rtmx_consent';
 
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { window.dataLayer.push(arguments); }
-    window.gtag = window.gtag || gtag;
-
-    /* ── 1. Consent Mode v2 — denegado por defecto ─────────── */
-    gtag('consent', 'default', {
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        analytics_storage: 'denied',
-        wait_for_update: 500
-    });
-
-    function updateConsent(state) {
-        gtag('consent', 'update', {
-            analytics_storage: state,
-            ad_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied'
-        });
-        window.dataLayer.push({ event: state === 'granted' ? 'consent_granted' : 'consent_denied' });
-    }
-
     function getStoredConsent() {
         try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
     }
@@ -62,12 +39,13 @@
 
         document.getElementById('consent-accept').addEventListener('click', function () {
             setStoredConsent('granted');
-            updateConsent('granted');
+            window.rtmxSetAnalyticsConsent('granted');
+            startTracking();
             hideBanner();
         });
         document.getElementById('consent-reject').addEventListener('click', function () {
             setStoredConsent('denied');
-            updateConsent('denied');
+            window.rtmxSetAnalyticsConsent('denied');
             hideBanner();
         });
 
@@ -82,9 +60,7 @@
     }
 
     var storedConsent = getStoredConsent();
-    if (storedConsent === 'granted' || storedConsent === 'denied') {
-        updateConsent(storedConsent);
-    } else {
+    if (storedConsent !== 'granted' && storedConsent !== 'denied') {
         onReady(showBanner);
     }
 
@@ -106,7 +82,7 @@
                 var id = entry.target.id;
                 if (entry.isIntersecting && !seenSections[id]) {
                     seenSections[id] = true;
-                    window.dataLayer.push({ event: 'section_view', section_name: id });
+                    window.rtmxTrack({ event: 'section_view', section_name: id });
                     observer.unobserve(entry.target);
                 }
             });
@@ -140,7 +116,7 @@
             thresholds.forEach(function (t) {
                 if (percent >= t && !fired[t]) {
                     fired[t] = true;
-                    window.dataLayer.push({ event: 'scroll_depth', percent: t });
+                    window.rtmxTrack({ event: 'scroll_depth', percent: t });
                 }
             });
 
@@ -176,7 +152,7 @@
         if (!link) return;
         var ctaType = ctaTypeFor(link);
         if (!ctaType) return;
-        window.dataLayer.push({
+        window.rtmxTrack({
             event: 'cta_click',
             cta_type: ctaType,
             cta_location: ctaLocationFor(link)
@@ -186,10 +162,10 @@
     /* ── 6. form_start ──────────────────────────────────────── */
     var formStartSent = false;
     document.addEventListener('focusin', function (e) {
-        if (formStartSent) return;
+        if (!trackingStarted || formStartSent) return;
         if (!e.target.closest || !e.target.closest('#cotizar')) return;
         formStartSent = true;
-        window.dataLayer.push({ event: 'form_start' });
+        window.rtmxTrack({ event: 'form_start' });
     });
 
     /* ── Init ───────────────────────────────────────────────── */
@@ -201,8 +177,12 @@
         }
     }
 
-    onReady(function () {
+    var trackingStarted = false;
+    function startTracking() {
+        if (trackingStarted) return;
+        trackingStarted = true;
         initSectionTracking();
         initScrollDepth();
-    });
+    }
+    if (storedConsent === 'granted') onReady(startTracking);
 })();
