@@ -1783,3 +1783,10 @@ Solo lectura; no se guardó nada en el perfil.
 * **Librerías externas:** Supabase fijado a `@supabase/supabase-js@2.119.0/dist/umd/supabase.js` y EmailJS a `@emailjs/browser@4.4.1/dist/email.min.js`, ambos con `integrity` sha384 y `crossorigin="anonymous"`, en `main.js` y `lonas-cancun/main.js` (v=4.1). Son las mismas versiones que `@2` y `@4` servían hoy. **Para actualizar hay que cambiar versión y hash a la vez**; si no coinciden, el navegador bloquea el script y el formulario no carga.
 * **Fondo del hero móvil:** `assets/hero-space-bg-mobile.jpg` recomprimido (mozjpeg q72, mismo tamaño 576×1024): de 271 KB a 32 KB. Referenciado con `?v=2` en home y 404.
 * **Verificación local:** filtro "vehicular" muestra 12 fotos solo de esa categoría; visor abre, Tab circula, Escape cierra y devuelve el foco; `supabaseClient` y `emailjs` cargan con SRI sin errores de integridad; sin scroll horizontal en 375 px; pruebas 3/3, marca OK, paquete de despliegue OK. No se probó el cotizador de lonas enviando un lead real.
+
+## ✅ Publicado: hero, página de obra, galería, SRI y adjuntos — 9 de noviembre de 2026
+
+* **Commit en `main`:** `593c450` (40 archivos). `Deploy to Hostinger` 42712563172 y `Security checks` en success.
+* **Verificado en producción con curl:** home con `style.css?v=4.8`, `main.js?v=5.2`, `quote-context.js?v=2`, los 5 filtros de galería, el bloque `obra-teaser`, el texto "Solo para tu cotización" y sin `data-season`; `obra-mantenimiento.html` 200 y presente en `sitemap.xml` y en el menú de `toldos.html`; `main.js` con Supabase 2.119.0 y EmailJS 4.4.1 con sus hashes; `upload.js?v=8` con `randomUUID`; `lonas-cancun/main.js?v=4.1` con SRI; el SQL de Storage responde 403 (no público).
+* **No verificado en producción:** vista a ojo en teléfono, envío real del formulario y del cotizador de lonas con las librerías fijadas (en local cargan bien).
+* **Pendiente de Omar:** ejecutar `scripts/storage-cotizaciones-anon-limits.sql`; revisar la clasificación de la galería y el texto de la página de obra; decidir mascota del hero y si el bucket pasa a privado; envío de prueba del formulario; notificaciones de GitHub por correo.
