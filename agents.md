@@ -1751,3 +1751,10 @@ Solo lectura; no se guardó nada en el perfil.
 * **Verificación:** `node --test scripts/*.test.mjs` 3/3 con curl simulado. **No probado contra Supabase real** (el proyecto sigue sin resolver) ni el paso del issue en GitHub.
 * **Pasos de Omar, en orden:** (1) restaurar el proyecto en el Dashboard; (2) ejecutar `scripts/keepalive-setup.sql` en SQL Editor; (3) tras el push, lanzar el workflow a mano y confirmar que queda en verde; (4) activar las notificaciones de Actions/issues por correo en GitHub.
 * **Límite:** esto reduce el riesgo de pausa, no lo elimina. Si vuelve a pausarse con el monitor en verde, la salida es el plan Pro.
+
+## ✅ Supabase restaurado y keep-alive publicado — 9 de noviembre de 2026
+
+* **Omar restauró el proyecto.** Comprobado con curl: Auth health 200; lectura anon de `cotizaciones_web` 401 (esperado, INSERT-only). **No se hizo envío de prueba del formulario.**
+* **Publicado:** commit `0bbd8b6` en `main` (workflow, prueba y `scripts/keepalive-setup.sql`); `Deploy to Hostinger` y `Security checks` en success.
+* **Monitor lanzado a mano (run 42708265332): falla con HTTP 404** porque la tabla `public.keepalive` aún no existe. El aviso funcionó: abrió el issue [omarellano/rotulate-publicidad-website#47](https://github.com/omarellano/rotulate-publicidad-website/issues/47).
+* **Pendiente de Omar:** ejecutar `scripts/keepalive-setup.sql` completo en Dashboard → SQL Editor; luego relanzar el monitor (`gh workflow run supabase-keepalive.yml`), confirmar verde y cerrar el issue #47. Hacer un envío de prueba del formulario y revisar el correo por cotizaciones llegadas por el respaldo entre el 14-oct y hoy. Activar notificaciones de GitHub por correo.
