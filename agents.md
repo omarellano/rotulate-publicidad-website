@@ -1805,3 +1805,9 @@ Solo lectura; no se guardó nada en el perfil.
 * Se revisaron las 138 imágenes de la portada. En galeria.js cada número de archivo tiene una descripción individual y una categoría. La tarjeta, el nombre accesible y el visor utilizan esa descripción.
 * La galería se baraja una vez por visita. «Cargar más fotos» añade hasta 12 imágenes sin repetir identificadores ni sustituir las anteriores. Al cambiar de filtro comienza la primera tanda de la selección. El botón desaparece al agotarse las fotos.
 * Verificación en Chrome a 390 px: 138 en Todos, 24 en vehicular, 55 en anuncios y señalética, 44 en impresiones y eventos y 15 en fachadas. Comprobadas las rutas de todas las miniaturas y ampliaciones, títulos del visor al navegar, cierre por Escape y retorno del foco. Pruebas del repositorio y marca correctas.
+
+## Títulos comerciales para las 138 fotos de la galería — 9 de noviembre de 2026
+
+* Por indicación de Omar, cada tarjeta y su ampliación nombran el producto o servicio cotizable. Las vistas de un mismo trabajo pueden compartir título. Las descripciones visuales se conservan como texto alternativo para accesibilidad.
+* Referencias consultadas: páginas de servicios y clientes, correspondencia de los originales 104–127, proyectos de alucobond 128–132 y selección 133–150. Ejemplos: letrero luminoso con letras de canal (104), vinil microperforado para puertas de vidrio (107), toldos publicitarios (115 y 116) y revestimiento de alucobond para marquesinas (130 y 132). Se usa el nombre del producto cuando el material específico no está documentado.
+* Navegación verificada en Chrome para los 138 archivos y los cuatro filtros, incluida la coincidencia de título y texto alternativo entre tarjeta y visor al cargar más. Caché de galeria.js a v2.
