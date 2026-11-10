@@ -1830,3 +1830,8 @@ Solo lectura; no se guardó nada en el perfil.
 
 * Omar señaló los bloques oscuros del letrero al apagarse. Se retiraron las capas raster oscurecidas que tapaban también el acrílico. La ilustración conserva su iluminación base y se intensifica por separado el brillo de cada tubo, verde seguido de naranja. Las máscaras de color limitan el refuerzo luminoso a los tubos, con bordes suavizados.
 * Se comprobó en Chrome la secuencia de opacidades, el aspecto de brillo bajo, verde reforzada y ambas reforzadas, móvil sin desbordamiento y reducir movimiento. CSS de la portada v4.12.
+
+## Halo de neón sin relleno plano — 9 de noviembre de 2026
+
+* Omar señaló que el refuerzo anterior producía una plasta de color. Retiradas todas las copias raster, máscaras de color, dilataciones y filtros de saturación/brillo del letrero. La imagen aprobada se dibuja una vez. La secuencia anima únicamente dos contornos SVG sin relleno, con desenfoque y opacidad moderada para aportar un halo suave.
+* Capturas de Chrome revisadas en brillo bajo, verde y ambas al máximo. Sin relleno añadido en el interior ni oscurecimiento del soporte. Secuencia 5 s conservada; reducir movimiento retira el halo animado. Móvil a 390 px sin desbordamiento. Caché CSS v4.13.

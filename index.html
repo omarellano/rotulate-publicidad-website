@@ -58,7 +58,7 @@
     <link rel="preconnect" href="https://wtljdvexsksextnhpkkd.supabase.co" crossorigin>
     <link rel="dns-prefetch" href="https://region1.google-analytics.com">
 
-    <link rel="stylesheet" href="style.css?v=4.12">
+    <link rel="stylesheet" href="style.css?v=4.13">
 
     <!-- Schema.org — LocalBusiness structured data -->
     <script type="application/ld+json">
@@ -316,31 +316,9 @@
                     <svg class="astronaut-mascot chuby-neon" width="975" height="1000" viewBox="16 0 1248 1280" role="img" aria-labelledby="chuby-title">
                         <title id="chuby-title">Chuby Rocket, rotulista con goggles y un letrero de neón verde y naranja de Rotulate Publicidad</title>
                         <defs>
-                            <clipPath id="chuby-green-arrow">
-                                <path d="M770 556 L858 552 L1005 700 L887 863 L770 863 L860 705 Z"/>
-                            </clipPath>
-                            <clipPath id="chuby-orange-arrow">
-                                <path d="M918 545 L1008 540 L1167 697 L1035 867 L917 867 L1005 700 Z"/>
-                            </clipPath>
-                            <!-- Las máscaras siguen el color de los tubos; dejan intacto el acrílico. -->
-                            <filter id="chuby-green-tube" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
-                                <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -1 2 -1 0 -0.25"/>
-                                <feComponentTransfer><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
-                                <feMorphology operator="dilate" radius="7"/>
-                                <feGaussianBlur stdDeviation="3"/>
+                            <filter id="chuby-tube-halo" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+                                <feGaussianBlur stdDeviation="6"/>
                             </filter>
-                            <filter id="chuby-orange-tube" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
-                                <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  2 -1 -1 0 -0.25"/>
-                                <feComponentTransfer><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
-                                <feMorphology operator="dilate" radius="7"/>
-                                <feGaussianBlur stdDeviation="3"/>
-                            </filter>
-                            <mask id="chuby-green-tube-mask" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="1280">
-                                <image href="assets/chuby-neon-hero.webp" width="1280" height="1280" filter="url(#chuby-green-tube)"/>
-                            </mask>
-                            <mask id="chuby-orange-tube-mask" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="1280" height="1280">
-                                <image href="assets/chuby-neon-hero.webp" width="1280" height="1280" filter="url(#chuby-orange-tube)"/>
-                            </mask>
                             <linearGradient id="chuby-face-shade" x1="0" y1="0" x2="0.7" y2="1">
                                 <stop offset="0" stop-color="#000d44"/>
                                 <stop offset="1" stop-color="#000a3d"/>
@@ -348,12 +326,12 @@
                             <filter id="chuby-blink-soft"><feGaussianBlur stdDeviation="5"/></filter>
                         </defs>
                         <image href="assets/chuby-neon-hero.webp" width="1280" height="1280"/>
-                        <g aria-hidden="true" class="chuby-neon-lights">
-                            <g clip-path="url(#chuby-green-arrow)" mask="url(#chuby-green-tube-mask)">
-                                <image class="chuby-neon-green" href="assets/chuby-neon-hero.webp" width="1280" height="1280"/>
+                        <g aria-hidden="true" class="chuby-neon-lights" fill="none" stroke-width="10" stroke-linejoin="round" stroke-linecap="round" filter="url(#chuby-tube-halo)">
+                            <g class="chuby-neon-green">
+                                <path d="M814 592 H854 L976 703 L864 827 H814 L899 703 Z" stroke="#65ff47" opacity="0.45"/>
                             </g>
-                            <g clip-path="url(#chuby-orange-arrow)" mask="url(#chuby-orange-tube-mask)">
-                                <image class="chuby-neon-orange" href="assets/chuby-neon-hero.webp" width="1280" height="1280"/>
+                            <g class="chuby-neon-orange">
+                                <path d="M944 578 H1002 L1132 704 L1005 831 H944 L1044 704 Z" stroke="#ffac49" opacity="0.45"/>
                             </g>
                         </g>
                         <g class="chuby-neon-blink" aria-hidden="true">
