@@ -6,6 +6,7 @@
 * Actualizado el conteo en: `index.html` (badge del hero, su `aria-label` y subtítulo de #testimonios), `en/index.html` ("Google Rating (43 Reviews)"), `playa-del-carmen/index.html`, `tulum/index.html` y `blog/cuanto-cuesta-rotular-un-vehiculo-en-cancun.html`. La calificación 4.7 no cambió. Las menciones "4.7★ en Google" sin conteo en otros blogs no requieren cambio. No hay `aggregateRating` en el schema (y no se agrega: Google no muestra estrellas de reseñas propias de LocalBusiness).
 * Los cuatro testimonios de #testimonios no se tocaron: no hay acceso al texto de las reseñas nuevas; si Omar quiere rotarlos, debe compartir el texto/autor de las reseñas a mostrar.
 * Documentos internos en `docs/` conservan el dato histórico de 30 opiniones a propósito.
+* Publicado: PR omarellano/rotulate-publicidad-website#49 (commit `cf113e7`, merge `4c61c54`). Verificado por GET en producción: `/`, `/en/`, `/tulum/`, `/playa-del-carmen/` muestran 43 opiniones/Reviews.
 
 ---
 
@@ -16,7 +17,7 @@
 * Corrección: Express ES/EN con el comentario de GTM restaurado y los enlaces del favicon fuera de él. Cache-bust `?v=3` en favicon/apple-touch-icon/`site.webmanifest` en los 43 HTML y en los íconos Android del manifest. `site.webmanifest` usaba "Rotúlate"; se normalizó a "Rotulate Publicidad"/"Rotulate" según la regla de marca.
 * Logo Express: usaba `express/assets/logo-rotulate-DplcpoTm.png` (versión anterior, "Rotulate" sin acento y "SOLUCIONES GRAFICAS" en blanco). Ahora ES/EN (cabecera y pie) cargan el oficial `/assets/logo-rotulate.png?v=2` (1200×258). Se eliminaron del repo el PNG viejo y `express/favicon.ico` (ícono viejo, no referenciado). Nota: rsync no usa `--delete`, así que esos archivos pueden seguir en el servidor sin referencias.
 * Verificación local: `build-deploy.test.mjs` pasa, `build-deploy.mjs` sin recursos faltantes, `check-brand-name.cjs` pasa (63 archivos); Chromium local sobre `/express/` y `/express/en/` muestra 5 `link[rel=icon]` activos y el logo oficial (captura revisada).
-* Commit en la rama `claude/tender-ride-8fkevi` (sin merge a `main`, por lo tanto sin deploy). Pendiente: merge a `main`, deploy, purgar caché en Hostinger y confirmar en producción. El favicon en resultados de Google se actualiza por separado cuando Google vuelve a rastrear (días a semanas).
+* Publicado: PR omarellano/rotulate-publicidad-website#48 (commit `1dbe6df`, merge `3d5782a`), deploy Hostinger `43042746829` success. Verificado por GET en producción: `/`, `/en/`, `/express/`, `/express/en/`, `/tulum/`, `/playa-del-carmen/` sirven `favicon.svg?v=3` y `logo-rotulate.png?v=2`; Express ya no tiene los enlaces dentro del comentario de GTM. Pendiente opcional: purgar caché en Hostinger si algún navegador sigue mostrando el ícono viejo. El favicon en resultados de Google se actualiza por separado cuando Google vuelve a rastrear (días a semanas).
 
 ---
 
