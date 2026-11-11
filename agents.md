@@ -1,5 +1,14 @@
 # Handoff para Agentes de IA — Estado del Proyecto
 
+## Opiniones de Google actualizadas a 43 — 11 de noviembre de 2026
+
+* Omar compartió captura de Google Business Profile: **4.7★ con 43 opiniones** (antes el sitio decía 30 / "30+").
+* Actualizado el conteo en: `index.html` (badge del hero, su `aria-label` y subtítulo de #testimonios), `en/index.html` ("Google Rating (43 Reviews)"), `playa-del-carmen/index.html`, `tulum/index.html` y `blog/cuanto-cuesta-rotular-un-vehiculo-en-cancun.html`. La calificación 4.7 no cambió. Las menciones "4.7★ en Google" sin conteo en otros blogs no requieren cambio. No hay `aggregateRating` en el schema (y no se agrega: Google no muestra estrellas de reseñas propias de LocalBusiness).
+* Los cuatro testimonios de #testimonios no se tocaron: no hay acceso al texto de las reseñas nuevas; si Omar quiere rotarlos, debe compartir el texto/autor de las reseñas a mostrar.
+* Documentos internos en `docs/` conservan el dato histórico de 30 opiniones a propósito.
+
+---
+
 ## Favicon sin refrescar y logo viejo en Express — 11 de noviembre de 2026
 
 * Omar reportó que el favicon nuevo (cambiado en otra sesión, commit `f716c6f`, 5-nov) no se veía y que Express mostraba un logo distinto al oficial de la home.
