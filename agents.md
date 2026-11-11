@@ -9,7 +9,7 @@
   * **Beneficios** como tarjetas en 2 columnas (clase `.svc-benefits`, sin estilos inline) y tarjetas "También te puede interesar" con foto (vehicular y gran formato).
 * Generado por `scripts/service-pages-ux.mjs` (idempotente, bloques entre marcas `<!-- svc-ux:... -->`). Para cambiar fotos o textos: editar el script y volver a ejecutarlo. CSS al final de `style.css`; páginas tocadas con `style.css?v=4.14`.
 * Verificación local: capturas Playwright a 1366 px y iPhone 13 sin desbordes horizontales ni errores JS/404; visor abre, muestra pie y cierra con Escape devolviendo el foco. `check-brand-name.cjs`, `build-deploy.test.mjs` y `build-deploy.mjs` OK (`servicio-galeria.js` entra al paquete).
-* **Pendiente (Omar):** confirmar que las cortinas y la barda en la galería de rotulación tradicional (fotos 59, 60, 63, 92, 93) son trabajos pintados a mano; si no, cambiarlas en el script. Control solar, polarizado, alucobond y placas no se tocaron (ya tienen fotos de producto o galería). Sin deploy a producción todavía (rama `claude/beautiful-fermi-xasf66`).
+* Omar confirmó (11-nov-2026) que las cortinas y la barda de la galería de rotulación tradicional (fotos 59, 60, 63, 92, 93) son pintadas a mano, y autorizó publicar. Control solar, polarizado, alucobond y placas no se tocaron (ya tienen fotos de producto o galería).
 
 ---
 
