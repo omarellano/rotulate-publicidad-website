@@ -46,6 +46,6 @@ CTA: SOLICITAR COTIZACIÓN
 
 ## Notas técnicas
 - El SPA no tiene sección FAQ visible (la EN sí; no copiar FAQPage schema a ES sin sección visible).
-- Assets a reutilizar: assets/index-b314nm7x.css, assets/logo-rotulate-DplcpoTm.png, assets/hero-printer-DHSLDeTJ.jpg
+- Assets a reutilizar: assets/index-b314nm7x.css, /assets/logo-rotulate.png (logo oficial de la home; el logo viejo de Express se eliminó el 11-nov-2026), assets/hero-printer-DHSLDeTJ.jpg
 - Al terminar: conservar el bundle JS viejo un tiempo o eliminarlo (assets/index-d6sn2umm.js) — ya no se referencia desde el HTML nuevo.
 - WhatsApp: usar mensaje pre-llenado como el resto del sitio.
