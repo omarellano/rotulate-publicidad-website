@@ -29,7 +29,7 @@
   <script src="/gtm.js?v=2" defer></script>
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link rel="stylesheet" href="/style.css?v=4.10">
+  <link rel="stylesheet" href="/style.css?v=4.14">
   <link rel="alternate" hreflang="es" href="https://rotulatepublicidad.com/letras-3d.html" />
   <link rel="alternate" hreflang="en" href="https://rotulatepublicidad.com/letras-3d-en.html" />
   <link rel="alternate" hreflang="x-default" href="https://rotulatepublicidad.com/letras-3d.html" />
@@ -116,23 +116,76 @@
   </header>
   <main id="main-content">
     <section class="hero service-hero" style="background-image:url('/assets/letras-3d.webp');background-size:cover;background-position:center;min-height:60vh;display:flex;align-items:center;justify-content:center;position:relative;">
-      <div style="position:absolute;inset:0;background:rgba(0,0,40,0.75);"></div>
+      <div class="svc-hero-overlay"></div>
       <div class="hero-content" style="position:relative;z-index:2;text-align:center;padding:2rem;">
         <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/en/">Home</a><span class="breadcrumbs-sep" aria-hidden="true">›</span><span aria-current="page">3D Letters</span></nav>
         <h1>3D Letters in <span class="text-accent-lime">Cancun</span></h1>
         <p>Raised 3D letters for facades, receptions, and storefronts. Aluminum, acrylic, PVC, and LED illuminated options that give your business a premium look in Cancun.</p>
-        <a href="/en/?servicio=letras-3d#contact" class="cta-button">Request a Free Quote</a>
+        <!-- svc-ux:hero-actions --><div class="svc-hero-actions"><a href="/en/?servicio=letras-3d#contact" class="cta-button">Request a Free Quote</a><a href="https://wa.me/529984007987?text=Hello%20Rotulate%2C%20I'd%20like%20a%20quote%20for%203D%20letters." class="cta-button cta-secondary svc-wa" target="_blank" rel="noopener noreferrer">Send photos on WhatsApp</a></div><!-- /svc-ux:hero-actions --><!-- svc-ux:hero-chips -->
+        <ul class="svc-hero-chips"><li>Free quote within 24 h</li><li>Design, production and installation</li><li>Cancún and Riviera Maya</li></ul><!-- /svc-ux:hero-chips -->
+      </div>
+    </section><!-- svc-ux:gallery -->
+    <section class="svc-gallery" aria-labelledby="svc-gallery-title">
+      <h2 class="section-title" id="svc-gallery-title">Our <span class="text-accent-lime">work</span></h2>
+      <p class="section-subtitle">Projects made by our team. Tap a photo to see it full size.</p>
+      <div class="svc-gallery-grid" data-svc-lightbox>
+        <button type="button" class="svc-photo svc-photo--featured" data-full="assets/galeria/galeria-086.webp" aria-label="Enlarge photo: 3D letters on a facade">
+          <img src="assets/galeria/thumbs/galeria-086.webp" srcset="assets/galeria/thumbs/galeria-086.webp 500w, assets/galeria/galeria-086.webp 1600w" sizes="(min-width: 900px) 640px, 100vw" alt="3D letters on a facade" width="500" height="225" loading="lazy" decoding="async">
+          <span class="svc-photo-label">3D letters on a facade</span>
+        </button>
+        <button type="button" class="svc-photo" data-full="assets/galeria/galeria-011.webp" aria-label="Enlarge photo: Storefront 3D letters">
+          <img src="assets/galeria/thumbs/galeria-011.webp" alt="Storefront 3D letters" width="500" height="375" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Storefront 3D letters</span>
+        </button>
+        <button type="button" class="svc-photo" data-full="assets/galeria/galeria-009.webp" aria-label="Enlarge photo: Metal letters indoors">
+          <img src="assets/galeria/thumbs/galeria-009.webp" alt="Metal letters indoors" width="500" height="281" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Metal letters indoors</span>
+        </button>
+        <button type="button" class="svc-photo" data-full="assets/galeria/galeria-014.webp" aria-label="Enlarge photo: 3D letters over an entrance">
+          <img src="assets/galeria/thumbs/galeria-014.webp" alt="3D letters over an entrance" width="500" height="281" loading="lazy" decoding="async">
+          <span class="svc-photo-label">3D letters over an entrance</span>
+        </button>
+        <button type="button" class="svc-photo" data-full="assets/galeria/galeria-005.webp" aria-label="Enlarge photo: Raised logo">
+          <img src="assets/galeria/thumbs/galeria-005.webp" alt="Raised logo" width="500" height="500" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Raised logo</span>
+        </button>
+        <button type="button" class="svc-photo" data-full="assets/galeria/galeria-035.webp" aria-label="Enlarge photo: Raised letters and logo">
+          <img src="assets/galeria/thumbs/galeria-035.webp" alt="Raised letters and logo" width="500" height="667" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Raised letters and logo</span>
+        </button>
+        <button type="button" class="svc-photo" data-full="assets/galeria/galeria-004.webp" aria-label="Enlarge photo: 3D letters for a residential entrance">
+          <img src="assets/galeria/thumbs/galeria-004.webp" alt="3D letters for a residential entrance" width="500" height="375" loading="lazy" decoding="async">
+          <span class="svc-photo-label">3D letters for a residential entrance</span>
+        </button>
+        <button type="button" class="svc-photo svc-photo--w2 svc-photo--m2" data-full="assets/galeria/galeria-041.webp" aria-label="Enlarge photo: Landmark letters">
+          <img src="assets/galeria/thumbs/galeria-041.webp" alt="Landmark letters" width="500" height="375" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Landmark letters</span>
+        </button>
+      </div>
+      <div class="svc-gallery-cta">
+        <a href="/en/?servicio=letras-3d#contact" class="cta-button">I want something like this →</a>
       </div>
     </section>
+<!-- /svc-ux:gallery --><!-- svc-ux:steps -->
+    <section class="svc-steps" aria-labelledby="svc-steps-title">
+      <h2 class="section-title" id="svc-steps-title">How we <span class="text-accent-lime">work</span></h2>
+      <ol class="svc-steps-list">
+        <li class="svc-step"><span class="svc-step-num" aria-hidden="true">1</span><h3>Send us your idea</h3><p>Photos of the site or vehicle, rough measurements and your logo.</p></li>
+        <li class="svc-step"><span class="svc-step-num" aria-hidden="true">2</span><h3>Design and quote</h3><p>We send you a proposal and price within 24 hours.</p></li>
+        <li class="svc-step"><span class="svc-step-num" aria-hidden="true">3</span><h3>Production</h3><p>We build it with quality materials in our workshop.</p></li>
+        <li class="svc-step"><span class="svc-step-num" aria-hidden="true">4</span><h3>Installation</h3><p>Professional installation in Cancún and the Riviera Maya.</p></li>
+      </ol>
+    </section>
+<!-- /svc-ux:steps -->
 
     <section style="max-width:900px;margin:4rem auto;padding:0 max(1.25rem,4%)">
       <h2>Why choose our 3D letters?</h2>
-      <ul style="list-style:none;padding:0;display:grid;gap:1rem;margin-top:1.5rem">
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><strong>Premium look</strong> - Raised letters instantly improve the appearance of any storefront or lobby.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><strong>Material options</strong> - Aluminum, acrylic, PVC, or mixed builds depending on budget and location.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><strong>Lighting options</strong> - Face-lit, halo-lit, or non-illuminated versions available.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><strong>Outdoor ready</strong> - Built for sun, humidity, wind, and coastal conditions.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><strong>Flexible installation</strong> - Suitable for concrete, glass, aluminum composite, and more.</li>
+      <ul class="svc-benefits">
+        <li class="svc-benefit"><strong>Premium look</strong> Raised letters instantly improve the appearance of any storefront or lobby.</li>
+        <li class="svc-benefit"><strong>Material options</strong> Aluminum, acrylic, PVC, or mixed builds depending on budget and location.</li>
+        <li class="svc-benefit"><strong>Lighting options</strong> Face-lit, halo-lit, or non-illuminated versions available.</li>
+        <li class="svc-benefit"><strong>Outdoor ready</strong> Built for sun, humidity, wind, and coastal conditions.</li>
+        <li class="svc-benefit"><strong>Flexible installation</strong> Suitable for concrete, glass, aluminum composite, and more.</li>
       </ul>
     </section>
 
@@ -164,6 +217,7 @@
   </footer>
   <a href="https://wa.me/529984007987?text=Hello%20Rotulate%2C%20I'd%20like%20a%20quote%20for%203D%20letters." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact on WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
   <button class="back-to-top" id="back-to-top" aria-label="Back to top">&#8593;</button>
+  <script src="/servicio-galeria.js?v=1" defer></script>
   <script src="/main.js?v=3.9" defer></script>
   <script src="/analytics.js?v=1.2" defer></script>
 </body>
