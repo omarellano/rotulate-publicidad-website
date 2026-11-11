@@ -34,7 +34,7 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="preload" as="image" href="assets/toldos.webp" type="image/webp" fetchpriority="high">
   <link rel="preconnect" href="https://wtljdvexsksextnhpkkd.supabase.co" crossorigin>
-  <link rel="stylesheet" href="style.css?v=4.10">
+  <link rel="stylesheet" href="style.css?v=4.14">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -144,24 +144,61 @@
   </header>
   <main id="main-content">
     <section class="hero service-hero" style="background-image:url('assets/toldos.webp');background-size:cover;background-position:center;min-height:60vh;display:flex;align-items:center;justify-content:center;position:relative;">
-      <div style="position:absolute;inset:0;background:rgba(0,0,40,0.75);"></div>
+      <div class="svc-hero-overlay"></div>
       <div class="hero-content" style="position:relative;z-index:2;text-align:center;padding:2rem;">
         <nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="/">Inicio</a><span class="breadcrumbs-sep" aria-hidden="true">›</span><span aria-current="page">Toldos</span></nav>
         <h1>Toldos Publicitarios en <span class="text-accent-lime">Cancún</span></h1>
         <p>Fabricamos e instalamos toldos publicitarios para negocios en Cancún. Protección solar y de lluvia, identidad de marca impresa y publicidad visible todo el año para restaurantes, comercios y oficinas.</p>
-        <a href="/?servicio=toldos#contacto" class="cta-button">Solicitar Cotización Gratis</a>
+        <!-- svc-ux:hero-actions --><div class="svc-hero-actions"><a href="/?servicio=toldos#contacto" class="cta-button">Solicitar Cotización Gratis</a><a href="https://wa.me/529984007987?text=Hola%20Rotulate%2C%20quiero%20cotizar%20un%20toldo%20para%20mi%20negocio." class="cta-button cta-secondary svc-wa" target="_blank" rel="noopener noreferrer">Enviar fotos por WhatsApp</a></div><!-- /svc-ux:hero-actions --><!-- svc-ux:hero-chips -->
+        <ul class="svc-hero-chips"><li>Cotización gratis en 24 h</li><li>Diseño, fabricación e instalación</li><li>Cancún y Riviera Maya</li></ul><!-- /svc-ux:hero-chips -->
+      </div>
+    </section><!-- svc-ux:gallery -->
+    <section class="svc-gallery" aria-labelledby="svc-gallery-title">
+      <h2 class="section-title" id="svc-gallery-title">Trabajos <span class="text-accent-lime">reales</span></h2>
+      <p class="section-subtitle">Proyectos hechos por nuestro equipo. Toca una foto para verla completa.</p>
+      <div class="svc-gallery-grid" data-svc-lightbox>
+        <button type="button" class="svc-photo svc-photo--featured" data-full="assets/galeria/galeria-103.webp" aria-label="Ampliar foto: Toldo para acceso comercial">
+          <img src="assets/galeria/thumbs/galeria-103.webp" srcset="assets/galeria/thumbs/galeria-103.webp 500w, assets/galeria/galeria-103.webp 1600w" sizes="(min-width: 900px) 640px, 100vw" alt="Toldo para acceso comercial" width="500" height="276" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Toldo para acceso comercial</span>
+        </button>
+        <button type="button" class="svc-photo" data-full="assets/galeria/galeria-080.webp" aria-label="Ampliar foto: Toldo con marca en fachada">
+          <img src="assets/galeria/thumbs/galeria-080.webp" alt="Toldo con marca en fachada" width="500" height="225" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Toldo con marca en fachada</span>
+        </button>
+        <button type="button" class="svc-photo" data-full="assets/galeria/galeria-116.webp" aria-label="Ampliar foto: Toldo para papelería">
+          <img src="assets/galeria/thumbs/galeria-116.webp" alt="Toldo para papelería" width="500" height="281" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Toldo para papelería</span>
+        </button>
+        <button type="button" class="svc-photo svc-photo--w2 svc-photo--m2" data-full="assets/galeria/galeria-115.webp" aria-label="Ampliar foto: Toldo para tienda de abarrotes">
+          <img src="assets/galeria/thumbs/galeria-115.webp" alt="Toldo para tienda de abarrotes" width="500" height="281" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Toldo para tienda de abarrotes</span>
+        </button>
+      </div>
+      <div class="svc-gallery-cta">
+        <a href="/?servicio=toldos#contacto" class="cta-button">Quiero algo así →</a>
       </div>
     </section>
+<!-- /svc-ux:gallery --><!-- svc-ux:steps -->
+    <section class="svc-steps" aria-labelledby="svc-steps-title">
+      <h2 class="section-title" id="svc-steps-title">¿Cómo <span class="text-accent-lime">trabajamos</span>?</h2>
+      <ol class="svc-steps-list">
+        <li class="svc-step"><span class="svc-step-num" aria-hidden="true">1</span><h3>Envíanos tu idea</h3><p>Fotos del lugar o vehículo, medidas aproximadas y tu logo.</p></li>
+        <li class="svc-step"><span class="svc-step-num" aria-hidden="true">2</span><h3>Diseño y cotización</h3><p>Te mandamos propuesta y precio en menos de 24 h.</p></li>
+        <li class="svc-step"><span class="svc-step-num" aria-hidden="true">3</span><h3>Producción</h3><p>Fabricamos con materiales de calidad en nuestro taller.</p></li>
+        <li class="svc-step"><span class="svc-step-num" aria-hidden="true">4</span><h3>Instalación</h3><p>Montaje profesional en Cancún y la Riviera Maya.</p></li>
+      </ol>
+    </section>
+<!-- /svc-ux:steps -->
 
     <section style="max-width:900px;margin:4rem auto;padding:0 max(1.25rem,4%)">
       <h2>¿Por qué elegir nuestros Toldos Publicitarios?</h2>
-      <ul style="list-style:none;padding:0;display:grid;gap:1rem;margin-top:1.5rem">
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Protección solar y lluvia</strong> — Resguarda a tus clientes y empleados del intenso sol tropical y las lluvias del Caribe, aumentando el confort de tu espacio.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Impresión de marca y logo</strong> — Imprimimos tu logotipo, nombre y slogan directamente en la lona del toldo para máxima visibilidad y reconocimiento de marca.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Materiales resistentes a UV e intemperie</strong> — Lonas de alta resistencia con tratamiento anti-UV e impermeable especialmente seleccionadas para el clima tropical de Cancún.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Estructuras fijas y retráctiles</strong> — Fabricamos toldos fijos tradicionales y sistemas retráctiles manuales según tus necesidades y espacio disponible.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Instalación profesional</strong> — Montaje seguro con anclajes adecuados para resistir el viento y las condiciones meteorológicas de la zona costera de Cancún.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Personalización total</strong> — Elige colores, forma, medidas y diseño. Fabricamos cada toldo a medida para adaptarse perfectamente a tu fachada y necesidades.</li>
+      <ul class="svc-benefits">
+        <li class="svc-benefit"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Protección solar y lluvia</strong> Resguarda a tus clientes y empleados del intenso sol tropical y las lluvias del Caribe, aumentando el confort de tu espacio.</li>
+        <li class="svc-benefit"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Impresión de marca y logo</strong> Imprimimos tu logotipo, nombre y slogan directamente en la lona del toldo para máxima visibilidad y reconocimiento de marca.</li>
+        <li class="svc-benefit"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Materiales resistentes a UV e intemperie</strong> Lonas de alta resistencia con tratamiento anti-UV e impermeable especialmente seleccionadas para el clima tropical de Cancún.</li>
+        <li class="svc-benefit"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Estructuras fijas y retráctiles</strong> Fabricamos toldos fijos tradicionales y sistemas retráctiles manuales según tus necesidades y espacio disponible.</li>
+        <li class="svc-benefit"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Instalación profesional</strong> Montaje seguro con anclajes adecuados para resistir el viento y las condiciones meteorológicas de la zona costera de Cancún.</li>
+        <li class="svc-benefit"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Personalización total</strong> Elige colores, forma, medidas y diseño. Fabricamos cada toldo a medida para adaptarse perfectamente a tu fachada y necesidades.</li>
       </ul>
       <p style="margin-top:1.5rem;color:var(--color-gray)">La lona impresa de tu toldo es la misma tecnología de gran formato con la que producimos nuestra <a href="lonas-cancun/" class="text-accent-lime">impresión de lonas en Cancún</a>: tratamiento anti-UV, alta resolución y acabados resistentes a la intemperie.</p>
       <p style="margin-top:0.75rem;color:var(--color-gray)">¿Buscas un toldo para tu restaurante o terraza? Lee nuestra guía sobre <a href="blog/toldos-para-restaurantes-cancun-playa-del-carmen.html" class="text-accent-lime">qué tela y estructura conviene según el viento del Caribe</a>.</p>
@@ -236,6 +273,7 @@
     <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
   <button class="back-to-top" id="back-to-top" aria-label="Volver arriba">&#8593;</button>
+  <script src="servicio-galeria.js?v=1" defer></script>
   <script src="main.js?v=3.9" defer></script>
   <script src="analytics.js?v=1.2" defer></script>
 </body>

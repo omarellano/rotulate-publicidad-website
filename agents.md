@@ -1,5 +1,18 @@
 # Handoff para Agentes de IA — Estado del Proyecto
 
+## Fotos de trabajos reales y mejoras UX en páginas de servicio — 11 de noviembre de 2026
+
+* Pedido de Omar: las páginas de servicio no mostraban fotos y la gente lee poco. Se agregó a 14 páginas (rotulación vehicular, anuncios luminosos, letras 3D, neón flex, gran formato y toldos en ES/EN; rotulación tradicional y obra y mantenimiento solo ES), justo después del hero:
+  * **Hero:** velo más ligero (gradiente `.svc-hero-overlay` en vez de `rgba(0,0,40,.75)`) para que se vea la foto de fondo; botón secundario "Enviar fotos por WhatsApp" junto al CTA; tres distintivos cortos (cotización en 24 h, diseño-fabricación-instalación, Cancún y Riviera Maya; obra usa los suyos). El hero de obra cambió del fondo espacial a `galeria-132.webp` (preload actualizado).
+  * **Galería "Trabajos reales":** 4–8 fotos de `assets/galeria` elegidas a mano por servicio (miniaturas lazy con width/height; la destacada 2×2 con `srcset`), visor con flechas, teclado, swipe y foco atrapado (`servicio-galeria.js`, reutiliza los estilos `#lightbox`) y CTA "Quiero algo así".
+  * **"¿Cómo trabajamos?":** 4 pasos numerados.
+  * **Beneficios** como tarjetas en 2 columnas (clase `.svc-benefits`, sin estilos inline) y tarjetas "También te puede interesar" con foto (vehicular y gran formato).
+* Generado por `scripts/service-pages-ux.mjs` (idempotente, bloques entre marcas `<!-- svc-ux:... -->`). Para cambiar fotos o textos: editar el script y volver a ejecutarlo. CSS al final de `style.css`; páginas tocadas con `style.css?v=4.14`.
+* Verificación local: capturas Playwright a 1366 px y iPhone 13 sin desbordes horizontales ni errores JS/404; visor abre, muestra pie y cierra con Escape devolviendo el foco. `check-brand-name.cjs`, `build-deploy.test.mjs` y `build-deploy.mjs` OK (`servicio-galeria.js` entra al paquete).
+* **Pendiente (Omar):** confirmar que las cortinas y la barda en la galería de rotulación tradicional (fotos 59, 60, 63, 92, 93) son trabajos pintados a mano; si no, cambiarlas en el script. Control solar, polarizado, alucobond y placas no se tocaron (ya tienen fotos de producto o galería). Sin deploy a producción todavía (rama `claude/beautiful-fermi-xasf66`).
+
+---
+
 ## Opiniones de Google: dos nuevas y sincronización automática — 11 de noviembre de 2026
 
 * Omar compartió dos opiniones nuevas y pidió desplegar la actualización automática. Agregadas a `#testimonios` (`index.html`): Beatriz Arenas ★5 "Muy buen trabajo!" y Danilo Resio ★4 (texto completo, incluido el comentario del retraso, por decisión de mostrarla tal cual). La sección pasa de 4 a 6 tarjetas.

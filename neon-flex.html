@@ -30,7 +30,7 @@
   <script src="gtm.js?v=2" defer></script>
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <link rel="stylesheet" href="style.css?v=4.10">
+  <link rel="stylesheet" href="style.css?v=4.14">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -99,24 +99,65 @@
   </header>
   <main id="main-content">
     <section class="hero service-hero" style="background-image:url('assets/neon-flex.webp?v=2');background-size:cover;background-position:center;min-height:60vh;display:flex;align-items:center;justify-content:center;position:relative;">
-      <div style="position:absolute;inset:0;background:rgba(0,0,40,0.75);"></div>
+      <div class="svc-hero-overlay"></div>
       <div class="hero-content" style="position:relative;z-index:2;text-align:center;padding:2rem;">
         <nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="/">Inicio</a><span class="breadcrumbs-sep" aria-hidden="true">›</span><span aria-current="page">Neón Flex</span></nav>
         <h1>Neón Flex LED en <span class="text-accent-lime">Cancún</span></h1>
         <p>Fabricamos letreros de neón flex LED a medida para negocios, fachadas y decoración en Cancún. Bajo consumo eléctrico, colores vibrantes y alta durabilidad sin el riesgo del neón de vidrio.</p>
-        <a href="/?servicio=neon-flex#contacto" class="cta-button">Solicitar Cotización Gratis</a>
+        <!-- svc-ux:hero-actions --><div class="svc-hero-actions"><a href="/?servicio=neon-flex#contacto" class="cta-button">Solicitar Cotización Gratis</a><a href="https://wa.me/529984007987?text=Hola%20Rotulate%2C%20quiero%20cotizar%20un%20letrero%20de%20ne%C3%B3n%20flex." class="cta-button cta-secondary svc-wa" target="_blank" rel="noopener noreferrer">Enviar fotos por WhatsApp</a></div><!-- /svc-ux:hero-actions --><!-- svc-ux:hero-chips -->
+        <ul class="svc-hero-chips"><li>Cotización gratis en 24 h</li><li>Diseño, fabricación e instalación</li><li>Cancún y Riviera Maya</li></ul><!-- /svc-ux:hero-chips -->
+      </div>
+    </section><!-- svc-ux:gallery -->
+    <section class="svc-gallery" aria-labelledby="svc-gallery-title">
+      <h2 class="section-title" id="svc-gallery-title">Trabajos <span class="text-accent-lime">reales</span></h2>
+      <p class="section-subtitle">Proyectos hechos por nuestro equipo. Toca una foto para verla completa.</p>
+      <div class="svc-gallery-grid" data-svc-lightbox>
+        <button type="button" class="svc-photo svc-photo--featured" data-full="assets/galeria/galeria-058.webp" aria-label="Ampliar foto: Frase en neón flex">
+          <img src="assets/galeria/thumbs/galeria-058.webp" srcset="assets/galeria/thumbs/galeria-058.webp 500w, assets/galeria/galeria-058.webp 1600w" sizes="(min-width: 900px) 640px, 100vw" alt="Frase en neón flex" width="500" height="376" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Frase en neón flex</span>
+        </button>
+        <button type="button" class="svc-photo" data-full="assets/galeria/galeria-079.webp" aria-label="Ampliar foto: Letreros circulares de neón">
+          <img src="assets/galeria/thumbs/galeria-079.webp" alt="Letreros circulares de neón" width="500" height="327" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Letreros circulares de neón</span>
+        </button>
+        <button type="button" class="svc-photo" data-full="assets/galeria/galeria-109.webp" aria-label="Ampliar foto: Logotipo en neón para evento">
+          <img src="assets/galeria/thumbs/galeria-109.webp" alt="Logotipo en neón para evento" width="500" height="281" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Logotipo en neón para evento</span>
+        </button>
+        <button type="button" class="svc-photo" data-full="assets/galeria/galeria-108.webp" aria-label="Ampliar foto: Figura de neón LED">
+          <img src="assets/galeria/thumbs/galeria-108.webp" alt="Figura de neón LED" width="281" height="500" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Figura de neón LED</span>
+        </button>
+        <button type="button" class="svc-photo" data-full="assets/galeria/galeria-110.webp" aria-label="Ampliar foto: Escenografía con luz LED">
+          <img src="assets/galeria/thumbs/galeria-110.webp" alt="Escenografía con luz LED" width="500" height="375" loading="lazy" decoding="async">
+          <span class="svc-photo-label">Escenografía con luz LED</span>
+        </button>
+      </div>
+      <div class="svc-gallery-cta">
+        <a href="/?servicio=neon-flex#contacto" class="cta-button">Quiero algo así →</a>
       </div>
     </section>
+<!-- /svc-ux:gallery --><!-- svc-ux:steps -->
+    <section class="svc-steps" aria-labelledby="svc-steps-title">
+      <h2 class="section-title" id="svc-steps-title">¿Cómo <span class="text-accent-lime">trabajamos</span>?</h2>
+      <ol class="svc-steps-list">
+        <li class="svc-step"><span class="svc-step-num" aria-hidden="true">1</span><h3>Envíanos tu idea</h3><p>Fotos del lugar o vehículo, medidas aproximadas y tu logo.</p></li>
+        <li class="svc-step"><span class="svc-step-num" aria-hidden="true">2</span><h3>Diseño y cotización</h3><p>Te mandamos propuesta y precio en menos de 24 h.</p></li>
+        <li class="svc-step"><span class="svc-step-num" aria-hidden="true">3</span><h3>Producción</h3><p>Fabricamos con materiales de calidad en nuestro taller.</p></li>
+        <li class="svc-step"><span class="svc-step-num" aria-hidden="true">4</span><h3>Instalación</h3><p>Montaje profesional en Cancún y la Riviera Maya.</p></li>
+      </ol>
+    </section>
+<!-- /svc-ux:steps -->
 
     <section style="max-width:900px;margin:4rem auto;padding:0 max(1.25rem,4%)">
       <h2>¿Por qué elegir nuestro Neón Flex LED?</h2>
-      <ul style="list-style:none;padding:0;display:grid;gap:1rem;margin-top:1.5rem">
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Bajo consumo eléctrico</strong> — Hasta 80% menos consumo que el neón tradicional de vidrio, reduciendo tu factura de luz significativamente.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Formas curvas a medida</strong> — Se puede doblar y moldear en cualquier forma: letras, logos, figuras personalizadas sin límite de diseño.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Colores variados</strong> — Amplia gama de colores: blanco cálido, blanco frío, rojo, azul, verde, amarillo, rosa, RGB y más.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Larga vida útil</strong> — Más de 50,000 horas de funcionamiento continuo garantizado con componentes LED de calidad premium.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Interior y exterior</strong> — Apto para uso interior y exterior, resistente a humedad, lluvia y los rayos UV del Caribe mexicano.</li>
-        <li style="padding:1rem 1.25rem;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid #00ff00"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Sin riesgo de rotura</strong> — A diferencia del neón de vidrio, el neón flex es flexible y resistente a golpes accidentales.</li>
+      <ul class="svc-benefits">
+        <li class="svc-benefit"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Bajo consumo eléctrico</strong> Hasta 80% menos consumo que el neón tradicional de vidrio, reduciendo tu factura de luz significativamente.</li>
+        <li class="svc-benefit"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Formas curvas a medida</strong> Se puede doblar y moldear en cualquier forma: letras, logos, figuras personalizadas sin límite de diseño.</li>
+        <li class="svc-benefit"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Colores variados</strong> Amplia gama de colores: blanco cálido, blanco frío, rojo, azul, verde, amarillo, rosa, RGB y más.</li>
+        <li class="svc-benefit"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Larga vida útil</strong> Más de 50,000 horas de funcionamiento continuo garantizado con componentes LED de calidad premium.</li>
+        <li class="svc-benefit"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Interior y exterior</strong> Apto para uso interior y exterior, resistente a humedad, lluvia y los rayos UV del Caribe mexicano.</li>
+        <li class="svc-benefit"><span aria-hidden="true" data-nosnippet>✦ </span><strong>Sin riesgo de rotura</strong> A diferencia del neón de vidrio, el neón flex es flexible y resistente a golpes accidentales.</li>
       </ul>
     </section>
 
@@ -189,6 +230,7 @@
     <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
   <button class="back-to-top" id="back-to-top" aria-label="Volver arriba">&#8593;</button>
+  <script src="servicio-galeria.js?v=1" defer></script>
   <script src="main.js?v=3.9" defer></script>
   <script src="analytics.js?v=1.2" defer></script>
 </body>
