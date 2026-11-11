@@ -1,0 +1,61 @@
+name: Google Reviews Sync
+
+# Actualiza a diario la calificación, el número de opiniones y las opiniones
+# recientes (#testimonios) desde la API de Google Business Profile, hace commit
+# en main y lanza el deploy. Sin los secrets GBP_* se omite sin fallar.
+# Configuración: docs/google-reviews-setup.md
+
+on:
+  schedule:
+    # 11:17 UTC = 6:17 a. m. en Cancún; GitHub puede retrasar las tareas programadas.
+    - cron: '17 11 * * *'
+  workflow_dispatch:
+    inputs:
+      discover:
+        description: 'Solo listar IDs de cuenta y ubicación (configuración inicial)'
+        type: boolean
+        default: false
+
+permissions: {}
+
+concurrency:
+  group: google-reviews
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      actions: write
+    env:
+      GBP_CLIENT_ID: ${{ secrets.GBP_CLIENT_ID }}
+      GBP_CLIENT_SECRET: ${{ secrets.GBP_CLIENT_SECRET }}
+      GBP_REFRESH_TOKEN: ${{ secrets.GBP_REFRESH_TOKEN }}
+      GBP_ACCOUNT_ID: ${{ secrets.GBP_ACCOUNT_ID }}
+      GBP_LOCATION_ID: ${{ secrets.GBP_LOCATION_ID }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Listar cuentas y ubicaciones
+        if: inputs.discover
+        run: node scripts/update-google-reviews.mjs --discover
+      - name: Actualizar opiniones en el HTML
+        if: ${{ !inputs.discover }}
+        run: |
+          node --test scripts/update-google-reviews.test.mjs
+          node scripts/update-google-reviews.mjs
+      - name: Commit y deploy si hubo cambios
+        if: ${{ !inputs.discover }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet; then echo "Sin cambios en opiniones."; exit 0; fi
+          node --test scripts/build-deploy.test.mjs
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Actualizar opiniones de Google (automático)"
+          git push origin HEAD:main
+          # Un push con GITHUB_TOKEN no dispara otros workflows; el deploy se lanza explícitamente.
+          gh workflow run deploy.yml --ref main

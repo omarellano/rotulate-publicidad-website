@@ -1,5 +1,14 @@
 # Handoff para Agentes de IA — Estado del Proyecto
 
+## Opiniones de Google: dos nuevas y sincronización automática — 11 de noviembre de 2026
+
+* Omar compartió dos opiniones nuevas y pidió desplegar la actualización automática. Agregadas a `#testimonios` (`index.html`): Beatriz Arenas ★5 "Muy buen trabajo!" y Danilo Resio ★4 (texto completo, incluido el comentario del retraso, por decisión de mostrarla tal cual). La sección pasa de 4 a 6 tarjetas.
+* Automatización: `.github/workflows/google-reviews.yml` (diario 11:17 UTC + manual, con modo `discover` para obtener IDs) ejecuta `scripts/update-google-reviews.mjs`, que lee la API de Google Business Profile (v4 reviews, OAuth con refresh token) y reescribe en el HTML estático: calificación y conteo (`<span data-gr="rating|count">` en home, `/en/`, Tulum, Playa del Carmen, blog de costo vehicular, y el `aria-label` del badge) y las 6 opiniones más recientes con texto y ≥4★ entre las marcas `google-reviews:start/end`. Si hay cambios: commit a `main` + `gh workflow run deploy.yml` (un push con GITHUB_TOKEN no dispara el deploy). Sin secrets se omite con aviso, sin fallar. Sin widget externo, sin cambios de CSP ni cookies.
+* Pruebas: `scripts/update-google-reviews.test.mjs` (traducciones de Google, filtro/orden, escape HTML, marcas presentes) agregado a `security-checks.yml`. Locales: 7 pruebas pasan, marca y paquete de deploy OK; simulación sobre `index.html` real actualiza 2 conteos y el `aria-label`; captura de #testimonios a 1280 y 390 px sin desbordes.
+* **Pendiente (Omar):** solicitar acceso a la API de Business Profile y configurar los secrets `GBP_CLIENT_ID`, `GBP_CLIENT_SECRET`, `GBP_REFRESH_TOKEN`, `GBP_ACCOUNT_ID`, `GBP_LOCATION_ID` siguiendo `docs/google-reviews-setup.md`. Hasta entonces el workflow corre y se omite.
+
+---
+
 ## Opiniones de Google actualizadas a 43 — 11 de noviembre de 2026
 
 * Omar compartió captura de Google Business Profile: **4.7★ con 43 opiniones** (antes el sitio decía 30 / "30+").
