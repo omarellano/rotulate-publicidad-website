@@ -1,5 +1,16 @@
 # Handoff para Agentes de IA — Estado del Proyecto
 
+## Favicon sin refrescar y logo viejo en Express — 11 de noviembre de 2026
+
+* Omar reportó que el favicon nuevo (cambiado en otra sesión, commit `f716c6f`, 5-nov) no se veía y que Express mostraba un logo distinto al oficial de la home.
+* Diagnóstico: producción ya sirve los archivos nuevos (`favicon.ico`, `favicon.svg`, `favicon-32x32.png` idénticos por MD5 a `main`; `apple-touch-icon.png` visualmente igual, recomprimido por el CDN). Causas: (1) las URLs del favicon no tenían versión y el servidor las cachea hasta 1 año (`max-age=31536000`), por eso los navegadores seguían mostrando el ícono anterior; (2) en `express/index.html` y `express/en/index.html` el script de `f716c6f` insertó los `<link rel="icon">`, `manifest` y `theme-color` a mitad del comentario `<!-- Google Tag Manager (self-hosted loader; ...) -->`, así que quedaron comentados y Express no declaraba favicon.
+* Corrección: Express ES/EN con el comentario de GTM restaurado y los enlaces del favicon fuera de él. Cache-bust `?v=3` en favicon/apple-touch-icon/`site.webmanifest` en los 43 HTML y en los íconos Android del manifest. `site.webmanifest` usaba "Rotúlate"; se normalizó a "Rotulate Publicidad"/"Rotulate" según la regla de marca.
+* Logo Express: usaba `express/assets/logo-rotulate-DplcpoTm.png` (versión anterior, "Rotulate" sin acento y "SOLUCIONES GRAFICAS" en blanco). Ahora ES/EN (cabecera y pie) cargan el oficial `/assets/logo-rotulate.png?v=2` (1200×258). Se eliminaron del repo el PNG viejo y `express/favicon.ico` (ícono viejo, no referenciado). Nota: rsync no usa `--delete`, así que esos archivos pueden seguir en el servidor sin referencias.
+* Verificación local: `build-deploy.test.mjs` pasa, `build-deploy.mjs` sin recursos faltantes, `check-brand-name.cjs` pasa (63 archivos); Chromium local sobre `/express/` y `/express/en/` muestra 5 `link[rel=icon]` activos y el logo oficial (captura revisada).
+* Commit en la rama `claude/tender-ride-8fkevi` (sin merge a `main`, por lo tanto sin deploy). Pendiente: merge a `main`, deploy, purgar caché en Hostinger y confirmar en producción. El favicon en resultados de Google se actualiza por separado cuando Google vuelve a rastrear (días a semanas).
+
+---
+
 ## Cierre de sesión — 3 de noviembre de 2026
 
 * Omar pidió documentar y cerrar. Chuby Rocket de Día de Muertos quedó publicado con parpadeo, luz en los ojos de la calaverita y las mismas medidas/flotación del hero; detalle técnico y validaciones en la entrada siguiente.
