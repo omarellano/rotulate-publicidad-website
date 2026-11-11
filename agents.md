@@ -9,7 +9,7 @@
   * **Beneficios** como tarjetas en 2 columnas (clase `.svc-benefits`, sin estilos inline) y tarjetas "También te puede interesar" con foto (vehicular y gran formato).
 * Generado por `scripts/service-pages-ux.mjs` (idempotente, bloques entre marcas `<!-- svc-ux:... -->`). Para cambiar fotos o textos: editar el script y volver a ejecutarlo. CSS al final de `style.css`; páginas tocadas con `style.css?v=4.14`.
 * Verificación local: capturas Playwright a 1366 px y iPhone 13 sin desbordes horizontales ni errores JS/404; visor abre, muestra pie y cierra con Escape devolviendo el foco. `check-brand-name.cjs`, `build-deploy.test.mjs` y `build-deploy.mjs` OK (`servicio-galeria.js` entra al paquete).
-* Omar confirmó (11-nov-2026) que las cortinas y la barda de la galería de rotulación tradicional (fotos 59, 60, 63, 92, 93) son pintadas a mano, y autorizó publicar. Control solar, polarizado, alucobond y placas no se tocaron (ya tienen fotos de producto o galería).
+* Omar confirmó (11-nov-2026) que las cortinas y la barda de la galería de rotulación tradicional (fotos 59, 60, 63, 92, 93) son pintadas a mano, y autorizó publicar. Publicado vía PR https://github.com/omarellano/rotulate-publicidad-website/pull/52 (merge `1b99026`, deploy #413). Verificado en producción con curl: `servicio-galeria.js` responde 200, `style.css?v=4.14` incluye los estilos nuevos y las páginas en vivo muestran la galería (vehicular 8 fotos, neón 5, obra 5, toldos EN 4). Control solar, polarizado, alucobond y placas no se tocaron (ya tienen fotos de producto o galería).
 
 ---
 
