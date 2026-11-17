@@ -1,5 +1,22 @@
 # Handoff para Agentes de IA — Estado del Proyecto
 
+## Cierre de sesión — 17 de noviembre de 2026
+
+* Omar pidió documentar y cerrar. Las páginas de resultado de pago Clip (ES/EN) quedaron publicadas y verificadas en producción. El detalle técnico está en la entrada siguiente.
+* Commits en `main`: `f0474fd` (páginas, `pago.css`, `pago.js`) y `2f5a5b7` (botones sin salto de línea, `pago.css` v1.1). Deploys Hostinger `44117084636` y `44118341349`, ambos success. No hay despliegues en curso.
+* URLs para Clip → "Redireccionamiento":
+  * Aprobado: `https://rotulatepublicidad.com/pago-aprobado.html`
+  * Rechazado: `https://rotulatepublicidad.com/pago-rechazado.html`
+  * En links con idioma inglés: `pago-aprobado-en.html` / `pago-rechazado-en.html`.
+* Pendiente (de Omar o al pedirlo):
+  1. Revisión visual en celular real (las capturas de Chrome fallaron).
+  2. GTM: activador `clip_pago_aprobado|clip_pago_rechazado` + etiqueta de evento GA4.
+  3. Configurar las URLs en Clip y marcar "Guardar configuración".
+  4. Pago real de monto bajo para comprobar la redirección.
+* Sin cambios versionados pendientes. Los archivos locales sin seguimiento (`Clip/`, assets, borradores) se conservaron y no entraron al deploy.
+
+---
+
 ## Páginas de resultado de pago Clip (ES/EN) — 17 de noviembre de 2026
 
 * Pedido de Omar: páginas de confirmación/rechazo para los links de pago de Clip (panel Clip → "Redireccionamiento": URL de pago aprobado y de pago rechazado; captura en `Clip/`, carpeta local sin versionar). Bilingüe y con medición GA4.
