@@ -1,5 +1,22 @@
 # Handoff para Agentes de IA — Estado del Proyecto
 
+## Páginas de resultado de pago Clip (ES/EN) — 17 de noviembre de 2026
+
+* Pedido de Omar: páginas de confirmación/rechazo para los links de pago de Clip (panel Clip → "Redireccionamiento": URL de pago aprobado y de pago rechazado; captura en `Clip/`, carpeta local sin versionar). Bilingüe y con medición GA4.
+* Archivos nuevos en la raíz (no requieren tocar `build-deploy.mjs`): `pago-aprobado.html`, `pago-rechazado.html`, `pago-aprobado-en.html`, `pago-rechazado-en.html`, `pago.css` y `pago.js`. Estilo del sitio (`style.css` + `pago.css`): fondo Deep Twilight, tarjeta translúcida, Space Grotesk, lima para aprobado y naranja para rechazado; WhatsApp con mensaje prellenado, botón de inicio y enlace al otro idioma.
+* SEO: `noindex, nofollow`, fuera de `sitemap.xml`, no bloqueadas en `robots.txt` (para que Google lea el noindex). Sin JS inline (CSP).
+* GA4: `pago.js` empuja `clip_pago_aprobado` / `clip_pago_rechazado` (parámetros `payment_provider`, `payment_result`, `page_language`) mediante `rtmxTrack`, solo con consentimiento. Si el visitante acepta el banner en la misma página, se envía al aceptar. Una vez por sesión (sessionStorage).
+* Seguridad: las páginas solo informan; no prueban un pago (cualquiera puede abrir la URL). No se leen ni muestran parámetros de la URL. La confirmación real es el panel/correo de Clip.
+* Verificación local: `check-brand-name.cjs` correcto; pruebas build-deploy/security-monitor 3/3; sintaxis de `pago.js` correcta. La revisión visual queda pendiente porque se denegó el permiso para el servidor local.
+* Pendiente:
+  1. Revisión visual en móvil/escritorio.
+  2. Commit/push y deploy cuando Omar lo autorice.
+  3. En GTM, crear el activador de evento personalizado `clip_pago_aprobado|clip_pago_rechazado` y la etiqueta de evento GA4 (sin esto los eventos no llegan a GA4).
+  4. Configurar las URLs en Clip y marcar "Guardar configuración" (en links con idioma inglés, usar las `-en`).
+  5. Prueba con un pago real de monto bajo.
+
+---
+
 ## Fotos de trabajos reales y mejoras UX en páginas de servicio — 11 de noviembre de 2026
 
 * Pedido de Omar: las páginas de servicio no mostraban fotos y la gente lee poco. Se agregó a 14 páginas (rotulación vehicular, anuncios luminosos, letras 3D, neón flex, gran formato y toldos en ES/EN; rotulación tradicional y obra y mantenimiento solo ES), justo después del hero:
