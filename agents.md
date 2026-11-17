@@ -14,6 +14,7 @@
   3. Configurar las URLs en Clip y marcar "Guardar configuración".
   4. Pago real de monto bajo para comprobar la redirección.
 * Sin cambios versionados pendientes. Los archivos locales sin seguimiento (`Clip/`, assets, borradores) se conservaron y no entraron al deploy.
+* **Decisión: API de Clip pospuesta.** Volumen actual de unos 5 links de pago por semana. Por ahora el folio de la cotización se pone en el campo "ID de referencia" de cada link para conciliar a mano. La integración completa (Edge Functions de Supabase para crear links desde el ERP, webhook de pago y página que confirme el estado real) se retoma al pasar de unos 10–15 links por semana o si conciliar ya quita tiempo. Antes de diseñarla, confirmar en developer.clip.mx si el webhook se configura por link o en el panel.
 
 ---
 
