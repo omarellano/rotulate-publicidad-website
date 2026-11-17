@@ -14,6 +14,13 @@
   3. Configurar las URLs en Clip y marcar "Guardar configuración".
   4. Pago real de monto bajo para comprobar la redirección.
 * Sin cambios versionados pendientes. Los archivos locales sin seguimiento (`Clip/`, assets, borradores) se conservaron y no entraron al deploy.
+* **GTM para eventos Clip — pendiente (se detuvo por petición de Omar).** Se intentó configurar en Chrome, pero tagmanager.google.com cargaba en blanco y las capturas fallaban por timeout (probablemente la ventana estaba minimizada o en segundo plano). No se creó ni publicó nada en GTM. Al retomar:
+  1. Pedir a Omar que deje visible la ventana de Chrome.
+  2. Revisar cómo están configurados `cta_click` y los demás eventos en el contenedor `GTM-5623CPQG` y seguir el mismo patrón.
+  3. Crear el activador de evento personalizado `clip_pago_(aprobado|rechazado)` (regex), las variables de capa de datos `payment_provider`, `payment_result` y `page_language`, y la etiqueta de evento GA4 con el nombre `{{Event}}` y esos parámetros.
+  4. Probar en Vista previa con `/pago-aprobado.html`.
+  5. Pedir confirmación a Omar antes de publicar el contenedor.
+  6. Después, marcar `clip_pago_aprobado` como evento clave en GA4.
 * **Decisión: API de Clip pospuesta.** Volumen actual de unos 5 links de pago por semana. Por ahora el folio de la cotización se pone en el campo "ID de referencia" de cada link para conciliar a mano. La integración completa (Edge Functions de Supabase para crear links desde el ERP, webhook de pago y página que confirme el estado real) se retoma al pasar de unos 10–15 links por semana o si conciliar ya quita tiempo. Antes de diseñarla, confirmar en developer.clip.mx si el webhook se configura por link o en el panel.
 
 ---
