@@ -7,10 +7,10 @@
 * SEO: `noindex, nofollow`, fuera de `sitemap.xml`, no bloqueadas en `robots.txt` (para que Google lea el noindex). Sin JS inline (CSP).
 * GA4: `pago.js` empuja `clip_pago_aprobado` / `clip_pago_rechazado` (parámetros `payment_provider`, `payment_result`, `page_language`) mediante `rtmxTrack`, solo con consentimiento. Si el visitante acepta el banner en la misma página, se envía al aceptar. Una vez por sesión (sessionStorage).
 * Seguridad: las páginas solo informan; no prueban un pago (cualquiera puede abrir la URL). No se leen ni muestran parámetros de la URL. La confirmación real es el panel/correo de Clip.
-* Verificación local: `check-brand-name.cjs` correcto; pruebas build-deploy/security-monitor 3/3; sintaxis de `pago.js` correcta. La revisión visual queda pendiente porque se denegó el permiso para el servidor local.
+* Verificación local: `check-brand-name.cjs` correcto; pruebas build-deploy/security-monitor 3/3; sintaxis de `pago.js` correcta. La revisión visual queda pendiente porque se denegó el permiso para el servidor local. Publicado por petición de Omar: commit `f0474fd` (rebase sobre PR #53, conflicto de bitácora resuelto conservando ambas entradas), deploy Hostinger `44117084636` success. GET de producción: las 4 páginas, `pago.css` y `pago.js` en 200, con noindex. En Chrome (producción): título, h1, Space Grotesk, tarjeta `rgba(255,255,255,0.04)`, acentos lima y naranja, logo cargado, sin scroll horizontal y `clip_pago_aprobado` en el dataLayer con consentimiento (la visita de prueba quedó registrada en el navegador de Omar). Corrección `pago.css` v1.1: en escritorio los botones partían el texto en 2 líneas (78 px); ahora usan nowrap y flex-wrap (54 px, verificado inyectando la regla en producción). Las capturas de pantalla de Chrome fallaron (timeout del renderer) y el cambio de tamaño de ventana no aplicó, así que la vista en móvil se revisó por CSS, sin captura.
 * Pendiente:
-  1. Revisión visual en móvil/escritorio.
-  2. Commit/push y deploy cuando Omar lo autorice.
+  1. Revisión visual con captura en un celular real (Omar).
+  2. ~~Commit/push y deploy~~ hecho (ver arriba).
   3. En GTM, crear el activador de evento personalizado `clip_pago_aprobado|clip_pago_rechazado` y la etiqueta de evento GA4 (sin esto los eventos no llegan a GA4).
   4. Configurar las URLs en Clip y marcar "Guardar configuración" (en links con idioma inglés, usar las `-en`).
   5. Prueba con un pago real de monto bajo.
